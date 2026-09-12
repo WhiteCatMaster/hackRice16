@@ -4,13 +4,13 @@
   "name": "Lucia Moreno",
   "accounts": [
     {
-      "id": "acc_lucia_chk",
+      "id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "Checking",
       "nickname": "Lucia Checking",
       "balance": 3250.0
     },
     {
-      "id": "acc_lucia_cc",
+      "id": "fca9ce4a-9506-4093-b3d0-097786374b24",
       "type": "Credit Card",
       "nickname": "Lucia Student Card",
       "balance": 64.2,
@@ -18,7 +18,7 @@
       "utilization": 0.0803
     },
     {
-      "id": "acc_lucia_sav",
+      "id": "e7a5dc9d-e748-414a-b993-b9b672dc89e6",
       "type": "Savings",
       "nickname": "Lucia Savings",
       "balance": 4100.0

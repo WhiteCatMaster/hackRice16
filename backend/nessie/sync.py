@@ -219,11 +219,20 @@ def sync_from_nessie(conn=None, client: NessieClient | None = None, verbose: boo
         transfers = []
         for t in client.transfers(account_id):
             description, occurred = decode(t.get("description"), t.get("transaction_date"))
+            # Nessie stores no payee and no medium on a transfer, so both come
+            # back None. Taking them at face value would blank the payee column
+            # and rebuild_payees() below would then erase every payee history --
+            # which is what "have you paid this person before?" is built on.
+            # Re-attach them from the deterministic generator, same as any other
+            # field the API has no room for.
+            local_row = locals_by_id["transfers"].get(reverse.get(t["_id"], ""), {})
+            payee_local = local_row.get("payee_local_id")
             transfers.append({
                 "id": t["_id"], "local_id": reverse.get(t["_id"]),
-                "payer_id": t.get("payer_id"), "payee_id": t.get("payee_id"),
+                "payer_id": t.get("payer_id") or account_id,
+                "payee_id": mapping.get(payee_local, payee_local) if payee_local else t.get("payee_id"),
                 "amount": t.get("amount"), "transaction_date": t.get("transaction_date"),
-                "status": t.get("status"), "medium": t.get("medium"),
+                "status": t.get("status"), "medium": t.get("medium") or local_row.get("medium"),
                 "description": description, "occurred_at": occurred,
                 **extras("transfers", t["_id"], ["payee_name", "label", "scenario"]),
             })

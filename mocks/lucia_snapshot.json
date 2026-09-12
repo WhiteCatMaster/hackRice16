@@ -1,6 +1,6 @@
 {
   "customer": {
-    "id": "cust_lucia",
+    "id": "0a1e3a6e-bcd1-46e2-b868-e91f90a9add2",
     "local_id": "cust_lucia",
     "first_name": "Lucia",
     "last_name": "Moreno",
@@ -18,9 +18,9 @@
   },
   "accounts": [
     {
-      "id": "acc_lucia_chk",
+      "id": "43025009-36c7-42f7-8cab-f16e49470998",
       "local_id": "acc_lucia_chk",
-      "customer_id": "cust_lucia",
+      "customer_id": "0a1e3a6e-bcd1-46e2-b868-e91f90a9add2",
       "type": "Checking",
       "nickname": "Lucia Checking",
       "rewards": 0.0,
@@ -32,9 +32,9 @@
       "frozen_reason": null
     },
     {
-      "id": "acc_lucia_cc",
+      "id": "fca9ce4a-9506-4093-b3d0-097786374b24",
       "local_id": "acc_lucia_cc",
-      "customer_id": "cust_lucia",
+      "customer_id": "0a1e3a6e-bcd1-46e2-b868-e91f90a9add2",
       "type": "Credit Card",
       "nickname": "Lucia Student Card",
       "rewards": 0.0,
@@ -46,9 +46,9 @@
       "frozen_reason": null
     },
     {
-      "id": "acc_lucia_sav",
+      "id": "e7a5dc9d-e748-414a-b993-b9b672dc89e6",
       "local_id": "acc_lucia_sav",
-      "customer_id": "cust_lucia",
+      "customer_id": "0a1e3a6e-bcd1-46e2-b868-e91f90a9add2",
       "type": "Savings",
       "nickname": "Lucia Savings",
       "rewards": 0.0,
@@ -65,12 +65,12 @@
   "home_currency": "MXN",
   "fx_rate": 17.1,
   "language": "es",
-  "checking_account_id": "acc_lucia_chk",
+  "checking_account_id": "43025009-36c7-42f7-8cab-f16e49470998",
   "bills": [
     {
-      "id": "b_luc_rent",
+      "id": "3ae8a5c2-8bf3-4f8c-bb49-950d887e41a2",
       "local_id": "b_luc_rent",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "status": "recurring",
       "payee": "Gold Coast Housing",
       "nickname": "Rent",
@@ -87,9 +87,9 @@
       "trial_amount_after": null
     },
     {
-      "id": "b_luc_phone",
+      "id": "76864e90-213f-476d-8807-c22325bb2171",
       "local_id": "b_luc_phone",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "status": "recurring",
       "payee": "Visible",
       "nickname": "Phone",
@@ -106,9 +106,9 @@
       "trial_amount_after": null
     },
     {
-      "id": "b_luc_card",
+      "id": "ebdb2c52-a9a5-458e-bf3a-e1730441bc60",
       "local_id": "b_luc_card",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "status": "recurring",
       "payee": "Treasurer Bank Student Card",
       "nickname": "Credit card payment",
@@ -127,9 +127,9 @@
   ],
   "deposits": [
     {
-      "id": "d_luc_arrival",
+      "id": "b340cc49-3b07-4c80-be6c-3029e1d62c5d",
       "local_id": "d_luc_arrival",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "deposit",
       "transaction_date": "2026-06-14",
       "status": "completed",
@@ -141,9 +141,9 @@
       "is_recurring": 0
     },
     {
-      "id": "dep_d_luc_job_2026-06-19",
+      "id": "fed03293-cc72-4c81-a3f7-03ad3cd7e4a6",
       "local_id": "dep_d_luc_job_2026-06-19",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "deposit",
       "transaction_date": "2026-06-19",
       "status": "completed",
@@ -155,9 +155,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_luc_job_2026-07-03",
+      "id": "fe77f9db-f7dc-40f9-a343-1b99a1e28343",
       "local_id": "dep_d_luc_job_2026-07-03",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "deposit",
       "transaction_date": "2026-07-03",
       "status": "completed",
@@ -169,9 +169,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_luc_job_2026-07-17",
+      "id": "1b127fcc-d641-4ec8-99bc-b4d853cd8ee0",
       "local_id": "dep_d_luc_job_2026-07-17",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "deposit",
       "transaction_date": "2026-07-17",
       "status": "completed",
@@ -183,9 +183,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_luc_job_2026-07-31",
+      "id": "548ed050-f4bb-4e79-98f5-a2f630e769c9",
       "local_id": "dep_d_luc_job_2026-07-31",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "deposit",
       "transaction_date": "2026-07-31",
       "status": "completed",
@@ -197,9 +197,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_luc_job_2026-08-14",
+      "id": "a4c8f770-fbbb-4412-aab4-5279e9464d61",
       "local_id": "dep_d_luc_job_2026-08-14",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "deposit",
       "transaction_date": "2026-08-14",
       "status": "completed",
@@ -211,9 +211,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_luc_job_2026-08-28",
+      "id": "7f6bcdb9-53ee-46a1-8160-cd70d9c543e8",
       "local_id": "dep_d_luc_job_2026-08-28",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "deposit",
       "transaction_date": "2026-08-28",
       "status": "completed",
@@ -225,9 +225,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_luc_job_2026-09-11",
+      "id": "479c870a-654b-4d37-9fc0-02caf1addca7",
       "local_id": "dep_d_luc_job_2026-09-11",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "deposit",
       "transaction_date": "2026-09-11",
       "status": "completed",
@@ -241,9 +241,9 @@
   ],
   "withdrawals": [
     {
-      "id": "wd_b_luc_card_2026-06-12",
+      "id": "bd3a1119-2d48-4f59-853d-c26e0993e843",
       "local_id": "wd_b_luc_card_2026-06-12",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "withdrawal",
       "transaction_date": "2026-06-12",
       "status": "completed",
@@ -254,9 +254,9 @@
       "category": "credit_card"
     },
     {
-      "id": "wd_b_luc_rent_2026-07-01",
+      "id": "16fc0641-ba4b-44a3-87b0-10b86034081a",
       "local_id": "wd_b_luc_rent_2026-07-01",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "withdrawal",
       "transaction_date": "2026-07-01",
       "status": "completed",
@@ -267,9 +267,9 @@
       "category": "housing"
     },
     {
-      "id": "wd_b_luc_phone_2026-07-06",
+      "id": "65026516-90c1-482a-8c5e-07bec0ab454d",
       "local_id": "wd_b_luc_phone_2026-07-06",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "withdrawal",
       "transaction_date": "2026-07-06",
       "status": "completed",
@@ -280,9 +280,9 @@
       "category": "phone"
     },
     {
-      "id": "wd_b_luc_card_2026-07-12",
+      "id": "47b4dbcc-d3d5-44df-b969-4bb93aa01cfc",
       "local_id": "wd_b_luc_card_2026-07-12",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "withdrawal",
       "transaction_date": "2026-07-12",
       "status": "completed",
@@ -293,9 +293,9 @@
       "category": "credit_card"
     },
     {
-      "id": "wd_b_luc_rent_2026-08-01",
+      "id": "3399058d-e499-4c14-82c7-8d8d2d5c61d5",
       "local_id": "wd_b_luc_rent_2026-08-01",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "withdrawal",
       "transaction_date": "2026-08-01",
       "status": "completed",
@@ -306,9 +306,9 @@
       "category": "housing"
     },
     {
-      "id": "wd_b_luc_phone_2026-08-06",
+      "id": "57df66ec-6d0a-4150-9b3c-4487b645385a",
       "local_id": "wd_b_luc_phone_2026-08-06",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "withdrawal",
       "transaction_date": "2026-08-06",
       "status": "completed",
@@ -319,9 +319,9 @@
       "category": "phone"
     },
     {
-      "id": "wd_b_luc_card_2026-08-12",
+      "id": "eb1c1622-539f-4cb8-9688-43ff7f4d9058",
       "local_id": "wd_b_luc_card_2026-08-12",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "withdrawal",
       "transaction_date": "2026-08-12",
       "status": "completed",
@@ -332,9 +332,9 @@
       "category": "credit_card"
     },
     {
-      "id": "wd_b_luc_rent_2026-09-01",
+      "id": "5769fd95-a05d-4061-bf4d-79d5e7169c91",
       "local_id": "wd_b_luc_rent_2026-09-01",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "withdrawal",
       "transaction_date": "2026-09-01",
       "status": "completed",
@@ -345,9 +345,9 @@
       "category": "housing"
     },
     {
-      "id": "wd_b_luc_phone_2026-09-06",
+      "id": "791b7c4e-01e9-4261-ab24-4bdfb5862de5",
       "local_id": "wd_b_luc_phone_2026-09-06",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "withdrawal",
       "transaction_date": "2026-09-06",
       "status": "completed",
@@ -358,9 +358,9 @@
       "category": "phone"
     },
     {
-      "id": "wd_b_luc_card_2026-09-12",
+      "id": "bf05b12a-8c54-4103-8451-0b4a0f34c2c7",
       "local_id": "wd_b_luc_card_2026-09-12",
-      "account_id": "acc_lucia_chk",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
       "type": "withdrawal",
       "transaction_date": "2026-09-12",
       "status": "completed",
@@ -374,10 +374,10 @@
   "transfers": [],
   "purchases": [
     {
-      "id": "pur_acc_lucia_chk_2026-09-12_139",
+      "id": "7bc6eb82-4ac8-43fb-bfdd-82509d92ff1f",
       "local_id": "pur_acc_lucia_chk_2026-09-12_139",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 32.17,
       "purchase_date": "2026-09-12",
       "status": "completed",
@@ -395,10 +395,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-12_140",
+      "id": "5dc30058-7f83-47cb-af02-9f34c2df31ae",
       "local_id": "pur_acc_lucia_chk_2026-09-12_140",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 31.46,
       "purchase_date": "2026-09-12",
       "status": "completed",
@@ -416,10 +416,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-11_138",
+      "id": "dc3163d4-a1ed-47da-8177-fb07de729e4e",
       "local_id": "pur_acc_lucia_chk_2026-09-11_138",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 5.84,
       "purchase_date": "2026-09-11",
       "status": "completed",
@@ -437,10 +437,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-10_136",
+      "id": "9ff9c97d-d7b1-4286-99aa-29c06ea3d6fb",
       "local_id": "pur_acc_lucia_chk_2026-09-10_136",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 2.75,
       "purchase_date": "2026-09-10",
       "status": "completed",
@@ -458,10 +458,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-10_137",
+      "id": "06108df6-a9ce-429e-b3ca-3a74ad3ec442",
       "local_id": "pur_acc_lucia_chk_2026-09-10_137",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 4.96,
       "purchase_date": "2026-09-10",
       "status": "completed",
@@ -479,10 +479,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-09_134",
+      "id": "f6d3131f-3c27-4a35-81df-d7bd25cc8fbc",
       "local_id": "pur_acc_lucia_chk_2026-09-09_134",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 11.89,
       "purchase_date": "2026-09-09",
       "status": "completed",
@@ -500,10 +500,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-09_135",
+      "id": "a427f407-a4d5-4321-8b89-d842d8714d20",
       "local_id": "pur_acc_lucia_chk_2026-09-09_135",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 7.61,
       "purchase_date": "2026-09-09",
       "status": "completed",
@@ -521,10 +521,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-08_133",
+      "id": "22e30edb-0703-43f7-8f7d-3aafac040cd8",
       "local_id": "pur_acc_lucia_chk_2026-09-08_133",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_uber",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 4.37,
       "purchase_date": "2026-09-08",
       "status": "completed",
@@ -542,10 +542,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-07_130",
+      "id": "f8f25877-1a4b-4669-b091-fd18c337cf89",
       "local_id": "pur_acc_lucia_chk_2026-09-07_130",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 12.71,
       "purchase_date": "2026-09-07",
       "status": "completed",
@@ -563,10 +563,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-07_131",
+      "id": "2f94fd83-69a4-445d-9db6-1a849f2505b8",
       "local_id": "pur_acc_lucia_chk_2026-09-07_131",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 10.04,
       "purchase_date": "2026-09-07",
       "status": "completed",
@@ -584,10 +584,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-07_132",
+      "id": "d650bd4f-0205-4675-8988-9805e9e7411d",
       "local_id": "pur_acc_lucia_chk_2026-09-07_132",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 17.57,
       "purchase_date": "2026-09-07",
       "status": "completed",
@@ -605,10 +605,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-06_129",
+      "id": "fc228e43-eb3d-4d71-b25e-ad411583bb2d",
       "local_id": "pur_acc_lucia_chk_2026-09-06_129",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 2.69,
       "purchase_date": "2026-09-06",
       "status": "completed",
@@ -626,10 +626,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-06_127",
+      "id": "1de11a08-c876-427b-90d5-1c71adcb8a05",
       "local_id": "pur_acc_lucia_chk_2026-09-06_127",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 7.45,
       "purchase_date": "2026-09-06",
       "status": "completed",
@@ -647,10 +647,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-06_128",
+      "id": "14a3f26d-9642-4af3-b384-fa97ab8e4ecb",
       "local_id": "pur_acc_lucia_chk_2026-09-06_128",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 9.92,
       "purchase_date": "2026-09-06",
       "status": "completed",
@@ -668,10 +668,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-05_126",
+      "id": "d6e7b3e0-de62-4968-bae5-f665ca2ebdb7",
       "local_id": "pur_acc_lucia_chk_2026-09-05_126",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_runza",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 10.83,
       "purchase_date": "2026-09-05",
       "status": "completed",
@@ -689,10 +689,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-04_124",
+      "id": "06ae7bca-f153-4c5f-989a-83ab087411a8",
       "local_id": "pur_acc_lucia_chk_2026-09-04_124",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 21.32,
       "purchase_date": "2026-09-04",
       "status": "completed",
@@ -710,10 +710,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-04_125",
+      "id": "fe2c27a6-69af-44c6-a077-93c280cbfe34",
       "local_id": "pur_acc_lucia_chk_2026-09-04_125",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 18.7,
       "purchase_date": "2026-09-04",
       "status": "completed",
@@ -731,10 +731,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-03_123",
+      "id": "598b9178-e39c-4a30-b7a1-0c4954643942",
       "local_id": "pur_acc_lucia_chk_2026-09-03_123",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 1.87,
       "purchase_date": "2026-09-03",
       "status": "completed",
@@ -752,10 +752,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-02_122",
+      "id": "d7e6f74a-f02d-4ec3-bff5-bc9d5349e549",
       "local_id": "pur_acc_lucia_chk_2026-09-02_122",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 5.14,
       "purchase_date": "2026-09-02",
       "status": "completed",
@@ -773,10 +773,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-01_121",
+      "id": "eb5a8107-cb46-42ba-982f-ba496d93925f",
       "local_id": "pur_acc_lucia_chk_2026-09-01_121",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 15.43,
       "purchase_date": "2026-09-01",
       "status": "completed",
@@ -794,10 +794,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-09-01_120",
+      "id": "f490bd57-98f3-4221-98a2-7557ffc3e0e5",
       "local_id": "pur_acc_lucia_chk_2026-09-01_120",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 5.8,
       "purchase_date": "2026-09-01",
       "status": "completed",
@@ -815,10 +815,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-31_117",
+      "id": "902afdc6-e8e5-4006-bd66-8478eda230e9",
       "local_id": "pur_acc_lucia_chk_2026-08-31_117",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 22.45,
       "purchase_date": "2026-08-31",
       "status": "completed",
@@ -836,10 +836,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-31_118",
+      "id": "b5ec267a-48fd-4aac-85ab-b0f046fcaf88",
       "local_id": "pur_acc_lucia_chk_2026-08-31_118",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_uber",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 3.76,
       "purchase_date": "2026-08-31",
       "status": "completed",
@@ -857,10 +857,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-31_119",
+      "id": "cff67a9a-6fbe-4fdd-a584-d7fc454c26f4",
       "local_id": "pur_acc_lucia_chk_2026-08-31_119",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 26.36,
       "purchase_date": "2026-08-31",
       "status": "completed",
@@ -878,10 +878,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-30_115",
+      "id": "f7b2bda2-9ea0-42e1-8edb-2d9bae5565be",
       "local_id": "pur_acc_lucia_chk_2026-08-30_115",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 3.34,
       "purchase_date": "2026-08-30",
       "status": "completed",
@@ -899,10 +899,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-30_116",
+      "id": "58b7523e-1f3b-4814-a1c3-ef4c07e184b6",
       "local_id": "pur_acc_lucia_chk_2026-08-30_116",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 4.91,
       "purchase_date": "2026-08-30",
       "status": "completed",
@@ -920,10 +920,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-29_112",
+      "id": "5231d723-9552-4c71-91f6-4bc4ad3430db",
       "local_id": "pur_acc_lucia_chk_2026-08-29_112",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 3.15,
       "purchase_date": "2026-08-29",
       "status": "completed",
@@ -941,10 +941,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-29_113",
+      "id": "1e51efe3-6f88-4dcf-b445-ce0c67ec8537",
       "local_id": "pur_acc_lucia_chk_2026-08-29_113",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 6.65,
       "purchase_date": "2026-08-29",
       "status": "completed",
@@ -962,10 +962,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-29_114",
+      "id": "8672e667-07d8-4cd7-9af6-fa9fa67b2765",
       "local_id": "pur_acc_lucia_chk_2026-08-29_114",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_uber",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 4.71,
       "purchase_date": "2026-08-29",
       "status": "completed",
@@ -983,10 +983,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-28_111",
+      "id": "854a4b42-be1b-437a-be58-ad263a9f6072",
       "local_id": "pur_acc_lucia_chk_2026-08-28_111",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 26.67,
       "purchase_date": "2026-08-28",
       "status": "completed",
@@ -1004,10 +1004,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-28_110",
+      "id": "25f92cd1-ddd2-4871-9d4f-4fcf56a45114",
       "local_id": "pur_acc_lucia_chk_2026-08-28_110",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 21.79,
       "purchase_date": "2026-08-28",
       "status": "completed",
@@ -1025,10 +1025,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-28_109",
+      "id": "04f7dfb0-aff4-4b17-a0c6-38f687fe2a88",
       "local_id": "pur_acc_lucia_chk_2026-08-28_109",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 2.75,
       "purchase_date": "2026-08-28",
       "status": "completed",
@@ -1046,10 +1046,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-27_107",
+      "id": "69261b9a-ec46-439b-966e-d86be588bb1c",
       "local_id": "pur_acc_lucia_chk_2026-08-27_107",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 9.52,
       "purchase_date": "2026-08-27",
       "status": "completed",
@@ -1067,10 +1067,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-27_108",
+      "id": "dcaa90cd-03df-4032-a811-940b41d3e789",
       "local_id": "pur_acc_lucia_chk_2026-08-27_108",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 28.34,
       "purchase_date": "2026-08-27",
       "status": "completed",
@@ -1088,10 +1088,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-26_106",
+      "id": "edf2fe90-a436-429e-ba5c-c3da9fc55d0e",
       "local_id": "pur_acc_lucia_chk_2026-08-26_106",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 17.07,
       "purchase_date": "2026-08-26",
       "status": "completed",
@@ -1109,10 +1109,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-25_104",
+      "id": "ef1f6a1d-30cb-45e5-bce8-11c4b456518c",
       "local_id": "pur_acc_lucia_chk_2026-08-25_104",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 28.08,
       "purchase_date": "2026-08-25",
       "status": "completed",
@@ -1130,10 +1130,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-25_105",
+      "id": "40d9faf4-efcd-4384-acc5-2016d9d22ddc",
       "local_id": "pur_acc_lucia_chk_2026-08-25_105",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_walgreens",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "86ab6b63-7faa-495d-82bd-6f3af07c0f46",
       "amount": 8.35,
       "purchase_date": "2026-08-25",
       "status": "completed",
@@ -1151,10 +1151,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-24_103",
+      "id": "57732cf1-8267-4b9c-98b5-997a01972852",
       "local_id": "pur_acc_lucia_chk_2026-08-24_103",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_runza",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 5.29,
       "purchase_date": "2026-08-24",
       "status": "completed",
@@ -1172,10 +1172,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-24_102",
+      "id": "7caed83e-1bd1-4429-b5c3-d9a2dfb65d06",
       "local_id": "pur_acc_lucia_chk_2026-08-24_102",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 24.09,
       "purchase_date": "2026-08-24",
       "status": "completed",
@@ -1193,10 +1193,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-23_101",
+      "id": "f215a5e6-33c3-4524-a1d7-261ffeea979d",
       "local_id": "pur_acc_lucia_chk_2026-08-23_101",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_cvs",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "41a477d5-fa0e-408a-87b7-1b55f8b0355c",
       "amount": 5.08,
       "purchase_date": "2026-08-23",
       "status": "completed",
@@ -1214,10 +1214,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-22_99",
+      "id": "77758dfc-375e-4417-9434-79530b347f73",
       "local_id": "pur_acc_lucia_chk_2026-08-22_99",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_runza",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 12.13,
       "purchase_date": "2026-08-22",
       "status": "completed",
@@ -1235,10 +1235,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-22_100",
+      "id": "67079ff2-4768-4ba4-a99a-fabc7941c77c",
       "local_id": "pur_acc_lucia_chk_2026-08-22_100",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 12.89,
       "purchase_date": "2026-08-22",
       "status": "completed",
@@ -1256,10 +1256,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-21_98",
+      "id": "ef5a59d7-f995-4131-84bc-3b45ea3d3b8e",
       "local_id": "pur_acc_lucia_chk_2026-08-21_98",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_runza",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 5.0,
       "purchase_date": "2026-08-21",
       "status": "completed",
@@ -1277,10 +1277,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-20_97",
+      "id": "ee8b9470-2f68-4496-a675-45ab0fde76c0",
       "local_id": "pur_acc_lucia_chk_2026-08-20_97",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 2.21,
       "purchase_date": "2026-08-20",
       "status": "completed",
@@ -1298,10 +1298,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-19_96",
+      "id": "a872054d-6398-4471-9cf4-3851f5d4dd46",
       "local_id": "pur_acc_lucia_chk_2026-08-19_96",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 1.83,
       "purchase_date": "2026-08-19",
       "status": "completed",
@@ -1319,10 +1319,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-18_95",
+      "id": "962c310d-c178-481e-9d86-fe3c9f52297a",
       "local_id": "pur_acc_lucia_chk_2026-08-18_95",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_target",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
       "amount": 12.72,
       "purchase_date": "2026-08-18",
       "status": "completed",
@@ -1340,10 +1340,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-17_94",
+      "id": "df328230-ad81-462a-8c20-d7ce0aed06e3",
       "local_id": "pur_acc_lucia_chk_2026-08-17_94",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 24.39,
       "purchase_date": "2026-08-17",
       "status": "completed",
@@ -1361,10 +1361,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-16_93",
+      "id": "79383298-8b53-46ee-94c2-4e247a74ca6d",
       "local_id": "pur_acc_lucia_chk_2026-08-16_93",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 22.71,
       "purchase_date": "2026-08-16",
       "status": "completed",
@@ -1382,10 +1382,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-15_91",
+      "id": "3a4f3504-0c27-4342-a896-70c2f878e455",
       "local_id": "pur_acc_lucia_chk_2026-08-15_91",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 8.75,
       "purchase_date": "2026-08-15",
       "status": "completed",
@@ -1403,10 +1403,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-15_92",
+      "id": "1278540a-b723-4beb-932e-e354b2b5ce40",
       "local_id": "pur_acc_lucia_chk_2026-08-15_92",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 6.98,
       "purchase_date": "2026-08-15",
       "status": "completed",
@@ -1424,10 +1424,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-14_90",
+      "id": "dfc59a82-9834-45e5-91f6-9aa105c530d7",
       "local_id": "pur_acc_lucia_chk_2026-08-14_90",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_metro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 4.53,
       "purchase_date": "2026-08-14",
       "status": "completed",
@@ -1445,10 +1445,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-13_89",
+      "id": "4d6afa93-d131-4ae9-811e-72fe85260e83",
       "local_id": "pur_acc_lucia_chk_2026-08-13_89",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 29.61,
       "purchase_date": "2026-08-13",
       "status": "completed",
@@ -1466,10 +1466,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-12_88",
+      "id": "93af6b02-c913-4207-8241-2d5af39f9049",
       "local_id": "pur_acc_lucia_chk_2026-08-12_88",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 28.58,
       "purchase_date": "2026-08-12",
       "status": "completed",
@@ -1487,10 +1487,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-10_87",
+      "id": "1b0a2fb7-226b-42f3-a378-05a1940a3046",
       "local_id": "pur_acc_lucia_chk_2026-08-10_87",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 20.01,
       "purchase_date": "2026-08-10",
       "status": "completed",
@@ -1508,10 +1508,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-09_86",
+      "id": "300e9a3a-caff-4b86-8e78-0fc2cccb4818",
       "local_id": "pur_acc_lucia_chk_2026-08-09_86",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 28.0,
       "purchase_date": "2026-08-09",
       "status": "completed",
@@ -1529,10 +1529,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-08_85",
+      "id": "ed225ddf-90ac-496a-a4fe-9094a709aa39",
       "local_id": "pur_acc_lucia_chk_2026-08-08_85",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 3.34,
       "purchase_date": "2026-08-08",
       "status": "completed",
@@ -1550,10 +1550,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-07_84",
+      "id": "a83feb97-4d04-4a68-92dc-54023fe5582d",
       "local_id": "pur_acc_lucia_chk_2026-08-07_84",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 13.35,
       "purchase_date": "2026-08-07",
       "status": "completed",
@@ -1571,10 +1571,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-06_83",
+      "id": "be890086-6226-48c7-a7b0-0c99894a6472",
       "local_id": "pur_acc_lucia_chk_2026-08-06_83",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 28.8,
       "purchase_date": "2026-08-06",
       "status": "completed",
@@ -1592,10 +1592,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-05_82",
+      "id": "77c616bb-df20-442f-afd4-d2c647d80f13",
       "local_id": "pur_acc_lucia_chk_2026-08-05_82",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_uber",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 4.24,
       "purchase_date": "2026-08-05",
       "status": "completed",
@@ -1613,10 +1613,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-03_79",
+      "id": "35c7f60c-94aa-4eb4-97ef-e3a282903b8c",
       "local_id": "pur_acc_lucia_chk_2026-08-03_79",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 2.48,
       "purchase_date": "2026-08-03",
       "status": "completed",
@@ -1634,10 +1634,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-03_80",
+      "id": "55536e3e-3fb8-4f8e-ad03-275514269620",
       "local_id": "pur_acc_lucia_chk_2026-08-03_80",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 7.24,
       "purchase_date": "2026-08-03",
       "status": "completed",
@@ -1655,10 +1655,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-03_81",
+      "id": "75ddb802-205a-4f28-89fa-ef723bddb0a7",
       "local_id": "pur_acc_lucia_chk_2026-08-03_81",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 2.48,
       "purchase_date": "2026-08-03",
       "status": "completed",
@@ -1676,10 +1676,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-02_78",
+      "id": "1ce71f4b-8e3f-4af9-86fe-30b1201165b9",
       "local_id": "pur_acc_lucia_chk_2026-08-02_78",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 28.63,
       "purchase_date": "2026-08-02",
       "status": "completed",
@@ -1697,10 +1697,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-08-01_77",
+      "id": "2328ed5e-139d-4cce-941d-01f72f3a89ce",
       "local_id": "pur_acc_lucia_chk_2026-08-01_77",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 3.96,
       "purchase_date": "2026-08-01",
       "status": "completed",
@@ -1718,10 +1718,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-31_76",
+      "id": "029dc706-f19e-4796-980e-7a92b6ef6f13",
       "local_id": "pur_acc_lucia_chk_2026-07-31_76",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 23.0,
       "purchase_date": "2026-07-31",
       "status": "completed",
@@ -1739,10 +1739,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-30_74",
+      "id": "2d55fae1-568c-4e84-9291-7a142cd32f1b",
       "local_id": "pur_acc_lucia_chk_2026-07-30_74",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 15.97,
       "purchase_date": "2026-07-30",
       "status": "completed",
@@ -1760,10 +1760,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-30_75",
+      "id": "27f41dec-9687-476e-9cbc-61a2d86d324d",
       "local_id": "pur_acc_lucia_chk_2026-07-30_75",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 12.53,
       "purchase_date": "2026-07-30",
       "status": "completed",
@@ -1781,10 +1781,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-30_73",
+      "id": "7dbeca1c-6371-48bd-87fe-accf532b1bab",
       "local_id": "pur_acc_lucia_chk_2026-07-30_73",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_runza",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 8.27,
       "purchase_date": "2026-07-30",
       "status": "completed",
@@ -1802,10 +1802,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-29_72",
+      "id": "a4de17f6-775c-4c32-bcb4-e252496a70de",
       "local_id": "pur_acc_lucia_chk_2026-07-29_72",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 2.37,
       "purchase_date": "2026-07-29",
       "status": "completed",
@@ -1823,10 +1823,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-28_71",
+      "id": "0c3b8da4-f78f-40a7-95ea-da5ac49f427d",
       "local_id": "pur_acc_lucia_chk_2026-07-28_71",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 26.41,
       "purchase_date": "2026-07-28",
       "status": "completed",
@@ -1844,10 +1844,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-27_70",
+      "id": "48288758-a9d4-4003-ab7f-ccd90ddf94ed",
       "local_id": "pur_acc_lucia_chk_2026-07-27_70",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 11.97,
       "purchase_date": "2026-07-27",
       "status": "completed",
@@ -1865,10 +1865,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-27_69",
+      "id": "19552ae8-ec86-4ac9-8f98-ab443dc5494c",
       "local_id": "pur_acc_lucia_chk_2026-07-27_69",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 6.01,
       "purchase_date": "2026-07-27",
       "status": "completed",
@@ -1886,10 +1886,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-26_67",
+      "id": "7220aee8-0038-4338-8f98-b979915f098b",
       "local_id": "pur_acc_lucia_chk_2026-07-26_67",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 18.02,
       "purchase_date": "2026-07-26",
       "status": "completed",
@@ -1907,10 +1907,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-26_68",
+      "id": "1fd620db-f414-4d7c-9472-c1d2f04a1d72",
       "local_id": "pur_acc_lucia_chk_2026-07-26_68",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 4.48,
       "purchase_date": "2026-07-26",
       "status": "completed",
@@ -1928,10 +1928,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-25_66",
+      "id": "60b59c49-c69d-423f-abc1-dc65cbcf8a7e",
       "local_id": "pur_acc_lucia_chk_2026-07-25_66",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 11.12,
       "purchase_date": "2026-07-25",
       "status": "completed",
@@ -1949,10 +1949,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-25_64",
+      "id": "3010763e-7ec0-40fe-ae69-406e0a063736",
       "local_id": "pur_acc_lucia_chk_2026-07-25_64",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_cvs",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "41a477d5-fa0e-408a-87b7-1b55f8b0355c",
       "amount": 3.66,
       "purchase_date": "2026-07-25",
       "status": "completed",
@@ -1970,10 +1970,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-25_65",
+      "id": "31ede8cd-c1c8-4784-96cc-e0e7f6cc9da6",
       "local_id": "pur_acc_lucia_chk_2026-07-25_65",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 19.34,
       "purchase_date": "2026-07-25",
       "status": "completed",
@@ -1991,10 +1991,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-24_61",
+      "id": "23f6aea3-6c58-4e32-a657-6afba97f20f8",
       "local_id": "pur_acc_lucia_chk_2026-07-24_61",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 1.72,
       "purchase_date": "2026-07-24",
       "status": "completed",
@@ -2012,10 +2012,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-24_63",
+      "id": "d5c8b9d1-3045-4e9e-b220-4021ee0e35a0",
       "local_id": "pur_acc_lucia_chk_2026-07-24_63",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 29.79,
       "purchase_date": "2026-07-24",
       "status": "completed",
@@ -2033,10 +2033,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-24_62",
+      "id": "a4a5dc8f-a6ab-4ffc-860b-d09a8a74e90e",
       "local_id": "pur_acc_lucia_chk_2026-07-24_62",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 8.71,
       "purchase_date": "2026-07-24",
       "status": "completed",
@@ -2054,10 +2054,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-23_60",
+      "id": "8e3a81cc-681a-487a-be91-13fcc1cd2897",
       "local_id": "pur_acc_lucia_chk_2026-07-23_60",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 15.63,
       "purchase_date": "2026-07-23",
       "status": "completed",
@@ -2075,10 +2075,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-22_58",
+      "id": "3b3ab588-8dea-427f-92bd-31ff2b30b436",
       "local_id": "pur_acc_lucia_chk_2026-07-22_58",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 25.57,
       "purchase_date": "2026-07-22",
       "status": "completed",
@@ -2096,10 +2096,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-22_59",
+      "id": "c4770f47-6da2-4e11-950e-e7ae9754fcbb",
       "local_id": "pur_acc_lucia_chk_2026-07-22_59",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_target",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
       "amount": 12.0,
       "purchase_date": "2026-07-22",
       "status": "completed",
@@ -2117,10 +2117,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-21_57",
+      "id": "bc544dac-6a79-498b-8479-5892f2c9a84a",
       "local_id": "pur_acc_lucia_chk_2026-07-21_57",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 4.3,
       "purchase_date": "2026-07-21",
       "status": "completed",
@@ -2138,10 +2138,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-21_56",
+      "id": "2c5fb83a-be4b-4b05-8e25-7883de6ab2e0",
       "local_id": "pur_acc_lucia_chk_2026-07-21_56",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 11.64,
       "purchase_date": "2026-07-21",
       "status": "completed",
@@ -2159,10 +2159,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-20_55",
+      "id": "57d4e831-62cd-485c-963e-ebfb8da6ccc7",
       "local_id": "pur_acc_lucia_chk_2026-07-20_55",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 22.48,
       "purchase_date": "2026-07-20",
       "status": "completed",
@@ -2180,10 +2180,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-18_54",
+      "id": "37e7358c-459d-4103-8ff4-46cac56a0616",
       "local_id": "pur_acc_lucia_chk_2026-07-18_54",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_walgreens",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "86ab6b63-7faa-495d-82bd-6f3af07c0f46",
       "amount": 6.26,
       "purchase_date": "2026-07-18",
       "status": "completed",
@@ -2201,10 +2201,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-17_52",
+      "id": "251807e2-b6aa-4948-877f-ad97a549855c",
       "local_id": "pur_acc_lucia_chk_2026-07-17_52",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 8.67,
       "purchase_date": "2026-07-17",
       "status": "completed",
@@ -2222,10 +2222,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-17_53",
+      "id": "6df65de6-7f80-4231-8cf5-ca4595ef2475",
       "local_id": "pur_acc_lucia_chk_2026-07-17_53",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_uber",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 5.56,
       "purchase_date": "2026-07-17",
       "status": "completed",
@@ -2243,10 +2243,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-16_51",
+      "id": "5b11afd4-7564-4370-8cf6-f35d1607fe06",
       "local_id": "pur_acc_lucia_chk_2026-07-16_51",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 16.15,
       "purchase_date": "2026-07-16",
       "status": "completed",
@@ -2264,10 +2264,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-16_50",
+      "id": "0099e197-8e1c-4731-ad5f-b0aa0814e939",
       "local_id": "pur_acc_lucia_chk_2026-07-16_50",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_metro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 2.63,
       "purchase_date": "2026-07-16",
       "status": "completed",
@@ -2285,10 +2285,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-15_48",
+      "id": "dcc7e013-f862-473e-9d7d-2fb16ecedbff",
       "local_id": "pur_acc_lucia_chk_2026-07-15_48",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_metro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 4.52,
       "purchase_date": "2026-07-15",
       "status": "completed",
@@ -2306,10 +2306,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-15_49",
+      "id": "acd98641-c421-44b7-8480-ae0f03ca2f7f",
       "local_id": "pur_acc_lucia_chk_2026-07-15_49",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 16.21,
       "purchase_date": "2026-07-15",
       "status": "completed",
@@ -2327,10 +2327,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-13_47",
+      "id": "c6bca1ec-fe27-4428-8ba1-ae67d492b06c",
       "local_id": "pur_acc_lucia_chk_2026-07-13_47",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 7.97,
       "purchase_date": "2026-07-13",
       "status": "completed",
@@ -2348,10 +2348,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-12_45",
+      "id": "7be1fc58-e18b-4d4d-b169-5fd5a2d151bc",
       "local_id": "pur_acc_lucia_chk_2026-07-12_45",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 28.91,
       "purchase_date": "2026-07-12",
       "status": "completed",
@@ -2369,10 +2369,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-12_46",
+      "id": "75b276f4-b80e-410e-8bff-76e9a3d045a4",
       "local_id": "pur_acc_lucia_chk_2026-07-12_46",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 11.17,
       "purchase_date": "2026-07-12",
       "status": "completed",
@@ -2390,10 +2390,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-11_44",
+      "id": "15b725a3-8054-460d-b98f-e390de367c36",
       "local_id": "pur_acc_lucia_chk_2026-07-11_44",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 33.27,
       "purchase_date": "2026-07-11",
       "status": "completed",
@@ -2411,10 +2411,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-10_43",
+      "id": "7a741241-18e9-4eef-9e1a-f65c20f6b9d3",
       "local_id": "pur_acc_lucia_chk_2026-07-10_43",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 15.48,
       "purchase_date": "2026-07-10",
       "status": "completed",
@@ -2432,10 +2432,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-10_42",
+      "id": "da9036ef-2553-4c83-95e6-a0315e818074",
       "local_id": "pur_acc_lucia_chk_2026-07-10_42",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 11.16,
       "purchase_date": "2026-07-10",
       "status": "completed",
@@ -2453,10 +2453,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-09_41",
+      "id": "23c82cc4-c1c9-4723-97bf-2f850d7ab9e6",
       "local_id": "pur_acc_lucia_chk_2026-07-09_41",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 27.72,
       "purchase_date": "2026-07-09",
       "status": "completed",
@@ -2474,10 +2474,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-08_40",
+      "id": "1254e317-769a-4a6f-b057-4b563780eaf8",
       "local_id": "pur_acc_lucia_chk_2026-07-08_40",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 4.46,
       "purchase_date": "2026-07-08",
       "status": "completed",
@@ -2495,10 +2495,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-08_38",
+      "id": "353ee7eb-317c-488a-b275-32bb7399d35f",
       "local_id": "pur_acc_lucia_chk_2026-07-08_38",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 6.64,
       "purchase_date": "2026-07-08",
       "status": "completed",
@@ -2516,10 +2516,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-08_39",
+      "id": "cc3471bf-021b-4f7b-b903-700f9c11e70b",
       "local_id": "pur_acc_lucia_chk_2026-07-08_39",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 9.81,
       "purchase_date": "2026-07-08",
       "status": "completed",
@@ -2537,10 +2537,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-07_37",
+      "id": "eb2b3ecc-41c8-4be7-9e55-3ec0d4ea275e",
       "local_id": "pur_acc_lucia_chk_2026-07-07_37",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_uber",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 5.73,
       "purchase_date": "2026-07-07",
       "status": "completed",
@@ -2558,10 +2558,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-05_35",
+      "id": "6b5a6b89-6ace-49af-ad01-9204ee2b6721",
       "local_id": "pur_acc_lucia_chk_2026-07-05_35",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 20.43,
       "purchase_date": "2026-07-05",
       "status": "completed",
@@ -2579,10 +2579,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-05_36",
+      "id": "15fac930-5410-4d60-b095-fd9d1d7e9dfc",
       "local_id": "pur_acc_lucia_chk_2026-07-05_36",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_walgreens",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "86ab6b63-7faa-495d-82bd-6f3af07c0f46",
       "amount": 3.23,
       "purchase_date": "2026-07-05",
       "status": "completed",
@@ -2600,10 +2600,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-04_34",
+      "id": "2a979e83-4cf9-49fb-b8b3-e0a283f415a7",
       "local_id": "pur_acc_lucia_chk_2026-07-04_34",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_runza",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 6.47,
       "purchase_date": "2026-07-04",
       "status": "completed",
@@ -2621,10 +2621,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-03_32",
+      "id": "503e10a4-9542-4fa8-b6e8-a653104f0799",
       "local_id": "pur_acc_lucia_chk_2026-07-03_32",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_target",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
       "amount": 14.39,
       "purchase_date": "2026-07-03",
       "status": "completed",
@@ -2642,10 +2642,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-03_31",
+      "id": "426c3c49-2531-4725-8271-868f10b415a9",
       "local_id": "pur_acc_lucia_chk_2026-07-03_31",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 9.11,
       "purchase_date": "2026-07-03",
       "status": "completed",
@@ -2663,10 +2663,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-03_33",
+      "id": "30fcbe70-ec7c-42b5-9ef1-813c3c3fbdcc",
       "local_id": "pur_acc_lucia_chk_2026-07-03_33",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 5.11,
       "purchase_date": "2026-07-03",
       "status": "completed",
@@ -2684,10 +2684,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-02_30",
+      "id": "c53cccdb-c3ed-4828-a5a5-eaec963b0ac9",
       "local_id": "pur_acc_lucia_chk_2026-07-02_30",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 4.1,
       "purchase_date": "2026-07-02",
       "status": "completed",
@@ -2705,10 +2705,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-01_29",
+      "id": "2a40c889-88aa-4a49-9f15-354b34d1370a",
       "local_id": "pur_acc_lucia_chk_2026-07-01_29",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 4.48,
       "purchase_date": "2026-07-01",
       "status": "completed",
@@ -2726,10 +2726,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-07-01_28",
+      "id": "eb1958b6-c142-4820-9856-7334890844bb",
       "local_id": "pur_acc_lucia_chk_2026-07-01_28",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 11.63,
       "purchase_date": "2026-07-01",
       "status": "completed",
@@ -2747,10 +2747,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-30_26",
+      "id": "2b9617c7-89b4-423a-a8f8-51fe22313205",
       "local_id": "pur_acc_lucia_chk_2026-06-30_26",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 2.81,
       "purchase_date": "2026-06-30",
       "status": "completed",
@@ -2768,10 +2768,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-30_25",
+      "id": "78e3472d-6b94-4404-b439-1a7db420fe32",
       "local_id": "pur_acc_lucia_chk_2026-06-30_25",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 21.81,
       "purchase_date": "2026-06-30",
       "status": "completed",
@@ -2789,10 +2789,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-30_27",
+      "id": "1bc1394c-0efe-4fb8-8876-d75858936dc4",
       "local_id": "pur_acc_lucia_chk_2026-06-30_27",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 12.62,
       "purchase_date": "2026-06-30",
       "status": "completed",
@@ -2810,10 +2810,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-29_23",
+      "id": "1f29f5d3-5a50-48c8-97bd-176031de3ad4",
       "local_id": "pur_acc_lucia_chk_2026-06-29_23",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 9.45,
       "purchase_date": "2026-06-29",
       "status": "completed",
@@ -2831,10 +2831,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-29_24",
+      "id": "7c9a7bc6-c91e-436a-b2ea-dc84ab25b327",
       "local_id": "pur_acc_lucia_chk_2026-06-29_24",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 22.46,
       "purchase_date": "2026-06-29",
       "status": "completed",
@@ -2852,10 +2852,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-29_22",
+      "id": "91c86c59-1c09-4238-9794-07b30310d7e1",
       "local_id": "pur_acc_lucia_chk_2026-06-29_22",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 3.84,
       "purchase_date": "2026-06-29",
       "status": "completed",
@@ -2873,10 +2873,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-27_19",
+      "id": "2122b424-b8bb-4f84-9bf3-eadef246eba3",
       "local_id": "pur_acc_lucia_chk_2026-06-27_19",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_uber",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 5.67,
       "purchase_date": "2026-06-27",
       "status": "completed",
@@ -2894,10 +2894,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-27_20",
+      "id": "b5a40915-99a9-474f-a421-c1a4bfc5ccc9",
       "local_id": "pur_acc_lucia_chk_2026-06-27_20",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 10.52,
       "purchase_date": "2026-06-27",
       "status": "completed",
@@ -2915,10 +2915,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-27_21",
+      "id": "aa2b57e5-59c7-493c-8efc-bc66bcafb801",
       "local_id": "pur_acc_lucia_chk_2026-06-27_21",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 4.21,
       "purchase_date": "2026-06-27",
       "status": "completed",
@@ -2936,10 +2936,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-26_18",
+      "id": "226bda3b-715f-431d-840e-3341421c986b",
       "local_id": "pur_acc_lucia_chk_2026-06-26_18",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 9.49,
       "purchase_date": "2026-06-26",
       "status": "completed",
@@ -2957,10 +2957,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-25_17",
+      "id": "0445207f-9f8e-499a-857a-b8d711a5275d",
       "local_id": "pur_acc_lucia_chk_2026-06-25_17",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 9.03,
       "purchase_date": "2026-06-25",
       "status": "completed",
@@ -2978,10 +2978,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-24_16",
+      "id": "7ec9b18e-81eb-4310-9c76-880b85b00924",
       "local_id": "pur_acc_lucia_chk_2026-06-24_16",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_uber",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 2.87,
       "purchase_date": "2026-06-24",
       "status": "completed",
@@ -2999,10 +2999,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-23_15",
+      "id": "879aaa93-2dba-4b26-b36a-337bd21d9cd8",
       "local_id": "pur_acc_lucia_chk_2026-06-23_15",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 25.53,
       "purchase_date": "2026-06-23",
       "status": "completed",
@@ -3020,10 +3020,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-22_14",
+      "id": "50a3286a-7e9a-4ee6-aa81-dab44066ad1a",
       "local_id": "pur_acc_lucia_chk_2026-06-22_14",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 14.4,
       "purchase_date": "2026-06-22",
       "status": "completed",
@@ -3041,10 +3041,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-21_13",
+      "id": "6674b43b-762a-4519-a77b-e9aca56504c2",
       "local_id": "pur_acc_lucia_chk_2026-06-21_13",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 6.15,
       "purchase_date": "2026-06-21",
       "status": "completed",
@@ -3062,10 +3062,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-20_12",
+      "id": "44c57dca-7631-43b5-8998-582822cb0195",
       "local_id": "pur_acc_lucia_chk_2026-06-20_12",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 36.33,
       "purchase_date": "2026-06-20",
       "status": "completed",
@@ -3083,10 +3083,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-19_10",
+      "id": "71463a85-0153-416a-8976-0e256ccc9ae9",
       "local_id": "pur_acc_lucia_chk_2026-06-19_10",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 26.11,
       "purchase_date": "2026-06-19",
       "status": "completed",
@@ -3104,10 +3104,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-19_11",
+      "id": "cbb08ad0-63f0-44f9-83e5-b71bf38d160b",
       "local_id": "pur_acc_lucia_chk_2026-06-19_11",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 17.6,
       "purchase_date": "2026-06-19",
       "status": "completed",
@@ -3125,10 +3125,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-18_9",
+      "id": "b9ec08b6-eb73-4b7b-8bfb-e000315130af",
       "local_id": "pur_acc_lucia_chk_2026-06-18_9",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 13.97,
       "purchase_date": "2026-06-18",
       "status": "completed",
@@ -3146,10 +3146,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-17_8",
+      "id": "e6358451-39df-450f-969b-abed49a20d0a",
       "local_id": "pur_acc_lucia_chk_2026-06-17_8",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 6.34,
       "purchase_date": "2026-06-17",
       "status": "completed",
@@ -3167,10 +3167,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-17_7",
+      "id": "8536e095-7bb9-4c64-84c4-cf43a6eda874",
       "local_id": "pur_acc_lucia_chk_2026-06-17_7",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 23.49,
       "purchase_date": "2026-06-17",
       "status": "completed",
@@ -3188,10 +3188,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-16_6",
+      "id": "9844f69d-b107-45f4-9e76-ddf1a596b7ae",
       "local_id": "pur_acc_lucia_chk_2026-06-16_6",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 8.04,
       "purchase_date": "2026-06-16",
       "status": "completed",
@@ -3209,10 +3209,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-16_5",
+      "id": "ad56ce93-ff6a-4935-b761-acbcf14d0de4",
       "local_id": "pur_acc_lucia_chk_2026-06-16_5",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 13.19,
       "purchase_date": "2026-06-16",
       "status": "completed",
@@ -3230,10 +3230,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-15_4",
+      "id": "88093a73-8bf2-4ebb-80fd-b1c6a3bdcf5e",
       "local_id": "pur_acc_lucia_chk_2026-06-15_4",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 8.42,
       "purchase_date": "2026-06-15",
       "status": "completed",
@@ -3251,10 +3251,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-14_3",
+      "id": "d96ef8f1-45fb-47ff-96fb-5b780f0afd56",
       "local_id": "pur_acc_lucia_chk_2026-06-14_3",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 15.95,
       "purchase_date": "2026-06-14",
       "status": "completed",
@@ -3272,10 +3272,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-13_1",
+      "id": "3bea15fd-b8ad-443f-a7a1-82effdc2e6df",
       "local_id": "pur_acc_lucia_chk_2026-06-13_1",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 34.23,
       "purchase_date": "2026-06-13",
       "status": "completed",
@@ -3293,10 +3293,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-13_2",
+      "id": "3132e0c9-1391-47d8-85c0-b45cfd5ac7ff",
       "local_id": "pur_acc_lucia_chk_2026-06-13_2",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 25.43,
       "purchase_date": "2026-06-13",
       "status": "completed",
@@ -3314,10 +3314,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_lucia_chk_2026-06-12_0",
+      "id": "d9df7d50-6344-4c28-b082-cedcf7fcd51b",
       "local_id": "pur_acc_lucia_chk_2026-06-12_0",
-      "account_id": "acc_lucia_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "43025009-36c7-42f7-8cab-f16e49470998",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 1.81,
       "purchase_date": "2026-06-12",
       "status": "completed",
@@ -3378,7 +3378,7 @@
     "retail": 12.72
   },
   "credit": {
-    "account_id": "acc_lucia_cc",
+    "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
     "balance": 64.2,
     "limit": 800.0,
     "utilization": 0.0803,
@@ -3386,10 +3386,10 @@
     "statement_day": 12,
     "purchases": [
       {
-        "id": "pur_acc_lucia_cc_2026-09-12_22",
+        "id": "9963ee1d-ca3f-4337-8347-d1b68e4ee18f",
         "local_id": "pur_acc_lucia_cc_2026-09-12_22",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_target",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 17.7,
         "purchase_date": "2026-09-12",
         "status": "completed",
@@ -3407,10 +3407,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_lucia_cc_2026-09-11_21",
+        "id": "e72c71cb-dfa2-4f65-8b8c-335633e93194",
         "local_id": "pur_acc_lucia_cc_2026-09-11_21",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 15.48,
         "purchase_date": "2026-09-11",
         "status": "completed",
@@ -3428,10 +3428,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-09-10_20",
+        "id": "3ce1e9ef-9f50-432d-a20e-30bf4020d7d6",
         "local_id": "pur_acc_lucia_cc_2026-09-10_20",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_target",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 5.33,
         "purchase_date": "2026-09-10",
         "status": "completed",
@@ -3449,10 +3449,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_lucia_cc_2026-09-09_19",
+        "id": "d6c491f3-8cea-44c1-ab57-a61e7219b605",
         "local_id": "pur_acc_lucia_cc_2026-09-09_19",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_target",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 29.52,
         "purchase_date": "2026-09-09",
         "status": "completed",
@@ -3470,10 +3470,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_lucia_cc_2026-09-08_18",
+        "id": "1fd8f84d-70eb-4bf9-88c2-b0cf3ca1ad36",
         "local_id": "pur_acc_lucia_cc_2026-09-08_18",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 28.44,
         "purchase_date": "2026-09-08",
         "status": "completed",
@@ -3491,10 +3491,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-09-04_17",
+        "id": "195139e0-6f06-48a5-b7bb-ed2496030f11",
         "local_id": "pur_acc_lucia_cc_2026-09-04_17",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_target",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 8.85,
         "purchase_date": "2026-09-04",
         "status": "completed",
@@ -3512,10 +3512,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_lucia_cc_2026-08-29_16",
+        "id": "544b35c3-867a-451e-afdd-78359e29844a",
         "local_id": "pur_acc_lucia_cc_2026-08-29_16",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 5.62,
         "purchase_date": "2026-08-29",
         "status": "completed",
@@ -3533,10 +3533,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-08-19_15",
+        "id": "babaf212-b64f-4ba7-b01e-8b06b3e4e643",
         "local_id": "pur_acc_lucia_cc_2026-08-19_15",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 16.52,
         "purchase_date": "2026-08-19",
         "status": "completed",
@@ -3554,10 +3554,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-08-18_14",
+        "id": "da1ff957-1349-4869-9f36-d0639d5741f8",
         "local_id": "pur_acc_lucia_cc_2026-08-18_14",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 9.37,
         "purchase_date": "2026-08-18",
         "status": "completed",
@@ -3575,10 +3575,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-08-14_13",
+        "id": "6f7c1ffe-7549-43d3-b969-f7df67312a6d",
         "local_id": "pur_acc_lucia_cc_2026-08-14_13",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_target",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 17.53,
         "purchase_date": "2026-08-14",
         "status": "completed",
@@ -3596,10 +3596,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_lucia_cc_2026-08-12_12",
+        "id": "a112e654-1935-4ad9-bd9d-8102bbfeff86",
         "local_id": "pur_acc_lucia_cc_2026-08-12_12",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 27.24,
         "purchase_date": "2026-08-12",
         "status": "completed",
@@ -3617,10 +3617,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-08-08_11",
+        "id": "4d17b4d6-c330-4cd0-aa16-a64aa4b05429",
         "local_id": "pur_acc_lucia_cc_2026-08-08_11",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 19.9,
         "purchase_date": "2026-08-08",
         "status": "completed",
@@ -3638,10 +3638,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-08-07_10",
+        "id": "a406ff7b-c0ce-4498-a121-edcafaed9a1f",
         "local_id": "pur_acc_lucia_cc_2026-08-07_10",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 32.16,
         "purchase_date": "2026-08-07",
         "status": "completed",
@@ -3659,10 +3659,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-07-24_9",
+        "id": "1f5fa9c3-1895-4193-adea-73c350ab54de",
         "local_id": "pur_acc_lucia_cc_2026-07-24_9",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 7.64,
         "purchase_date": "2026-07-24",
         "status": "completed",
@@ -3680,10 +3680,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-07-21_8",
+        "id": "cfcbff94-8c1d-4824-90f3-d79e0e94db81",
         "local_id": "pur_acc_lucia_cc_2026-07-21_8",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 18.74,
         "purchase_date": "2026-07-21",
         "status": "completed",
@@ -3701,10 +3701,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-07-19_7",
+        "id": "ef662d94-b795-4cd2-bf59-b3b9319b54fb",
         "local_id": "pur_acc_lucia_cc_2026-07-19_7",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 5.09,
         "purchase_date": "2026-07-19",
         "status": "completed",
@@ -3722,10 +3722,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-07-13_6",
+        "id": "649c6230-3857-4c36-9f28-c19fe0fe9b24",
         "local_id": "pur_acc_lucia_cc_2026-07-13_6",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 16.95,
         "purchase_date": "2026-07-13",
         "status": "completed",
@@ -3743,10 +3743,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-07-11_5",
+        "id": "528db2b6-4754-4d70-bbf9-1021fd83bf56",
         "local_id": "pur_acc_lucia_cc_2026-07-11_5",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 18.51,
         "purchase_date": "2026-07-11",
         "status": "completed",
@@ -3764,10 +3764,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-07-09_4",
+        "id": "83c79b6e-dbb8-4dea-8a51-3447fdb1a7a9",
         "local_id": "pur_acc_lucia_cc_2026-07-09_4",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_target",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 4.55,
         "purchase_date": "2026-07-09",
         "status": "completed",
@@ -3785,10 +3785,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_lucia_cc_2026-07-05_3",
+        "id": "44c1736f-646f-44d3-b9d8-0614ac10406c",
         "local_id": "pur_acc_lucia_cc_2026-07-05_3",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_target",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 28.18,
         "purchase_date": "2026-07-05",
         "status": "completed",
@@ -3806,10 +3806,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_lucia_cc_2026-07-03_2",
+        "id": "38ca1226-c8a7-41b7-b5c3-3284193953aa",
         "local_id": "pur_acc_lucia_cc_2026-07-03_2",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 9.89,
         "purchase_date": "2026-07-03",
         "status": "completed",
@@ -3827,10 +3827,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-07-01_1",
+        "id": "a9ee7d88-3074-4736-9b0b-e819cc108494",
         "local_id": "pur_acc_lucia_cc_2026-07-01_1",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 15.92,
         "purchase_date": "2026-07-01",
         "status": "completed",
@@ -3848,10 +3848,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_lucia_cc_2026-06-13_0",
+        "id": "2ecab423-9899-47f1-bd0e-eebe7a960786",
         "local_id": "pur_acc_lucia_cc_2026-06-13_0",
-        "account_id": "acc_lucia_cc",
-        "merchant_id": "m_target",
+        "account_id": "fca9ce4a-9506-4093-b3d0-097786374b24",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 25.07,
         "purchase_date": "2026-06-13",
         "status": "completed",

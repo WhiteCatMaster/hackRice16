@@ -1,6 +1,6 @@
 {
   "customer": {
-    "id": "cust_ana",
+    "id": "613a90e1-0964-43bf-9caa-3699e03d78d5",
     "local_id": "cust_ana",
     "first_name": "Ana",
     "last_name": "Etxeberria",
@@ -18,9 +18,9 @@
   },
   "accounts": [
     {
-      "id": "acc_ana_chk",
+      "id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "local_id": "acc_ana_chk",
-      "customer_id": "cust_ana",
+      "customer_id": "613a90e1-0964-43bf-9caa-3699e03d78d5",
       "type": "Checking",
       "nickname": "Ana Checking",
       "rewards": 0.0,
@@ -32,9 +32,9 @@
       "frozen_reason": null
     },
     {
-      "id": "acc_ana_cc",
+      "id": "9fb97795-6517-4124-b103-8b11143a5a8e",
       "local_id": "acc_ana_cc",
-      "customer_id": "cust_ana",
+      "customer_id": "613a90e1-0964-43bf-9caa-3699e03d78d5",
       "type": "Credit Card",
       "nickname": "Ana Student Card",
       "rewards": 0.0,
@@ -46,9 +46,9 @@
       "frozen_reason": null
     },
     {
-      "id": "acc_ana_sav",
+      "id": "f4ec9bb2-20dc-4657-a6d2-04ea1dcc2a42",
       "local_id": "acc_ana_sav",
-      "customer_id": "cust_ana",
+      "customer_id": "613a90e1-0964-43bf-9caa-3699e03d78d5",
       "type": "Savings",
       "nickname": "Ana Savings",
       "rewards": 0.0,
@@ -65,12 +65,12 @@
   "home_currency": "EUR",
   "fx_rate": 0.92,
   "language": "es",
-  "checking_account_id": "acc_ana_chk",
+  "checking_account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
   "bills": [
     {
-      "id": "b_ana_gym",
+      "id": "991055a5-bc3d-4759-a71c-d6bf9a47476d",
       "local_id": "b_ana_gym",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "status": "recurring",
       "payee": "Planet Fitness",
       "nickname": "Gym",
@@ -87,9 +87,9 @@
       "trial_amount_after": null
     },
     {
-      "id": "b_ana_stream",
+      "id": "2a85815f-e992-4f20-8951-2ac5405e8fff",
       "local_id": "b_ana_stream",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "status": "recurring",
       "payee": "Spotify",
       "nickname": "Streaming",
@@ -106,9 +106,9 @@
       "trial_amount_after": 15.99
     },
     {
-      "id": "b_ana_card",
+      "id": "18a9def9-fcd2-469a-9312-162a7255527a",
       "local_id": "b_ana_card",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "status": "recurring",
       "payee": "Treasurer Bank Student Card",
       "nickname": "Credit card payment",
@@ -125,9 +125,9 @@
       "trial_amount_after": null
     },
     {
-      "id": "b_ana_rent",
+      "id": "7b1ec253-8659-4eb0-bb29-5c2834240de1",
       "local_id": "b_ana_rent",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "status": "recurring",
       "payee": "Midtown Flats Leasing",
       "nickname": "Rent",
@@ -144,9 +144,9 @@
       "trial_amount_after": null
     },
     {
-      "id": "b_ana_phone",
+      "id": "bae66474-fbf9-477e-bfd1-204b0149d451",
       "local_id": "b_ana_phone",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "status": "recurring",
       "payee": "Mint Mobile",
       "nickname": "Phone",
@@ -163,9 +163,9 @@
       "trial_amount_after": null
     },
     {
-      "id": "b_ana_health",
+      "id": "0a277d28-1ecc-477a-8c41-f261ba63b3f4",
       "local_id": "b_ana_health",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "status": "recurring",
       "payee": "Creighton Student Health Plan",
       "nickname": "Health insurance",
@@ -184,9 +184,9 @@
   ],
   "deposits": [
     {
-      "id": "d_ana_arrival",
+      "id": "9b351891-0e04-4ff2-aa72-0307cd7ac95e",
       "local_id": "d_ana_arrival",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "deposit",
       "transaction_date": "2026-06-14",
       "status": "completed",
@@ -198,9 +198,9 @@
       "is_recurring": 0
     },
     {
-      "id": "dep_d_ana_topup_2026-08-08",
+      "id": "233aef6c-c902-4f1c-af2e-1c64dc279d36",
       "local_id": "dep_d_ana_topup_2026-08-08",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "deposit",
       "transaction_date": "2026-08-08",
       "status": "completed",
@@ -214,9 +214,9 @@
   ],
   "withdrawals": [
     {
-      "id": "wd_b_ana_gym_2026-06-15",
+      "id": "8167c017-49a6-48a0-b08c-db261981c07d",
       "local_id": "wd_b_ana_gym_2026-06-15",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-06-15",
       "status": "completed",
@@ -227,9 +227,9 @@
       "category": "fitness"
     },
     {
-      "id": "wd_b_ana_card_2026-06-22",
+      "id": "127819fe-9da2-413f-a5d5-fffb0458d11c",
       "local_id": "wd_b_ana_card_2026-06-22",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-06-22",
       "status": "completed",
@@ -240,9 +240,9 @@
       "category": "credit_card"
     },
     {
-      "id": "wd_b_ana_rent_2026-07-01",
+      "id": "17039315-76eb-4a54-b0ae-fc1eb6c2167b",
       "local_id": "wd_b_ana_rent_2026-07-01",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-07-01",
       "status": "completed",
@@ -253,9 +253,9 @@
       "category": "housing"
     },
     {
-      "id": "wd_b_ana_phone_2026-07-05",
+      "id": "7442e7f3-708c-4774-af21-0560e3ad0c8a",
       "local_id": "wd_b_ana_phone_2026-07-05",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-07-05",
       "status": "completed",
@@ -266,9 +266,9 @@
       "category": "phone"
     },
     {
-      "id": "wd_b_ana_health_2026-07-10",
+      "id": "ca9f1fc1-e85e-4a51-8e11-4fc17f317cd7",
       "local_id": "wd_b_ana_health_2026-07-10",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-07-10",
       "status": "completed",
@@ -279,9 +279,9 @@
       "category": "insurance"
     },
     {
-      "id": "wd_b_ana_gym_2026-07-15",
+      "id": "551ba90f-4296-481b-a10b-8ba90f79b15a",
       "local_id": "wd_b_ana_gym_2026-07-15",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-07-15",
       "status": "completed",
@@ -292,9 +292,9 @@
       "category": "fitness"
     },
     {
-      "id": "wd_b_ana_card_2026-07-22",
+      "id": "5992380c-f042-49bd-8d5c-ed9ef2e97690",
       "local_id": "wd_b_ana_card_2026-07-22",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-07-22",
       "status": "completed",
@@ -305,9 +305,9 @@
       "category": "credit_card"
     },
     {
-      "id": "wd_b_ana_rent_2026-08-01",
+      "id": "f046cdef-a2c6-4af8-9122-8cbedf6a7b19",
       "local_id": "wd_b_ana_rent_2026-08-01",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-08-01",
       "status": "completed",
@@ -318,9 +318,9 @@
       "category": "housing"
     },
     {
-      "id": "wd_b_ana_phone_2026-08-05",
+      "id": "1139f064-946c-48e6-b08e-09bea38509ba",
       "local_id": "wd_b_ana_phone_2026-08-05",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-08-05",
       "status": "completed",
@@ -331,9 +331,9 @@
       "category": "phone"
     },
     {
-      "id": "wd_b_ana_health_2026-08-10",
+      "id": "67a09e0d-31a1-4253-a5e0-3cb4c543db55",
       "local_id": "wd_b_ana_health_2026-08-10",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-08-10",
       "status": "completed",
@@ -344,9 +344,9 @@
       "category": "insurance"
     },
     {
-      "id": "wd_b_ana_gym_2026-08-15",
+      "id": "c65e2e13-e1f8-4a50-8853-17ba9a4a4c02",
       "local_id": "wd_b_ana_gym_2026-08-15",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-08-15",
       "status": "completed",
@@ -357,9 +357,9 @@
       "category": "fitness"
     },
     {
-      "id": "wd_b_ana_card_2026-08-22",
+      "id": "25df63ef-7e71-47ec-a394-70e5e3c8285a",
       "local_id": "wd_b_ana_card_2026-08-22",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-08-22",
       "status": "completed",
@@ -370,9 +370,9 @@
       "category": "credit_card"
     },
     {
-      "id": "wd_b_ana_rent_2026-09-01",
+      "id": "6c065b5a-d99d-4831-bc20-d4d6c54e0b47",
       "local_id": "wd_b_ana_rent_2026-09-01",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-09-01",
       "status": "completed",
@@ -383,9 +383,9 @@
       "category": "housing"
     },
     {
-      "id": "wd_b_ana_phone_2026-09-05",
+      "id": "bef6cc7a-ba44-43ef-8e46-f5cb1656b6e1",
       "local_id": "wd_b_ana_phone_2026-09-05",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-09-05",
       "status": "completed",
@@ -396,9 +396,9 @@
       "category": "phone"
     },
     {
-      "id": "wd_b_ana_health_2026-09-10",
+      "id": "a9402dbe-c8e5-46ef-9ef1-d9fc84afb801",
       "local_id": "wd_b_ana_health_2026-09-10",
-      "account_id": "acc_ana_chk",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "withdrawal",
       "transaction_date": "2026-09-10",
       "status": "completed",
@@ -411,10 +411,10 @@
   ],
   "transfers": [
     {
-      "id": "tr_p_marta_2026-08-29",
+      "id": "180885f0-51a1-4a51-bcdd-3c93d551e0bb",
       "local_id": "tr_p_marta_2026-08-29",
-      "payer_id": "acc_ana_chk",
-      "payee_id": "acc_p_marta",
+      "payer_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "payee_id": "892eb50b-e600-4cfd-8c81-8689673570dc",
       "amount": 60.0,
       "transaction_date": "2026-08-29",
       "status": "completed",
@@ -426,10 +426,10 @@
       "scenario": null
     },
     {
-      "id": "tr_p_marta_2026-07-30",
+      "id": "a1132cdc-69e2-4c3d-b25e-d7c622b37f61",
       "local_id": "tr_p_marta_2026-07-30",
-      "payer_id": "acc_ana_chk",
-      "payee_id": "acc_p_marta",
+      "payer_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "payee_id": "892eb50b-e600-4cfd-8c81-8689673570dc",
       "amount": 60.0,
       "transaction_date": "2026-07-30",
       "status": "completed",
@@ -441,10 +441,10 @@
       "scenario": null
     },
     {
-      "id": "tr_ana_savings_2026-07-14",
+      "id": "d13cdb15-0e9d-46de-a33f-4d7fa73109de",
       "local_id": "tr_ana_savings_2026-07-14",
-      "payer_id": "acc_ana_chk",
-      "payee_id": "acc_ana_sav",
+      "payer_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "payee_id": "f4ec9bb2-20dc-4657-a6d2-04ea1dcc2a42",
       "amount": 200.0,
       "transaction_date": "2026-07-14",
       "status": "completed",
@@ -456,10 +456,10 @@
       "scenario": null
     },
     {
-      "id": "tr_p_marta_2026-06-30",
+      "id": "cf85f0bb-e2f3-468a-870f-f273d1dc90da",
       "local_id": "tr_p_marta_2026-06-30",
-      "payer_id": "acc_ana_chk",
-      "payee_id": "acc_p_marta",
+      "payer_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "payee_id": "892eb50b-e600-4cfd-8c81-8689673570dc",
       "amount": 60.0,
       "transaction_date": "2026-06-30",
       "status": "completed",
@@ -473,10 +473,10 @@
   ],
   "purchases": [
     {
-      "id": "pur_acc_ana_chk_2026-09-12_146",
+      "id": "a53232be-f5fe-49c6-a7c3-201254fbed03",
       "local_id": "pur_acc_ana_chk_2026-09-12_146",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 29.73,
       "purchase_date": "2026-09-12",
       "status": "completed",
@@ -494,10 +494,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-11_143",
+      "id": "03ff8bc0-9ca5-4be3-9aba-0804de89c579",
       "local_id": "pur_acc_ana_chk_2026-09-11_143",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 1.86,
       "purchase_date": "2026-09-11",
       "status": "completed",
@@ -515,10 +515,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-11_145",
+      "id": "13fe4f56-e499-4e89-be8d-836712a151f4",
       "local_id": "pur_acc_ana_chk_2026-09-11_145",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 13.53,
       "purchase_date": "2026-09-11",
       "status": "completed",
@@ -536,10 +536,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-11_144",
+      "id": "0099df44-0264-4767-9127-bfc6eefde3be",
       "local_id": "pur_acc_ana_chk_2026-09-11_144",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 19.52,
       "purchase_date": "2026-09-11",
       "status": "completed",
@@ -557,10 +557,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-10_142",
+      "id": "27be1bba-6bf5-47f4-9eb3-601cbaec9e1b",
       "local_id": "pur_acc_ana_chk_2026-09-10_142",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 2.33,
       "purchase_date": "2026-09-10",
       "status": "completed",
@@ -578,10 +578,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-10_141",
+      "id": "fa88e8af-b801-45d6-b134-6a3e2dc7ff22",
       "local_id": "pur_acc_ana_chk_2026-09-10_141",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_uber",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 4.14,
       "purchase_date": "2026-09-10",
       "status": "completed",
@@ -599,10 +599,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-10_140",
+      "id": "d2942eb4-9c5e-44b5-9c37-5699e0edd344",
       "local_id": "pur_acc_ana_chk_2026-09-10_140",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_metro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 2.3,
       "purchase_date": "2026-09-10",
       "status": "completed",
@@ -620,10 +620,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-09_137",
+      "id": "eb1998f0-d79e-4529-ad08-a65c8e72ecbd",
       "local_id": "pur_acc_ana_chk_2026-09-09_137",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 7.15,
       "purchase_date": "2026-09-09",
       "status": "completed",
@@ -641,10 +641,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-09_138",
+      "id": "2a72ba9a-c108-4bab-8af9-87a736ba82d7",
       "local_id": "pur_acc_ana_chk_2026-09-09_138",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 1.76,
       "purchase_date": "2026-09-09",
       "status": "completed",
@@ -662,10 +662,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-09_139",
+      "id": "95231825-5f24-4a12-aa53-75c7051c2501",
       "local_id": "pur_acc_ana_chk_2026-09-09_139",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_runza",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 7.91,
       "purchase_date": "2026-09-09",
       "status": "completed",
@@ -683,10 +683,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-08_136",
+      "id": "15cd95cf-166c-4987-9c6e-549bb28fb0f2",
       "local_id": "pur_acc_ana_chk_2026-09-08_136",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 1.98,
       "purchase_date": "2026-09-08",
       "status": "completed",
@@ -704,10 +704,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-07_135",
+      "id": "bbeeac39-a1bc-4287-ad7b-9190333c5c72",
       "local_id": "pur_acc_ana_chk_2026-09-07_135",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_runza",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 6.98,
       "purchase_date": "2026-09-07",
       "status": "completed",
@@ -725,10 +725,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-06_133",
+      "id": "46a7eef4-97a0-4cf3-9625-763680274cd7",
       "local_id": "pur_acc_ana_chk_2026-09-06_133",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 8.43,
       "purchase_date": "2026-09-06",
       "status": "completed",
@@ -746,10 +746,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-06_134",
+      "id": "226af0d4-41e1-466a-a72a-ab0e286fb8e4",
       "local_id": "pur_acc_ana_chk_2026-09-06_134",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 27.15,
       "purchase_date": "2026-09-06",
       "status": "completed",
@@ -767,10 +767,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-05_132",
+      "id": "9f780478-8df0-43a6-8cdf-dd91351a60fe",
       "local_id": "pur_acc_ana_chk_2026-09-05_132",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 18.37,
       "purchase_date": "2026-09-05",
       "status": "completed",
@@ -788,10 +788,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-04_130",
+      "id": "44b9ec02-7074-4e64-b6d1-b505d0a5f561",
       "local_id": "pur_acc_ana_chk_2026-09-04_130",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 2.11,
       "purchase_date": "2026-09-04",
       "status": "completed",
@@ -809,10 +809,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-04_131",
+      "id": "1475952b-b104-4d87-acee-c57228641cdc",
       "local_id": "pur_acc_ana_chk_2026-09-04_131",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 11.58,
       "purchase_date": "2026-09-04",
       "status": "completed",
@@ -830,10 +830,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-03_129",
+      "id": "6856bb0f-4a8e-4379-98d6-61163864086f",
       "local_id": "pur_acc_ana_chk_2026-09-03_129",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 2.03,
       "purchase_date": "2026-09-03",
       "status": "completed",
@@ -851,10 +851,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-03_128",
+      "id": "c29da8e9-e6a0-4558-a8be-32e50d780f63",
       "local_id": "pur_acc_ana_chk_2026-09-03_128",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 6.52,
       "purchase_date": "2026-09-03",
       "status": "completed",
@@ -872,10 +872,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-01_126",
+      "id": "c8baef1e-f461-400c-9029-a8475dabc0d0",
       "local_id": "pur_acc_ana_chk_2026-09-01_126",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 1.67,
       "purchase_date": "2026-09-01",
       "status": "completed",
@@ -893,10 +893,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-09-01_127",
+      "id": "cc4cbf8f-ff54-4fcb-af43-79705c6d5487",
       "local_id": "pur_acc_ana_chk_2026-09-01_127",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 2.7,
       "purchase_date": "2026-09-01",
       "status": "completed",
@@ -914,10 +914,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-31_125",
+      "id": "2d3c76d8-7120-4729-acd9-0797da100e1f",
       "local_id": "pur_acc_ana_chk_2026-08-31_125",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 19.4,
       "purchase_date": "2026-08-31",
       "status": "completed",
@@ -935,10 +935,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-30_123",
+      "id": "51902669-e90a-43a8-924f-de209fe09006",
       "local_id": "pur_acc_ana_chk_2026-08-30_123",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 6.35,
       "purchase_date": "2026-08-30",
       "status": "completed",
@@ -956,10 +956,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-30_122",
+      "id": "ac918cdc-53d3-441e-b4b5-2b853fcc8729",
       "local_id": "pur_acc_ana_chk_2026-08-30_122",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_metro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 2.74,
       "purchase_date": "2026-08-30",
       "status": "completed",
@@ -977,10 +977,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-30_124",
+      "id": "5e46557f-1548-4f9e-9914-cff1456925fd",
       "local_id": "pur_acc_ana_chk_2026-08-30_124",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 16.78,
       "purchase_date": "2026-08-30",
       "status": "completed",
@@ -998,10 +998,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-28_121",
+      "id": "692c27bb-b0bc-45a1-ae3e-e041c2f14358",
       "local_id": "pur_acc_ana_chk_2026-08-28_121",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_target",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
       "amount": 12.93,
       "purchase_date": "2026-08-28",
       "status": "completed",
@@ -1019,10 +1019,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-28_120",
+      "id": "c77d4255-0211-4789-95e1-f32e7b94d4a1",
       "local_id": "pur_acc_ana_chk_2026-08-28_120",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 1.37,
       "purchase_date": "2026-08-28",
       "status": "completed",
@@ -1040,10 +1040,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-27_119",
+      "id": "8c6aac8b-16bf-4a20-bab5-b995392a674e",
       "local_id": "pur_acc_ana_chk_2026-08-27_119",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 6.37,
       "purchase_date": "2026-08-27",
       "status": "completed",
@@ -1061,10 +1061,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-26_118",
+      "id": "be7d5f1a-6c90-4845-abf2-e025cc0b0135",
       "local_id": "pur_acc_ana_chk_2026-08-26_118",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 5.52,
       "purchase_date": "2026-08-26",
       "status": "completed",
@@ -1082,10 +1082,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-26_117",
+      "id": "d422f56d-4450-49d5-9b32-a8077874b80c",
       "local_id": "pur_acc_ana_chk_2026-08-26_117",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 11.17,
       "purchase_date": "2026-08-26",
       "status": "completed",
@@ -1103,10 +1103,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-25_116",
+      "id": "424458b6-6ea8-427e-ba34-9d1f2c68e0e3",
       "local_id": "pur_acc_ana_chk_2026-08-25_116",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 5.05,
       "purchase_date": "2026-08-25",
       "status": "completed",
@@ -1124,10 +1124,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-24_115",
+      "id": "26e2cb36-91af-4a4d-a2a5-ffefe9dc157c",
       "local_id": "pur_acc_ana_chk_2026-08-24_115",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 1.49,
       "purchase_date": "2026-08-24",
       "status": "completed",
@@ -1145,10 +1145,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-24_114",
+      "id": "9a97d91d-d901-4715-b73f-e2c0c9b57098",
       "local_id": "pur_acc_ana_chk_2026-08-24_114",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 2.6,
       "purchase_date": "2026-08-24",
       "status": "completed",
@@ -1166,10 +1166,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-23_113",
+      "id": "f32379dc-69ca-4687-8e75-033ca3ef6b90",
       "local_id": "pur_acc_ana_chk_2026-08-23_113",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 12.39,
       "purchase_date": "2026-08-23",
       "status": "completed",
@@ -1187,10 +1187,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-22_112",
+      "id": "42375380-e088-4ddf-af6d-91f021962232",
       "local_id": "pur_acc_ana_chk_2026-08-22_112",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_uber",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 5.04,
       "purchase_date": "2026-08-22",
       "status": "completed",
@@ -1208,10 +1208,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-21_110",
+      "id": "7e4a8a35-340d-4988-a14d-dc1125cbeaf6",
       "local_id": "pur_acc_ana_chk_2026-08-21_110",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 11.03,
       "purchase_date": "2026-08-21",
       "status": "completed",
@@ -1229,10 +1229,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-21_111",
+      "id": "289bde6f-90ce-4604-92d4-06bee23a6fc3",
       "local_id": "pur_acc_ana_chk_2026-08-21_111",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_uber",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 2.9,
       "purchase_date": "2026-08-21",
       "status": "completed",
@@ -1250,10 +1250,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-20_108",
+      "id": "07b3206d-40b0-4f12-b39b-fbce75046627",
       "local_id": "pur_acc_ana_chk_2026-08-20_108",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 4.29,
       "purchase_date": "2026-08-20",
       "status": "completed",
@@ -1271,10 +1271,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-20_109",
+      "id": "66832632-3b40-4f83-b066-cec953f5dded",
       "local_id": "pur_acc_ana_chk_2026-08-20_109",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 4.59,
       "purchase_date": "2026-08-20",
       "status": "completed",
@@ -1292,10 +1292,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-19_107",
+      "id": "92220922-67e2-463d-b21e-6edd01e4354c",
       "local_id": "pur_acc_ana_chk_2026-08-19_107",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 5.23,
       "purchase_date": "2026-08-19",
       "status": "completed",
@@ -1313,10 +1313,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-18_105",
+      "id": "72bc9d17-869d-4aa1-b180-43e68144a5c6",
       "local_id": "pur_acc_ana_chk_2026-08-18_105",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_uber",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 4.0,
       "purchase_date": "2026-08-18",
       "status": "completed",
@@ -1334,10 +1334,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-18_106",
+      "id": "07e89ccc-e9d4-4e75-b74d-fb9b994623d6",
       "local_id": "pur_acc_ana_chk_2026-08-18_106",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_metro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 3.63,
       "purchase_date": "2026-08-18",
       "status": "completed",
@@ -1355,10 +1355,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-17_104",
+      "id": "6b77c90a-cf05-4d49-b73a-add2c5112b5a",
       "local_id": "pur_acc_ana_chk_2026-08-17_104",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 10.49,
       "purchase_date": "2026-08-17",
       "status": "completed",
@@ -1376,10 +1376,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-16_102",
+      "id": "b52f7fb3-d8db-4a52-9c85-45373e756dc2",
       "local_id": "pur_acc_ana_chk_2026-08-16_102",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 9.67,
       "purchase_date": "2026-08-16",
       "status": "completed",
@@ -1397,10 +1397,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-16_103",
+      "id": "2df5e56b-1d2d-49ca-b422-6a60228774ca",
       "local_id": "pur_acc_ana_chk_2026-08-16_103",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 2.47,
       "purchase_date": "2026-08-16",
       "status": "completed",
@@ -1418,10 +1418,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-15_101",
+      "id": "d4cf05a9-6736-4127-8987-3fcc4836ced9",
       "local_id": "pur_acc_ana_chk_2026-08-15_101",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 4.28,
       "purchase_date": "2026-08-15",
       "status": "completed",
@@ -1439,10 +1439,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-15_100",
+      "id": "1aa93ed9-8748-4503-9e8c-d56717d58b07",
       "local_id": "pur_acc_ana_chk_2026-08-15_100",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_runza",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 7.87,
       "purchase_date": "2026-08-15",
       "status": "completed",
@@ -1460,10 +1460,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-14_98",
+      "id": "718a279a-1070-4be3-9962-c8172dd2bfb8",
       "local_id": "pur_acc_ana_chk_2026-08-14_98",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_uber",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 4.28,
       "purchase_date": "2026-08-14",
       "status": "completed",
@@ -1481,10 +1481,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-14_97",
+      "id": "1caaf784-679a-4136-a83f-cbcecd720e68",
       "local_id": "pur_acc_ana_chk_2026-08-14_97",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_uber",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 2.57,
       "purchase_date": "2026-08-14",
       "status": "completed",
@@ -1502,10 +1502,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-14_99",
+      "id": "34aaa75f-13da-40e8-bbe4-22f2b372b1a7",
       "local_id": "pur_acc_ana_chk_2026-08-14_99",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 3.96,
       "purchase_date": "2026-08-14",
       "status": "completed",
@@ -1523,10 +1523,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-13_96",
+      "id": "db84a5a2-4cad-4d70-ae15-dbb8a7b4add0",
       "local_id": "pur_acc_ana_chk_2026-08-13_96",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 1.95,
       "purchase_date": "2026-08-13",
       "status": "completed",
@@ -1544,10 +1544,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-13_95",
+      "id": "4c89026c-5407-4878-8fc5-3c67d2339dc8",
       "local_id": "pur_acc_ana_chk_2026-08-13_95",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 15.64,
       "purchase_date": "2026-08-13",
       "status": "completed",
@@ -1565,10 +1565,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-12_94",
+      "id": "3a15a229-3b06-4e23-902b-4697983e2745",
       "local_id": "pur_acc_ana_chk_2026-08-12_94",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 4.55,
       "purchase_date": "2026-08-12",
       "status": "completed",
@@ -1586,10 +1586,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-11_93",
+      "id": "7705ccc9-5c5c-43ee-88eb-38c0deca281f",
       "local_id": "pur_acc_ana_chk_2026-08-11_93",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_runza",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 5.97,
       "purchase_date": "2026-08-11",
       "status": "completed",
@@ -1607,10 +1607,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-10_92",
+      "id": "07ca3304-f72a-4b53-8bfc-49cc33df5c68",
       "local_id": "pur_acc_ana_chk_2026-08-10_92",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 1.53,
       "purchase_date": "2026-08-10",
       "status": "completed",
@@ -1628,10 +1628,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-09_91",
+      "id": "c0f18ef5-1481-43a3-a10c-eafe3815ef94",
       "local_id": "pur_acc_ana_chk_2026-08-09_91",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 13.33,
       "purchase_date": "2026-08-09",
       "status": "completed",
@@ -1649,10 +1649,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-08_90",
+      "id": "df6fa792-8c46-4e9b-9bc5-0462b35bee30",
       "local_id": "pur_acc_ana_chk_2026-08-08_90",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 28.23,
       "purchase_date": "2026-08-08",
       "status": "completed",
@@ -1670,10 +1670,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-07_87",
+      "id": "9d067c8e-f8c4-4ca0-bf17-4ec4577447e1",
       "local_id": "pur_acc_ana_chk_2026-08-07_87",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 9.02,
       "purchase_date": "2026-08-07",
       "status": "completed",
@@ -1691,10 +1691,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-07_89",
+      "id": "47890b0c-9aa6-47dc-bcde-e64571dc0975",
       "local_id": "pur_acc_ana_chk_2026-08-07_89",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_metro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 2.49,
       "purchase_date": "2026-08-07",
       "status": "completed",
@@ -1712,10 +1712,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-07_88",
+      "id": "f37a88f9-a3ff-48b3-b8e2-d413077c04fd",
       "local_id": "pur_acc_ana_chk_2026-08-07_88",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 7.45,
       "purchase_date": "2026-08-07",
       "status": "completed",
@@ -1733,10 +1733,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-06_85",
+      "id": "d8daa7cd-10b0-4eda-adbf-d99bb9be31ee",
       "local_id": "pur_acc_ana_chk_2026-08-06_85",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 6.94,
       "purchase_date": "2026-08-06",
       "status": "completed",
@@ -1754,10 +1754,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-06_86",
+      "id": "a9441be2-40d2-47e9-8057-d2df7fe992c9",
       "local_id": "pur_acc_ana_chk_2026-08-06_86",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 1.62,
       "purchase_date": "2026-08-06",
       "status": "completed",
@@ -1775,10 +1775,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-05_84",
+      "id": "6d2ac252-42fa-41e9-a0a7-d2334a927345",
       "local_id": "pur_acc_ana_chk_2026-08-05_84",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 1.37,
       "purchase_date": "2026-08-05",
       "status": "completed",
@@ -1796,10 +1796,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-04_83",
+      "id": "91c5f92d-d2d8-4ada-9c42-f8acfd7fc720",
       "local_id": "pur_acc_ana_chk_2026-08-04_83",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 5.53,
       "purchase_date": "2026-08-04",
       "status": "completed",
@@ -1817,10 +1817,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-03_82",
+      "id": "b80f89d2-e17a-4ee3-bb89-729156b4952f",
       "local_id": "pur_acc_ana_chk_2026-08-03_82",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 8.08,
       "purchase_date": "2026-08-03",
       "status": "completed",
@@ -1838,10 +1838,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-02_81",
+      "id": "f9f19a8b-7176-4c94-85f7-9dd83d0519fc",
       "local_id": "pur_acc_ana_chk_2026-08-02_81",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_uber",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 5.05,
       "purchase_date": "2026-08-02",
       "status": "completed",
@@ -1859,10 +1859,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-02_80",
+      "id": "37c0a0d8-84f1-4b79-bd15-cdcc2c28fd5b",
       "local_id": "pur_acc_ana_chk_2026-08-02_80",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_runza",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 8.09,
       "purchase_date": "2026-08-02",
       "status": "completed",
@@ -1880,10 +1880,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-08-01_79",
+      "id": "b9dffd4c-68e2-4616-a2f3-8eff7fa315c1",
       "local_id": "pur_acc_ana_chk_2026-08-01_79",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 6.11,
       "purchase_date": "2026-08-01",
       "status": "completed",
@@ -1901,10 +1901,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-31_78",
+      "id": "dca2cf2d-9efe-4bf6-9958-8eb3953c66c3",
       "local_id": "pur_acc_ana_chk_2026-07-31_78",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 5.33,
       "purchase_date": "2026-07-31",
       "status": "completed",
@@ -1922,10 +1922,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-30_76",
+      "id": "c8f25845-8efb-46b8-a4b7-1c1e772dba59",
       "local_id": "pur_acc_ana_chk_2026-07-30_76",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 2.26,
       "purchase_date": "2026-07-30",
       "status": "completed",
@@ -1943,10 +1943,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-30_77",
+      "id": "19c8f0b5-28cf-4ef2-914f-af905abf7d80",
       "local_id": "pur_acc_ana_chk_2026-07-30_77",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 16.06,
       "purchase_date": "2026-07-30",
       "status": "completed",
@@ -1964,10 +1964,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-29_74",
+      "id": "2f428384-ed71-4fdb-9db2-0a945279ca65",
       "local_id": "pur_acc_ana_chk_2026-07-29_74",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 8.25,
       "purchase_date": "2026-07-29",
       "status": "completed",
@@ -1985,10 +1985,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-29_75",
+      "id": "d2e1a126-19ac-4365-b762-04f80caf7333",
       "local_id": "pur_acc_ana_chk_2026-07-29_75",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 9.12,
       "purchase_date": "2026-07-29",
       "status": "completed",
@@ -2006,10 +2006,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-28_73",
+      "id": "1c7ee9d8-f99f-4ea5-8ba3-f236d7cc4875",
       "local_id": "pur_acc_ana_chk_2026-07-28_73",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_metro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 2.93,
       "purchase_date": "2026-07-28",
       "status": "completed",
@@ -2027,10 +2027,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-27_72",
+      "id": "04442354-b9ca-4b8d-baa3-1325d4e1ae7e",
       "local_id": "pur_acc_ana_chk_2026-07-27_72",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 12.9,
       "purchase_date": "2026-07-27",
       "status": "completed",
@@ -2048,10 +2048,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-26_71",
+      "id": "9a7820f5-6cd9-4172-bcca-78827bb08f67",
       "local_id": "pur_acc_ana_chk_2026-07-26_71",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 2.63,
       "purchase_date": "2026-07-26",
       "status": "completed",
@@ -2069,10 +2069,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-26_70",
+      "id": "848e48e4-f300-401d-ab0d-ed3a476ae161",
       "local_id": "pur_acc_ana_chk_2026-07-26_70",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 6.02,
       "purchase_date": "2026-07-26",
       "status": "completed",
@@ -2090,10 +2090,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-25_69",
+      "id": "e76fbd6e-3e14-4078-b391-73f0db3442bf",
       "local_id": "pur_acc_ana_chk_2026-07-25_69",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 26.27,
       "purchase_date": "2026-07-25",
       "status": "completed",
@@ -2111,10 +2111,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-24_68",
+      "id": "2da27f97-a770-40a8-bb73-8ee07e72ac89",
       "local_id": "pur_acc_ana_chk_2026-07-24_68",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 10.36,
       "purchase_date": "2026-07-24",
       "status": "completed",
@@ -2132,10 +2132,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-23_67",
+      "id": "ea21c8af-74b2-4ec2-a816-c7ed4baa5649",
       "local_id": "pur_acc_ana_chk_2026-07-23_67",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 7.09,
       "purchase_date": "2026-07-23",
       "status": "completed",
@@ -2153,10 +2153,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-23_66",
+      "id": "2aef4d10-3bce-444d-939e-2e14448e2dc0",
       "local_id": "pur_acc_ana_chk_2026-07-23_66",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 4.24,
       "purchase_date": "2026-07-23",
       "status": "completed",
@@ -2174,10 +2174,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-22_65",
+      "id": "dcd8b2b8-4294-4208-aa4b-b0d68bdeea02",
       "local_id": "pur_acc_ana_chk_2026-07-22_65",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_target",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
       "amount": 9.88,
       "purchase_date": "2026-07-22",
       "status": "completed",
@@ -2195,10 +2195,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-22_64",
+      "id": "10062015-ad66-41f2-96e0-31bf6f178e1d",
       "local_id": "pur_acc_ana_chk_2026-07-22_64",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 16.38,
       "purchase_date": "2026-07-22",
       "status": "completed",
@@ -2216,10 +2216,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-22_63",
+      "id": "38158e0d-8395-4309-92be-eb0f7ee2e5c7",
       "local_id": "pur_acc_ana_chk_2026-07-22_63",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 9.83,
       "purchase_date": "2026-07-22",
       "status": "completed",
@@ -2237,10 +2237,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-21_62",
+      "id": "b8fbb8b7-a1be-4ee5-b394-8e8b4b47589f",
       "local_id": "pur_acc_ana_chk_2026-07-21_62",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 16.88,
       "purchase_date": "2026-07-21",
       "status": "completed",
@@ -2258,10 +2258,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-20_61",
+      "id": "e5e5525b-b47a-4afa-ae98-78da65b1f200",
       "local_id": "pur_acc_ana_chk_2026-07-20_61",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 4.15,
       "purchase_date": "2026-07-20",
       "status": "completed",
@@ -2279,10 +2279,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-20_60",
+      "id": "45f92afc-ad53-4584-bec1-2b4d39af9adc",
       "local_id": "pur_acc_ana_chk_2026-07-20_60",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 9.22,
       "purchase_date": "2026-07-20",
       "status": "completed",
@@ -2300,10 +2300,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-20_59",
+      "id": "57b7bdc8-c688-496d-aae6-d6660374567f",
       "local_id": "pur_acc_ana_chk_2026-07-20_59",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 4.29,
       "purchase_date": "2026-07-20",
       "status": "completed",
@@ -2321,10 +2321,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-19_57",
+      "id": "c98f1a4f-5e28-4066-a483-69bb26bfbb1d",
       "local_id": "pur_acc_ana_chk_2026-07-19_57",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 1.88,
       "purchase_date": "2026-07-19",
       "status": "completed",
@@ -2342,10 +2342,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-19_58",
+      "id": "8a723661-9d2b-4f34-95d6-8b32c7c3e7ba",
       "local_id": "pur_acc_ana_chk_2026-07-19_58",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 10.41,
       "purchase_date": "2026-07-19",
       "status": "completed",
@@ -2363,10 +2363,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-18_56",
+      "id": "fea0d7c4-b6d7-4ff6-b737-767c34801d6f",
       "local_id": "pur_acc_ana_chk_2026-07-18_56",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 22.76,
       "purchase_date": "2026-07-18",
       "status": "completed",
@@ -2384,10 +2384,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-17_55",
+      "id": "6275b6c3-e34d-4901-b394-6ce9a0e9ee80",
       "local_id": "pur_acc_ana_chk_2026-07-17_55",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 11.43,
       "purchase_date": "2026-07-17",
       "status": "completed",
@@ -2405,10 +2405,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-16_54",
+      "id": "d413ff91-cad8-40de-990e-c00252ee38cf",
       "local_id": "pur_acc_ana_chk_2026-07-16_54",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_target",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
       "amount": 16.6,
       "purchase_date": "2026-07-16",
       "status": "completed",
@@ -2426,10 +2426,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-15_53",
+      "id": "af533c64-20e2-4cfb-9de8-de1669bcb308",
       "local_id": "pur_acc_ana_chk_2026-07-15_53",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 2.39,
       "purchase_date": "2026-07-15",
       "status": "completed",
@@ -2447,10 +2447,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-14_50",
+      "id": "36182f96-f7d8-4277-b15a-be268d44e9c5",
       "local_id": "pur_acc_ana_chk_2026-07-14_50",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 5.51,
       "purchase_date": "2026-07-14",
       "status": "completed",
@@ -2468,10 +2468,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-14_51",
+      "id": "50b609ec-3865-4d77-8d63-c76882a54792",
       "local_id": "pur_acc_ana_chk_2026-07-14_51",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 14.83,
       "purchase_date": "2026-07-14",
       "status": "completed",
@@ -2489,10 +2489,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-14_52",
+      "id": "a34c854e-ffd7-4273-b280-97640b7e5077",
       "local_id": "pur_acc_ana_chk_2026-07-14_52",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 1.75,
       "purchase_date": "2026-07-14",
       "status": "completed",
@@ -2510,10 +2510,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-13_48",
+      "id": "6275f005-9aea-4471-876f-cae2a4cf85ef",
       "local_id": "pur_acc_ana_chk_2026-07-13_48",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 12.03,
       "purchase_date": "2026-07-13",
       "status": "completed",
@@ -2531,10 +2531,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-13_49",
+      "id": "86b94732-6e9f-4ea6-9bde-6f4bedf88414",
       "local_id": "pur_acc_ana_chk_2026-07-13_49",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 8.58,
       "purchase_date": "2026-07-13",
       "status": "completed",
@@ -2552,10 +2552,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-12_45",
+      "id": "1f3a6a64-f0be-473d-8007-5a1560f1a5b6",
       "local_id": "pur_acc_ana_chk_2026-07-12_45",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 28.96,
       "purchase_date": "2026-07-12",
       "status": "completed",
@@ -2573,10 +2573,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-12_46",
+      "id": "43d5f974-608a-4ff4-975b-a1a3768ef379",
       "local_id": "pur_acc_ana_chk_2026-07-12_46",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 8.09,
       "purchase_date": "2026-07-12",
       "status": "completed",
@@ -2594,10 +2594,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-12_47",
+      "id": "07cc9dfd-639f-4d08-b072-bdf5b7094404",
       "local_id": "pur_acc_ana_chk_2026-07-12_47",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 11.18,
       "purchase_date": "2026-07-12",
       "status": "completed",
@@ -2615,10 +2615,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-10_43",
+      "id": "d2a6d832-2a93-44dc-b4a9-a0d1352ab788",
       "local_id": "pur_acc_ana_chk_2026-07-10_43",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 15.91,
       "purchase_date": "2026-07-10",
       "status": "completed",
@@ -2636,10 +2636,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-10_42",
+      "id": "9a30bfcc-0228-42f7-bf81-e676f91726b1",
       "local_id": "pur_acc_ana_chk_2026-07-10_42",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 17.0,
       "purchase_date": "2026-07-10",
       "status": "completed",
@@ -2657,10 +2657,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-10_44",
+      "id": "e2c91e14-af1c-479b-a9f7-24d7a4fd225d",
       "local_id": "pur_acc_ana_chk_2026-07-10_44",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 4.88,
       "purchase_date": "2026-07-10",
       "status": "completed",
@@ -2678,10 +2678,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-09_41",
+      "id": "dc0b4489-45a5-431b-a59a-4926e5cb29ae",
       "local_id": "pur_acc_ana_chk_2026-07-09_41",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 2.24,
       "purchase_date": "2026-07-09",
       "status": "completed",
@@ -2699,10 +2699,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-09_40",
+      "id": "a9eed334-a666-49cf-8baa-aac1542d3c59",
       "local_id": "pur_acc_ana_chk_2026-07-09_40",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_uber",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 3.73,
       "purchase_date": "2026-07-09",
       "status": "completed",
@@ -2720,10 +2720,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-08_39",
+      "id": "5e1e1585-232e-4219-a935-f41176acb569",
       "local_id": "pur_acc_ana_chk_2026-07-08_39",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_walgreens",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "86ab6b63-7faa-495d-82bd-6f3af07c0f46",
       "amount": 4.27,
       "purchase_date": "2026-07-08",
       "status": "completed",
@@ -2741,10 +2741,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-07_38",
+      "id": "b74d6f5c-8f2d-43af-b042-7dfdf196bd94",
       "local_id": "pur_acc_ana_chk_2026-07-07_38",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 4.9,
       "purchase_date": "2026-07-07",
       "status": "completed",
@@ -2762,10 +2762,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-07_37",
+      "id": "adaef967-eac2-4d8d-ab9d-155f7f6bfe66",
       "local_id": "pur_acc_ana_chk_2026-07-07_37",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_metro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 0.77,
       "purchase_date": "2026-07-07",
       "status": "completed",
@@ -2783,10 +2783,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-06_36",
+      "id": "136969cd-efee-4c02-9217-aa407054b57d",
       "local_id": "pur_acc_ana_chk_2026-07-06_36",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 10.35,
       "purchase_date": "2026-07-06",
       "status": "completed",
@@ -2804,10 +2804,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-05_34",
+      "id": "73fc2a52-01c3-40b0-9636-1eb00538006f",
       "local_id": "pur_acc_ana_chk_2026-07-05_34",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_runza",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 11.2,
       "purchase_date": "2026-07-05",
       "status": "completed",
@@ -2825,10 +2825,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-05_33",
+      "id": "02cc358c-164f-4bc8-b8d3-c881f42e03c6",
       "local_id": "pur_acc_ana_chk_2026-07-05_33",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_runza",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 6.88,
       "purchase_date": "2026-07-05",
       "status": "completed",
@@ -2846,10 +2846,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-05_35",
+      "id": "15929c08-dc9c-41e3-a737-363ea8132117",
       "local_id": "pur_acc_ana_chk_2026-07-05_35",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 9.69,
       "purchase_date": "2026-07-05",
       "status": "completed",
@@ -2867,10 +2867,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-04_32",
+      "id": "668c4cec-8a9c-4321-b63b-9541ee0d6cb4",
       "local_id": "pur_acc_ana_chk_2026-07-04_32",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 4.4,
       "purchase_date": "2026-07-04",
       "status": "completed",
@@ -2888,10 +2888,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-04_31",
+      "id": "f59010d8-6e01-4a76-b947-be07ca5e2906",
       "local_id": "pur_acc_ana_chk_2026-07-04_31",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 10.24,
       "purchase_date": "2026-07-04",
       "status": "completed",
@@ -2909,10 +2909,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-02_29",
+      "id": "0af6eaff-ef40-4071-b756-366846d01bd3",
       "local_id": "pur_acc_ana_chk_2026-07-02_29",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 15.4,
       "purchase_date": "2026-07-02",
       "status": "completed",
@@ -2930,10 +2930,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-02_30",
+      "id": "82f979f5-fa1d-4441-8e00-9bfed746ce8c",
       "local_id": "pur_acc_ana_chk_2026-07-02_30",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 9.04,
       "purchase_date": "2026-07-02",
       "status": "completed",
@@ -2951,10 +2951,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-07-01_28",
+      "id": "95ad8916-7ea3-45b0-bfc3-5034a1d35202",
       "local_id": "pur_acc_ana_chk_2026-07-01_28",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 8.48,
       "purchase_date": "2026-07-01",
       "status": "completed",
@@ -2972,10 +2972,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-30_27",
+      "id": "fcd9800b-8f8d-451e-bb9d-f18c6af2b7a7",
       "local_id": "pur_acc_ana_chk_2026-06-30_27",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 10.41,
       "purchase_date": "2026-06-30",
       "status": "completed",
@@ -2993,10 +2993,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-29_26",
+      "id": "6403a8e4-0e73-493c-b631-71164011d713",
       "local_id": "pur_acc_ana_chk_2026-06-29_26",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 8.95,
       "purchase_date": "2026-06-29",
       "status": "completed",
@@ -3014,10 +3014,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-28_24",
+      "id": "6cac212a-0f9a-4fa0-ab26-d1a3c07d59ff",
       "local_id": "pur_acc_ana_chk_2026-06-28_24",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 25.6,
       "purchase_date": "2026-06-28",
       "status": "completed",
@@ -3035,10 +3035,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-28_25",
+      "id": "56416af4-a5fd-42d1-bb3d-b0f1c078784b",
       "local_id": "pur_acc_ana_chk_2026-06-28_25",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 12.13,
       "purchase_date": "2026-06-28",
       "status": "completed",
@@ -3056,10 +3056,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-27_23",
+      "id": "be12c2e3-7b59-4e93-bc27-b531778491a3",
       "local_id": "pur_acc_ana_chk_2026-06-27_23",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 6.96,
       "purchase_date": "2026-06-27",
       "status": "completed",
@@ -3077,10 +3077,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-26_22",
+      "id": "255cddb8-217f-46db-a4d7-41fa46c355e3",
       "local_id": "pur_acc_ana_chk_2026-06-26_22",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 7.77,
       "purchase_date": "2026-06-26",
       "status": "completed",
@@ -3098,10 +3098,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-26_21",
+      "id": "fa448984-b00b-4dc6-a1e5-fce2d1772727",
       "local_id": "pur_acc_ana_chk_2026-06-26_21",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 14.28,
       "purchase_date": "2026-06-26",
       "status": "completed",
@@ -3119,10 +3119,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-25_20",
+      "id": "698ce3c0-3552-4155-9987-0dbd3a5ecade",
       "local_id": "pur_acc_ana_chk_2026-06-25_20",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_target",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
       "amount": 13.55,
       "purchase_date": "2026-06-25",
       "status": "completed",
@@ -3140,10 +3140,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-23_19",
+      "id": "fd1f998d-43fd-4814-9f2d-2c4a98af405b",
       "local_id": "pur_acc_ana_chk_2026-06-23_19",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 14.7,
       "purchase_date": "2026-06-23",
       "status": "completed",
@@ -3161,10 +3161,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-23_18",
+      "id": "96f041f4-e0a2-4103-8c18-d681136e7e81",
       "local_id": "pur_acc_ana_chk_2026-06-23_18",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 8.76,
       "purchase_date": "2026-06-23",
       "status": "completed",
@@ -3182,10 +3182,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-22_17",
+      "id": "a2bd672e-4263-4c66-a4d9-10b6d346212d",
       "local_id": "pur_acc_ana_chk_2026-06-22_17",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 6.5,
       "purchase_date": "2026-06-22",
       "status": "completed",
@@ -3203,10 +3203,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-22_16",
+      "id": "0b3799be-88eb-499d-84ee-3f0efd810fde",
       "local_id": "pur_acc_ana_chk_2026-06-22_16",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 8.35,
       "purchase_date": "2026-06-22",
       "status": "completed",
@@ -3224,10 +3224,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-22_15",
+      "id": "237a610d-e1c0-4504-aef1-cb607135c71d",
       "local_id": "pur_acc_ana_chk_2026-06-22_15",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_starbucks",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "70dc1659-fa7c-4d15-9be4-c35ee1c6050e",
       "amount": 2.32,
       "purchase_date": "2026-06-22",
       "status": "completed",
@@ -3245,10 +3245,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-21_13",
+      "id": "d390939a-2c8f-4304-9b8c-f7ee2fb28b0c",
       "local_id": "pur_acc_ana_chk_2026-06-21_13",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 18.52,
       "purchase_date": "2026-06-21",
       "status": "completed",
@@ -3266,10 +3266,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-21_14",
+      "id": "3aab2f58-b727-47a3-991d-d19b4ae8093d",
       "local_id": "pur_acc_ana_chk_2026-06-21_14",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_cvs",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "41a477d5-fa0e-408a-87b7-1b55f8b0355c",
       "amount": 4.28,
       "purchase_date": "2026-06-21",
       "status": "completed",
@@ -3287,10 +3287,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-20_12",
+      "id": "b6ffa994-45cb-4bb3-a9b3-65c7dabf7ecc",
       "local_id": "pur_acc_ana_chk_2026-06-20_12",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 9.37,
       "purchase_date": "2026-06-20",
       "status": "completed",
@@ -3308,10 +3308,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-19_11",
+      "id": "61747f81-5ec8-4ab7-aefc-516830742a4d",
       "local_id": "pur_acc_ana_chk_2026-06-19_11",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_walgreens",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "86ab6b63-7faa-495d-82bd-6f3af07c0f46",
       "amount": 2.73,
       "purchase_date": "2026-06-19",
       "status": "completed",
@@ -3329,10 +3329,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-17_9",
+      "id": "d18d8c69-d108-4c39-bb69-a436b8b56616",
       "local_id": "pur_acc_ana_chk_2026-06-17_9",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 1.43,
       "purchase_date": "2026-06-17",
       "status": "completed",
@@ -3350,10 +3350,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-17_8",
+      "id": "f6127d15-1705-4746-8982-3515157efcd0",
       "local_id": "pur_acc_ana_chk_2026-06-17_8",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 6.17,
       "purchase_date": "2026-06-17",
       "status": "completed",
@@ -3371,10 +3371,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-17_10",
+      "id": "158e2118-58a5-40d6-9353-ea502a7bc2c1",
       "local_id": "pur_acc_ana_chk_2026-06-17_10",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 12.01,
       "purchase_date": "2026-06-17",
       "status": "completed",
@@ -3392,10 +3392,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-16_6",
+      "id": "d9d7f3b5-33a1-4953-b71d-e59e1672f70d",
       "local_id": "pur_acc_ana_chk_2026-06-16_6",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 7.4,
       "purchase_date": "2026-06-16",
       "status": "completed",
@@ -3413,10 +3413,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-16_7",
+      "id": "856f6575-1077-4e9f-a3ab-732764b992bf",
       "local_id": "pur_acc_ana_chk_2026-06-16_7",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 2.28,
       "purchase_date": "2026-06-16",
       "status": "completed",
@@ -3434,10 +3434,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-15_5",
+      "id": "0772a3aa-3227-4655-897b-56b7633d6eb4",
       "local_id": "pur_acc_ana_chk_2026-06-15_5",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 3.12,
       "purchase_date": "2026-06-15",
       "status": "completed",
@@ -3455,10 +3455,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-14_4",
+      "id": "32ca6b34-fb76-4cb8-b2d6-49566af71803",
       "local_id": "pur_acc_ana_chk_2026-06-14_4",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 4.91,
       "purchase_date": "2026-06-14",
       "status": "completed",
@@ -3476,10 +3476,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-13_3",
+      "id": "c0b843f9-456e-4f24-b947-3aa36bd02174",
       "local_id": "pur_acc_ana_chk_2026-06-13_3",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 25.47,
       "purchase_date": "2026-06-13",
       "status": "completed",
@@ -3497,10 +3497,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-13_2",
+      "id": "d15695b4-2656-41a1-b984-0a741ecf9694",
       "local_id": "pur_acc_ana_chk_2026-06-13_2",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 25.12,
       "purchase_date": "2026-06-13",
       "status": "completed",
@@ -3518,10 +3518,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-12_1",
+      "id": "eec2f375-c104-4d22-bcd9-802203e050d2",
       "local_id": "pur_acc_ana_chk_2026-06-12_1",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 4.15,
       "purchase_date": "2026-06-12",
       "status": "completed",
@@ -3539,10 +3539,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_ana_chk_2026-06-12_0",
+      "id": "12967b12-cc31-42a0-b6cb-4271f7afbdaf",
       "local_id": "pur_acc_ana_chk_2026-06-12_0",
-      "account_id": "acc_ana_chk",
-      "merchant_id": "m_metro",
+      "account_id": "14805bf2-9887-432f-a490-4cc65a77e325",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 1.4,
       "purchase_date": "2026-06-12",
       "status": "completed",
@@ -3602,7 +3602,7 @@
     "retail": 12.93
   },
   "credit": {
-    "account_id": "acc_ana_cc",
+    "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
     "balance": 312.4,
     "limit": 500.0,
     "utilization": 0.6248,
@@ -3610,10 +3610,10 @@
     "statement_day": 22,
     "purchases": [
       {
-        "id": "pur_acc_ana_cc_2026-09-12_27",
+        "id": "fac60448-e23b-479c-8d48-4b9e74ad0423",
         "local_id": "pur_acc_ana_cc_2026-09-12_27",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 6.41,
         "purchase_date": "2026-09-12",
         "status": "completed",
@@ -3631,10 +3631,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-09-09_26",
+        "id": "3787614c-7ffc-45b1-9c45-ea4219268d5b",
         "local_id": "pur_acc_ana_cc_2026-09-09_26",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 9.6,
         "purchase_date": "2026-09-09",
         "status": "completed",
@@ -3652,10 +3652,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-09-08_25",
+        "id": "c2fad9f1-80ac-4b6b-8df7-ccf1bf5b8e86",
         "local_id": "pur_acc_ana_cc_2026-09-08_25",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_chipotle",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
         "amount": 21.49,
         "purchase_date": "2026-09-08",
         "status": "completed",
@@ -3673,10 +3673,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-09-06_24",
+        "id": "a0d9b1f4-02bb-44cb-bf1a-7621fe0f2fa7",
         "local_id": "pur_acc_ana_cc_2026-09-06_24",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_culvers",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
         "amount": 5.33,
         "purchase_date": "2026-09-06",
         "status": "completed",
@@ -3694,10 +3694,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-09-02_23",
+        "id": "80a9a914-6347-4df2-b760-7c11620d72cd",
         "local_id": "pur_acc_ana_cc_2026-09-02_23",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_target",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 6.65,
         "purchase_date": "2026-09-02",
         "status": "completed",
@@ -3715,10 +3715,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-08-17_22",
+        "id": "7d557c6f-eabc-4b76-9d3b-04b13222580a",
         "local_id": "pur_acc_ana_cc_2026-08-17_22",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_bluesushi",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
         "amount": 32.36,
         "purchase_date": "2026-08-17",
         "status": "completed",
@@ -3736,10 +3736,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-08-16_21",
+        "id": "fd6e6811-d0b0-479b-ae82-1a1338b3f8d6",
         "local_id": "pur_acc_ana_cc_2026-08-16_21",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_spotify",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "da9cd4c4-42c5-474f-8a35-b88817be27f3",
         "amount": 22.81,
         "purchase_date": "2026-08-16",
         "status": "completed",
@@ -3757,10 +3757,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-08-15_20",
+        "id": "33230c9d-ab68-4730-8327-69db971d4b0c",
         "local_id": "pur_acc_ana_cc_2026-08-15_20",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_spotify",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "da9cd4c4-42c5-474f-8a35-b88817be27f3",
         "amount": 33.64,
         "purchase_date": "2026-08-15",
         "status": "completed",
@@ -3778,10 +3778,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-08-14_19",
+        "id": "c88ef494-6010-4677-b233-bb3b40d47aaf",
         "local_id": "pur_acc_ana_cc_2026-08-14_19",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 5.47,
         "purchase_date": "2026-08-14",
         "status": "completed",
@@ -3799,10 +3799,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-08-10_18",
+        "id": "db242170-0a60-4ab5-87d5-566c2dceae01",
         "local_id": "pur_acc_ana_cc_2026-08-10_18",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_spotify",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "da9cd4c4-42c5-474f-8a35-b88817be27f3",
         "amount": 33.09,
         "purchase_date": "2026-08-10",
         "status": "completed",
@@ -3820,10 +3820,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-08-03_17",
+        "id": "11541c26-b9e7-45fe-ac7c-7f5642831747",
         "local_id": "pur_acc_ana_cc_2026-08-03_17",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_spotify",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "da9cd4c4-42c5-474f-8a35-b88817be27f3",
         "amount": 13.45,
         "purchase_date": "2026-08-03",
         "status": "completed",
@@ -3841,10 +3841,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-07-29_16",
+        "id": "f17a7dda-31bb-4616-be42-d34a1fcecac3",
         "local_id": "pur_acc_ana_cc_2026-07-29_16",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_target",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 9.39,
         "purchase_date": "2026-07-29",
         "status": "completed",
@@ -3862,10 +3862,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-07-28_15",
+        "id": "ed11ae63-33ec-44c9-87bb-c058b7d8937e",
         "local_id": "pur_acc_ana_cc_2026-07-28_15",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_target",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 31.8,
         "purchase_date": "2026-07-28",
         "status": "completed",
@@ -3883,10 +3883,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-07-25_14",
+        "id": "fb48d0b4-8fd6-4d7b-abd1-e811c8c2fd4e",
         "local_id": "pur_acc_ana_cc_2026-07-25_14",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 8.44,
         "purchase_date": "2026-07-25",
         "status": "completed",
@@ -3904,10 +3904,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-07-23_13",
+        "id": "d3584805-1175-40e5-9c45-9841e3f5a046",
         "local_id": "pur_acc_ana_cc_2026-07-23_13",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_spotify",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "da9cd4c4-42c5-474f-8a35-b88817be27f3",
         "amount": 32.09,
         "purchase_date": "2026-07-23",
         "status": "completed",
@@ -3925,10 +3925,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-07-19_12",
+        "id": "0b49d3d1-aad4-47e5-a244-56cc4febe20c",
         "local_id": "pur_acc_ana_cc_2026-07-19_12",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_target",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 13.69,
         "purchase_date": "2026-07-19",
         "status": "completed",
@@ -3946,10 +3946,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-07-17_11",
+        "id": "c6980140-79e1-4aad-af96-8256b5ab066a",
         "local_id": "pur_acc_ana_cc_2026-07-17_11",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_target",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 31.76,
         "purchase_date": "2026-07-17",
         "status": "completed",
@@ -3967,10 +3967,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-07-06_10",
+        "id": "66e88ef2-56e1-4210-8891-073fea87d449",
         "local_id": "pur_acc_ana_cc_2026-07-06_10",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_target",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 27.2,
         "purchase_date": "2026-07-06",
         "status": "completed",
@@ -3988,10 +3988,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-07-05_9",
+        "id": "64b11d52-03a0-4751-a098-845ba21bf1d5",
         "local_id": "pur_acc_ana_cc_2026-07-05_9",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 14.97,
         "purchase_date": "2026-07-05",
         "status": "completed",
@@ -4009,10 +4009,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-07-04_8",
+        "id": "a5ac0296-5a13-4de8-9da9-931f15e156ec",
         "local_id": "pur_acc_ana_cc_2026-07-04_8",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_runza",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
         "amount": 17.4,
         "purchase_date": "2026-07-04",
         "status": "completed",
@@ -4030,10 +4030,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-07-02_7",
+        "id": "6bc6e083-1184-4460-8339-029d6f719e6f",
         "local_id": "pur_acc_ana_cc_2026-07-02_7",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_spotify",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "da9cd4c4-42c5-474f-8a35-b88817be27f3",
         "amount": 19.82,
         "purchase_date": "2026-07-02",
         "status": "completed",
@@ -4051,10 +4051,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-06-29_6",
+        "id": "9e6bca8f-227c-4b8d-b46d-44ce069d3370",
         "local_id": "pur_acc_ana_cc_2026-06-29_6",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_spotify",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "da9cd4c4-42c5-474f-8a35-b88817be27f3",
         "amount": 32.07,
         "purchase_date": "2026-06-29",
         "status": "completed",
@@ -4072,10 +4072,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-06-27_5",
+        "id": "00fbaa5d-c0f4-4874-a32e-5c9c54513723",
         "local_id": "pur_acc_ana_cc_2026-06-27_5",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_runza",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
         "amount": 11.6,
         "purchase_date": "2026-06-27",
         "status": "completed",
@@ -4093,10 +4093,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-06-25_4",
+        "id": "128945f5-bd98-475c-b138-e59a4a6b04a6",
         "local_id": "pur_acc_ana_cc_2026-06-25_4",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 22.91,
         "purchase_date": "2026-06-25",
         "status": "completed",
@@ -4114,10 +4114,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-06-23_3",
+        "id": "dbfdcc0e-040a-48f7-a7d1-668c360ff4ad",
         "local_id": "pur_acc_ana_cc_2026-06-23_3",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_bluesushi",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
         "amount": 8.97,
         "purchase_date": "2026-06-23",
         "status": "completed",
@@ -4135,10 +4135,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_ana_cc_2026-06-18_2",
+        "id": "1bce8e69-8ae4-4703-8448-669b29ce65a5",
         "local_id": "pur_acc_ana_cc_2026-06-18_2",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_spotify",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "da9cd4c4-42c5-474f-8a35-b88817be27f3",
         "amount": 14.93,
         "purchase_date": "2026-06-18",
         "status": "completed",
@@ -4156,10 +4156,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-06-15_1",
+        "id": "c2465f2d-6c1d-48fd-bb77-601b442b0a2f",
         "local_id": "pur_acc_ana_cc_2026-06-15_1",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_spotify",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "da9cd4c4-42c5-474f-8a35-b88817be27f3",
         "amount": 32.32,
         "purchase_date": "2026-06-15",
         "status": "completed",
@@ -4177,10 +4177,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_ana_cc_2026-06-12_0",
+        "id": "cf970729-aa2d-478f-90f4-5b56232c1e39",
         "local_id": "pur_acc_ana_cc_2026-06-12_0",
-        "account_id": "acc_ana_cc",
-        "merchant_id": "m_target",
+        "account_id": "9fb97795-6517-4124-b103-8b11143a5a8e",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 17.74,
         "purchase_date": "2026-06-12",
         "status": "completed",

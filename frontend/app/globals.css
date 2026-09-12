@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Nunito+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
@@ -16,17 +16,17 @@
      brass  simulated, cached, not the live thing — believe it, but softly
      clay   we stopped something, or something is about to run out
 
-   Type: Fraunces for anything you read as a sentence or a headline figure,
-   IBM Plex Sans for the interface, IBM Plex Mono for anything that has to
-   line up in a column.
+   Type: Newsreader for anything you read as a sentence or a headline figure,
+   Avenir Next for the interface — Nunito Sans stands in where Avenir is not
+   installed — and Space Mono for anything that has to line up in a column.
    =========================================================================== */
 
 :root {
   color-scheme: light;
 
-  --display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
-  --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --figure: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --display: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --sans: 'Avenir Next', Avenir, 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --figure: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Ground */
   --paper: #eef1f5;
@@ -128,15 +128,22 @@ h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -0.0
 
 /* === Shell ================================================================ */
 
-.treasury-shell { display: flex; min-height: 100vh; background: var(--paper); }
-.main-content { flex: 1; min-width: 0; background: var(--paper); }
+.treasury-shell { display: flex; height: 100vh; overflow: hidden; background: var(--paper); }
+.main-content {
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--paper);
+}
 
 /* === The navy rail ======================================================== */
 
 .sidebar {
   width: 248px;
   flex: 0 0 248px;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background: var(--vault);
   color: var(--vault-ink);
   padding: 28px 18px 22px;
@@ -217,6 +224,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -0.0
   background: var(--surface);
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
   padding: 0 34px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 .ledger-brand { color: var(--ink); font-family: var(--figure); font-size: 10px; font-weight: 600; letter-spacing: 0.16em; }
 .ledger-brand span { color: var(--teal); font-weight: 400; }
@@ -694,13 +704,14 @@ h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -0.0
 }
 
 @media (max-width: 720px) {
-  .treasury-shell { display: block; }
-  .sidebar { width: 100%; min-height: auto; height: auto; padding: 16px; }
+  .treasury-shell { display: block; height: auto; overflow: visible; }
+  .main-content { height: auto; overflow: visible; }
+  .sidebar { width: 100%; min-height: auto; height: auto; overflow: visible; padding: 16px; }
   .workspace-label, .sidebar-rule, .sidebar-bottom { display: none; }
   .side-nav { flex-direction: row; margin-top: 16px; overflow-x: auto; }
   .nav-item { white-space: nowrap; padding: 9px 11px; }
   .nav-item.active::before { display: none; }
-  .topbar { height: auto; flex-wrap: wrap; gap: 10px; padding: 12px 16px; }
+  .topbar { position: static; height: auto; flex-wrap: wrap; gap: 10px; padding: 12px 16px; }
   .nessie-status, .currency-link { display: none; }
   .content-inner { padding: 26px 16px 40px; }
   .reference-profile { align-items: flex-start; flex-direction: column; gap: 14px; }

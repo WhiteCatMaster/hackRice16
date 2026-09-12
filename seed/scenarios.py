@@ -20,6 +20,7 @@ from datetime import datetime
 
 from backend.nessie import db
 from backend.nessie.client import NessieClient, NessieError
+from seed.seed import api_medium
 from backend.nessie.timestamps import encode
 from seed.generator import build
 
@@ -95,7 +96,7 @@ def inject(key: str, conn, push: bool = False, verbose: bool = True) -> dict:
             for row in rows:
                 try:
                     nessie_id = client.create_purchase(row["account_id"], {
-                        "merchant_id": row["merchant_id"], "medium": row["medium"],
+                        "merchant_id": row["merchant_id"], "medium": api_medium(row["medium"]),
                         "purchase_date": row["purchase_date"], "amount": row["amount"],
                         "status": row["status"],
                         "description": encode(row["description"], row["occurred_at"]),

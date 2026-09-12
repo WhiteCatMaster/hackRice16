@@ -1,6 +1,6 @@
 {
   "customer": {
-    "id": "cust_raj",
+    "id": "944d2cd6-86e6-4d31-b056-def3d69363d2",
     "local_id": "cust_raj",
     "first_name": "Raj",
     "last_name": "Krishnan",
@@ -18,9 +18,9 @@
   },
   "accounts": [
     {
-      "id": "acc_raj_chk",
+      "id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "local_id": "acc_raj_chk",
-      "customer_id": "cust_raj",
+      "customer_id": "944d2cd6-86e6-4d31-b056-def3d69363d2",
       "type": "Checking",
       "nickname": "Raj Checking",
       "rewards": 0.0,
@@ -32,9 +32,9 @@
       "frozen_reason": null
     },
     {
-      "id": "acc_raj_cc",
+      "id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
       "local_id": "acc_raj_cc",
-      "customer_id": "cust_raj",
+      "customer_id": "944d2cd6-86e6-4d31-b056-def3d69363d2",
       "type": "Credit Card",
       "nickname": "Raj Student Card",
       "rewards": 0.0,
@@ -46,9 +46,9 @@
       "frozen_reason": null
     },
     {
-      "id": "acc_raj_sav",
+      "id": "aa2941b5-80e3-4dba-80a0-3e8d203a6df5",
       "local_id": "acc_raj_sav",
-      "customer_id": "cust_raj",
+      "customer_id": "944d2cd6-86e6-4d31-b056-def3d69363d2",
       "type": "Savings",
       "nickname": "Raj Savings",
       "rewards": 0.0,
@@ -65,12 +65,12 @@
   "home_currency": "INR",
   "fx_rate": 83.2,
   "language": "en",
-  "checking_account_id": "acc_raj_chk",
+  "checking_account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
   "bills": [
     {
-      "id": "b_raj_card",
+      "id": "19548ce5-86a9-4e73-924e-9593609a7600",
       "local_id": "b_raj_card",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "status": "recurring",
       "payee": "Treasurer Bank Student Card",
       "nickname": "Credit card payment",
@@ -87,9 +87,9 @@
       "trial_amount_after": null
     },
     {
-      "id": "b_raj_rent",
+      "id": "9107bbeb-d68f-4f4b-b6e2-a7b1e568fe57",
       "local_id": "b_raj_rent",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "status": "recurring",
       "payee": "Dundee Apartments",
       "nickname": "Rent",
@@ -106,9 +106,9 @@
       "trial_amount_after": null
     },
     {
-      "id": "b_raj_phone",
+      "id": "7db3aba2-1f61-4ab7-ab6f-c4cb277a2a0b",
       "local_id": "b_raj_phone",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "status": "recurring",
       "payee": "T-Mobile",
       "nickname": "Phone",
@@ -127,9 +127,9 @@
   ],
   "deposits": [
     {
-      "id": "dep_d_raj_job_2026-06-16",
+      "id": "a58e588e-b7b6-416f-8194-91c0e1f21b0d",
       "local_id": "dep_d_raj_job_2026-06-16",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "deposit",
       "transaction_date": "2026-06-16",
       "status": "completed",
@@ -141,9 +141,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_raj_job_2026-06-30",
+      "id": "e963b14c-c2ef-40dc-b00a-cea67d89d229",
       "local_id": "dep_d_raj_job_2026-06-30",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "deposit",
       "transaction_date": "2026-06-30",
       "status": "completed",
@@ -155,9 +155,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_raj_stipend_2026-07-01",
+      "id": "d92bb07f-6698-495d-af4e-9edc66b6b0a1",
       "local_id": "dep_d_raj_stipend_2026-07-01",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "deposit",
       "transaction_date": "2026-07-01",
       "status": "completed",
@@ -169,9 +169,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_raj_job_2026-07-14",
+      "id": "733fed40-32e5-412a-8555-f4971d640e99",
       "local_id": "dep_d_raj_job_2026-07-14",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "deposit",
       "transaction_date": "2026-07-14",
       "status": "completed",
@@ -183,9 +183,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_raj_job_2026-07-28",
+      "id": "5887864a-4de4-412f-a7f4-f94887de25a6",
       "local_id": "dep_d_raj_job_2026-07-28",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "deposit",
       "transaction_date": "2026-07-28",
       "status": "completed",
@@ -197,9 +197,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_raj_stipend_2026-08-01",
+      "id": "6fc516ca-92a7-4b67-8db9-e36dfd16d06a",
       "local_id": "dep_d_raj_stipend_2026-08-01",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "deposit",
       "transaction_date": "2026-08-01",
       "status": "completed",
@@ -211,9 +211,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_raj_job_2026-08-11",
+      "id": "03e9e021-1edc-4b08-9d7e-0c5da498e93d",
       "local_id": "dep_d_raj_job_2026-08-11",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "deposit",
       "transaction_date": "2026-08-11",
       "status": "completed",
@@ -225,9 +225,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_raj_job_2026-08-25",
+      "id": "a755a0b3-36fa-427d-bf41-135168ddfa7e",
       "local_id": "dep_d_raj_job_2026-08-25",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "deposit",
       "transaction_date": "2026-08-25",
       "status": "completed",
@@ -239,9 +239,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_raj_stipend_2026-09-01",
+      "id": "47b3b4c8-7a4d-48e8-90b3-d3aa24510261",
       "local_id": "dep_d_raj_stipend_2026-09-01",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "deposit",
       "transaction_date": "2026-09-01",
       "status": "completed",
@@ -253,9 +253,9 @@
       "is_recurring": 1
     },
     {
-      "id": "dep_d_raj_job_2026-09-08",
+      "id": "6de502db-f92f-487b-9c23-49fd88c49d07",
       "local_id": "dep_d_raj_job_2026-09-08",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "deposit",
       "transaction_date": "2026-09-08",
       "status": "completed",
@@ -269,9 +269,9 @@
   ],
   "withdrawals": [
     {
-      "id": "wd_raj_upfront",
+      "id": "c7bb69e9-3189-49d0-be94-c6e4ff54c86a",
       "local_id": "wd_raj_upfront",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "withdrawal",
       "transaction_date": "2026-06-12",
       "status": "completed",
@@ -282,9 +282,9 @@
       "category": "tuition"
     },
     {
-      "id": "wd_b_raj_card_2026-06-18",
+      "id": "10eafc5d-1c1b-4c71-a152-00a5abb59b85",
       "local_id": "wd_b_raj_card_2026-06-18",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "withdrawal",
       "transaction_date": "2026-06-18",
       "status": "completed",
@@ -295,9 +295,9 @@
       "category": "credit_card"
     },
     {
-      "id": "wd_b_raj_rent_2026-07-01",
+      "id": "1901cff2-db26-4f55-9a5d-1c7221b44d38",
       "local_id": "wd_b_raj_rent_2026-07-01",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "withdrawal",
       "transaction_date": "2026-07-01",
       "status": "completed",
@@ -308,9 +308,9 @@
       "category": "housing"
     },
     {
-      "id": "wd_b_raj_phone_2026-07-08",
+      "id": "fd1f6e67-dbb8-4a05-a823-2bc41e8eec77",
       "local_id": "wd_b_raj_phone_2026-07-08",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "withdrawal",
       "transaction_date": "2026-07-08",
       "status": "completed",
@@ -321,9 +321,9 @@
       "category": "phone"
     },
     {
-      "id": "wd_b_raj_card_2026-07-18",
+      "id": "f4c313c9-0697-4af0-90d7-e82b0ac68406",
       "local_id": "wd_b_raj_card_2026-07-18",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "withdrawal",
       "transaction_date": "2026-07-18",
       "status": "completed",
@@ -334,9 +334,9 @@
       "category": "credit_card"
     },
     {
-      "id": "wd_b_raj_rent_2026-08-01",
+      "id": "7061bc49-aa24-4ecd-9edf-b77c0ca85b2e",
       "local_id": "wd_b_raj_rent_2026-08-01",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "withdrawal",
       "transaction_date": "2026-08-01",
       "status": "completed",
@@ -347,9 +347,9 @@
       "category": "housing"
     },
     {
-      "id": "wd_b_raj_phone_2026-08-08",
+      "id": "dfa804e9-8bc5-4834-a25f-235ae47c1e9c",
       "local_id": "wd_b_raj_phone_2026-08-08",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "withdrawal",
       "transaction_date": "2026-08-08",
       "status": "completed",
@@ -360,9 +360,9 @@
       "category": "phone"
     },
     {
-      "id": "wd_b_raj_card_2026-08-18",
+      "id": "5c81068a-b964-4803-bd3b-18c1a14ff1a0",
       "local_id": "wd_b_raj_card_2026-08-18",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "withdrawal",
       "transaction_date": "2026-08-18",
       "status": "completed",
@@ -373,9 +373,9 @@
       "category": "credit_card"
     },
     {
-      "id": "wd_b_raj_rent_2026-09-01",
+      "id": "a3e09342-c4aa-4e6f-9da6-c4299a21a543",
       "local_id": "wd_b_raj_rent_2026-09-01",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "withdrawal",
       "transaction_date": "2026-09-01",
       "status": "completed",
@@ -386,9 +386,9 @@
       "category": "housing"
     },
     {
-      "id": "wd_b_raj_phone_2026-09-08",
+      "id": "855c6d3f-fe7f-4f07-96fe-fdaf4d9099ef",
       "local_id": "wd_b_raj_phone_2026-09-08",
-      "account_id": "acc_raj_chk",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "withdrawal",
       "transaction_date": "2026-09-08",
       "status": "completed",
@@ -402,10 +402,10 @@
   "transfers": [],
   "purchases": [
     {
-      "id": "pur_acc_raj_chk_2026-09-11_121",
+      "id": "b6376a93-cdb2-4bbb-97ba-21663065aa5a",
       "local_id": "pur_acc_raj_chk_2026-09-11_121",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 77.07,
       "purchase_date": "2026-09-11",
       "status": "completed",
@@ -423,10 +423,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-11_122",
+      "id": "15994572-be76-415f-b4f4-17a065809747",
       "local_id": "pur_acc_raj_chk_2026-09-11_122",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 20.7,
       "purchase_date": "2026-09-11",
       "status": "completed",
@@ -444,10 +444,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-10_120",
+      "id": "db1a9bfd-216b-46ec-a701-de71147cb877",
       "local_id": "pur_acc_raj_chk_2026-09-10_120",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 55.39,
       "purchase_date": "2026-09-10",
       "status": "completed",
@@ -465,10 +465,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-09_119",
+      "id": "d1ffabdd-05d9-445d-a587-20bdd3389efe",
       "local_id": "pur_acc_raj_chk_2026-09-09_119",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 5.08,
       "purchase_date": "2026-09-09",
       "status": "completed",
@@ -486,10 +486,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-09_118",
+      "id": "ed784a9d-d300-4678-a039-5744b44a6733",
       "local_id": "pur_acc_raj_chk_2026-09-09_118",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 16.02,
       "purchase_date": "2026-09-09",
       "status": "completed",
@@ -507,10 +507,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-08_117",
+      "id": "b2a2b87f-51d2-4290-bce7-5c607e4c8cc7",
       "local_id": "pur_acc_raj_chk_2026-09-08_117",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 5.8,
       "purchase_date": "2026-09-08",
       "status": "completed",
@@ -528,10 +528,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-07_116",
+      "id": "d5fcfbaf-1421-4446-9ff2-d98f92d9c2ad",
       "local_id": "pur_acc_raj_chk_2026-09-07_116",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 17.0,
       "purchase_date": "2026-09-07",
       "status": "completed",
@@ -549,10 +549,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-06_114",
+      "id": "dfcdaafa-b13d-4370-8cb4-7d27dc944e69",
       "local_id": "pur_acc_raj_chk_2026-09-06_114",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 24.33,
       "purchase_date": "2026-09-06",
       "status": "completed",
@@ -570,10 +570,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-06_115",
+      "id": "e4b77aeb-0421-44b1-a321-2ab8f08ef004",
       "local_id": "pur_acc_raj_chk_2026-09-06_115",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 17.28,
       "purchase_date": "2026-09-06",
       "status": "completed",
@@ -591,10 +591,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-05_113",
+      "id": "7abe0e99-3036-482a-8262-60bc74171fd8",
       "local_id": "pur_acc_raj_chk_2026-09-05_113",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 84.49,
       "purchase_date": "2026-09-05",
       "status": "completed",
@@ -612,10 +612,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-04_112",
+      "id": "45089cce-16ec-40c6-a73f-8d1346951996",
       "local_id": "pur_acc_raj_chk_2026-09-04_112",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 26.44,
       "purchase_date": "2026-09-04",
       "status": "completed",
@@ -633,10 +633,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-02_111",
+      "id": "68330f21-e9ea-4bc7-871e-22ba13fbb2ae",
       "local_id": "pur_acc_raj_chk_2026-09-02_111",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 31.69,
       "purchase_date": "2026-09-02",
       "status": "completed",
@@ -654,10 +654,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-02_110",
+      "id": "540cb52e-79ca-4ab8-b6fd-3eb2e70f727c",
       "local_id": "pur_acc_raj_chk_2026-09-02_110",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 45.31,
       "purchase_date": "2026-09-02",
       "status": "completed",
@@ -675,10 +675,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-01_108",
+      "id": "9c4ab688-006a-439d-9570-ca7e5e73bcd7",
       "local_id": "pur_acc_raj_chk_2026-09-01_108",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 27.52,
       "purchase_date": "2026-09-01",
       "status": "completed",
@@ -696,10 +696,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-01_109",
+      "id": "7e6fa757-12b1-4dbf-a56c-18ec66aa2fc2",
       "local_id": "pur_acc_raj_chk_2026-09-01_109",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 17.19,
       "purchase_date": "2026-09-01",
       "status": "completed",
@@ -717,10 +717,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-09-01_107",
+      "id": "8ed1672d-813f-405f-b9d1-1d495c8d5d09",
       "local_id": "pur_acc_raj_chk_2026-09-01_107",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 56.52,
       "purchase_date": "2026-09-01",
       "status": "completed",
@@ -738,10 +738,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-31_106",
+      "id": "b2fc4062-5f9d-444e-95d3-3c5da1ed75a0",
       "local_id": "pur_acc_raj_chk_2026-08-31_106",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_metro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 12.23,
       "purchase_date": "2026-08-31",
       "status": "completed",
@@ -759,10 +759,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-30_105",
+      "id": "b620b13d-ad5a-403d-bf53-0f0b2dd631d2",
       "local_id": "pur_acc_raj_chk_2026-08-30_105",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 5.31,
       "purchase_date": "2026-08-30",
       "status": "completed",
@@ -780,10 +780,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-29_104",
+      "id": "75ec41bc-e44e-49a0-b7a2-b0a6c3674697",
       "local_id": "pur_acc_raj_chk_2026-08-29_104",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 55.57,
       "purchase_date": "2026-08-29",
       "status": "completed",
@@ -801,10 +801,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-28_102",
+      "id": "3fca88be-b7c6-4931-a7a4-f16d7058c04f",
       "local_id": "pur_acc_raj_chk_2026-08-28_102",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_runza",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 25.23,
       "purchase_date": "2026-08-28",
       "status": "completed",
@@ -822,10 +822,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-28_103",
+      "id": "497d2538-7b55-406b-85e4-0ed74f82eb19",
       "local_id": "pur_acc_raj_chk_2026-08-28_103",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 9.94,
       "purchase_date": "2026-08-28",
       "status": "completed",
@@ -843,10 +843,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-27_101",
+      "id": "3228a13d-f35c-47df-a648-b9fd8447feee",
       "local_id": "pur_acc_raj_chk_2026-08-27_101",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 77.55,
       "purchase_date": "2026-08-27",
       "status": "completed",
@@ -864,10 +864,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-27_100",
+      "id": "67123d56-1dec-491b-ab80-0d2830e80e23",
       "local_id": "pur_acc_raj_chk_2026-08-27_100",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 6.3,
       "purchase_date": "2026-08-27",
       "status": "completed",
@@ -885,10 +885,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-26_99",
+      "id": "4f857996-f22e-4582-a39e-6f4fd11f36eb",
       "local_id": "pur_acc_raj_chk_2026-08-26_99",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 74.15,
       "purchase_date": "2026-08-26",
       "status": "completed",
@@ -906,10 +906,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-26_98",
+      "id": "c7d43734-8caa-4210-864e-adc2518b37af",
       "local_id": "pur_acc_raj_chk_2026-08-26_98",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 4.5,
       "purchase_date": "2026-08-26",
       "status": "completed",
@@ -927,10 +927,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-26_97",
+      "id": "a29ee4a9-9d7c-496a-96d5-8a6de6e30c07",
       "local_id": "pur_acc_raj_chk_2026-08-26_97",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 31.0,
       "purchase_date": "2026-08-26",
       "status": "completed",
@@ -948,10 +948,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-25_96",
+      "id": "0a1890d5-31ce-4faa-ab3b-e4e02f6243a2",
       "local_id": "pur_acc_raj_chk_2026-08-25_96",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 5.26,
       "purchase_date": "2026-08-25",
       "status": "completed",
@@ -969,10 +969,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-24_94",
+      "id": "b4f10e3c-c130-4682-be5d-b1c64bfa2972",
       "local_id": "pur_acc_raj_chk_2026-08-24_94",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 79.66,
       "purchase_date": "2026-08-24",
       "status": "completed",
@@ -990,10 +990,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-24_95",
+      "id": "c2b5ede3-07da-4386-9185-c918a26de649",
       "local_id": "pur_acc_raj_chk_2026-08-24_95",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 5.56,
       "purchase_date": "2026-08-24",
       "status": "completed",
@@ -1011,10 +1011,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-23_93",
+      "id": "4111ec34-828f-4cc5-82b1-68969a1b9abb",
       "local_id": "pur_acc_raj_chk_2026-08-23_93",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 5.77,
       "purchase_date": "2026-08-23",
       "status": "completed",
@@ -1032,10 +1032,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-22_91",
+      "id": "e4096a89-6f31-4e28-a87e-c1d56dc446a8",
       "local_id": "pur_acc_raj_chk_2026-08-22_91",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 12.99,
       "purchase_date": "2026-08-22",
       "status": "completed",
@@ -1053,10 +1053,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-22_92",
+      "id": "ec2dfecd-19da-45c1-a47a-a0f798ba372e",
       "local_id": "pur_acc_raj_chk_2026-08-22_92",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 14.84,
       "purchase_date": "2026-08-22",
       "status": "completed",
@@ -1074,10 +1074,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-20_89",
+      "id": "a007ac87-908a-4e07-b669-8d33c0bd15a5",
       "local_id": "pur_acc_raj_chk_2026-08-20_89",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 4.58,
       "purchase_date": "2026-08-20",
       "status": "completed",
@@ -1095,10 +1095,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-20_90",
+      "id": "63e6179c-3c15-481d-96b8-27518fe866da",
       "local_id": "pur_acc_raj_chk_2026-08-20_90",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 12.79,
       "purchase_date": "2026-08-20",
       "status": "completed",
@@ -1116,10 +1116,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-18_87",
+      "id": "1b290093-7085-466a-a91a-c456e57bdc98",
       "local_id": "pur_acc_raj_chk_2026-08-18_87",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 38.65,
       "purchase_date": "2026-08-18",
       "status": "completed",
@@ -1137,10 +1137,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-18_88",
+      "id": "111ea530-37f9-45ec-bea7-09efabf75fdb",
       "local_id": "pur_acc_raj_chk_2026-08-18_88",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_target",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
       "amount": 20.31,
       "purchase_date": "2026-08-18",
       "status": "completed",
@@ -1158,10 +1158,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-17_86",
+      "id": "ee997699-0a62-4bb6-b96d-5e0cec299334",
       "local_id": "pur_acc_raj_chk_2026-08-17_86",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 56.79,
       "purchase_date": "2026-08-17",
       "status": "completed",
@@ -1179,10 +1179,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-17_85",
+      "id": "0f1a2c4d-bb30-45f0-b147-8b9bdc542a44",
       "local_id": "pur_acc_raj_chk_2026-08-17_85",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 35.85,
       "purchase_date": "2026-08-17",
       "status": "completed",
@@ -1200,10 +1200,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-16_84",
+      "id": "87e27534-d7bb-485b-a345-b1483b53c4b7",
       "local_id": "pur_acc_raj_chk_2026-08-16_84",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 38.73,
       "purchase_date": "2026-08-16",
       "status": "completed",
@@ -1221,10 +1221,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-14_82",
+      "id": "2a8b4eac-1f61-45bf-b44a-ffd29c4e12b1",
       "local_id": "pur_acc_raj_chk_2026-08-14_82",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 6.92,
       "purchase_date": "2026-08-14",
       "status": "completed",
@@ -1242,10 +1242,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-14_83",
+      "id": "6861181f-ca95-44e4-85ee-ae34ed09dce7",
       "local_id": "pur_acc_raj_chk_2026-08-14_83",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 57.31,
       "purchase_date": "2026-08-14",
       "status": "completed",
@@ -1263,10 +1263,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-13_81",
+      "id": "f582c24b-4461-46b0-a5da-7b08f1e55944",
       "local_id": "pur_acc_raj_chk_2026-08-13_81",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 33.27,
       "purchase_date": "2026-08-13",
       "status": "completed",
@@ -1284,10 +1284,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-13_80",
+      "id": "593051fa-7ac2-420b-83b5-3cefe7792e3f",
       "local_id": "pur_acc_raj_chk_2026-08-13_80",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 59.99,
       "purchase_date": "2026-08-13",
       "status": "completed",
@@ -1305,10 +1305,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-12_79",
+      "id": "c4ccfaca-b345-48a4-a70a-ea6f7e0be139",
       "local_id": "pur_acc_raj_chk_2026-08-12_79",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 48.01,
       "purchase_date": "2026-08-12",
       "status": "completed",
@@ -1326,10 +1326,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-11_78",
+      "id": "5168b48d-9bb2-4a0a-9a2f-03947d2da881",
       "local_id": "pur_acc_raj_chk_2026-08-11_78",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_runza",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 19.04,
       "purchase_date": "2026-08-11",
       "status": "completed",
@@ -1347,10 +1347,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-09_77",
+      "id": "3cc8cae3-b9f7-4fdf-8e8e-b7b780d1ddb1",
       "local_id": "pur_acc_raj_chk_2026-08-09_77",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 21.98,
       "purchase_date": "2026-08-09",
       "status": "completed",
@@ -1368,10 +1368,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-08_76",
+      "id": "64f85c76-5d71-48fc-a9de-3675ff815b61",
       "local_id": "pur_acc_raj_chk_2026-08-08_76",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_uber",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 9.66,
       "purchase_date": "2026-08-08",
       "status": "completed",
@@ -1389,10 +1389,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-07_75",
+      "id": "fc7da787-0cba-4d30-b71b-bf216061c04b",
       "local_id": "pur_acc_raj_chk_2026-08-07_75",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 42.37,
       "purchase_date": "2026-08-07",
       "status": "completed",
@@ -1410,10 +1410,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-06_74",
+      "id": "f9830030-fe00-4524-95fe-8fd28965dfc5",
       "local_id": "pur_acc_raj_chk_2026-08-06_74",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 13.97,
       "purchase_date": "2026-08-06",
       "status": "completed",
@@ -1431,10 +1431,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-06_73",
+      "id": "0c4df934-56a0-4821-9a2b-ce0602be5c00",
       "local_id": "pur_acc_raj_chk_2026-08-06_73",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 26.91,
       "purchase_date": "2026-08-06",
       "status": "completed",
@@ -1452,10 +1452,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-05_72",
+      "id": "b6e9de7a-6c14-45ac-b294-73bc007b27ee",
       "local_id": "pur_acc_raj_chk_2026-08-05_72",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 24.94,
       "purchase_date": "2026-08-05",
       "status": "completed",
@@ -1473,10 +1473,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-04_71",
+      "id": "fc0a62d3-acc0-4e48-b184-aa35bad54896",
       "local_id": "pur_acc_raj_chk_2026-08-04_71",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 13.88,
       "purchase_date": "2026-08-04",
       "status": "completed",
@@ -1494,10 +1494,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-03_69",
+      "id": "75c582ef-1213-4d0a-a3a2-d0ee1583203f",
       "local_id": "pur_acc_raj_chk_2026-08-03_69",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 62.45,
       "purchase_date": "2026-08-03",
       "status": "completed",
@@ -1515,10 +1515,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-03_70",
+      "id": "012173de-bd6e-4942-9d7a-c8ac56c0eea8",
       "local_id": "pur_acc_raj_chk_2026-08-03_70",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 60.94,
       "purchase_date": "2026-08-03",
       "status": "completed",
@@ -1536,10 +1536,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-02_68",
+      "id": "97503c3e-0b36-41a9-a89e-c9519f4f730c",
       "local_id": "pur_acc_raj_chk_2026-08-02_68",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 51.27,
       "purchase_date": "2026-08-02",
       "status": "completed",
@@ -1557,10 +1557,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-01_66",
+      "id": "f8595d67-5042-449f-83d7-202b1715c7c1",
       "local_id": "pur_acc_raj_chk_2026-08-01_66",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 97.04,
       "purchase_date": "2026-08-01",
       "status": "completed",
@@ -1578,10 +1578,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-01_65",
+      "id": "d81071cb-1388-46c3-9933-dc3c48083ec6",
       "local_id": "pur_acc_raj_chk_2026-08-01_65",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 37.67,
       "purchase_date": "2026-08-01",
       "status": "completed",
@@ -1599,10 +1599,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-08-01_67",
+      "id": "f3c343db-71b3-41be-bb60-e992fe439795",
       "local_id": "pur_acc_raj_chk_2026-08-01_67",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 22.07,
       "purchase_date": "2026-08-01",
       "status": "completed",
@@ -1620,10 +1620,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-31_64",
+      "id": "01b89cde-8a42-4d69-bc07-da102669a4a8",
       "local_id": "pur_acc_raj_chk_2026-07-31_64",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 77.14,
       "purchase_date": "2026-07-31",
       "status": "completed",
@@ -1641,10 +1641,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-31_63",
+      "id": "948d61c7-b8dd-4f98-bf82-daf1a94acbad",
       "local_id": "pur_acc_raj_chk_2026-07-31_63",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 15.96,
       "purchase_date": "2026-07-31",
       "status": "completed",
@@ -1662,10 +1662,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-30_61",
+      "id": "442133a6-5d4a-4a03-9499-cfef005b1389",
       "local_id": "pur_acc_raj_chk_2026-07-30_61",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 77.93,
       "purchase_date": "2026-07-30",
       "status": "completed",
@@ -1683,10 +1683,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-30_62",
+      "id": "c51cdc8f-7e39-4506-bd74-ed985ea6e464",
       "local_id": "pur_acc_raj_chk_2026-07-30_62",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_runza",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 22.53,
       "purchase_date": "2026-07-30",
       "status": "completed",
@@ -1704,10 +1704,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-29_60",
+      "id": "0bac5c7c-c7e1-4659-ae01-785abdd9060b",
       "local_id": "pur_acc_raj_chk_2026-07-29_60",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 20.28,
       "purchase_date": "2026-07-29",
       "status": "completed",
@@ -1725,10 +1725,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-28_59",
+      "id": "4e3396eb-04d3-4d12-9b9d-4b5eb0538f93",
       "local_id": "pur_acc_raj_chk_2026-07-28_59",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 73.83,
       "purchase_date": "2026-07-28",
       "status": "completed",
@@ -1746,10 +1746,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-27_57",
+      "id": "1f9805d1-6b1d-428f-833e-a65052a70eaa",
       "local_id": "pur_acc_raj_chk_2026-07-27_57",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_metro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 5.65,
       "purchase_date": "2026-07-27",
       "status": "completed",
@@ -1767,10 +1767,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-27_58",
+      "id": "e2003484-403b-4a69-b469-a7047b3eedf3",
       "local_id": "pur_acc_raj_chk_2026-07-27_58",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_metro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 2.74,
       "purchase_date": "2026-07-27",
       "status": "completed",
@@ -1788,10 +1788,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-27_56",
+      "id": "716bd753-ea94-4e46-87e5-fd560c3c24e0",
       "local_id": "pur_acc_raj_chk_2026-07-27_56",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 6.21,
       "purchase_date": "2026-07-27",
       "status": "completed",
@@ -1809,10 +1809,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-26_55",
+      "id": "b5d2feca-82b2-4da3-a10a-90dad4c09189",
       "local_id": "pur_acc_raj_chk_2026-07-26_55",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_walgreens",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "86ab6b63-7faa-495d-82bd-6f3af07c0f46",
       "amount": 11.45,
       "purchase_date": "2026-07-26",
       "status": "completed",
@@ -1830,10 +1830,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-24_54",
+      "id": "5fd6a140-6147-4805-8caa-7789c15c4d4d",
       "local_id": "pur_acc_raj_chk_2026-07-24_54",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 76.41,
       "purchase_date": "2026-07-24",
       "status": "completed",
@@ -1851,10 +1851,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-23_53",
+      "id": "bb2e7f4d-43ad-428a-bf95-d08351758f04",
       "local_id": "pur_acc_raj_chk_2026-07-23_53",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 21.88,
       "purchase_date": "2026-07-23",
       "status": "completed",
@@ -1872,10 +1872,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-23_52",
+      "id": "52b70e70-8ce0-4200-92f7-0423dff8589d",
       "local_id": "pur_acc_raj_chk_2026-07-23_52",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 13.53,
       "purchase_date": "2026-07-23",
       "status": "completed",
@@ -1893,10 +1893,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-22_51",
+      "id": "c6b28ab8-1c44-4102-ac07-ed27a88c705c",
       "local_id": "pur_acc_raj_chk_2026-07-22_51",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 17.96,
       "purchase_date": "2026-07-22",
       "status": "completed",
@@ -1914,10 +1914,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-21_48",
+      "id": "1dc8dd67-73d6-4af4-a9db-bae694125f79",
       "local_id": "pur_acc_raj_chk_2026-07-21_48",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_uber",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 17.46,
       "purchase_date": "2026-07-21",
       "status": "completed",
@@ -1935,10 +1935,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-21_50",
+      "id": "883c086b-ff5a-4aaa-ae84-8b005e22d0a5",
       "local_id": "pur_acc_raj_chk_2026-07-21_50",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 16.82,
       "purchase_date": "2026-07-21",
       "status": "completed",
@@ -1956,10 +1956,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-21_49",
+      "id": "22c32343-df67-4cd7-b495-9a7d2d61d64f",
       "local_id": "pur_acc_raj_chk_2026-07-21_49",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 24.02,
       "purchase_date": "2026-07-21",
       "status": "completed",
@@ -1977,10 +1977,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-20_47",
+      "id": "53587cab-c23e-4d55-ae9d-dc1596ba07bb",
       "local_id": "pur_acc_raj_chk_2026-07-20_47",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_target",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
       "amount": 46.22,
       "purchase_date": "2026-07-20",
       "status": "completed",
@@ -1998,10 +1998,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-19_46",
+      "id": "ecc79d6b-9a52-4063-ba63-d4bb4078852c",
       "local_id": "pur_acc_raj_chk_2026-07-19_46",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 19.36,
       "purchase_date": "2026-07-19",
       "status": "completed",
@@ -2019,10 +2019,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-19_45",
+      "id": "3208a1f7-ec56-4023-8772-e9343ba85c2e",
       "local_id": "pur_acc_raj_chk_2026-07-19_45",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 96.47,
       "purchase_date": "2026-07-19",
       "status": "completed",
@@ -2040,10 +2040,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-17_44",
+      "id": "b4b17409-2ebb-40d6-a97d-d0096535bbed",
       "local_id": "pur_acc_raj_chk_2026-07-17_44",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 73.12,
       "purchase_date": "2026-07-17",
       "status": "completed",
@@ -2061,10 +2061,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-17_43",
+      "id": "4795fd17-1bd9-4ef6-ae2b-578377c242ec",
       "local_id": "pur_acc_raj_chk_2026-07-17_43",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 29.4,
       "purchase_date": "2026-07-17",
       "status": "completed",
@@ -2082,10 +2082,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-16_42",
+      "id": "2e7d7ad3-ed47-4e09-a9aa-14c139122eb7",
       "local_id": "pur_acc_raj_chk_2026-07-16_42",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_kwikshop",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "bcc68177-02a5-4bd0-939d-832edcf0fb74",
       "amount": 12.25,
       "purchase_date": "2026-07-16",
       "status": "completed",
@@ -2103,10 +2103,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-16_41",
+      "id": "b20321b6-2a1e-4e33-ae56-8a32415484eb",
       "local_id": "pur_acc_raj_chk_2026-07-16_41",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_marcus",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "5e02c2d6-1bb0-43a3-a8c0-45fa01f708ce",
       "amount": 10.44,
       "purchase_date": "2026-07-16",
       "status": "completed",
@@ -2124,10 +2124,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-15_40",
+      "id": "7f9a45fa-b618-432c-8e9f-bf36ecb84211",
       "local_id": "pur_acc_raj_chk_2026-07-15_40",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 38.79,
       "purchase_date": "2026-07-15",
       "status": "completed",
@@ -2145,10 +2145,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-13_39",
+      "id": "c01e2ee4-9808-4061-9679-340ce1011ab1",
       "local_id": "pur_acc_raj_chk_2026-07-13_39",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 26.74,
       "purchase_date": "2026-07-13",
       "status": "completed",
@@ -2166,10 +2166,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-12_38",
+      "id": "94a885a6-7508-4a32-babb-dfa249830202",
       "local_id": "pur_acc_raj_chk_2026-07-12_38",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 76.21,
       "purchase_date": "2026-07-12",
       "status": "completed",
@@ -2187,10 +2187,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-11_37",
+      "id": "413314f7-c73f-41d7-aed4-939c5ebad8cd",
       "local_id": "pur_acc_raj_chk_2026-07-11_37",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_runza",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 15.77,
       "purchase_date": "2026-07-11",
       "status": "completed",
@@ -2208,10 +2208,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-10_36",
+      "id": "f9dc5fef-6afb-48c2-8332-da376da17261",
       "local_id": "pur_acc_raj_chk_2026-07-10_36",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 79.03,
       "purchase_date": "2026-07-10",
       "status": "completed",
@@ -2229,10 +2229,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-09_35",
+      "id": "80eaccb8-be20-4ce6-bd6c-6833047d9ce2",
       "local_id": "pur_acc_raj_chk_2026-07-09_35",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 32.13,
       "purchase_date": "2026-07-09",
       "status": "completed",
@@ -2250,10 +2250,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-08_33",
+      "id": "e1e4ae7c-b5bc-4127-a89f-faf83b0fb46a",
       "local_id": "pur_acc_raj_chk_2026-07-08_33",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 73.79,
       "purchase_date": "2026-07-08",
       "status": "completed",
@@ -2271,10 +2271,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-08_34",
+      "id": "abd757d7-a596-418e-9e62-98fc92e52bff",
       "local_id": "pur_acc_raj_chk_2026-07-08_34",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 53.3,
       "purchase_date": "2026-07-08",
       "status": "completed",
@@ -2292,10 +2292,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-07_32",
+      "id": "14727fe2-3b3b-485c-a8d9-0eace26f11f9",
       "local_id": "pur_acc_raj_chk_2026-07-07_32",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_metro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 3.4,
       "purchase_date": "2026-07-07",
       "status": "completed",
@@ -2313,10 +2313,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-06_31",
+      "id": "1d961f10-3b37-47e5-b8ff-b6cd1bbe56a6",
       "local_id": "pur_acc_raj_chk_2026-07-06_31",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 21.02,
       "purchase_date": "2026-07-06",
       "status": "completed",
@@ -2334,10 +2334,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-05_30",
+      "id": "bc4dc5f9-b7c3-4709-880e-ce3d1bef899a",
       "local_id": "pur_acc_raj_chk_2026-07-05_30",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 31.42,
       "purchase_date": "2026-07-05",
       "status": "completed",
@@ -2355,10 +2355,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-05_28",
+      "id": "b80b4ebf-2ea4-4328-a30b-95f93db79c67",
       "local_id": "pur_acc_raj_chk_2026-07-05_28",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 15.5,
       "purchase_date": "2026-07-05",
       "status": "completed",
@@ -2376,10 +2376,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-05_29",
+      "id": "6b279ff1-5bef-4cee-9a27-bc33efc56dfd",
       "local_id": "pur_acc_raj_chk_2026-07-05_29",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_chipotle",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b24f6c1e-3828-443c-909b-16c4ef9bda54",
       "amount": 29.45,
       "purchase_date": "2026-07-05",
       "status": "completed",
@@ -2397,10 +2397,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-04_27",
+      "id": "19739822-7eaa-4478-9e37-f5f7e3b60fe1",
       "local_id": "pur_acc_raj_chk_2026-07-04_27",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bookstore",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "039c4a88-6d33-4256-803e-f6d573a8dda8",
       "amount": 15.3,
       "purchase_date": "2026-07-04",
       "status": "completed",
@@ -2418,10 +2418,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-03_26",
+      "id": "e6a6e674-0405-484c-9c18-1f0271f81e03",
       "local_id": "pur_acc_raj_chk_2026-07-03_26",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 37.14,
       "purchase_date": "2026-07-03",
       "status": "completed",
@@ -2439,10 +2439,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-03_25",
+      "id": "94cd1efd-975b-42fd-b970-e3646ed5e1aa",
       "local_id": "pur_acc_raj_chk_2026-07-03_25",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 46.42,
       "purchase_date": "2026-07-03",
       "status": "completed",
@@ -2460,10 +2460,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-02_24",
+      "id": "30065ec1-d15d-4125-801e-f2c4efd94fa0",
       "local_id": "pur_acc_raj_chk_2026-07-02_24",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 72.57,
       "purchase_date": "2026-07-02",
       "status": "completed",
@@ -2481,10 +2481,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-07-01_23",
+      "id": "f39b600f-433c-403e-84b8-f4767c5b20d6",
       "local_id": "pur_acc_raj_chk_2026-07-01_23",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 66.27,
       "purchase_date": "2026-07-01",
       "status": "completed",
@@ -2502,10 +2502,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-30_22",
+      "id": "dda3e281-9a72-49d9-a12d-5078c8e134e2",
       "local_id": "pur_acc_raj_chk_2026-06-30_22",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 23.72,
       "purchase_date": "2026-06-30",
       "status": "completed",
@@ -2523,10 +2523,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-30_21",
+      "id": "1663f9c5-cd4d-4114-b92c-1ebeba318140",
       "local_id": "pur_acc_raj_chk_2026-06-30_21",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_henryzoo",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "768500f6-e65e-479c-9741-022568b1bdd2",
       "amount": 16.59,
       "purchase_date": "2026-06-30",
       "status": "completed",
@@ -2544,10 +2544,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-29_20",
+      "id": "fa7844d4-8b8b-4b63-b5b3-70a0790596e9",
       "local_id": "pur_acc_raj_chk_2026-06-29_20",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_culvers",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
       "amount": 18.35,
       "purchase_date": "2026-06-29",
       "status": "completed",
@@ -2565,10 +2565,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-28_18",
+      "id": "f74e59c2-2d40-435f-85ab-78cb6956f7a8",
       "local_id": "pur_acc_raj_chk_2026-06-28_18",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 42.7,
       "purchase_date": "2026-06-28",
       "status": "completed",
@@ -2586,10 +2586,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-28_19",
+      "id": "4a1fd260-aee4-4d64-9ea5-9d3137c4cfe1",
       "local_id": "pur_acc_raj_chk_2026-06-28_19",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 65.77,
       "purchase_date": "2026-06-28",
       "status": "completed",
@@ -2607,10 +2607,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-27_16",
+      "id": "d947e2d4-2139-469c-aede-ca7c6447cf6d",
       "local_id": "pur_acc_raj_chk_2026-06-27_16",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 8.41,
       "purchase_date": "2026-06-27",
       "status": "completed",
@@ -2628,10 +2628,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-27_17",
+      "id": "096e64c6-ef40-4c15-9d0b-928f9c85c480",
       "local_id": "pur_acc_raj_chk_2026-06-27_17",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 59.17,
       "purchase_date": "2026-06-27",
       "status": "completed",
@@ -2649,10 +2649,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-26_15",
+      "id": "d855057b-59bf-49b3-b772-f3b9145bf278",
       "local_id": "pur_acc_raj_chk_2026-06-26_15",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 75.76,
       "purchase_date": "2026-06-26",
       "status": "completed",
@@ -2670,10 +2670,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-25_14",
+      "id": "ab380aef-8d84-43b1-bb96-6252fe1f7f84",
       "local_id": "pur_acc_raj_chk_2026-06-25_14",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 3.72,
       "purchase_date": "2026-06-25",
       "status": "completed",
@@ -2691,10 +2691,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-24_13",
+      "id": "13aa8956-968c-4bee-92c9-e3548a23a9fd",
       "local_id": "pur_acc_raj_chk_2026-06-24_13",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_target",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
       "amount": 47.62,
       "purchase_date": "2026-06-24",
       "status": "completed",
@@ -2712,10 +2712,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-23_11",
+      "id": "9a634aed-a20f-4a5c-b54d-82e121268d15",
       "local_id": "pur_acc_raj_chk_2026-06-23_11",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_hyvee",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "98c2d550-684f-431b-b9e9-002ff673818a",
       "amount": 39.61,
       "purchase_date": "2026-06-23",
       "status": "completed",
@@ -2733,10 +2733,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-23_12",
+      "id": "efbee95e-97a4-4ca8-86fa-b2872a439dc9",
       "local_id": "pur_acc_raj_chk_2026-06-23_12",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 30.1,
       "purchase_date": "2026-06-23",
       "status": "completed",
@@ -2754,10 +2754,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-22_10",
+      "id": "9563e391-f7eb-4287-97a2-40d2894f7e25",
       "local_id": "pur_acc_raj_chk_2026-06-22_10",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_uber",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b6f48794-244b-4495-ae34-46e35311935a",
       "amount": 2.41,
       "purchase_date": "2026-06-22",
       "status": "completed",
@@ -2775,10 +2775,10 @@
       "is_online": 1
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-21_9",
+      "id": "8a74d58f-c43f-4e47-ae6b-c5ad05e02c38",
       "local_id": "pur_acc_raj_chk_2026-06-21_9",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bikeunion",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "c4105354-8b7e-4a23-b2f7-5f00493294f8",
       "amount": 9.16,
       "purchase_date": "2026-06-21",
       "status": "completed",
@@ -2796,10 +2796,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-20_8",
+      "id": "4792339b-6ad8-45d7-ad11-6b7e94a86eda",
       "local_id": "pur_acc_raj_chk_2026-06-20_8",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_walgreens",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "86ab6b63-7faa-495d-82bd-6f3af07c0f46",
       "amount": 18.3,
       "purchase_date": "2026-06-20",
       "status": "completed",
@@ -2817,10 +2817,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-19_7",
+      "id": "f23c1e84-0ae2-422d-b8ab-13f15fb674ee",
       "local_id": "pur_acc_raj_chk_2026-06-19_7",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_runza",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "e60450b8-228e-47f4-84a0-1efb1a121c5c",
       "amount": 12.05,
       "purchase_date": "2026-06-19",
       "status": "completed",
@@ -2838,10 +2838,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-18_6",
+      "id": "e340b0ee-5a15-4f7f-8004-c9d96ef4671a",
       "local_id": "pur_acc_raj_chk_2026-06-18_6",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bakersgro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b25c2c6f-faef-4d8a-be6c-789c4a754f58",
       "amount": 54.2,
       "purchase_date": "2026-06-18",
       "status": "completed",
@@ -2859,10 +2859,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-16_4",
+      "id": "e9be2133-8c1f-4ccc-8e16-a93b24def75e",
       "local_id": "pur_acc_raj_chk_2026-06-16_4",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_lacasa",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
       "amount": 12.07,
       "purchase_date": "2026-06-16",
       "status": "completed",
@@ -2880,10 +2880,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-16_5",
+      "id": "3db5900e-fb08-4e7e-b819-1df20da5cfe6",
       "local_id": "pur_acc_raj_chk_2026-06-16_5",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_scooters",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "46c7daaa-3e66-4008-9874-ef864c4779c1",
       "amount": 5.81,
       "purchase_date": "2026-06-16",
       "status": "completed",
@@ -2901,10 +2901,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-15_3",
+      "id": "9c62e498-cee9-4ec9-9213-e16ad320f0a6",
       "local_id": "pur_acc_raj_chk_2026-06-15_3",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_traderjoes",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "03d2debe-8823-428d-ab23-f1f306ea09de",
       "amount": 54.82,
       "purchase_date": "2026-06-15",
       "status": "completed",
@@ -2922,10 +2922,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-14_2",
+      "id": "c550f8ee-32d1-45b6-8599-f36a32374122",
       "local_id": "pur_acc_raj_chk_2026-06-14_2",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_bluesushi",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "aafc2628-0dfa-43f0-8438-745d6047692c",
       "amount": 15.71,
       "purchase_date": "2026-06-14",
       "status": "completed",
@@ -2943,10 +2943,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-12_1",
+      "id": "2d25f5ec-06a2-459f-9b02-ddc188199bde",
       "local_id": "pur_acc_raj_chk_2026-06-12_1",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_skutt",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "b4dfa8a9-38a6-49e2-aade-1d47ae119394",
       "amount": 22.86,
       "purchase_date": "2026-06-12",
       "status": "completed",
@@ -2964,10 +2964,10 @@
       "is_online": 0
     },
     {
-      "id": "pur_acc_raj_chk_2026-06-12_0",
+      "id": "15993ed9-8f50-4148-acbe-f01f56af4332",
       "local_id": "pur_acc_raj_chk_2026-06-12_0",
-      "account_id": "acc_raj_chk",
-      "merchant_id": "m_metro",
+      "account_id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
+      "merchant_id": "22ada554-fdbb-4372-adf8-b6265894ae0f",
       "amount": 12.33,
       "purchase_date": "2026-06-12",
       "status": "completed",
@@ -3027,7 +3027,7 @@
     "retail": 20.31
   },
   "credit": {
-    "account_id": "acc_raj_cc",
+    "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
     "balance": 128.55,
     "limit": 1000.0,
     "utilization": 0.1285,
@@ -3035,10 +3035,10 @@
     "statement_day": 18,
     "purchases": [
       {
-        "id": "pur_acc_raj_cc_2026-09-09_17",
+        "id": "ad96ec8d-15e2-4934-9232-e4e4bf20eb96",
         "local_id": "pur_acc_raj_cc_2026-09-09_17",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 5.75,
         "purchase_date": "2026-09-09",
         "status": "completed",
@@ -3056,10 +3056,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_raj_cc_2026-08-27_16",
+        "id": "cbcbe946-e6be-40b3-baa6-a4b9dac208a2",
         "local_id": "pur_acc_raj_cc_2026-08-27_16",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 24.22,
         "purchase_date": "2026-08-27",
         "status": "completed",
@@ -3077,10 +3077,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_raj_cc_2026-08-26_15",
+        "id": "557369a4-a8be-4b91-9d00-4706e28fd23b",
         "local_id": "pur_acc_raj_cc_2026-08-26_15",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 19.17,
         "purchase_date": "2026-08-26",
         "status": "completed",
@@ -3098,10 +3098,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_raj_cc_2026-08-07_14",
+        "id": "56070faa-95a0-4241-9e90-98bddd6f1c53",
         "local_id": "pur_acc_raj_cc_2026-08-07_14",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 13.21,
         "purchase_date": "2026-08-07",
         "status": "completed",
@@ -3119,10 +3119,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_raj_cc_2026-08-06_13",
+        "id": "54f2c8a5-6a09-403f-b0c6-58bd8a75f73a",
         "local_id": "pur_acc_raj_cc_2026-08-06_13",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 22.72,
         "purchase_date": "2026-08-06",
         "status": "completed",
@@ -3140,10 +3140,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_raj_cc_2026-08-04_12",
+        "id": "46e2f101-3993-48ee-9775-0ec1281429c6",
         "local_id": "pur_acc_raj_cc_2026-08-04_12",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_culvers",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
         "amount": 25.86,
         "purchase_date": "2026-08-04",
         "status": "completed",
@@ -3161,10 +3161,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_raj_cc_2026-07-25_11",
+        "id": "78636003-a15a-4064-a3d3-635985b0b546",
         "local_id": "pur_acc_raj_cc_2026-07-25_11",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_target",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 12.84,
         "purchase_date": "2026-07-25",
         "status": "completed",
@@ -3182,10 +3182,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_raj_cc_2026-07-23_10",
+        "id": "17d38aac-d0c4-4db2-990a-a4acaa554048",
         "local_id": "pur_acc_raj_cc_2026-07-23_10",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_target",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 22.68,
         "purchase_date": "2026-07-23",
         "status": "completed",
@@ -3203,10 +3203,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_raj_cc_2026-07-16_9",
+        "id": "96c85853-54bb-43af-bf07-c12f5ad4dcbd",
         "local_id": "pur_acc_raj_cc_2026-07-16_9",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_lacasa",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
         "amount": 17.3,
         "purchase_date": "2026-07-16",
         "status": "completed",
@@ -3224,10 +3224,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_raj_cc_2026-07-13_8",
+        "id": "21f66329-6d92-4fd1-9ba2-a4a0e8504b94",
         "local_id": "pur_acc_raj_cc_2026-07-13_8",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_lacasa",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "07f4d0ff-e23f-492e-8ea0-376177afb054",
         "amount": 14.28,
         "purchase_date": "2026-07-13",
         "status": "completed",
@@ -3245,10 +3245,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_raj_cc_2026-07-10_7",
+        "id": "af30a39e-36d4-494d-aabf-f802594c1552",
         "local_id": "pur_acc_raj_cc_2026-07-10_7",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 14.47,
         "purchase_date": "2026-07-10",
         "status": "completed",
@@ -3266,10 +3266,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_raj_cc_2026-07-09_6",
+        "id": "d15ea3c6-db6a-4631-af2f-0809b0940297",
         "local_id": "pur_acc_raj_cc_2026-07-09_6",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_target",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 22.18,
         "purchase_date": "2026-07-09",
         "status": "completed",
@@ -3287,10 +3287,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_raj_cc_2026-07-05_5",
+        "id": "797c8005-6d0c-4ddd-bd59-c3a0f9733943",
         "local_id": "pur_acc_raj_cc_2026-07-05_5",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_target",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 11.34,
         "purchase_date": "2026-07-05",
         "status": "completed",
@@ -3308,10 +3308,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_raj_cc_2026-06-22_4",
+        "id": "a93472bc-7f58-482c-830d-ad5e214c14ba",
         "local_id": "pur_acc_raj_cc_2026-06-22_4",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_amazon",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "8d7df953-4f3c-45cc-b91d-5139daacd292",
         "amount": 14.46,
         "purchase_date": "2026-06-22",
         "status": "completed",
@@ -3329,10 +3329,10 @@
         "is_online": 1
       },
       {
-        "id": "pur_acc_raj_cc_2026-06-20_3",
+        "id": "4ad086ba-11c1-4a80-9a39-af58d1960dab",
         "local_id": "pur_acc_raj_cc_2026-06-20_3",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_target",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 24.79,
         "purchase_date": "2026-06-20",
         "status": "completed",
@@ -3350,10 +3350,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_raj_cc_2026-06-18_2",
+        "id": "60873a78-7ac5-487d-b2d4-1177b9d63329",
         "local_id": "pur_acc_raj_cc_2026-06-18_2",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_target",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 25.4,
         "purchase_date": "2026-06-18",
         "status": "completed",
@@ -3371,10 +3371,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_raj_cc_2026-06-17_1",
+        "id": "5d1f8aa5-be38-4205-a715-363a888db5bd",
         "local_id": "pur_acc_raj_cc_2026-06-17_1",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_culvers",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "c936084d-f819-4a59-aba6-5fbb13ce2820",
         "amount": 4.54,
         "purchase_date": "2026-06-17",
         "status": "completed",
@@ -3392,10 +3392,10 @@
         "is_online": 0
       },
       {
-        "id": "pur_acc_raj_cc_2026-06-16_0",
+        "id": "64f313f0-c11e-442d-9063-9e3a68b28b11",
         "local_id": "pur_acc_raj_cc_2026-06-16_0",
-        "account_id": "acc_raj_cc",
-        "merchant_id": "m_target",
+        "account_id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
+        "merchant_id": "c72efe3c-695a-4dc6-b062-9cc9a0c04dad",
         "amount": 13.34,
         "purchase_date": "2026-06-16",
         "status": "completed",

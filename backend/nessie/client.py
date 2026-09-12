@@ -96,6 +96,21 @@ class NessieClient:
     def get(self, path, **params):
         return self.request("GET", path, params=params or None)
 
+    def collection(self, path, **params) -> list[dict]:
+        """GET a list endpoint, treating "none exist" as the empty list.
+
+        Nessie answers 404 for an empty sub-collection ("No transfers found for
+        this account") rather than []. That is not an error -- most accounts have
+        no transfers -- but it aborted the whole post-seed sync partway through
+        and left the cache half-populated.
+        """
+        try:
+            return self.get(path, **params) or []
+        except NessieError as exc:
+            if exc.status == 404:
+                return []
+            raise
+
     def post(self, path, payload):
         return self.request("POST", path, payload=payload)
 
@@ -202,22 +217,22 @@ class NessieClient:
         return res or []
 
     def purchases(self, account_id: str) -> list[dict]:
-        return self.get(f"/accounts/{account_id}/purchases") or []
+        return self.collection(f"/accounts/{account_id}/purchases")
 
     def bills(self, account_id: str) -> list[dict]:
-        return self.get(f"/accounts/{account_id}/bills") or []
+        return self.collection(f"/accounts/{account_id}/bills")
 
     def deposits(self, account_id: str) -> list[dict]:
-        return self.get(f"/accounts/{account_id}/deposits") or []
+        return self.collection(f"/accounts/{account_id}/deposits")
 
     def withdrawals(self, account_id: str) -> list[dict]:
-        return self.get(f"/accounts/{account_id}/withdrawals") or []
+        return self.collection(f"/accounts/{account_id}/withdrawals")
 
     def transfers(self, account_id: str) -> list[dict]:
-        return self.get(f"/accounts/{account_id}/transfers") or []
+        return self.collection(f"/accounts/{account_id}/transfers")
 
     def loans(self, account_id: str) -> list[dict]:
-        return self.get(f"/accounts/{account_id}/loans") or []
+        return self.collection(f"/accounts/{account_id}/loans")
 
     # ------------------------------------------------------------------ writes
 

@@ -161,9 +161,10 @@ def _push_to_nessie(payer_id: str, payee_id: str, amount: float, description: st
         return False, "No NESSIE_API_KEY set, so the transfer stayed in the local cache."
     try:
         client = NessieClient()
+        # No medium or payee_id: this deployment's TransferCreate rejects both as
+        # extra fields. The payee survives in the local cache, which is what every
+        # read goes through anyway; upstream the transfer records only the payer.
         client.create_transfer(payer_id, {
-            "medium": "balance",
-            "payee_id": payee_id,
             "amount": amount,
             "transaction_date": repo_date(),
             "description": description,

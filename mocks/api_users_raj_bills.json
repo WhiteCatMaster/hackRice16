@@ -2,7 +2,7 @@
   "user": "raj",
   "bills": [
     {
-      "id": "b_raj_card",
+      "id": "19548ce5-86a9-4e73-924e-9593609a7600",
       "nickname": "Credit card payment",
       "payee": "Treasurer Bank Student Card",
       "amount": 60.0,
@@ -12,7 +12,7 @@
       "explanation": "Card payment on the 18th."
     },
     {
-      "id": "b_raj_rent",
+      "id": "9107bbeb-d68f-4f4b-b6e2-a7b1e568fe57",
       "nickname": "Rent",
       "payee": "Dundee Apartments",
       "amount": 720.0,
@@ -22,7 +22,7 @@
       "explanation": "Shared apartment rent, due on the 1st."
     },
     {
-      "id": "b_raj_phone",
+      "id": "7db3aba2-1f61-4ab7-ab6f-c4cb277a2a0b",
       "nickname": "Phone",
       "payee": "T-Mobile",
       "amount": 55.0,

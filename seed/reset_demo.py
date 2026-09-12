@@ -26,22 +26,25 @@ from seed.validate import validate
 def delete_seeded_from_nessie(conn, client: NessieClient, verbose: bool = True) -> int:
     """Delete only what we created, tracked by id_map.
 
-    Deleting the customers takes their accounts and transactions with them, which
-    is why we do not walk every purchase.
+    Accounts only. This deployment has no `DELETE /customers/{id}` route at all --
+    it answers 403 "Missing Authentication Token", which is the gateway's way of
+    saying the route does not exist -- so the old assumption that deleting a
+    customer cascades to its accounts and transactions is simply wrong here.
+    Every teardown silently deleted nothing, and the next `--push` then created a
+    second full copy of the dataset upstream. Deleting the accounts does take
+    their transactions with them; the customer shells are left behind because
+    the API offers no way to remove them.
     """
-    rows = list(conn.execute("SELECT entity, nessie_id FROM id_map WHERE entity IN ('customer','account')"))
+    rows = list(conn.execute("SELECT entity, nessie_id FROM id_map WHERE entity = 'account'"))
     deleted = 0
     for row in rows:
         try:
-            if row["entity"] == "customer":
-                client.delete_customer(row["nessie_id"])
-            else:
-                client.delete_account(row["nessie_id"])
+            client.delete_account(row["nessie_id"])
             deleted += 1
         except NessieError as exc:
             # A 404 just means it is already gone, which is the state we want.
             if exc.status != 404 and verbose:
-                print(f"  could not delete {row['entity']} {row['nessie_id']}: {exc.status}")
+                print(f"  could not delete account {row['nessie_id']}: {exc.status}")
     conn.execute("DELETE FROM id_map")
     conn.commit()
     if verbose:

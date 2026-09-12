@@ -4,13 +4,13 @@
   "name": "Ana Etxeberria",
   "accounts": [
     {
-      "id": "acc_ana_chk",
+      "id": "14805bf2-9887-432f-a490-4cc65a77e325",
       "type": "Checking",
       "nickname": "Ana Checking",
       "balance": 1552.93
     },
     {
-      "id": "acc_ana_cc",
+      "id": "9fb97795-6517-4124-b103-8b11143a5a8e",
       "type": "Credit Card",
       "nickname": "Ana Student Card",
       "balance": 312.4,
@@ -18,7 +18,7 @@
       "utilization": 0.6248
     },
     {
-      "id": "acc_ana_sav",
+      "id": "f4ec9bb2-20dc-4657-a6d2-04ea1dcc2a42",
       "type": "Savings",
       "nickname": "Ana Savings",
       "balance": 2600.0

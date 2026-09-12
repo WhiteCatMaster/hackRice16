@@ -4,13 +4,13 @@
   "name": "Raj Krishnan",
   "accounts": [
     {
-      "id": "acc_raj_chk",
+      "id": "2d1bc71a-83e9-4639-ba17-34a9e92668e1",
       "type": "Checking",
       "nickname": "Raj Checking",
       "balance": 620.0
     },
     {
-      "id": "acc_raj_cc",
+      "id": "57af6d1d-9d0c-48d6-895b-a143a06c0d44",
       "type": "Credit Card",
       "nickname": "Raj Student Card",
       "balance": 128.55,
@@ -18,7 +18,7 @@
       "utilization": 0.1285
     },
     {
-      "id": "acc_raj_sav",
+      "id": "aa2941b5-80e3-4dba-80a0-3e8d203a6df5",
       "type": "Savings",
       "nickname": "Raj Savings",
       "balance": 1450.0

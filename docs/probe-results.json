@@ -10,14 +10,14 @@
     "n": 0.1,
     "q": "API key is valid for writes",
     "verdict": "DIFFERS",
-    "detail": "reachable, but NESSIE_API_KEY is not set, so writes are impossible",
+    "detail": "reachable, but the API key is not valid for writes",
     "action": "seeding needs a valid key; reads work without one"
   },
   {
     "n": 6,
     "q": "Merchant category is a list",
     "verdict": "DIFFERS",
-    "detail": "live merchant has category as str: 'Comida'",
+    "detail": "live merchant has category as str: 'pharmacy'",
     "action": "seed.py negotiates this automatically, but a string is the likely shape"
   },
   {

@@ -59,8 +59,9 @@ class FakeNessie(NessieClient):
             if m:
                 account_id, collection = m.group(1), m.group(2)
                 if collection == "transfers":
+                    # No payee_id: the live API does not store one (see POST below).
                     return [t for t in self.store["transfers"].values()
-                            if account_id in (t["payer_id"], t["payee_id"])]
+                            if t["payer_id"] == account_id]
                 return [x for x in self.store[collection].values() if x["account_id"] == account_id]
             raise NessieError(method, path, 404, "no such route")
 
@@ -80,9 +81,16 @@ class FakeNessie(NessieClient):
                 account_id, collection = m.group(1), m.group(2)
                 obj = dict(payload)
                 if collection == "transfers":
+                    # The live TransferCreate rejects medium and payee_id as extra
+                    # fields and ignores payee_id even as a query param, so a
+                    # transfer debits the payer and names no destination. Rejecting
+                    # them here keeps the double honest about that.
+                    extra = {"medium", "payee_id"} & set(obj)
+                    if extra:
+                        raise NessieError(method, path, 400,
+                                          f"{sorted(extra)} extra fields not permitted")
                     obj["payer_id"] = account_id
                     self._apply(account_id, -float(obj["amount"]))
-                    self._apply(obj["payee_id"], float(obj["amount"]))
                 else:
                     obj["account_id"] = account_id
                     if collection == "deposits":

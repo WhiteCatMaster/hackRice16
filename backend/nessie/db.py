@@ -219,9 +219,18 @@ def init(conn: sqlite3.Connection) -> None:
     conn.commit()
 
 
-def wipe(conn: sqlite3.Connection) -> None:
-    """Empty the cache but keep the schema."""
-    for table in TABLES:
+def wipe(conn: sqlite3.Connection, keep_id_map: bool = True) -> None:
+    """Empty the cache but keep the schema.
+
+    id_map is kept by default because it describes *remote* state, not cached
+    state: it is the only record of what we created in Nessie. Dropping it on a
+    local-only reset leaves every seeded object alive upstream and untracked, so
+    `reset_demo --push` can no longer delete them and the next push duplicates
+    the lot. Only the Nessie teardown, which has just deleted those objects,
+    should clear it -- and it does so itself.
+    """
+    tables = TABLES if not keep_id_map else [t for t in TABLES if t != "id_map"]
+    for table in tables:
         conn.execute(f"DELETE FROM {table}")
     conn.commit()
 

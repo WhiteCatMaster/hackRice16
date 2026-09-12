@@ -2,7 +2,7 @@
   "user": "lucia",
   "bills": [
     {
-      "id": "b_luc_rent",
+      "id": "3ae8a5c2-8bf3-4f8c-bb49-950d887e41a2",
       "nickname": "Rent",
       "payee": "Gold Coast Housing",
       "amount": 640.0,
@@ -12,7 +12,7 @@
       "explanation": "Room in a shared house, due on the 1st."
     },
     {
-      "id": "b_luc_phone",
+      "id": "76864e90-213f-476d-8807-c22325bb2171",
       "nickname": "Phone",
       "payee": "Visible",
       "amount": 30.0,
@@ -22,7 +22,7 @@
       "explanation": "Phone plan, charged on the 6th."
     },
     {
-      "id": "b_luc_card",
+      "id": "ebdb2c52-a9a5-458e-bf3a-e1730441bc60",
       "nickname": "Credit card payment",
       "payee": "Treasurer Bank Student Card",
       "amount": 80.0,

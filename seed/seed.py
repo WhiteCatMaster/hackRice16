@@ -98,6 +98,18 @@ class Pusher:
             raise NessieError("ref", local_id, None, f"{local_id} was never created") from None
 
 
+def api_medium(medium: str) -> str:
+    """Nessie's purchase medium enum is only balance|rewards.
+
+    Our dataset says "credit" for card spend, which the engine's utilization and
+    card-testing logic rely on, so the translation happens here at the push
+    boundary and the local cache keeps the finer distinction. Upstream the
+    account is already a Credit Card, and "balance" there means funded from the
+    account rather than from rewards points.
+    """
+    return "balance" if medium == "credit" else medium
+
+
 def push_dataset(ds: Dataset, client: NessieClient, conn, resume: bool = False,
                  limit_purchases: int | None = None, verbose: bool = True) -> Pusher:
     p = Pusher(client, conn, resume=resume, verbose=verbose)
@@ -158,11 +170,13 @@ def push_dataset(ds: Dataset, client: NessieClient, conn, resume: bool = False,
     for b in ds.bills:
         p.push("bill", b["local_id"], lambda b=b: client.create_bill(
             p.ref(b["account_local_id"]),
+            # No creation_date: Nessie sets it server-side and rejects it as an
+            # extra field. payment_date already falls back to it, so nothing is
+            # lost upstream, and the local cache keeps creation_date regardless.
             {"status": b["status"], "payee": b["payee"], "nickname": b["nickname"],
              "payment_amount": b["payment_amount"],
              "payment_date": b["payment_date"] or b["creation_date"],
-             "recurring_date": b["recurring_date"],
-             "creation_date": b["creation_date"]},
+             "recurring_date": b["recurring_date"]},
         ))
 
     # Chronological, all entity types interleaved: the funding deposit has to land
@@ -201,15 +215,20 @@ def push_dataset(ds: Dataset, client: NessieClient, conn, resume: bool = False,
         elif kind == "transfer":
             p.push("transfer", item["local_id"], lambda i=item: client.create_transfer(
                 p.ref(i["payer_local_id"]),
-                {"medium": i["medium"], "payee_id": p.ref(i["payee_local_id"]),
-                 "amount": i["amount"], "transaction_date": i["transaction_date"],
+                # This deployment's TransferCreate rejects medium and payee_id as
+                # extra fields, and drops payee_id even as a query param: a live
+                # transfer records only the payer. So the payee stays local-only,
+                # like the other fields Nessie has no room for. Every read goes
+                # through the cache, so known_payee() is unaffected -- but the
+                # "new payee" scam signal cannot be rebuilt from Nessie alone.
+                {"amount": i["amount"], "transaction_date": i["transaction_date"],
                  "status": i["status"],
                  "description": encode(i["description"], i.get("occurred_at"))},
             ))
         else:
             p.push("purchase", item["local_id"], lambda i=item: client.create_purchase(
                 p.ref(i["account_local_id"]),
-                {"merchant_id": p.ref(i["merchant_local_id"]), "medium": i["medium"],
+                {"merchant_id": p.ref(i["merchant_local_id"]), "medium": api_medium(i["medium"]),
                  "purchase_date": i["purchase_date"], "amount": i["amount"],
                  "status": i["status"],
                  "description": encode(i["description"], i.get("occurred_at"))},

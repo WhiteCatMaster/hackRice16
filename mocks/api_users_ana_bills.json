@@ -2,7 +2,7 @@
   "user": "ana",
   "bills": [
     {
-      "id": "b_ana_gym",
+      "id": "991055a5-bc3d-4759-a71c-d6bf9a47476d",
       "nickname": "Gym",
       "payee": "Planet Fitness",
       "amount": 30.0,
@@ -12,7 +12,7 @@
       "explanation": "Gym membership. US gyms usually need written cancellation notice, so cancel before you fly home or it keeps charging."
     },
     {
-      "id": "b_ana_stream",
+      "id": "2a85815f-e992-4f20-8951-2ac5405e8fff",
       "nickname": "Streaming",
       "payee": "Spotify",
       "amount": 15.99,
@@ -23,7 +23,7 @@
       "heads_up": "Free trial ends 2026-09-21, then 15.99/month"
     },
     {
-      "id": "b_ana_card",
+      "id": "18a9def9-fcd2-469a-9312-162a7255527a",
       "nickname": "Credit card payment",
       "payee": "Treasurer Bank Student Card",
       "amount": 75.0,
@@ -33,7 +33,7 @@
       "explanation": "Minimum-ish payment on your student card. Paying only this much still costs you interest; paying the full statement balance costs nothing."
     },
     {
-      "id": "b_ana_rent",
+      "id": "7b1ec253-8659-4eb0-bb29-5c2834240de1",
       "nickname": "Rent",
       "payee": "Midtown Flats Leasing",
       "amount": 950.0,
@@ -43,7 +43,7 @@
       "explanation": "Your rent. It leaves your checking account on the 1st of each month. Your lease ends when you fly home, so this is the last month you pay it."
     },
     {
-      "id": "b_ana_phone",
+      "id": "bae66474-fbf9-477e-bfd1-204b0149d451",
       "nickname": "Phone",
       "payee": "Mint Mobile",
       "amount": 45.0,
@@ -53,7 +53,7 @@
       "explanation": "Prepaid phone plan. Charged on the 5th. In the US the plan is usually billed a month in advance."
     },
     {
-      "id": "b_ana_health",
+      "id": "0a277d28-1ecc-477a-8c41-f261ba63b3f4",
       "nickname": "Health insurance",
       "payee": "Creighton Student Health Plan",
       "amount": 120.0,

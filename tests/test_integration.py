@@ -266,8 +266,11 @@ class TestConfirmationGate(IntegrationBase):
         before = handlers.summary("ana")[1]["accounts"][0]["balance"]
 
         # Nothing may move until it is confirmed, and the result says whether
-        # it reached Nessie. Without a key it must not claim that it did.
-        status, result = handlers.confirm(action["id"], {"user": "ana", "action": action})
+        # it reached Nessie. Without a key it must not claim that it did -- so
+        # pin the keyless case rather than inheriting whatever .env happens to
+        # hold, which also keeps the suite from writing to the live sandbox.
+        with mock.patch.object(config, "NESSIE_API_KEY", ""):
+            status, result = handlers.confirm(action["id"], {"user": "ana", "action": action})
         self.assertEqual(status, 200)
         self.assertFalse(missing(result, CONTRACT["ActionResult"]))
         self.assertFalse(result["executed_in_nessie"])
@@ -369,7 +372,8 @@ class TestNullRunwayIsGoodNews(IntegrationBase):
         """Pins the number the action card shows, which is a date, not null."""
         _, reply = handlers.chat({"user": "ana", "message": "can I afford a $47 concert ticket?"})
         action = reply["proposed_action"]
-        _, result = handlers.confirm(action["id"], {"user": "ana", "action": action})
+        with mock.patch.object(config, "NESSIE_API_KEY", ""):
+            _, result = handlers.confirm(action["id"], {"user": "ana", "action": action})
         self.assertEqual(result["status"], "executed")
         _, after = handlers.summary("ana")
         self.assertEqual(after["runway_date"], after["target_date"],
