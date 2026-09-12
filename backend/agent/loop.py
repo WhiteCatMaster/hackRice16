@@ -169,6 +169,25 @@ def _money(value) -> str:
     return f"-${abs(value):,.2f}" if value < 0 else f"${value:,.2f}"
 
 
+def _fix_label(fix: dict, es: bool) -> str:
+    """A fix's label in the reply's language.
+
+    Only rendered locally where the fix carries the parts as fields — transfers
+    give us `amount`, `from` and `to`, so the number is substituted verbatim and
+    never goes near a model. A category cap keeps its English label because the
+    category and the weekly figure exist only inside that string, and picking
+    them back out with a regex is the same guessing that lost the cap line in the
+    first place. When the engine publishes `label_parts`, render the rest here.
+    """
+    label = fix.get("label") or ""
+    if not es:
+        return label
+    if fix.get("type") == "transfer" and fix.get("amount"):
+        source = "ahorros" if fix.get("from") in (None, "savings") else fix["from"]
+        return f"Mover {_money(fix['amount'])} de {source}"
+    return label
+
+
 def _lasts_phrase(runway_date, es: bool) -> str:
     """How far the money reaches, as a phrase that reads either way.
 
@@ -310,17 +329,18 @@ def _scripted(conn, user: str, message: str, language: str | None) -> dict:
             after = effect.get("runway_date_after")
             still_short = float(effect.get("gap_after") or 0)
 
+            spoken = _fix_label(transfer, es)
             if effect.get("measured") is False:
                 lines.append(
-                    f"{transfer['label']}: no he podido medir el efecto."
+                    f"{spoken}: no he podido medir el efecto."
                     if es else
-                    f"{transfer['label']}: I could not measure the effect of that.")
+                    f"{spoken}: I could not measure the effect of that.")
             else:
                 lasts = _lasts_phrase(after, es)
                 lines.append(
-                    f"{transfer['label']}: tu dinero duraría {lasts}."
+                    f"{spoken}: tu dinero duraría {lasts}."
                     if es else
-                    f"{transfer['label']}: that alone stretches you {lasts}.")
+                    f"{spoken}: that alone stretches you {lasts}.")
                 if still_short > 0:
                     lines.append(
                         f"Aun así te faltarían {_money(still_short)}."
@@ -336,9 +356,9 @@ def _scripted(conn, user: str, message: str, language: str | None) -> dict:
             if plan.get("clears_the_gap"):
                 lasts = _lasts_phrase(plan.get("runway_date_after"), es)
                 lines.append(
-                    f"{cap['label']} también, y juntos tu dinero duraría {lasts}."
+                    f"{_fix_label(cap, es)} también, y juntos tu dinero duraría {lasts}."
                     if es else
-                    f"{cap['label']} too, and together they stretch you {lasts}.")
+                    f"{_fix_label(cap, es)} too, and together they stretch you {lasts}.")
             else:
                 lines.append(
                     f"Y {cap['label'].lower()} cubre el resto."
