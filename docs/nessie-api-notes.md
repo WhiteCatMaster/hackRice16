@@ -19,6 +19,20 @@ Check reachability without seeding anything:
 python -c "from backend.nessie.client import NessieClient; print(NessieClient().ping())"
 ```
 
+## Answering the ❓ questions
+
+Do not answer them by reading. Run the probe:
+
+```bash
+python -m seed.probe_nessie
+```
+
+It creates one throwaway customer with its own accounts and merchant, tests all
+eight questions against the live API, deletes everything it made, and prints
+MATCHES / DIFFERS / UNKNOWN per question with the code change each DIFFERS needs.
+It never touches seeded demo data and it never runs a bulk delete. Results are
+saved to `docs/probe-results.json`.
+
 ## Endpoints we use
 
 | Resource | Endpoint | Used for |
