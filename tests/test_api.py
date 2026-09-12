@@ -504,8 +504,13 @@ class TestChatFixture(EngineBase):
         import json as _json
 
         path = config.MOCKS_DIR / "api_chat_response.json"
-        if not path.exists():
-            self.skipTest("no fixture committed")
+        # Not skipIf: P1 removed their stub, so this file has exactly one source —
+        # `python -m seed.export_chat_fixture`, committed. If it goes missing, P4's
+        # mock mode has no chat reply at all, and a skip here would hide that.
+        self.assertTrue(
+            path.exists(),
+            "mocks/api_chat_response.json is missing. P4 renders it when the backend "
+            "is down. Regenerate: python -m seed.export_chat_fixture")
         fixture = _json.loads(path.read_text(encoding="utf-8"))
         live = loop.answer(self.conn, "ana", fixture.get("_question", ""))
         self.assertEqual(fixture["language"], live["language"])
