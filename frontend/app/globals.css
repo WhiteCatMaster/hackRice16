@@ -628,6 +628,34 @@ h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -0.0
 .copilot-input input { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: var(--r); background: var(--paper); padding: 11px 12px; color: var(--ink); font-family: var(--sans); font-size: 13px; }
 .copilot-input input:focus { outline: 0; border-color: var(--teal); }
 
+/* === Your own model key =================================================== */
+
+.copilot-head-actions { display: flex; align-items: center; gap: 8px; }
+.key-button { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 6px 10px; color: var(--ink-mute); font-family: var(--figure); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
+.key-button:hover { border-color: var(--teal-line); color: var(--teal-deep); }
+/* A key is set: the button is now a statement of fact, not an invitation. */
+.key-button.on { background: var(--teal-tint); border-color: var(--teal-line); color: var(--teal-deep); }
+
+.model-key { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--paper-low); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.model-key-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.model-key-head h3 { font-family: var(--display); font-weight: 500; font-size: 17px; color: var(--ink); margin: 7px 0 0; }
+.model-key-head .modal-close { position: static; font-size: 19px; line-height: 1; }
+.model-key-note { color: var(--ink-soft); font-size: 11px; line-height: 1.5; margin: 0; }
+
+.model-key-providers { display: flex; flex-wrap: wrap; gap: 6px; }
+.model-key-providers button { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 7px 11px; color: var(--ink-soft); font-family: var(--sans); font-size: 12px; cursor: pointer; }
+.model-key-providers button.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+.model-key-field { display: flex; flex-direction: column; gap: 5px; }
+.model-key-field > span { color: var(--ink-mute); font-family: var(--figure); font-size: 9px; letter-spacing: 0.08em; }
+.model-key-field input { border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); padding: 10px 11px; color: var(--ink); font-family: var(--figure); font-size: 12px; }
+.model-key-field input:focus { outline: 0; border-color: var(--teal); }
+.model-key-field small { color: var(--ink-mute); font-size: 10px; line-height: 1.45; }
+
+.model-key-warn { background: var(--brass-tint); border: 1px solid var(--brass-line); border-radius: var(--r); color: var(--brass); font-size: 11px; line-height: 1.5; margin: 0; padding: 10px 11px; }
+.model-key-error { color: var(--flag); font-size: 11px; margin: 0; }
+.link-button { background: none; border: 0; padding: 0; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
+
 /* === The confirmation gate ================================================ */
 
 .action-card { border: 1px solid var(--brass-line); border-radius: var(--r-lg); background: var(--brass-tint); padding: 16px; }

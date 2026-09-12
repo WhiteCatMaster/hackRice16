@@ -112,6 +112,15 @@ export const space = {
   gutter: 18,
   card: 18,
   gap: 12,
+  /**
+   * The tab bar's height above the safe-area inset.
+   *
+   * 64 is the floor an icon plus a label fits in — at 56 the label rendered
+   * past the bar's own bottom edge. It lives here rather than in the tab layout
+   * because the copilot has to know it too: a screen with a keyboard in it has
+   * to lift its composer by exactly the bar it is sitting behind.
+   */
+  tabBar: 64,
 } as const
 
 /**

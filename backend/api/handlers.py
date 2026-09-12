@@ -83,6 +83,20 @@ def _agent_status() -> dict:
     return loop.status()
 
 
+def _credential(headers):
+    """The model key this request brought with it, if it brought one.
+
+    Returns `(credential, error)`. A malformed key is the user's to fix — they
+    typed it a second ago — so it comes back as a 400 rather than being dropped
+    on the floor and answered with the server's own key.
+    """
+    from backend.agent import keys
+    try:
+        return keys.from_headers(headers), None
+    except keys.BadKey as exc:
+        return None, (400, {"error": "bad_model_key", "message": str(exc)})
+
+
 def summary(user: str):
     conn = _conn()
     if not _known(conn, user):
@@ -184,7 +198,13 @@ def transfers_check(body: dict):
     return 200, result
 
 
-def chat(body: dict):
+def chat(body: dict, headers=None):
+    """A question, answered by the engine's numbers and somebody's model.
+
+    `headers` is the whole request's, because the model key travels in one — see
+    `backend/agent/keys.py` for why, and for the four names. Without one this is
+    exactly what it was before: the server's own key, or the scripted router.
+    """
     from backend.agent import loop
 
     conn = _conn()
@@ -194,7 +214,11 @@ def chat(body: dict):
         return 400, {"error": "empty_message", "message": "Send a 'message'."}
     if not _known(conn, user):
         return _missing(user)
-    return 200, loop.answer(conn, user, message, language=body.get("language"))
+    credential, bad = _credential(headers)
+    if bad:
+        return bad
+    return 200, loop.answer(conn, user, message, language=body.get("language"),
+                            credential=credential)
 
 
 def confirm(action_id: str, body: dict):

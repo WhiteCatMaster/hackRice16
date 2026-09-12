@@ -16,6 +16,7 @@
 import Constants from 'expo-constants'
 import { Platform } from 'react-native'
 
+import { isChatError, modelKeyHeaders } from './contract'
 import type {
   ActionResult,
   Activity,
@@ -23,9 +24,11 @@ import type {
   Affordability,
   Alerts,
   Bills,
+  ChatError,
   ChatReply,
   Credit,
   Forecast,
+  ModelKey,
   Profile,
   Summary,
   TransferCheck,
@@ -68,21 +71,29 @@ export const DEFAULT_USER = process.env.EXPO_PUBLIC_TREASURER_USER ?? 'ana'
 /** A phone on hotel wifi can hang forever. Fail visibly instead. */
 const TIMEOUT_MS = 10_000
 
-async function live<T>(endpoint: string, init?: RequestInit): Promise<T | null> {
+async function send(endpoint: string, init?: RequestInit): Promise<Response | null> {
   const abort = new AbortController()
   const timer = setTimeout(() => abort.abort(), TIMEOUT_MS)
   try {
-    const res = await fetch(`${API_BASE}${endpoint}`, {
+    return await fetch(`${API_BASE}${endpoint}`, {
       ...init,
       headers: { 'content-type': 'application/json', ...(init?.headers ?? {}) },
       signal: abort.signal,
     })
-    if (!res.ok) return null
-    return (await res.json()) as T
   } catch {
     return null
   } finally {
     clearTimeout(timer)
+  }
+}
+
+async function live<T>(endpoint: string, init?: RequestInit): Promise<T | null> {
+  const res = await send(endpoint, init)
+  if (!res?.ok) return null
+  try {
+    return (await res.json()) as T
+  } catch {
+    return null
   }
 }
 
@@ -239,15 +250,45 @@ export async function checkAffordability(
   })
 }
 
-export async function chat(body: {
-  user?: string
-  message: string
-  language?: string
-}): Promise<ChatReply | null> {
-  if (LIVE) {
-    return live<ChatReply>('/api/chat', { method: 'POST', body: JSON.stringify(body) })
+/**
+ * A question for the agent.
+ *
+ * `key` is the model key this phone is holding, if the user gave it one. It
+ * travels as headers (`contract.ts` names them), is spent on this one turn and
+ * is not written down on the server — see `backend/agent/keys.py`. Without one
+ * the backend answers with its own key, or with its scripted router.
+ *
+ * Fixture mode cannot use a key at all: the tools that produce the numbers live
+ * in the backend, so with no backend there is one canned reply. The copilot says
+ * as much rather than letting the same answer look like a conversation.
+ */
+export async function chat(
+  body: {
+    user?: string
+    message: string
+    language?: string
+  },
+  key?: ModelKey | null,
+): Promise<ChatReply | ChatError | null> {
+  if (!LIVE) return chatFixture<ChatReply>()
+
+  const res = await send('/api/chat', {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: modelKeyHeaders(key),
+  })
+  if (!res) return null
+  let payload: unknown = null
+  try {
+    payload = await res.json()
+  } catch {
+    return null
   }
-  return chatFixture<ChatReply>()
+  // A refusal is kept rather than flattened to null: the only thing the backend
+  // refuses here is a key it cannot read, and its message is what tells the
+  // user which way it is unreadable.
+  if (!res.ok) return isChatError(payload as ChatError) ? (payload as ChatError) : null
+  return payload as ChatReply
 }
 
 /**

@@ -16,11 +16,11 @@ import unittest
 import urllib.error
 import urllib.request
 from datetime import date
-from http.server import ThreadingHTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from unittest import mock
 
-from backend.agent import loop, prompts, tools
+from backend.agent import keys, loop, openai_compat, prompts, tools
 from backend.api import actions, engine_port, handlers, reference, serve
 from backend.nessie import config, db, repo
 from backend.nessie.sync import load_local
@@ -698,6 +698,366 @@ class TestHttpRoutes(unittest.TestCase):
 
         _, control = self.post("/api/transfers/check", {"user": "ana", "scenario": "legit_roommate"})
         self.assertFalse(control["pause"])
+
+
+# --------------------------------------------------------------------------
+# Bring your own key
+# --------------------------------------------------------------------------
+
+
+class TestModelKey(unittest.TestCase):
+    """What a client may send as its own model key, and what is refused.
+
+    Every case here is one somebody hits standing at a demo table: a key pasted
+    with the shell prompt still attached, a key in the wrong provider's field,
+    an endpoint on plain http. The point of failing here is that the message
+    says which of those it was — a 401 from the provider does not.
+    """
+
+    def test_a_request_with_no_key_has_no_credential(self):
+        self.assertIsNone(keys.from_headers({}))
+        self.assertIsNone(keys.from_headers(None))
+
+    def test_the_headers_are_read_whatever_their_case(self):
+        got = keys.from_headers({"X-Model-Provider": "gemini", "X-Model-Key": "abc123"})
+        self.assertEqual((got.provider, got.key), ("gemini", "abc123"))
+
+    def test_the_provider_is_inferred_from_the_key(self):
+        for key, provider in (("sk-ant-api03-aaaa", "anthropic"),
+                              ("AIzaSyAAAAAAAAAAAA", "gemini"),
+                              ("sk-proj-aaaaaaaa", "openai")):
+            with self.subTest(provider=provider):
+                self.assertEqual(keys.from_headers({keys.HEADER_KEY: key}).provider, provider)
+
+    def test_an_unrecognisable_key_must_name_its_provider(self):
+        with self.assertRaises(keys.BadKey):
+            keys.from_headers({keys.HEADER_KEY: "abcdef123456"})
+        got = keys.from_headers({keys.HEADER_KEY: "abcdef123456",
+                                 keys.HEADER_PROVIDER: "openai"})
+        self.assertEqual(got.provider, "openai")
+
+    def test_an_explicit_provider_beats_the_prefix(self):
+        """A key can be an OpenAI-compatible proxy's and still start sk-ant-."""
+        got = keys.from_headers({keys.HEADER_KEY: "sk-ant-aaaa",
+                                 keys.HEADER_PROVIDER: "openai"})
+        self.assertEqual(got.provider, "openai")
+
+    def test_a_paste_accident_is_refused(self):
+        for bad in ("", "   ", "sk-abc def", "sk-abc\nGEMINI_API_KEY=x", "AIza" + "x" * 500):
+            with self.subTest(bad=bad[:20]):
+                with self.assertRaises(keys.BadKey):
+                    keys.from_headers({keys.HEADER_KEY: bad, keys.HEADER_PROVIDER: "openai"})
+
+    def test_an_unknown_provider_is_refused(self):
+        with self.assertRaises(keys.BadKey):
+            keys.from_headers({keys.HEADER_KEY: "sk-aaaa", keys.HEADER_PROVIDER: "mistral"})
+
+    def test_a_provider_with_no_key_is_refused(self):
+        with self.assertRaises(keys.BadKey):
+            keys.from_headers({keys.HEADER_PROVIDER: "gemini"})
+
+    def test_a_model_name_and_endpoint_come_through(self):
+        got = keys.from_headers({
+            keys.HEADER_KEY: "sk-aaaa", keys.HEADER_PROVIDER: "openai",
+            keys.HEADER_MODEL: "gpt-4o-mini", keys.HEADER_BASE_URL: "https://openrouter.ai/api/v1/"})
+        self.assertEqual(got.model, "gpt-4o-mini")
+        self.assertEqual(got.base_url, "https://openrouter.ai/api/v1")
+
+    def test_a_custom_endpoint_is_openai_only(self):
+        """Gemini and Anthropic have one endpoint each, set in .env.
+
+        Accepting the field and ignoring it would leave someone waiting for a
+        local model that was never called.
+        """
+        with self.assertRaises(keys.BadKey):
+            keys.from_headers({keys.HEADER_KEY: "AIzaaaaa",
+                               keys.HEADER_BASE_URL: "https://example.com/v1"})
+
+    def test_an_endpoint_must_be_https_unless_it_is_this_machine(self):
+        local = keys.from_headers({keys.HEADER_KEY: "sk-aaaa", keys.HEADER_PROVIDER: "openai",
+                                   keys.HEADER_BASE_URL: "http://127.0.0.1:11434/v1"})
+        self.assertEqual(local.base_url, "http://127.0.0.1:11434/v1")
+        for bad in ("http://192.168.1.9/v1", "ftp://example.com", "not a url"):
+            with self.subTest(bad=bad):
+                with self.assertRaises(keys.BadKey):
+                    keys.from_headers({keys.HEADER_KEY: "sk-aaaa",
+                                       keys.HEADER_PROVIDER: "openai",
+                                       keys.HEADER_BASE_URL: bad})
+
+    def test_the_key_is_not_in_the_repr(self):
+        """A dataclass repr is how a secret reaches a traceback. This one cannot."""
+        credential = keys.Credential("gemini", "AIzaSyTheWholeSecret")
+        self.assertNotIn("AIzaSyTheWholeSecret", repr(credential))
+        self.assertNotIn("AIzaSyTheWholeSecret", credential.redacted())
+
+
+class TestBringYourOwnKey(unittest.TestCase):
+    """The chat turn, paid for by the person asking.
+
+    The rules being pinned: the user's key wins over the server's, a key that
+    does not work is reported to the user rather than swallowed, and the key
+    itself never comes back out in the reply.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        fresh_db(cls.tmp.name).close()
+        cls.patch = mock.patch.object(config, "DB_PATH", Path(cls.tmp.name) / "test.db")
+        cls.patch.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.patch.stop()
+        cls.tmp.cleanup()
+
+    def setUp(self):
+        self.conn = fresh_db(self.tmp.name)
+
+    def tearDown(self):
+        self.conn.close()
+
+    def _ask(self, credential=None, message="What should I do?"):
+        return loop.answer(self.conn, "ana", message, credential=credential)
+
+    def test_a_bad_key_is_400_not_a_silent_fallback(self):
+        status, body = handlers.chat({"user": "ana", "message": "hi"},
+                                     {keys.HEADER_KEY: "sk-with a space"})
+        self.assertEqual(status, 400)
+        self.assertEqual(body["error"], "bad_model_key")
+
+    def test_a_request_with_no_key_is_unchanged(self):
+        status, body = handlers.chat({"user": "ana", "message": "What should I do?"}, {})
+        self.assertEqual(status, 200)
+        self.assertIn(body["_key_source"], (None, "server"))
+        self.assertTrue(body["reply"])
+
+    def test_a_key_chooses_its_provider_over_the_environment(self):
+        """The user pasted that key to be used. Billing someone else quietly is not an option."""
+        with mock.patch.dict("os.environ", {"TREASURER_PROVIDER": "gemini"}, clear=False):
+            self.assertEqual(loop._provider(keys.Credential("openai", "sk-aaaa")), "openai")
+            self.assertEqual(loop._provider(), "gemini")
+
+    def test_a_users_key_that_does_not_work_says_so(self):
+        """It is their key, their quota and their typo — so they get told.
+
+        The answer still lands: the scripted router composes it from the same
+        tools, which is design rule 3. What must not happen is the copilot
+        implying a model answered.
+        """
+        credential = keys.Credential("openai", "sk-nope")
+        with mock.patch.object(loop, "_openai", side_effect=RuntimeError("HTTP 401: bad key")):
+            got = self._ask(credential)
+        self.assertTrue(got["_key_rejected"])
+        self.assertIn("401", got["_fell_back"])
+        self.assertEqual(got["_mode"], "scripted")
+        self.assertEqual(got["_provider"], "scripted")
+        self.assertIsNone(got["_key_source"])
+        self.assertTrue(got["reply"].strip())
+
+    def test_the_servers_own_key_failing_is_not_blamed_on_the_user(self):
+        with mock.patch.dict("os.environ", {"TREASURER_PROVIDER": "gemini",
+                                            "GEMINI_API_KEY": "AIzaServerKey"}, clear=False):
+            with mock.patch.object(loop, "_gemini", side_effect=RuntimeError("HTTP 429")):
+                got = self._ask()
+        self.assertNotIn("_key_rejected", got)
+        self.assertTrue(got["reply"].strip())
+
+    def test_a_provider_this_backend_cannot_speak_is_reported(self):
+        """An Anthropic key on a box with no anthropic SDK.
+
+        Falling through to the scripted router is right; doing it without a word
+        is what leaves someone re-pasting a key that was fine all along.
+        """
+        with mock.patch.object(loop, "_anthropic_sdk", return_value=False):
+            got = self._ask(keys.Credential("anthropic", "sk-ant-aaaa"))
+        self.assertTrue(got["_key_rejected"])
+        self.assertIn("anthropic", got["_fell_back"])
+        self.assertTrue(got["reply"].strip())
+
+    def test_the_reason_is_one_line_a_person_can_act_on(self):
+        """`_fell_back` is shown to the user, so it cannot be a JSON dump.
+
+        Gemini's rejection of a bad key is "API key not valid" wrapped in eighty
+        lines of `details`, and that whole body was going on screen under
+        someone's own key — where it is the only thing telling them what to fix.
+        """
+        raw = ('HTTP 400: {\n  "error": {\n    "code": 400,\n'
+               '    "message": "API key not valid. Please pass a valid API key.",\n'
+               '    "status": "INVALID_ARGUMENT"\n  }\n}')
+        with mock.patch.object(loop, "_gemini", side_effect=RuntimeError(raw)):
+            got = self._ask(keys.Credential("gemini", "AIzaNope"))
+        self.assertEqual(got["_fell_back"],
+                         "HTTP 400: API key not valid. Please pass a valid API key.")
+
+    def test_a_reason_with_no_json_in_it_survives_intact(self):
+        with mock.patch.object(loop, "_gemini", side_effect=RuntimeError("unreachable: timed out")):
+            got = self._ask(keys.Credential("gemini", "AIzaNope"))
+        self.assertEqual(got["_fell_back"], "unreachable: timed out")
+
+    def test_the_key_never_comes_back_in_the_reply(self):
+        secret = "sk-ant-do-not-echo-this"
+        credential = keys.Credential("anthropic", secret)
+        with mock.patch.object(loop, "_llm", side_effect=RuntimeError("HTTP 401: invalid x-api-key")):
+            got = self._ask(credential)
+        self.assertNotIn(secret, json.dumps(got))
+
+    def test_health_says_which_providers_a_key_can_be_for(self):
+        _, body = handlers.health()
+        byok = body["agent"]["byok"]
+        self.assertIn("gemini", byok["accepted"])
+        self.assertEqual(byok["headers"]["key"], keys.HEADER_KEY)
+
+    def test_the_stdlib_server_allows_the_model_key_headers(self):
+        """A browser that is not allowed to send the header sends the request anyway.
+
+        Without the key, and with no error to show for it — just the scripted
+        answer again. So the allow list is asserted rather than eyeballed.
+        """
+        allowed = "content-type, " + ", ".join(keys.HEADERS)
+        for header in keys.HEADERS:
+            self.assertIn(header, allowed)
+        self.assertIn(keys.HEADER_KEY, allowed)
+
+
+class _FakeOpenAI(BaseHTTPRequestHandler):
+    """A stub that speaks `/chat/completions`: one tool call, then prose.
+
+    Recorded on the class rather than the instance because http.server makes a
+    new handler per request.
+    """
+
+    seen: list = []
+    reject_field: str | None = None
+
+    def do_POST(self):  # noqa: N802 - http.server's spelling
+        length = int(self.headers.get("content-length") or 0)
+        body = json.loads(self.rfile.read(length) or b"{}")
+        _FakeOpenAI.seen.append({
+            "path": self.path,
+            "authorization": self.headers.get("authorization"),
+            "body": body,
+        })
+        if _FakeOpenAI.reject_field and _FakeOpenAI.reject_field in body:
+            return self._json(400, {"error": {
+                "message": f"Unsupported parameter: '{_FakeOpenAI.reject_field}'"}})
+
+        already_ran = any(m.get("role") == "tool" for m in body.get("messages") or [])
+        if already_ran:
+            return self._json(200, {"choices": [{
+                "finish_reason": "stop",
+                "message": {"role": "assistant",
+                            "content": "You are short. Nothing moves until you approve it."},
+            }]})
+        self._json(200, {"choices": [{
+            "finish_reason": "tool_calls",
+            "message": {"role": "assistant", "content": None, "tool_calls": [{
+                "id": "call_1", "type": "function",
+                "function": {"name": "get_summary", "arguments": "{}"},
+            }]},
+        }]})
+
+    def _json(self, status: int, payload: dict) -> None:
+        data = json.dumps(payload).encode()
+        self.send_response(status)
+        self.send_header("content-type", "application/json")
+        self.send_header("content-length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
+    def log_message(self, fmt, *args):
+        pass
+
+
+class TestOpenAICompatibleTurn(unittest.TestCase):
+    """A whole turn over the OpenAI shape, against a stub.
+
+    This is the path a brought-along OpenAI, OpenRouter, Groq or Ollama key
+    takes, and the only one no `.env` can cover — there is no key in the
+    repository to test it with. The stub answers the way every real turn does:
+    a tool call, the tool's numbers, then the prose.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        fresh_db(cls.tmp.name).close()
+        cls.patch = mock.patch.object(config, "DB_PATH", Path(cls.tmp.name) / "test.db")
+        cls.patch.start()
+        cls.server = ThreadingHTTPServer(("127.0.0.1", 0), _FakeOpenAI)
+        cls.base = "http://127.0.0.1:%d/v1" % cls.server.server_address[1]
+        cls.thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
+        cls.thread.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.server.server_close()
+        cls.patch.stop()
+        cls.tmp.cleanup()
+
+    def setUp(self):
+        self.conn = fresh_db(self.tmp.name)
+        _FakeOpenAI.seen = []
+        _FakeOpenAI.reject_field = None
+        # Which output-cap spelling an endpoint accepted is remembered per
+        # process, and these two tests disagree about it on purpose.
+        openai_compat._ACCEPTED.clear()
+
+    def tearDown(self):
+        self.conn.close()
+
+    def _turn(self, model="test-model"):
+        credential = keys.Credential("openai", "sk-users-own-key", model=model,
+                                     base_url=self.base)
+        return loop.answer(self.conn, "ana", "How am I doing?", credential=credential)
+
+    def test_a_brought_along_key_answers_a_whole_turn(self):
+        got = self._turn()
+        self.assertEqual(got["_provider"], "openai")
+        self.assertEqual(got["_key_source"], "user")
+        self.assertEqual(got["_mode"], "llm")
+        self.assertIn("get_summary", got["used_tools"])
+        self.assertIn("Nothing moves until you approve it", got["reply"])
+
+    def test_it_is_the_users_key_and_model_that_are_sent(self):
+        self._turn(model="llama3.1:8b")
+        first = _FakeOpenAI.seen[0]
+        self.assertEqual(first["authorization"], "Bearer sk-users-own-key")
+        self.assertEqual(first["path"], "/v1/chat/completions")
+        self.assertEqual(first["body"]["model"], "llama3.1:8b")
+        self.assertEqual(first["body"]["messages"][0]["role"], "system")
+        self.assertTrue(first["body"]["tools"])
+
+    def test_the_tools_numbers_are_what_the_model_is_given(self):
+        """Design rule 1: the model writes prose around numbers it was handed."""
+        self._turn()
+        second = _FakeOpenAI.seen[1]
+        results = [m for m in second["body"]["messages"] if m.get("role") == "tool"]
+        self.assertEqual(len(results), 1)
+        summary = json.loads(results[0]["content"])
+        self.assertEqual(summary["target_date"],
+                         engine_port.call("summary", self.conn, "ana")["target_date"])
+
+    def test_the_output_cap_spelling_is_learned_from_the_rejection(self):
+        """Half these endpoints take max_completion_tokens and half max_tokens.
+
+        Neither is detectable up front, and guessing wrong costs the whole
+        answer, so the rejection is what decides — once per endpoint.
+        """
+        _FakeOpenAI.reject_field = "max_completion_tokens"
+        got = self._turn()
+        self.assertIn("max_completion_tokens", _FakeOpenAI.seen[0]["body"])
+        self.assertIn("max_tokens", _FakeOpenAI.seen[1]["body"])
+        self.assertTrue(got["reply"].strip())
+        self.assertEqual(got["_provider"], "openai")
+
+    def test_an_endpoint_that_dies_falls_back_and_says_whose_fault_it_is(self):
+        credential = keys.Credential("openai", "sk-aaaa", base_url="http://127.0.0.1:1/v1")
+        got = loop.answer(self.conn, "ana", "How am I doing?", credential=credential)
+        self.assertTrue(got["_key_rejected"])
+        self.assertEqual(got["_mode"], "scripted")
+        self.assertTrue(got["reply"].strip())
 
 
 if __name__ == "__main__":

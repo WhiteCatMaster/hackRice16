@@ -790,6 +790,7 @@ export default function Dashboard({
       <Copilot
         user={user}
         open={copilot}
+        live={live}
         onClose={() => setCopilot(false)}
         onActionConfirmed={(result) => {
           setConfirmed(result)

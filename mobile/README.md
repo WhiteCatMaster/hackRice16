@@ -2,7 +2,9 @@
 
 The app from [begin.md §7](../begin.md) on a phone: overview with the runway
 chart, bill decoder, credit builder, safety centre with the pre-transfer pause,
-and the copilot with an approval gate in front of every write.
+and the copilot — a tab of its own — with an approval gate in front of every
+write. It will answer with your own model key if you give it one; see
+[Your own model](#your-own-model).
 
 Same product as [`../frontend`](../frontend/README.md), same backend, same
 contract. What differs is the shape of the device, and one thing about how it
@@ -17,6 +19,11 @@ rather than hoisted, which is what Metro expects.
 npm install
 npm start       # then i (iOS), a (Android), w (web), or scan with Expo Go
 ```
+
+`npm install` is not optional reading-material here: the key store needs
+`expo-secure-store`, which is newer than the committed lockfile. If Metro says
+it cannot resolve that module, it is the install that is missing:
+`npx expo install expo-secure-store`.
 
 No API key, no backend, no network needed. With `EXPO_PUBLIC_TREASURER_API_BASE`
 unset the app reads P1's fixtures. If `../mocks` is missing, generate it:
@@ -64,7 +71,7 @@ are live.
 
 ```
 app/(tabs)/*  ──►  lib/store.tsx  ──►  lib/api.ts  ──┬─► P3's FastAPI      (API_BASE set)
-app/copilot     (one load, five tabs)                └─► bundled mocks/*.json (otherwise)
+app/model-key    (one load, six tabs)                └─► bundled mocks/*.json (otherwise)
 ```
 
 Two differences from the web app, both forced by the platform:
@@ -90,6 +97,40 @@ The three shapes §7 does not define behave exactly as on the web:
 The first two degrade instead of breaking. Affordability cannot: the answer
 depends on the amount typed, so there is no fixture to pre-export and the card
 asks for a backend rather than inventing a number.
+
+## Your own model
+
+The copilot's prose comes from whatever model the backend has a key for. That is
+one key, on one laptop, belonging to one of us — so the phone can bring its own
+instead: **Ask → the key button in the corner**, or the same screen at
+`/model-key`.
+
+Three providers, because the backend speaks three (`GET /api/health` →
+`agent.byok.accepted` is the live list):
+
+| | Key looks like | From |
+|---|---|---|
+| Google Gemini | `AIza…` | aistudio.google.com/apikey |
+| Claude | `sk-ant-…` | console.anthropic.com/settings/keys |
+| OpenAI-compatible | `sk-…` | platform.openai.com/api-keys, or any endpoint speaking that shape — OpenRouter, Groq, a model on the laptop |
+
+Where it goes: `lib/secrets.ts` puts it in the phone's keystore — the iOS
+keychain, Android's `EncryptedSharedPreferences` — not in AsyncStorage, which is
+a plain file in the app sandbox. `lib/api.ts` sends it with each question as the
+`X-Model-*` headers, and the backend spends it on that one turn and keeps
+nothing: no disk, no log line (`backend/agent/keys.py`). On a device with no
+keystore available the screen says so — the key then lasts until the app closes.
+
+Two things worth knowing before demoing it:
+
+- **A key needs the backend.** The tools that produce every number live there, so
+  in fixture mode a stored key is stored for later, not used now. The copilot says
+  this rather than letting a canned reply look like a conversation.
+- **A key that does not work is reported, not swallowed.** A typo, an empty
+  quota, a model name that does not exist: the answer still arrives — the backend's
+  scripted router composes it from the same tools — and the copilot says the key
+  did not write it, with the provider's own reason. Unreadable keys never leave
+  the phone; `/model-key` applies the same rules the backend does.
 
 ## The fixtures are bundled, not read
 
@@ -127,6 +168,9 @@ on stage.
   written to Nessie.
 - **Simulated fields are labelled**, because Nessie has no credit limit, APR or
   credit score.
+- **A brought-along key is never re-used.** It is sent with the question it was
+  meant for and forgotten by the server; nothing about it is written down
+  anywhere but this phone.
 
 ## Demo path (begin.md §9)
 
@@ -139,9 +183,9 @@ cd .. && python -m seed.reset_demo --arm
 1. **Overview**, `$` ↔ `€` — the runway ends before the flight home.
 2. **Runway** → the options, each with a measured effect → *Can I afford it?* →
    `47.34` → "Not yet", with the plan that turns it into a yes.
-3. **Copilot** → the same question in words → the proposed action card →
-   Approve. Every tab behind it re-reads itself: the balance and the runway date
-   actually move.
+3. **Ask** → the same question in words → the proposed action card → Approve.
+   Every other tab re-reads itself and the app walks you back to the overview:
+   the balance and the runway date actually move.
 4. **Safety** → *Send money* → the fake landlord transfer → the pause slides up
    over the thing you were about to do.
 5. Same list, `Marta Aguirre` → goes through. That one matters: a check that
@@ -152,13 +196,14 @@ cd .. && python -m seed.reset_demo --arm
 ```
 app/
   _layout.tsx        fonts, the data store, the stack the tabs live in
-  (tabs)/_layout.tsx the navy header and tab bar; five destinations
+  (tabs)/_layout.tsx the navy header and tab bar; six destinations
   (tabs)/index.tsx   overview
   (tabs)/runway.tsx  the projection, the fixes, affordability
   (tabs)/bills.tsx   the bill decoder
   (tabs)/credit.tsx  the credit builder
   (tabs)/safety.tsx  alerts and the pre-transfer pause
-  copilot.tsx        chat and the confirmation gate, as a modal route
+  (tabs)/copilot.tsx chat and the confirmation gate
+  model-key.tsx      bring your own model key, as a modal route
 components/
   ui.tsx             panels, eyebrows, buttons — the stylesheet's classes, as components
   forecast-chart.tsx the runway line, drawn from the forecast series
@@ -171,7 +216,8 @@ lib/
   format.ts          money, dates, percentages             (copy of the web app's)
   api.ts             mocks-or-backend, the one switch
   mocks.ts           the bundled fixtures
-  store.tsx          one load, five tabs, and the currency toggle
+  secrets.ts         the model key, in the phone's keystore
+  store.tsx          one load, six tabs, the currency toggle and the model key
   theme.ts           the design tokens, transcribed from globals.css
 scripts/
   contract-check.mjs fails if the two contracts drift apart

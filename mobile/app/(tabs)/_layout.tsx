@@ -1,10 +1,14 @@
-// The five screens, and the navy that frames them.
+// The six screens, and the navy that frames them.
 //
-// The web app puts a dark rail down the left: brand at the top, the same five
+// The web app puts a dark rail down the left: brand at the top, the same
 // destinations, the copilot at the bottom. A phone has no room for a rail, so
-// the navy splits in two — a header carrying the brand, the live/fixture status
-// and the copilot, and a tab bar carrying the destinations. Same weight in the
-// layout, same job of framing the paper.
+// the navy splits in two — a header carrying the brand and the live/fixture
+// status, and a tab bar carrying the destinations. Same weight in the layout,
+// same job of framing the paper.
+//
+// The copilot is one of those destinations now rather than a modal behind an
+// icon in the header. It is the screen someone opens most and comes back to, and
+// a phone says that with a tab.
 
 import { Feather } from '@expo/vector-icons'
 import { Tabs, useRouter } from 'expo-router'
@@ -13,7 +17,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { PersonaSwitch } from '../../components/persona-switch'
 import { useStore } from '../../lib/store'
-import { color, font, radius, text } from '../../lib/theme'
+import { color, font, radius, space, text } from '../../lib/theme'
 
 type IconName = React.ComponentProps<typeof Feather>['name']
 
@@ -31,9 +35,13 @@ export default function TabLayout() {
           headerShown: false,
           tabBarActiveTintColor: '#ffffff',
           tabBarInactiveTintColor: color.vaultMute,
-          // 64 is the floor an icon plus a label fits in. At 56 the label
-          // rendered past the bar's own bottom edge and got clipped.
-          tabBarStyle: [styles.tabBar, { height: 64 + insets.bottom, paddingBottom: insets.bottom }],
+          // space.tabBar is the floor an icon plus a label fits in, and the
+          // copilot's composer has to lift by exactly this much — which is why
+          // it is a token rather than a number in two files.
+          tabBarStyle: [
+            styles.tabBar,
+            { height: space.tabBar + insets.bottom, paddingBottom: insets.bottom },
+          ],
           tabBarLabelStyle: styles.tabLabel,
           tabBarItemStyle: styles.tabItem,
           sceneStyle: { backgroundColor: color.paper },
@@ -53,6 +61,7 @@ export default function TabLayout() {
             tabBarBadgeStyle: styles.badge,
           }}
         />
+        <Tabs.Screen name="copilot" options={tab('Ask', 'message-circle')} />
       </Tabs>
     </View>
   )
@@ -87,10 +96,13 @@ function Header() {
 
         <View style={styles.headerActions}>
           <PersonaSwitch />
+          {/* The copilot has its own tab now, so this is a shortcut to it
+              rather than a second way of opening it — same screen, same
+              conversation, whichever you press. */}
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Open the financial copilot"
-            onPress={() => router.push('/copilot')}
+            accessibilityLabel="Go to the financial copilot"
+            onPress={() => router.navigate('/copilot')}
             style={({ pressed }) => [styles.copilotButton, pressed && styles.pressed]}
           >
             <Feather name="message-circle" size={15} color="#ffffff" />
@@ -242,7 +254,9 @@ const styles = StyleSheet.create({
     paddingTop: 6,
   },
   tabItem: { paddingVertical: 2 },
-  tabLabel: { fontFamily: font.figureMed, fontSize: 9, letterSpacing: 0.6, marginTop: 2, marginBottom: 4 },
+  // Six tabs instead of five: the letterspacing goes, because "Overview" at
+  // 0.6 over a sixth of a 360dp screen wraps to two lines.
+  tabLabel: { fontFamily: font.figureMed, fontSize: 9, letterSpacing: 0.2, marginTop: 2, marginBottom: 4 },
   badge: {
     backgroundColor: color.flag,
     color: '#ffffff',

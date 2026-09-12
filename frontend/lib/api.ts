@@ -10,12 +10,14 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
+import { isChatError } from './contract'
 import type {
   Activity,
   ActivityItem,
   Affordability,
   Alerts,
   Bills,
+  ChatError,
   ChatReply,
   Credit,
   Forecast,
@@ -41,17 +43,25 @@ async function mock<T>(file: string): Promise<T | null> {
   }
 }
 
-async function live<T>(
-  endpoint: string,
-  init?: RequestInit,
-): Promise<T | null> {
+async function send(endpoint: string, init?: RequestInit): Promise<Response | null> {
   try {
-    const res = await fetch(`${API_BASE}${endpoint}`, {
+    return await fetch(`${API_BASE}${endpoint}`, {
       ...init,
       headers: { 'content-type': 'application/json', ...(init?.headers ?? {}) },
       cache: 'no-store',
     })
-    if (!res.ok) return null
+  } catch {
+    return null
+  }
+}
+
+async function live<T>(
+  endpoint: string,
+  init?: RequestInit,
+): Promise<T | null> {
+  const res = await send(endpoint, init)
+  if (!res?.ok) return null
+  try {
     return (await res.json()) as T
   } catch {
     return null
@@ -196,18 +206,44 @@ export async function checkAffordability(
   })
 }
 
-export async function chat(body: {
-  user?: string
-  message: string
-  language?: string
-}): Promise<ChatReply | null> {
-  if (LIVE) {
-    return live<ChatReply>('/api/chat', {
-      method: 'POST',
-      body: JSON.stringify(body),
-    })
+/**
+ * A question for the agent.
+ *
+ * `headers` is how a key the user brought with them reaches the backend — the
+ * browser holds it (`lib/model-key.ts`), the route passes it through, and it is
+ * never stored on this side either. Without one the backend answers with
+ * whatever key its own .env has, or with the scripted router.
+ *
+ * Mock mode cannot use a key at all: the tools that produce the numbers live in
+ * the backend, so with no backend there is one canned reply and it says so.
+ */
+export async function chat(
+  body: {
+    user?: string
+    message: string
+    language?: string
+  },
+  headers: Record<string, string> = {},
+): Promise<ChatReply | ChatError | null> {
+  if (!LIVE) return mock<ChatReply>('api_chat_response.json')
+
+  const res = await send('/api/chat', {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers,
+  })
+  if (!res) return null
+  let payload: unknown = null
+  try {
+    payload = await res.json()
+  } catch {
+    return null
   }
-  return mock<ChatReply>('api_chat_response.json')
+  // A refusal is kept rather than flattened to null: the only thing the backend
+  // refuses here is a malformed key, and its message is the one thing that
+  // tells the user which way it is malformed.
+  if (!res.ok) return isChatError(payload as ChatError) ? (payload as ChatError) : null
+  return payload as ChatReply
 }
 
 /**

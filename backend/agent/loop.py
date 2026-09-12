@@ -3,12 +3,19 @@
 Two modes, chosen by whether there is an API key:
 
 - **llm** — a model with the tools in `tools.py`. It picks tools and writes the
-  prose; every number in the reply came out of a tool result. Two providers
-  answer to that contract: Gemini (`GEMINI_API_KEY`) and Claude
-  (`ANTHROPIC_API_KEY`). `TREASURER_PROVIDER` forces one; otherwise whichever has a
+  prose; every number in the reply came out of a tool result. Three providers
+  answer to that contract: Gemini (`GEMINI_API_KEY`), Claude
+  (`ANTHROPIC_API_KEY`) and anything speaking OpenAI's chat-completions shape
+  (`OPENAI_API_KEY`). `TREASURER_PROVIDER` forces one; otherwise whichever has a
   key answers, Gemini first.
 - **scripted** — no key, no network. Routes the question to the same tools by
   keyword and formats the answer from the same numbers.
+
+Any of the three can also be paid for by the person asking. `answer()` takes an
+optional `Credential` — a key the request arrived with, from the copilot on a
+phone or in a browser — and that key answers the turn instead of the server's
+own. See `keys.py`; the short version is that the key belongs to the device and
+is forgotten here the moment the reply is built.
 
 The scripted mode is not a toy. begin.md's design rule 3 says the demo must not
 depend on a live service, and an LLM API is one more thing that can be down or
@@ -23,7 +30,7 @@ import logging
 import os
 import re
 
-from backend.agent import gemini, prompts, tools
+from backend.agent import gemini, keys, openai_compat, prompts, tools
 from backend.nessie import repo
 
 log = logging.getLogger("treasurer.agent")
@@ -45,15 +52,37 @@ def _anthropic_sdk() -> bool:
         return False
 
 
-def _provider() -> str:
-    """Who answers this turn: 'gemini', 'anthropic' or 'scripted'.
+def speakable() -> list[str]:
+    """The providers this backend can talk to at all, key or no key.
 
-    Read per turn, not at import, so dropping a key into .env and restarting is
-    the whole configuration story — and so the tests can swap providers.
+    Two of the three need nothing installed — `gemini.py` and
+    `openai_compat.py` are urllib. Anthropic needs its SDK, so a key for it is
+    only usable where that import works, and the client is told which is which
+    rather than finding out by getting the scripted router back.
     """
+    return [p for p in keys.PROVIDERS if p != "anthropic" or _anthropic_sdk()]
+
+
+def _provider(credential: keys.Credential | None = None) -> str:
+    """Who answers this turn: 'gemini', 'anthropic', 'openai' or 'scripted'.
+
+    A credential the request brought with it wins over everything, including
+    TREASURER_PROVIDER: the user pasted that key into this app to be used, and
+    quietly answering from the server's key instead would bill the wrong person
+    and hide it. The only thing that can refuse it is a provider this backend
+    cannot speak at all.
+
+    Otherwise read per turn, not at import, so dropping a key into .env and
+    restarting is the whole configuration story — and so the tests can swap
+    providers.
+    """
+    if credential is not None:
+        return credential.provider if credential.provider in speakable() else "scripted"
+
     forced = (os.environ.get("TREASURER_PROVIDER") or "").strip().lower()
     can_gemini = bool(gemini.api_key())
     can_anthropic = bool(_api_key()) and _anthropic_sdk()
+    can_openai = bool(openai_compat.api_key())
 
     if forced == "scripted":
         return "scripted"
@@ -61,36 +90,62 @@ def _provider() -> str:
         return "gemini" if can_gemini else "scripted"
     if forced == "anthropic":
         return "anthropic" if can_anthropic else "scripted"
+    if forced == "openai":
+        return "openai" if can_openai else "scripted"
     if can_gemini:
         return "gemini"
     if can_anthropic:
         return "anthropic"
+    if can_openai:
+        return "openai"
     return "scripted"
 
 
-def status() -> dict:
-    provider = _provider()
+def model_for(provider: str, credential: keys.Credential | None = None) -> str | None:
+    """Which model name a provider will be called with."""
+    if credential is not None and credential.model:
+        return credential.model
+    return {"gemini": gemini.model(), "anthropic": MODEL,
+            "openai": openai_compat.model()}.get(provider)
+
+
+def status(credential: keys.Credential | None = None) -> dict:
+    provider = _provider(credential)
     mode = "scripted" if provider == "scripted" else "llm"
-    model = {"gemini": gemini.model(), "anthropic": MODEL}.get(provider)
     return {
         "mode": mode,
         "provider": provider,
-        "model": model,
+        "model": model_for(provider, credential),
         "anthropic_sdk": _anthropic_sdk(),
-        "api_key_present": bool(_api_key()) or bool(gemini.api_key()),
+        "api_key_present": bool(_api_key()) or bool(gemini.api_key())
+                           or bool(openai_compat.api_key()),
         "tools": [t["name"] for t in tools.SCHEMA],
+        # What a client needs to know to offer "use my own key": which providers
+        # are worth showing, and what to send. /api/health carries it so the
+        # settings screen can be built from the answer rather than from a guess.
+        "byok": {
+            "accepted": speakable(),
+            "headers": {
+                "provider": keys.HEADER_PROVIDER,
+                "key": keys.HEADER_KEY,
+                "model": keys.HEADER_MODEL,
+                "base_url": keys.HEADER_BASE_URL,
+            },
+        },
         "note": (
             f"{provider.title()} picks the tools and writes the prose. "
             "Numbers come from tool results only."
             if mode == "llm" else
-            "No GEMINI_API_KEY or ANTHROPIC_API_KEY, so replies are composed by the "
-            "scripted router. Same tools, same numbers, no model."
+            "No GEMINI_API_KEY, ANTHROPIC_API_KEY or OPENAI_API_KEY, so replies are "
+            "composed by the scripted router. Same tools, same numbers, no model. "
+            "Send your own key with the request to get a model instead."
         ),
     }
 
 
-def answer(conn, user: str, message: str, language: str | None = None) -> dict:
-    provider = _provider()
+def answer(conn, user: str, message: str, language: str | None = None,
+           credential: keys.Credential | None = None) -> dict:
+    provider = _provider(credential)
     # Decide the language here rather than leaving it to the model. The persona's
     # own language is only a default: Ana's is Spanish, so an English question
     # with no explicit `language` came back in Spanish, which is the one thing
@@ -99,17 +154,77 @@ def answer(conn, user: str, message: str, language: str | None = None) -> dict:
     if not language:
         persona = (repo.resolve_customer(conn, user) or {}).get("language") or "en"
         language = detect_language(message, persona)
+
+    byok = credential is not None
+    if byok and provider == "scripted":
+        # The key is fine; this backend just cannot speak to that provider. Say
+        # so in the reply, because from the user's side "I pasted a key and got
+        # the scripted answer" is indistinguishable from a rejected key.
+        out = _scripted(conn, user, message, language)
+        out["_fell_back"] = (
+            f"this backend cannot speak to {credential.provider} "
+            f"(it accepts: {', '.join(speakable())})")
+        out["_key_rejected"] = True
+        return _meta(out, provider, byok)
+
     if provider != "scripted":
-        turn = _gemini if provider == "gemini" else _llm
+        # Resolved here rather than in a module-level map because all three are
+        # defined below this function.
+        turn = {"gemini": _gemini, "anthropic": _llm, "openai": _openai}[provider]
         try:
-            return turn(conn, user, message, language)
+            return _meta(turn(conn, user, message, language, credential), provider, byok)
         except Exception as exc:  # the demo must survive a dead or throttled API
+            # The message is the provider's own, and none of the three echo a key
+            # back in one. It still never carries the key itself: the only thing
+            # holding that is the Credential, whose repr is redacted.
             log.warning("%s turn failed (%s); falling back to the scripted router",
                         provider, exc)
             out = _scripted(conn, user, message, language)
-            out["_fell_back"] = str(exc)
-            return out
-    return _scripted(conn, user, message, language)
+            out["_fell_back"] = _explain(exc)
+            # Whose problem it is decides who should see it. A user's own key that
+            # does not work is the user's to fix — a wrong key, an empty quota,
+            # the wrong model name — so the copilot surfaces this one.
+            if byok:
+                out["_key_rejected"] = True
+            return _meta(out, provider, byok)
+    return _meta(_scripted(conn, user, message, language), provider, byok)
+
+
+#: A provider's own error message, inside its own JSON error body.
+PROVIDER_MESSAGE = re.compile(r'"message"\s*:\s*"((?:[^"\\]|\\.)*)"')
+
+
+def _explain(exc: Exception) -> str:
+    """Why the model path was abandoned, in one line someone can act on.
+
+    `_fell_back` goes on screen in the copilot — under someone's own key, it is
+    the only thing telling them what to fix. Raw, it is the provider's entire
+    JSON error body: "API key not valid" wrapped in eighty lines of `details`.
+    So pull the message out of it, keep the status that framed it, and cap the
+    length either way.
+    """
+    text = str(exc).strip()
+    found = PROVIDER_MESSAGE.search(text)
+    if found:
+        detail = found.group(1).replace('\\"', '"').replace("\\n", " ").strip()
+        status = re.match(r"HTTP \d+", text)
+        text = f"{status.group(0)}: {detail}" if status else detail
+    return " ".join(text.split())[:180]
+
+
+def _meta(out: dict, provider: str, byok: bool) -> dict:
+    """Who actually answered, stamped on the reply.
+
+    `_mode` was already here; these two say which brain and whose key, so the
+    copilot can show "answered by your Gemini key" — and can stop claiming it
+    when the turn quietly fell back to the scripted router.
+    """
+    fell_back = out.get("_fell_back") or out.get("_key_rejected")
+    answered = "scripted" if fell_back else provider
+    out["_mode"] = "scripted" if answered == "scripted" else "llm"
+    out["_provider"] = answered
+    out["_key_source"] = None if answered == "scripted" else ("user" if byok else "server")
+    return out
 
 
 # --------------------------------------------------------------------------
@@ -151,10 +266,12 @@ def _backstop_proposal(conn, user: str, used: list[str], proposed):
         return None
 
 
-def _llm(conn, user: str, message: str, language: str | None) -> dict:
+def _llm(conn, user: str, message: str, language: str | None,
+         credential: keys.Credential | None = None) -> dict:
     import anthropic
 
-    client = anthropic.Anthropic(api_key=_api_key())
+    client = anthropic.Anthropic(api_key=credential.key if credential else _api_key())
+    model = model_for("anthropic", credential)
     system = prompts.system(conn, user, language)
     history = [{"role": "user", "content": message}]
     used: list[str] = []
@@ -162,7 +279,7 @@ def _llm(conn, user: str, message: str, language: str | None) -> dict:
 
     for _ in range(MAX_TURNS):
         response = client.messages.create(
-            model=MODEL, max_tokens=MAX_TOKENS, system=system,
+            model=model, max_tokens=MAX_TOKENS, system=system,
             tools=tools.SCHEMA, messages=history,
         )
         history.append({"role": "assistant", "content": response.content})
@@ -193,7 +310,8 @@ def _llm(conn, user: str, message: str, language: str | None) -> dict:
     return _reply(conn, user, "I need more information to answer that safely.", used, proposed, language)
 
 
-def _gemini(conn, user: str, message: str, language: str | None) -> dict:
+def _gemini(conn, user: str, message: str, language: str | None,
+            credential: keys.Credential | None = None) -> dict:
     """The same turn, spoken to Gemini's `:generateContent`.
 
     The shape differs from Anthropic's in three ways and nothing else: tool calls
@@ -207,7 +325,10 @@ def _gemini(conn, user: str, message: str, language: str | None) -> dict:
     proposed = None
 
     for _ in range(MAX_TURNS):
-        response = gemini.generate(system, contents, tools.SCHEMA, max_tokens=MAX_TOKENS)
+        response = gemini.generate(
+            system, contents, tools.SCHEMA, max_tokens=MAX_TOKENS,
+            key=credential.key if credential else None,
+            name=credential.model if credential and credential.model else None)
         parts = gemini.parts_of(response)
         contents.append({"role": "model", "parts": parts})
 
@@ -236,6 +357,56 @@ def _gemini(conn, user: str, message: str, language: str | None) -> dict:
                 "response": json.loads(json.dumps(output, default=str)),
             }})
         contents.append({"role": "user", "parts": results})
+
+    return _reply(conn, user, "I need more information to answer that safely.", used, proposed, language)
+
+
+def _openai(conn, user: str, message: str, language: str | None,
+            credential: keys.Credential | None = None) -> dict:
+    """The same turn, spoken to OpenAI's `/chat/completions`.
+
+    The shape differs from Anthropic's in three ways and nothing else: the system
+    prompt is the first message rather than its own field, tool calls arrive on
+    the assistant message as `tool_calls`, and each result goes back as its own
+    `role: "tool"` message keyed by `tool_call_id`. The assistant's turn is
+    echoed into the history verbatim, as with Gemini, or the follow-up call is
+    rejected for referring to a tool call the model never made.
+    """
+    system = prompts.system(conn, user, language)
+    history: list[dict] = [{"role": "user", "content": message}]
+    used: list[str] = []
+    proposed = None
+
+    for _ in range(MAX_TURNS):
+        response = openai_compat.generate(
+            system, history, tools.SCHEMA,
+            key=credential.key if credential else openai_compat.api_key(),
+            name=credential.model if credential else None,
+            base_url=credential.base_url if credential else None,
+            max_tokens=MAX_TOKENS)
+        reply = openai_compat.message_of(response)
+        history.append(reply)
+
+        calls = openai_compat.calls_in(reply)
+        if not calls:
+            text = openai_compat.text_in(reply)
+            proposed = proposed or _backstop_proposal(conn, user, used, proposed)
+            return _reply(conn, user, text, used, proposed, language)
+
+        for call in calls:
+            used.append(call["name"])
+            try:
+                output = tools.run(conn, user, call["name"], call["args"])
+            except Exception as exc:
+                log.warning("tool %s failed: %s", call["name"], exc)
+                output = {"error": str(exc)}
+            if call["name"].startswith("propose_") and not output.get("error"):
+                proposed = output
+            history.append({
+                "role": "tool",
+                "tool_call_id": call["id"],
+                "content": json.dumps(output, default=str),
+            })
 
     return _reply(conn, user, "I need more information to answer that safely.", used, proposed, language)
 

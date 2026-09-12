@@ -104,7 +104,9 @@ async def transfers_check(request: Request):
 
 @app.post("/api/chat")
 async def chat(request: Request):
-    return _send(handlers.chat(await _body(request)))
+    # The headers as well as the body: a request may bring its own model key,
+    # and `keys.py` reads it off the headers rather than the payload.
+    return _send(handlers.chat(await _body(request), request.headers))
 
 
 @app.post("/api/actions/propose")

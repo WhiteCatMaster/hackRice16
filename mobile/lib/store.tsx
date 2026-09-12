@@ -1,4 +1,4 @@
-// One load, five tabs.
+// One load, six tabs.
 //
 // The web app is a single server-rendered page: every screen is a branch of the
 // same component, so one `Promise.all` at the top feeds all of them, and
@@ -39,10 +39,12 @@ import type {
   Bill,
   Credit,
   Forecast,
+  ModelKey,
   Profile,
   Summary,
 } from './contract'
 import { money } from './format'
+import { type KeyStore, clear as clearKey, keyStore, load as loadKey, save as saveKey } from './secrets'
 
 export const PERSONAS = ['ana', 'raj', 'lucia'] as const
 
@@ -95,6 +97,21 @@ interface Store extends Data {
    */
   confirmed: ActionResult | null
   setConfirmed: (result: ActionResult | null) => void
+
+  /**
+   * The model key this phone is holding, if the user gave it one.
+   *
+   * Up here because two screens need it: the copilot sends it with every
+   * question, and the settings sheet edits it. Reading the keystore is async,
+   * so `modelKeyReady` says whether the answer has arrived — without it the
+   * copilot would spend a frame claiming no key is set.
+   */
+  modelKey: ModelKey | null
+  modelKeyReady: boolean
+  /** Where it is kept: the keystore, the browser, or only this session. */
+  modelKeyStore: KeyStore
+  /** Null forgets it. */
+  setModelKey: (key: ModelKey | null) => void
 }
 
 const StoreContext = createContext<Store | null>(null)
@@ -106,6 +123,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [refreshing, setRefreshing] = useState(false)
   const [home, setHome] = useState(false)
   const [confirmed, setConfirmed] = useState<ActionResult | null>(null)
+  const [modelKey, setModelKeyState] = useState<ModelKey | null>(null)
+  const [modelKeyReady, setModelKeyReady] = useState(false)
+  const [modelKeyStore, setModelKeyStore] = useState<KeyStore>(keyStore())
 
   // Every load takes a ticket, and only the newest one is allowed to write.
   // Two are in flight whenever someone switches persona while the first is
@@ -163,6 +183,31 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   const reload = useCallback(() => load(user, true), [load, user])
 
+  // Once, on launch. A key the user pasted last week is theirs until they say
+  // otherwise, and asking again every cold start would make the feature
+  // pointless.
+  useEffect(() => {
+    let live = true
+    void loadKey().then((key) => {
+      if (!live) return
+      setModelKeyState(key)
+      setModelKeyStore(keyStore())
+      setModelKeyReady(true)
+    })
+    return () => {
+      live = false
+    }
+  }, [])
+
+  const setModelKey = useCallback((key: ModelKey | null) => {
+    // State first, storage second: the write can fail (a simulator with no
+    // keychain) and the copilot should still be able to use the key this
+    // session. `modelKeyStore` is what tells the user which happened.
+    setModelKeyState(key)
+    const written = key ? saveKey(key) : clearKey()
+    void written.then(() => setModelKeyStore(keyStore()))
+  }, [])
+
   const value = useMemo<Store>(() => {
     const summary = data.summary
     const rate = home && summary ? summary.fx_rate : 1
@@ -183,8 +228,13 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       openAlerts: data.alerts.filter((a) => a.status !== 'resolved'),
       confirmed,
       setConfirmed,
+      modelKey,
+      modelKeyReady,
+      modelKeyStore,
+      setModelKey,
     }
-  }, [confirmed, data, home, loading, refreshing, reload, user])
+  }, [confirmed, data, home, loading, modelKey, modelKeyReady, modelKeyStore,
+      refreshing, reload, setModelKey, user])
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
 }

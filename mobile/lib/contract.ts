@@ -1,4 +1,7 @@
-// The API contract from begin.md §7 ("Shared contracts"), as types.
+// The API contract from begin.md §7 ("Shared contracts"), as types.//
+// Mostly types. The handful of functions at the end are contract too: the
+// headers a brought-along model key travels in, and how a key is read — both
+// apps have to spell those the same way as `backend/agent/keys.py`.
 //
 // Copied verbatim from frontend/lib/contract.ts. Both apps answer to the same
 // backend, so both must describe it the same way; `npm run contract:check`
@@ -289,6 +292,148 @@ export interface ChatReply {
   language?: string
   used_tools?: string[]
   proposed_action?: ProposedAction | null
+  /** Composed by a model, or by the backend's scripted router. */
+  _mode?: 'llm' | 'scripted'
+  /** Which brain actually answered. `scripted` when no model did. */
+  _provider?: ModelProvider | 'scripted'
+  /** Whose key paid for it: the user's own, the server's, or nobody's. */
+  _key_source?: 'user' | 'server' | null
+  /** Why the model path was abandoned, when it was. */
+  _fell_back?: string
+  /** True when the key this request brought is the reason it fell back. */
+  _key_rejected?: boolean
+}
+
+/**
+ * POST /api/chat, when the backend refused the request outright.
+ *
+ * Worth carrying rather than flattening into "the agent is not available": the
+ * one thing that gets refused here is a malformed model key, and the message
+ * says which way it is malformed. The user typed it a second ago and can fix
+ * it — but only if they are told what is wrong.
+ */
+export interface ChatError {
+  error: string
+  message?: string
+}
+
+export function isChatError(reply: ChatReply | ChatError | null): reply is ChatError {
+  return !!reply && 'error' in reply && typeof (reply as ChatError).error === 'string'
+}
+
+/* === Bringing your own model ============================================== */
+
+/**
+ * The three the backend can speak to.
+ *
+ * `openai` is the chat-completions *shape*, not only OpenAI: with an endpoint
+ * of its own it is also OpenRouter, Groq, Together, vLLM, or a model running on
+ * the user's own laptop.
+ */
+export type ModelProvider = 'gemini' | 'anthropic' | 'openai'
+
+/**
+ * A key the user pasted in, and where to spend it.
+ *
+ * It stays on the device that holds it — `localStorage` in the browser,
+ * the keychain on a phone — and is sent with a chat turn as the headers below.
+ * The backend uses it for that one turn and remembers nothing; see
+ * `backend/agent/keys.py`.
+ */
+export interface ModelKey {
+  provider: ModelProvider
+  key: string
+  /** Optional. The provider's own default is used when this is empty. */
+  model?: string
+  /** `openai` only: an OpenAI-compatible endpoint, e.g. a local model server. */
+  baseUrl?: string
+}
+
+/** The four headers POST /api/chat reads a brought-along key from. */
+export const MODEL_KEY_HEADERS = {
+  provider: 'X-Model-Provider',
+  key: 'X-Model-Key',
+  model: 'X-Model-Name',
+  baseUrl: 'X-Model-Base-URL',
+} as const
+
+/** What the user needs to know to fill the form in, per provider. */
+export const MODEL_PROVIDERS: {
+  id: ModelProvider
+  label: string
+  /** What a key for this provider looks like. */
+  prefix: string
+  /** The model used when the user does not name one. */
+  defaultModel: string
+  /** Where the key comes from. */
+  source: string
+  endpoint?: boolean
+}[] = [
+  {
+    id: 'gemini',
+    label: 'Google Gemini',
+    prefix: 'AIza…',
+    defaultModel: 'gemini-flash-latest',
+    source: 'aistudio.google.com/apikey',
+  },
+  {
+    id: 'anthropic',
+    label: 'Claude',
+    prefix: 'sk-ant-…',
+    defaultModel: 'claude-sonnet-5',
+    source: 'console.anthropic.com/settings/keys',
+  },
+  {
+    id: 'openai',
+    label: 'OpenAI-compatible',
+    prefix: 'sk-…',
+    defaultModel: 'gpt-4o-mini',
+    source: 'platform.openai.com/api-keys — or any endpoint that speaks the same shape',
+    endpoint: true,
+  },
+]
+
+/**
+ * Which provider a key belongs to, by its shape.
+ *
+ * The same three prefixes `backend/agent/keys.py` matches on, for the same
+ * reason: pasting a key into the wrong provider's field is the likeliest
+ * mistake here, and catching it before the request is one fewer unexplainable
+ * 401. Null means "cannot tell" — ask, do not guess.
+ */
+export function inferProvider(key: string): ModelProvider | null {
+  const trimmed = key.trim()
+  if (trimmed.startsWith('sk-ant-')) return 'anthropic'
+  if (trimmed.startsWith('AIza')) return 'gemini'
+  if (trimmed.startsWith('sk-')) return 'openai'
+  return null
+}
+
+/** A key as it is safe to show on screen. */
+export function redactKey(key: string): string {
+  const trimmed = key.trim()
+  return trimmed.length > 8 ? `${trimmed.slice(0, 4)}…${trimmed.slice(-4)}` : '…'
+}
+
+/**
+ * A key as the headers to send it in, or nothing at all.
+ *
+ * Nothing at all matters: an empty `X-Model-Key` is not the same as no header,
+ * and the backend answers 400 for the first.
+ */
+export function modelKeyHeaders(key?: ModelKey | null): Record<string, string> {
+  if (!key || !key.key.trim()) return {}
+  const headers: Record<string, string> = {
+    [MODEL_KEY_HEADERS.provider]: key.provider,
+    [MODEL_KEY_HEADERS.key]: key.key.trim(),
+  }
+  if (key.model?.trim()) headers[MODEL_KEY_HEADERS.model] = key.model.trim()
+  // Only openai takes one, and the backend refuses it on the other two rather
+  // than ignoring it.
+  if (key.provider === 'openai' && key.baseUrl?.trim()) {
+    headers[MODEL_KEY_HEADERS.baseUrl] = key.baseUrl.trim()
+  }
+  return headers
 }
 
 /** POST /api/actions/{id}/confirm */

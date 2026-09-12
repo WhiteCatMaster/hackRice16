@@ -5,9 +5,16 @@
 // rule 1 in begin.md §6, and it is the answer to "how do you stop the LLM from
 // hallucinating a balance".
 //
-// The web app renders this as a drawer sliding in from the right. On a phone it
-// is a modal route, so the OS gives it the sheet gesture and the back button for
-// free — and the keyboard, which is the part a drawer would have fought.
+// The web app renders this as a drawer sliding in from the right, opened from a
+// button on its dark rail. On a phone it is a tab: the copilot is not a thing
+// you summon over the dashboard, it is one of the six places the app goes, and
+// a tab is how a phone says that. It was a modal sheet before, which meant the
+// one screen you might come back to five times was the one behind a 34px icon.
+//
+// Which model writes the prose is the user's to choose. `/model-key` holds the
+// key on this device, the store hands it over, and `lib/api.ts` sends it with
+// each question — see `lib/secrets.ts`, and `backend/agent/keys.py` for what
+// the backend does and does not keep.
 
 import { Feather } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
@@ -25,17 +32,27 @@ import {
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { Body, Button, Eyebrow, Panel } from '../components/ui'
-import { chat, confirmAction } from '../lib/api'
-import type { ActionResult, ChatReply, ProposedAction } from '../lib/contract'
-import { dayMonth, money, runwayLabel } from '../lib/format'
-import { useStore } from '../lib/store'
-import { color, font, radius, text } from '../lib/theme'
+import { Body, Button, Eyebrow, Panel } from '../../components/ui'
+import { chat, confirmAction } from '../../lib/api'
+import {
+  MODEL_PROVIDERS,
+  isChatError,
+  type ActionResult,
+  type ChatReply,
+  type ProposedAction,
+} from '../../lib/contract'
+import { dayMonth, money, runwayLabel } from '../../lib/format'
+import { useStore } from '../../lib/store'
+import { color, font, radius, space, text } from '../../lib/theme'
 
 interface Message {
   role: 'user' | 'agent'
   text: string
   tools?: string[]
+  /** Which brain wrote it, when a model did. */
+  provider?: string
+  /** Whose key paid for it. */
+  keySource?: 'user' | 'server' | null
 }
 
 const SUGGESTIONS = [
@@ -44,8 +61,12 @@ const SUGGESTIONS = [
   'What happens if I cancel the gym before I fly home?',
 ]
 
+function providerLabel(id?: string): string {
+  return MODEL_PROVIDERS.find((p) => p.id === id)?.label ?? 'the scripted router'
+}
+
 export default function Copilot() {
-  const { user, reload, setConfirmed } = useStore()
+  const { user, live, reload, setConfirmed, modelKey, modelKeyReady } = useStore()
   const router = useRouter()
   const insets = useSafeAreaInsets()
   const scroller = useRef<ScrollView>(null)
@@ -56,6 +77,7 @@ export default function Copilot() {
   const [action, setAction] = useState<ProposedAction | null>(null)
   const [result, setResult] = useState<ActionResult | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [keyTrouble, setKeyTrouble] = useState<string | null>(null)
 
   async function ask(message: string) {
     if (!message.trim() || busy) return
@@ -63,12 +85,42 @@ export default function Copilot() {
     setInput('')
     setBusy(true)
     setError(null)
+    setKeyTrouble(null)
     try {
-      const data: ChatReply | null = await chat({ user, message })
+      const data = await chat({ user, message }, modelKey)
       if (!data) throw new Error('no reply')
-      setMessages((m) => [...m, { role: 'agent', text: data.reply, tools: data.used_tools }])
-      if (data.proposed_action) {
-        setAction(data.proposed_action)
+      if (isChatError(data)) {
+        // `bad_model_key` is the one refusal the user can act on, and its
+        // message says which way the key is unreadable. Every other error is
+        // ours, not theirs, and reads as the backend being unreachable — which
+        // it probably is.
+        if (data.error !== 'bad_model_key') throw new Error(data.error)
+        setKeyTrouble(data.message ?? data.error)
+        return
+      }
+      const reply = data as ChatReply
+      setMessages((m) => [
+        ...m,
+        {
+          role: 'agent',
+          text: reply.reply,
+          tools: reply.used_tools,
+          provider: reply._provider,
+          keySource: reply._key_source,
+        },
+      ])
+      // A key of the user's that did not work is the user's to fix — a typo, an
+      // empty quota, a model name that does not exist. The answer still landed,
+      // composed by the scripted router from the same tools, so this is a note
+      // rather than an error.
+      if (reply._key_rejected) {
+        setKeyTrouble(
+          `Your key did not answer${reply._fell_back ? ` — ${reply._fell_back}` : ''}. ` +
+            'The reply above came from the scripted router instead.',
+        )
+      }
+      if (reply.proposed_action) {
+        setAction(reply.proposed_action)
         setResult(null)
       }
     } catch {
@@ -87,13 +139,16 @@ export default function Copilot() {
       setResult(data)
       setConfirmed(data)
       if (data.status === 'executed') {
-        // The money actually moved. Every figure on the tabs behind this sheet
-        // was read before that happened, so without this the strip would
+        // The money actually moved. Every figure on the other tabs was read
+        // before that happened, so without this the overview strip would
         // announce a new runway date while the card under it still shows the
         // old one. This is the web app's `router.refresh()`.
         await reload()
+        // And then go to the screen that says so. As a modal this closed itself
+        // onto whatever was behind it; a tab has to walk over deliberately, and
+        // the overview is where the strip and the new runway date are.
+        router.navigate('/')
       }
-      router.back()
     } catch {
       setError('The action could not be confirmed.')
     } finally {
@@ -105,7 +160,10 @@ export default function Copilot() {
     <KeyboardAvoidingView
       style={styles.root}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 8 : 0}
+      // The composer sits above the tab bar, so on iOS the keyboard has to be
+      // told the bar is there or it lifts the input by exactly one tab bar too
+      // little and covers what you are typing.
+      keyboardVerticalOffset={Platform.OS === 'ios' ? space.tabBar + insets.bottom : 0}
     >
       <View style={styles.head}>
         <View style={styles.headCopy}>
@@ -114,12 +172,21 @@ export default function Copilot() {
         </View>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Close the copilot"
-          onPress={() => router.back()}
-          hitSlop={12}
-          style={({ pressed }) => [styles.close, pressed && styles.pressed]}
+          accessibilityLabel={
+            modelKey ? 'Change the model key this app uses' : 'Use your own model key'
+          }
+          onPress={() => router.push('/model-key')}
+          hitSlop={8}
+          style={({ pressed }) => [
+            styles.keyButton,
+            modelKey && styles.keyButtonOn,
+            pressed && styles.pressed,
+          ]}
         >
-          <Feather name="x" size={17} color={color.inkSoft} />
+          <Feather name="key" size={12} color={modelKey ? color.tealDeep : color.inkMute} />
+          <Text style={[styles.keyLabel, modelKey && styles.keyLabelOn]}>
+            {modelKeyReady && modelKey ? providerLabel(modelKey.provider) : 'YOUR KEY'}
+          </Text>
         </Pressable>
       </View>
 
@@ -136,6 +203,17 @@ export default function Copilot() {
               Every number in an answer comes from the forecast engine. The assistant picks the
               tools and explains the result — it does not do the arithmetic.
             </Body>
+            {/* Fixture mode has no backend, so it has no tools and no model —
+                just one exported reply. Letting the same answer come back to
+                three different questions looks like a broken agent rather than
+                a missing backend. */}
+            {!live ? (
+              <Text style={[text.small, styles.fixtureNote]}>
+                Running on bundled fixtures, so this is one canned reply. Set
+                EXPO_PUBLIC_TREASURER_API_BASE to talk to the API — then your own key, if you add
+                one, writes the answers.
+              </Text>
+            ) : null}
             <View style={styles.suggestions}>
               {SUGGESTIONS.map((s) => (
                 <Pressable
@@ -163,6 +241,9 @@ export default function Copilot() {
             {m.tools && m.tools.length > 0 ? (
               <Text style={styles.trace}>via {m.tools.join(' · ')}</Text>
             ) : null}
+            {m.role === 'agent' && m.keySource === 'user' ? (
+              <Text style={styles.trace}>written by your {providerLabel(m.provider)} key</Text>
+            ) : null}
           </View>
         ))}
 
@@ -171,6 +252,18 @@ export default function Copilot() {
             <ActivityIndicator size="small" color={color.inkMute} />
             <Text style={text.small}>thinking…</Text>
           </View>
+        ) : null}
+
+        {keyTrouble ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Check the model key"
+            onPress={() => router.push('/model-key')}
+            style={styles.keyTrouble}
+          >
+            <Text style={[text.small, styles.keyTroubleText]}>{keyTrouble}</Text>
+            <Text style={[text.small, styles.keyTroubleLink]}>Check the key →</Text>
+          </Pressable>
         ) : null}
 
         {error ? <Text style={styles.error}>{error}</Text> : null}
@@ -230,7 +323,7 @@ export default function Copilot() {
         ) : null}
       </ScrollView>
 
-      <View style={[styles.composer, { paddingBottom: insets.bottom + 10 }]}>
+      <View style={styles.composer}>
         <TextInput
           value={input}
           onChangeText={setInput}
@@ -275,19 +368,34 @@ const styles = StyleSheet.create({
     borderBottomColor: color.line,
   },
   headCopy: { flex: 1, gap: 4 },
-  close: {
-    width: 32,
-    height: 32,
-    borderRadius: radius.sm,
-    backgroundColor: color.surface2,
+
+  keyButton: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    borderRadius: radius.sm,
+    borderWidth: 1,
+    borderColor: color.line,
+    backgroundColor: color.surface2,
   },
+  // A key is set: the button is a statement of fact now, not an invitation.
+  keyButtonOn: { borderColor: color.tealLine, backgroundColor: color.tealTint },
+  keyLabel: { fontFamily: font.figureMed, fontSize: 9, letterSpacing: 0.9, color: color.inkMute },
+  keyLabelOn: { color: color.tealDeep },
 
   body: { flex: 1 },
   bodyContent: { padding: 18, gap: 12 },
 
   empty: { gap: 14 },
+  fixtureNote: {
+    backgroundColor: color.brassTint,
+    borderRadius: radius.sm,
+    padding: 11,
+    color: color.brass,
+    overflow: 'hidden',
+  },
   suggestions: { gap: 8 },
   suggestion: {
     flexDirection: 'row',
@@ -309,6 +417,17 @@ const styles = StyleSheet.create({
   pending: { flexDirection: 'row', alignItems: 'center', gap: 9 },
   trace: { fontFamily: font.figure, fontSize: 9, letterSpacing: 0.7, color: color.inkFaint },
 
+  keyTrouble: {
+    gap: 6,
+    backgroundColor: color.brassTint,
+    borderWidth: 1,
+    borderColor: color.brassLine,
+    borderRadius: radius.sm,
+    padding: 12,
+  },
+  keyTroubleText: { color: color.brass },
+  keyTroubleLink: { color: color.brass, fontFamily: font.sansSemi },
+
   error: { ...text.small, color: color.flagDeep },
 
   action: { borderColor: color.tealLine, backgroundColor: color.tealTint },
@@ -328,10 +447,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     gap: 9,
     paddingHorizontal: 14,
-    paddingTop: 10,
+    paddingVertical: 10,
     borderTopWidth: 1,
     borderTopColor: color.line,
     backgroundColor: color.surface,
+    // No safe-area padding here: the tab bar below already owns that space.
+    // As a modal this screen had to add it itself.
   },
   input: {
     flex: 1,

@@ -2,7 +2,8 @@
 
 The web app from [begin.md §7](../begin.md): dashboard with the runway chart,
 bill decoder, credit builder, safety centre with the pre-transfer pause, and the
-copilot with an approval gate in front of every write.
+copilot with an approval gate in front of every write. The copilot will answer
+with your own model key if you give it one — see [Your own model](#your-own-model).
 
 ## Run it
 
@@ -68,6 +69,33 @@ The first two degrade instead of breaking. Affordability cannot: the answer
 depends on the amount typed, so there is no fixture to pre-export and the card
 asks for the backend rather than inventing a number.
 
+## Your own model
+
+The copilot's prose comes from whatever model the backend has a key for: one
+key, in one `.env`, on one laptop. Anyone else opening this app has their own —
+so **Copilot → Use your own key** takes it.
+
+Three providers, because the backend speaks three (`GET /api/health` →
+`agent.byok.accepted` is the live list): Google Gemini (`AIza…`), Claude
+(`sk-ant-…`), and anything speaking OpenAI's chat-completions shape (`sk-…`) —
+OpenAI itself, OpenRouter, Groq, or a model running on the machine with the
+backend, via the optional endpoint field.
+
+Where it goes: `lib/model-key.ts` keeps it in this browser's `localStorage`.
+`app/api/chat/route.ts` copies it from the request to the backend as the
+`X-Model-*` headers and forgets it — it is never read, logged or stored in that
+hop — and the backend spends it on that one turn and keeps nothing
+(`backend/agent/keys.py`). The phone does the same thing against its keystore.
+
+Two things worth knowing before demoing it:
+
+- **A key needs the backend.** The tools that produce every number live there, so
+  in fixture mode a stored key has nothing to spend it — the panel says so.
+- **A key that does not work is reported, not swallowed.** A typo, an empty
+  quota, a model name that does not exist: the answer still arrives, composed by
+  the backend's scripted router from the same tools, and the copilot says the key
+  did not write it and why.
+
 ## What is honest about this UI
 
 - **No number is computed here.** Balances, the runway date, the gap, the burn
@@ -79,6 +107,9 @@ asks for the backend rather than inventing a number.
 - **Simulated fields are labelled.** The credit view prints whatever the
   backend puts in `_simulated`, because Nessie has no credit limit, APR or
   credit score.
+- **The answer says who wrote it.** A reply composed with your own key says so
+  under the bubble; one that fell back to the scripted router does not claim
+  otherwise.
 
 ## Demo path (begin.md §9)
 
@@ -111,9 +142,11 @@ components/
   affordability.tsx "can I afford it?", answered by the engine
   forecast-chart.tsx  the runway line, drawn from the forecast series
   copilot.tsx       chat, proposed actions, the confirmation gate
+  model-key.tsx     bring your own model key
   safety.tsx        alerts, the scenario runner, the pause modal
 lib/
   contract.ts       every endpoint's response, as types
   api.ts            mocks-or-backend, the one switch
   format.ts         money, dates, percentages
+  model-key.ts      the user's own model key, in this browser only
 ```

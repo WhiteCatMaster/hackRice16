@@ -101,6 +101,9 @@ out of the repository root, so it has real data with no backend either. See
 [mobile/README.md](mobile/README.md); the one thing that differs is that a phone
 calls the API directly, so live mode needs CORS rather than a proxy.
 
+The copilot is one of the six tabs there, not a modal behind an icon — it is the
+screen people come back to.
+
 Then:
 
 - **P3** — `from backend.engine import summary, forecast, check_transfer, alerts`;
@@ -113,6 +116,24 @@ Then:
   `mobile/lib/contract.ts` is a copy of the web one; `cd mobile && npm run check`
   fails if the two ever drift.
 
+## Bring your own model
+
+Neither app needs a key in this repository to talk to a model. The copilot — on
+a phone or on a laptop — takes the user's own:
+
+- **Web**: Copilot → *Use your own key*. Kept in that browser's `localStorage`.
+- **Phone**: Ask → the key button, or `/model-key`. Kept in the phone's keystore.
+
+Gemini, Claude, or anything speaking OpenAI's chat-completions shape (OpenAI,
+OpenRouter, Groq, a model on your own laptop). It rides along with the question
+as `X-Model-*` headers, is spent on that one turn, and is never written to the
+server's disk or logs — [docs/api.md](docs/api.md#using-your-own-key) has the
+headers, the failure modes and why it is headers rather than a body.
+
+The server's own `GEMINI_API_KEY` / `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` still
+work as the fallback, and with none of them the scripted router answers every §9
+question with real numbers.
+
 ## Tests
 
 ```bash
@@ -120,8 +141,9 @@ python -m seed.reset_demo --arm     # the state the suite expects
 python -m unittest discover tests
 ```
 
-113 tests across the four layers, including a full push-and-sync round trip
-against an in-memory Nessie and the whole §9 demo path over real HTTP.
+141 tests across the four layers, including a full push-and-sync round trip
+against an in-memory Nessie, a whole chat turn against a stub model, and the
+§9 demo path over real HTTP.
 
 Run `--arm` first. Parts of `test_integration.py` assert that live mode shows the
 same alerts the fixtures ship with, and an unarmed cache has none of them — so

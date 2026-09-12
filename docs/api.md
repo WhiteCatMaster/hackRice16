@@ -57,7 +57,7 @@ Everything P4 calls, plus four that are useful at the table.
 | GET | `/api/scenarios` | The seeded scam/anomaly cases |
 | POST | `/api/users/{id}/affordability` | `{amount, when?}` → new runway date, safe maximum |
 | POST | `/api/transfers/check` | `{user, scenario}` or `{user, amount, payee_id?, description?}` |
-| POST | `/api/chat` | `{user, message, language?}` → reply + optional proposed action |
+| POST | `/api/chat` | `{user, message, language?}` → reply + optional proposed action. Reads a brought-along model key off the headers — see [below](#using-your-own-key) |
 | POST | `/api/actions/propose` | Stage an action without going through chat |
 | POST | `/api/actions/{id}/confirm` | `{user, action}` → the only write path |
 
@@ -169,29 +169,90 @@ Two modes, chosen by whether there is a model key.
 - **scripted** — no key, no network. Routes the question to the same tools by
   keyword and formats the answer from the same numbers.
 
-Two providers answer to the **llm** contract, and `/api/health` names the live one
-in `agent.provider`:
+Three providers answer to the **llm** contract, and `/api/health` names the live
+one in `agent.provider`:
 
 | Provider | Key | Model setting |
 | --- | --- | --- |
 | `gemini` | `GEMINI_API_KEY` | `TREASURER_GEMINI_MODEL` (default `gemini-flash-latest`) |
 | `anthropic` | `ANTHROPIC_API_KEY` | `TREASURER_MODEL` (default `claude-sonnet-5`) |
+| `openai` | `OPENAI_API_KEY` | `TREASURER_OPENAI_MODEL` (default `gpt-4o-mini`), `OPENAI_BASE_URL` |
 
 `TREASURER_PROVIDER` pins one; unset, whichever key is present answers, Gemini
-first. Gemini speaks a different wire shape — tool calls arrive as `functionCall`
-parts and results go back as `functionResponse` parts in a *user* turn — so it has
-its own turn loop in `loop.py` and its own transport in `gemini.py`. Both loops
-call the same `tools.run`, so a tool never learns which model asked. The transport
-is urllib, not a new dependency: `requirements.txt` installs nothing that the
-fallback needs.
+first. Each speaks a different wire shape, so each has its own turn loop in
+`loop.py` and its own transport: Gemini's tool calls arrive as `functionCall`
+parts and results go back as `functionResponse` parts in a *user* turn; OpenAI's
+arrive as `tool_calls` on the assistant message and each result goes back as its
+own `role: "tool"` message. All three loops call the same `tools.run`, so a tool
+never learns which model asked. Both transports are urllib, not a new dependency:
+`requirements.txt` installs nothing that the fallback needs.
+
+`openai` is the chat-completions *shape*, not only OpenAI. With `OPENAI_BASE_URL`
+(or the per-request header below) it is also OpenRouter, Groq, Together, vLLM or a
+model running on the same laptop — one transport, several favourite models.
 
 Gemini's free tier is 20 requests a day per model, and one chat turn spends one
 per tool round. Expect `_fell_back` with an HTTP 429 once that runs out — the
 answer is still correct, it is just the router's phrasing. A paid key, or a
 lighter model in `TREASURER_GEMINI_MODEL`, buys more room.
 
-Both answer in the language the question was asked in (`detect_language`), not
-merely the persona's own, and both return `used_tools` and any `proposed_action`.
+All three answer in the language the question was asked in (`detect_language`),
+not merely the persona's own, and all return `used_tools` and any
+`proposed_action`.
+
+## Using your own key
+
+Everything above configures *this* server's key. A judge, a teammate on a train
+or a phone on someone else's wifi has their own key and no way to put it in our
+`.env` — so `POST /api/chat` accepts one per request:
+
+| Header | |
+| --- | --- |
+| `X-Model-Provider` | `gemini`, `anthropic` or `openai`. Optional: inferred from `sk-ant-`, `AIza`, `sk-` |
+| `X-Model-Key` | the key |
+| `X-Model-Name` | optional model, e.g. `gemini-3-flash`, `llama3.1:8b` |
+| `X-Model-Base-URL` | `openai` only: an OpenAI-compatible endpoint. https, or http to localhost |
+
+```bash
+curl -s localhost:8000/api/chat \
+  -H 'content-type: application/json' \
+  -H "X-Model-Key: $GEMINI_API_KEY" \
+  -d '{"user":"ana","message":"What should I do?"}' | python -m json.tool
+```
+
+A key sent this way beats `TREASURER_PROVIDER` and the server's own keys: the
+person asking pasted it in to be used, and quietly billing somebody else instead
+would be the wrong answer given silently.
+
+**Nothing keeps it.** `backend/agent/keys.py` parses the headers into a
+`Credential`, the turn spends it, and it is gone — no disk, no sqlite, no log
+line, and a redacted `__repr__` so it cannot reach a traceback either. The device
+that sent it is the only thing that remembers: `localStorage` in the browser
+(`frontend/lib/model-key.ts`), the phone's keystore on a device
+(`mobile/lib/secrets.ts`). Headers rather than the body because a body is the
+thing most likely to be echoed into a debug print, and neither transport puts a
+key in a URL — Gemini takes `X-goog-api-key`, OpenAI takes `Authorization`.
+
+Every reply says who answered it, so the copilot can stop claiming a model wrote
+something the router did:
+
+| Field | |
+| --- | --- |
+| `_provider` | `gemini`, `anthropic`, `openai`, or `scripted` |
+| `_key_source` | `user`, `server`, or `null` when no model answered |
+| `_fell_back` | why the model path was abandoned, when it was |
+| `_key_rejected` | true when the *brought-along* key is the reason — the user's to fix |
+
+Two failure modes, deliberately different. A key this backend cannot read at all
+is `400 bad_model_key` with a message saying which way it is unreadable ("A key
+has no spaces or line breaks in it"). A key that reads fine but does not work — a
+typo, an empty quota, a model name that does not exist, a provider this backend
+has no SDK for — answers `200` from the scripted router with `_key_rejected: true`,
+because a wrong answer is worse than a plain one and no answer is worse than both.
+
+`/api/health` carries `agent.byok.accepted` (the providers this build can speak;
+`anthropic` drops out where its SDK is missing) and `agent.byok.headers`, so a
+settings screen can be built from the answer rather than from a guess.
 
 Where the engine writes its own explanation — `affordability().reason` does, and
 it is written from the numbers it just computed — the scripted router quotes it

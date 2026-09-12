@@ -14,11 +14,12 @@ import re
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
+from backend.agent import keys
 from backend.api import handlers
 
 log = logging.getLogger("treasurer.api")
 
-#: (method, compiled path) -> handler taking (**path groups, query, body)
+#: (method, compiled path) -> handler taking (**path groups, query, body, headers)
 ROUTES = [
     ("GET", r"^/api/health$",
      lambda query, **kw: handlers.health(
@@ -37,7 +38,8 @@ ROUTES = [
     ("POST", r"^/api/users/(?P<user>[^/]+)/affordability$",
      lambda user, body, **kw: handlers.affordability(user, body)),
     ("POST", r"^/api/transfers/check$", lambda body, **kw: handlers.transfers_check(body)),
-    ("POST", r"^/api/chat$", lambda body, **kw: handlers.chat(body)),
+    ("POST", r"^/api/chat$",
+     lambda body, headers, **kw: handlers.chat(body, headers)),
     ("POST", r"^/api/actions/propose$", lambda body, **kw: handlers.propose(body)),
     ("POST", r"^/api/actions/(?P<action_id>[^/]+)/confirm$",
      lambda action_id, body, **kw: handlers.confirm(action_id, body)),
@@ -68,7 +70,8 @@ class Handler(BaseHTTPRequestHandler):
             match = pattern.match(parsed.path)
             if match:
                 try:
-                    status, payload = fn(**match.groupdict(), query=query, body=body)
+                    status, payload = fn(**match.groupdict(), query=query, body=body,
+                                        headers=self.headers)
                 except Exception as exc:  # never 500 silently mid-demo
                     log.exception("handler failed")
                     status, payload = 500, {"error": "handler_failed", "message": str(exc)}
@@ -91,7 +94,12 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("content-type", "application/json")
         self.send_header("content-length", str(len(data)))
         self.send_header("access-control-allow-origin", "*")
-        self.send_header("access-control-allow-headers", "content-type")
+        # A phone and a browser tab both talk to this server directly, and both
+        # send the model-key headers. An allow list that only names content-type
+        # means the preflight refuses them and the key never arrives — with no
+        # error anywhere, just the scripted answer again.
+        self.send_header("access-control-allow-headers",
+                         "content-type, " + ", ".join(keys.HEADERS))
         self.send_header("access-control-allow-methods", "GET, POST, OPTIONS")
         self.end_headers()
         if data:

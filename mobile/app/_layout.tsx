@@ -1,4 +1,7 @@
 // The root: fonts, the data store, and the one stack the tabs live inside.
+//
+// One modal hangs off that stack: the model-key sheet. The copilot used to be
+// the modal and is now a tab — see app/(tabs)/copilot.tsx for why.
 
 import {
   Fraunces_500Medium,
@@ -62,7 +65,7 @@ export default function RootLayout() {
         >
           <Stack.Screen name="(tabs)" />
           <Stack.Screen
-            name="copilot"
+            name="model-key"
             options={{
               presentation: 'modal',
               headerShown: false,

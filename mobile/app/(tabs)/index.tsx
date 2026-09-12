@@ -274,7 +274,9 @@ export default function Overview() {
               : 'Nothing to fix. Spending stays under the buffer all the way to the flight home.'}
           </Text>
         </View>
-        <Button label="Ask the copilot" onPress={() => router.push('/copilot')} />
+        {/* navigate, not push: the copilot is a tab now, and pushing a tab
+            route stacks a second copy of it over the tab bar. */}
+        <Button label="Ask the copilot" onPress={() => router.navigate('/copilot')} />
       </Panel>
 
       {/* Coming up. */}

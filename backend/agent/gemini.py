@@ -120,9 +120,17 @@ def thinking_ladder(name: str) -> list[dict | None]:
 
 
 def generate(system: str, contents: list[dict], tool_schema: list[dict],
-             max_tokens: int = 2048) -> dict:
-    """One `:generateContent` call. Raises GeminiError on anything but a 200."""
-    name = model()
+             max_tokens: int = 2048, key: str | None = None,
+             name: str | None = None) -> dict:
+    """One `:generateContent` call. Raises GeminiError on anything but a 200.
+
+    `key` and `name` default to the server's own .env. A request that brought its
+    own key passes both, and nothing about that key is remembered afterwards —
+    only which thinking field its model accepted, which is a property of the
+    model and not of the caller.
+    """
+    key = key if key is not None else api_key()
+    name = name or model()
     if name in _ACCEPTED:
         ladder = [_ACCEPTED[name]]
     else:
@@ -148,7 +156,7 @@ def generate(system: str, contents: list[dict], tool_schema: list[dict],
             "generationConfig": config,
         }
         try:
-            response = _post(body)
+            response = _post(body, name=name, key=key)
         except GeminiError as exc:
             # A rejected thinking field comes back as a bare "Request contains an
             # invalid argument" that names no argument, so this keys on the status
@@ -165,7 +173,8 @@ def generate(system: str, contents: list[dict], tool_schema: list[dict],
     raise last  # type: ignore[misc]
 
 
-def _post(body: dict, _retries: int = 1) -> dict:
+def _post(body: dict, name: str | None = None, key: str | None = None,
+          _retries: int = 1) -> dict:
     """One POST, with a single short retry on 503.
 
     "This model is currently experiencing high demand" is the one failure here
@@ -173,10 +182,11 @@ def _post(body: dict, _retries: int = 1) -> dict:
     quota window to roll and is better spent falling back. One retry is the whole
     policy: a second wait costs more than the scripted answer is worth.
     """
-    key = api_key()
+    key = key if key is not None else api_key()
+    name = name or model()
     if not key:
         raise GeminiError("no GEMINI_API_KEY")
-    url = f"{BASE_URL}/models/{model()}:generateContent"
+    url = f"{BASE_URL}/models/{name}:generateContent"
     request = urllib.request.Request(
         url,
         data=json.dumps(body, default=str).encode(),
@@ -191,7 +201,7 @@ def _post(body: dict, _retries: int = 1) -> dict:
         if exc.code == 503 and _retries > 0:
             log.info("gemini 503, retrying once")
             time.sleep(1.5)
-            return _post(body, _retries - 1)
+            return _post(body, name=name, key=key, _retries=_retries - 1)
         raise GeminiError(f"HTTP {exc.code}: {detail}") from exc
     except urllib.error.URLError as exc:
         raise GeminiError(f"unreachable: {exc.reason}") from exc
