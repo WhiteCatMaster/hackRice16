@@ -11,7 +11,15 @@
 // component; on a phone the figures are spread across five screens, and a
 // toggle on the overview that the bills screen ignores is a bug.
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 import {
   DEFAULT_USER,
@@ -99,8 +107,17 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [home, setHome] = useState(false)
   const [confirmed, setConfirmed] = useState<ActionResult | null>(null)
 
+  // Every load takes a ticket, and only the newest one is allowed to write.
+  // Two are in flight whenever someone switches persona while the first is
+  // still loading, or pulls to refresh over a switch, and on a phone's network
+  // the older request can easily land last: Ana's balances arriving after Raj's
+  // and sitting under Raj's name. The seven requests inside one load cannot
+  // disagree with each other — they are one `Promise.all` — but two loads can.
+  const ticket = useRef(0)
+
   const load = useCallback(
     async (id: string, quiet: boolean) => {
+      const mine = ++ticket.current
       if (quiet) setRefreshing(true)
       else setLoading(true)
       try {
@@ -113,6 +130,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           getActivity(id, 8),
           getProfile(id),
         ])
+        if (mine !== ticket.current) return
         setData({
           summary,
           forecast,
@@ -123,8 +141,12 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           profile,
         })
       } finally {
-        setLoading(false)
-        setRefreshing(false)
+        // A superseded load must not clear the flags either: the load that
+        // overtook it is still running, and the spinner belongs to that one.
+        if (mine === ticket.current) {
+          setLoading(false)
+          setRefreshing(false)
+        }
       }
     },
     [],
