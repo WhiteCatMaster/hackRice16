@@ -37,7 +37,16 @@ def _p2():
     except Exception as exc:  # ImportError, or a half-written module mid-edit
         if "import" not in _warned:
             _warned.add("import")
-            log.info("backend.engine not available yet (%s); using P3's reference", exc)
+            # A warning, not info: the reference reproduces P1's calibration but not
+            # P2's full contract (no already_short, max_safe_through or days_gained),
+            # so a demo that quietly lands here answers with thinner numbers than the
+            # screens were built for. The engine also ships as sourceless .pyc built
+            # for one Python version — run a different one and the import fails here
+            # with nothing else to see. /api/health reports the same thing in
+            # engine_module.
+            log.warning(
+                "backend.engine did not import (%s); falling back to P3's reference. "
+                "Every number is now the reference projection, not P2's engine.", exc)
         return None
 
 

@@ -97,11 +97,20 @@ for an action that does help is a wrong number in front of a judge.
 has one and `backend/api/reference.py` otherwise, **per function, re-checked every
 call**. P2's engine takes over the moment it imports; nothing restarts.
 
-> **Right now it never imports.** `backend/engine/` has no source in it — only
-> stale bytecode, and it was never committed. So every capability currently
-> resolves to the reference and every payload says `"_engine": "p3-reference"`.
-> The fallback is doing exactly what it was built for, which is why nothing looks
-> broken. The root README has the details and what it costs.
+> **It imports again, from bytecode.** `backend/engine/` still has no source —
+> the `.py` files were lost and were never committed to any branch. What survived
+> was the compiled output, so the ten modules are restored as sourceless `.pyc`
+> next to where their source belongs, which Python imports directly. All twelve
+> capabilities resolve to `backend.engine` and payloads say
+> `"_engine": "backend.engine"`.
+>
+> Two things follow. The bytecode is built for **one** Python version (3.13, what
+> `.venv` runs); on any other the import fails and the port falls back to the
+> reference with a warning in the log — so check `engine_module` in
+> `/api/health` before a demo rather than assuming. And nobody can edit the
+> engine until someone recommits the source from the machine that still has it.
+> `*.pyc` is in `.gitignore`, so these files need `git add -f` to be tracked at
+> all; treat the copy in git as a hedge, not a substitute for the source.
 
 The reference is not a competing engine, and it is not a forecast: it reads the
 generator's own calibrated burn rate, which by P2's standard is grading its own
@@ -112,11 +121,12 @@ landed and still answers if a change breaks it mid-event — which is the situat
 it is holding up today. Every number the app shows comes from `backend.engine`
 whenever it is importable; check `/api/health` rather than assuming.
 
-Two gaps to know about while the reference is the one answering. It does not
-return `already_short` or `max_safe_through` on affordability, nor `days_gained`
-on a fix's effect, so the screens that want those fall back to their less precise
-branch and five tests in `tests/test_integration.py` fail. Those five are one
-missing module, not five bugs.
+What the reference costs, for when it is the one answering: it does not return
+`already_short` or `max_safe_through` on affordability, nor `days_gained` on a
+fix's effect, so the screens that want those drop to their less precise branch and
+five tests in `tests/test_integration.py` fail. Those five were one missing
+module, not five bugs — they pass with the engine loaded, and they are the check
+that says whether it really is.
 
 One hook the reference has and P2's forecast does not yet:
 

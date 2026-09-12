@@ -10,7 +10,7 @@ Full plan: [begin.md](begin.md). Team split, timeline, demo script and pitch liv
 | Layer | Owner | State |
 |---|---|---|
 | Data & Nessie integration | P1 | **done** — see [docs/data-layer.md](docs/data-layer.md) |
-| Engine (forecast & risk) | P2 | **source missing** — see [below](#the-engine-is-not-in-the-repo). The API is running on P3's reference |
+| Engine (forecast & risk) | P2 | **running, source still missing** — restored from bytecode, see [below](#the-engine-is-not-in-the-repo) |
 | Backend API & agent | P3 | **done** — see [docs/api.md](docs/api.md) |
 | Frontend (web) | P4 | **done** — see [frontend/README.md](frontend/README.md) |
 | Frontend (mobile) | P4 | **done** — see [mobile/README.md](mobile/README.md) |
@@ -19,35 +19,48 @@ Full plan: [begin.md](begin.md). Team split, timeline, demo script and pitch liv
 
 ## The engine is not in the repo
 
-`backend/engine/` contains no source — only a `__pycache__` of a version that was
-importable on 2026-09-11 at 23:47. The directory was never committed and is not
-gitignored, so git has nothing to restore and neither does the stash. Whoever has
-those files on their machine should commit them.
+`backend/engine/` has no `.py` source. It was never committed on any branch, so
+git has nothing to restore and neither does the stash. What survived was the
+compiled output in `__pycache__`, last built on 2026-09-11.
 
-Nothing crashes, which is why this is easy to miss. `backend/api/engine_port.py`
-resolves each capability to `backend.engine` if it has one and P3's
-`backend/api/reference.py` otherwise, per function, re-checked every call. With
-the module gone every capability falls to the reference, and the API keeps
-answering with P1's calibrated numbers. Check which side is talking:
+**The engine runs again anyway.** Python imports a `.pyc` sitting where its source
+belongs, so the ten modules are restored that way (`backend/engine/projection.pyc`
+and friends). All twelve capabilities resolve to `backend.engine`, the five
+`tests/test_integration.py` failures went green together — they were that one
+absence, not five bugs — and both CLIs below work.
+
+Three things this does not fix:
+
+- **Nobody can edit the engine.** Bytecode is not source. Whoever still has those
+  files should commit them; until then the engine is frozen.
+- **It is built for one Python version** (3.13, what `.venv` runs). On any other
+  the import fails and `backend/api/engine_port.py` falls back to P3's
+  `backend/api/reference.py` — per function, re-checked every call — with a
+  warning in the log. Nothing crashes, which is what makes it easy to miss.
+- **`.pyc` is gitignored**, so these files are tracked only because they were
+  force-added. Treat the copy in git as a hedge, not a substitute.
+
+Check which side is answering before you demo:
 
 ```bash
-curl -s localhost:8000/api/health | python -m json.tool   # every capability reads "p3-reference"
+curl -s localhost:8000/api/health | python -m json.tool   # engine_module, and a per-capability map
 ```
 
-Any payload will also say so itself — `"_engine": "p3-reference"`.
-
-What the reference does not carry: `already_short` and `max_safe_through` on
-affordability, and `days_gained` on a fix's effect. The deleted
-`projection.py` and `forecast.py` were the only source of those three fields, so
-the five failures in `tests/test_integration.py` are all that one absence rather
-than five separate bugs. Restore the engine and they go green together.
-
-These commands need it too, and currently exit with an import error:
+Any payload says so itself — `"_engine": "backend.engine"`, or `"p3-reference"`
+if it fell back. What the reference does not carry: `already_short` and
+`max_safe_through` on affordability, and `days_gained` on a fix's effect.
 
 ```bash
 python -m backend.engine           # the forecast, the fixes and the scam checks for Ana
 python -m backend.engine.export    # engine fixtures + the diff against P1's numbers
 ```
+
+`export` rewrites six fixtures in `mocks/`, so run it only when you mean to. It
+currently reports `OUT OF TOLERANCE`: the engine puts Ana's gap at $425.90 where
+P1's published calibration says $409.91, a difference of exactly one $15.99
+streaming bill and one future event. It is not date drift — it survives
+`DEMO_AS_OF=2026-09-11` — and it predates the restore. Worth settling before the
+demo, since mock mode and live mode answer that question differently.
 
 ## Quick start
 
@@ -59,7 +72,7 @@ python -m seed.reset_demo     # generate, validate, cache, and write mocks/
 python -m backend.nessie.repo # see what is in the cache
 ```
 
-`python -m backend.engine` is in a lot of older notes; it does not currently run.
+`python -m backend.engine` runs, but from restored bytecode rather than source.
 See [below](#the-engine-is-not-in-the-repo).
 
 That works with no API key and no network. With a key:
@@ -170,7 +183,7 @@ python -m seed.reset_demo --arm     # back to a known state, scenarios armed
 python -m backend.engine.export     # engine fixtures + the diff against P1's numbers
 ```
 
-The second line needs the engine source back before it runs; skip it until then.
+The second line rewrites six fixtures in `mocks/`; run it only when you mean to.
 
 Approving an action in the copilot really does move money in the cache, so reset
 between rehearsals.
