@@ -80,13 +80,9 @@ function Header() {
     <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
       <View style={styles.headerTop}>
         <View style={styles.brand}>
-          <View style={styles.brandMark}>
-            <Text style={styles.brandMarkText}>ET</Text>
-          </View>
-          <View>
-            <Text style={styles.brandName}>exchangetreasurer</Text>
-            <Text style={styles.brandSub}>TREASURY DESK</Text>
-          </View>
+          <Text style={styles.brandName}>EXTreasurer</Text>
+          <View style={styles.brandRule} />
+          <Text style={styles.brandSub}>TREASURY DESK</Text>
         </View>
 
         <View style={styles.headerActions}>
@@ -189,17 +185,11 @@ const styles = StyleSheet.create({
 
   header: { backgroundColor: color.vault, paddingHorizontal: 16, paddingBottom: 10, gap: 10 },
   headerTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  brand: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  brandMark: {
-    width: 30,
-    height: 30,
-    borderRadius: radius.sm,
-    backgroundColor: color.teal,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  brandMarkText: { fontFamily: font.displaySemi, fontSize: 13, color: '#ffffff', letterSpacing: 0.5 },
-  brandName: { fontFamily: font.display, fontSize: 17, color: '#ffffff', letterSpacing: -0.5 },
+  // The wordmark, as on the web rail: the mono face, with the app icon's ledger
+  // rule under it. The rule doubles as the gap between the mark and the kicker.
+  brand: { alignItems: 'flex-start', gap: 5 },
+  brandName: { fontFamily: font.figureMed, fontSize: 16, color: '#ffffff', letterSpacing: -0.2 },
+  brandRule: { width: 28, height: 2, borderRadius: 1, backgroundColor: color.tealLine },
   brandSub: { fontFamily: font.figureMed, fontSize: 8, letterSpacing: 1.4, color: color.vaultMute },
   headerActions: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   copilotButton: {
