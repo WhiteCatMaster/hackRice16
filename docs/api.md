@@ -125,6 +125,12 @@ Two modes, chosen by whether `ANTHROPIC_API_KEY` is set.
 
 Both answer in the language the question was asked in (`detect_language`), not
 merely the persona's own, and both return `used_tools` and any `proposed_action`.
+
+Where the engine writes its own explanation — `affordability().reason` does, and
+it is written from the numbers it just computed — the scripted router quotes it
+rather than re-templating. That text is English-only today, so Spanish still goes
+through the router's own phrasing. If the engine gains translated reasons, drop
+the language check in `_scripted`.
 The scripted router answers every §9 demo question with real numbers. That is
 deliberate: an LLM API is one more thing that can be down at 9 a.m. on stage.
 

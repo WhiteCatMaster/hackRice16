@@ -211,11 +211,26 @@ def _scripted(conn, user: str, message: str, language: str | None) -> dict:
             return _reply(conn, user, reply, used, None, lang)
 
         check = tool("check_affordability", {"amount": amount})
+
+        # The engine writes a better sentence than this router can, and it is
+        # written from the same numbers it just computed — so prefer it where the
+        # language matches. It is English-only, so Spanish keeps the template.
+        if not es and check.get("reason"):
+            reply = check["reason"]
+            if not check["affordable"]:
+                fixes = tool("suggest_fixes")["fixes"]
+                transfer = next((f for f in fixes if f["type"] == "transfer"), None)
+                if transfer:
+                    proposed = tool("propose_transfer", {
+                        "amount": transfer["amount"], "from": "savings",
+                        "to": "checking", "label": transfer["label"]})
+            return _reply(conn, user, reply, used, proposed, lang)
+
         if check["affordable"]:
             reply = (
                 f"Sí. Gastar {_money(amount)} te deja en {_money(check['min_balance_after'])} "
                 f"en tu punto más bajo, y tu dinero sigue llegando hasta "
-                f"{check['runway_date_after']}."
+                f"{check['runway_date_after'] or summary['target_date']}."
                 if es else
                 f"Yes. Spending {_money(amount)} leaves you at "
                 f"{_money(check['min_balance_after'])} at your lowest point, and your money "
