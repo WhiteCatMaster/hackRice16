@@ -140,7 +140,7 @@ function Header() {
  * different problem and gets a different sentence.
  */
 function Gate({ loading }: { loading: boolean }) {
-  const { user, live, reload } = useStore()
+  const { user, live, reload, refreshing } = useStore()
   const insets = useSafeAreaInsets()
 
   return (
@@ -159,12 +159,23 @@ function Gate({ loading }: { loading: boolean }) {
               ? 'The backend is set, but it did not return a summary for this profile. Check that the API is running and that the persona exists.'
               : 'The bundled fixtures have no summary for this profile. Try ana, raj or lucia.'}
           </Text>
+          {/* `reload()` is the quiet kind — it sets `refreshing`, not
+              `loading`, so nothing above this changes while it runs. Without
+              the busy state the button looks broken on a slow backend, which
+              is exactly when someone presses it. */}
           <Pressable
             accessibilityRole="button"
+            accessibilityState={{ busy: refreshing, disabled: refreshing }}
+            disabled={refreshing}
             onPress={() => void reload()}
-            style={({ pressed }) => [styles.retry, pressed && styles.pressed]}
+            style={({ pressed }) => [
+              styles.retry,
+              refreshing && styles.retryBusy,
+              pressed && styles.pressed,
+            ]}
           >
-            <Text style={styles.retryLabel}>Try again</Text>
+            {refreshing ? <ActivityIndicator size="small" color="#ffffff" /> : null}
+            <Text style={styles.retryLabel}>{refreshing ? 'Trying…' : 'Try again'}</Text>
           </Pressable>
           <PersonaSwitch dark={false} />
         </>
@@ -254,10 +265,14 @@ const styles = StyleSheet.create({
   gateBody: { marginBottom: 8 },
   retry: {
     alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
     backgroundColor: color.teal,
     paddingVertical: 11,
     paddingHorizontal: 18,
     borderRadius: radius.sm,
   },
+  retryBusy: { opacity: 0.6 },
   retryLabel: { fontFamily: font.sansSemi, fontSize: 13, color: '#ffffff' },
 })
