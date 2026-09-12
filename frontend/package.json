@@ -32,5 +32,5 @@
     "tailwindcss": "^4.3.3",
     "typescript": "5.7.3"
   },
-  "description": "ExchangeTreasurer's web app: the dashboard, runway, bills, credit, safety centre and copilot."
+  "description": "EXTreasurer's web app: the dashboard, runway, bills, credit, safety centre and copilot."
 }

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ExchangeTreasurer",
+    "name": "EXTreasurer",
     "slug": "exchangetreasurer",
     "scheme": "treasurer",
     "version": "0.1.0",
@@ -15,7 +15,7 @@
     "android": {
       "package": "com.exchangetreasurer.mobile",
       "adaptiveIcon": {
-        "backgroundColor": "#eef1f5",
+        "backgroundColor": "#10202f",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"

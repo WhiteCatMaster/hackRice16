@@ -1,4 +1,4 @@
-# ExchangeTreasurer
+# EXTreasurer
 
 A financial copilot for international students in their first year in the US, with
 built-in scam protection. Built on Capital One's Nessie mock banking API.

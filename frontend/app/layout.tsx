@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'ExchangeTreasurer — Your money, made clear',
+  title: 'EXTreasurer — Your money, made clear',
   description: 'A financial copilot for international students navigating their first year in the US.',
   generator: 'v0.app',
   icons: {

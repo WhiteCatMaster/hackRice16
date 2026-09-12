@@ -1,7 +1,8 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <title>ExchangeTreasurer</title>
-  <!-- A ledger "T": the line a treasurer rules under a column before totalling
-       it. Inverts against dark browser chrome the way the PNG pair does. -->
+  <title>EXTreasurer</title>
+  <!-- The EX of the wordmark, over the line a treasurer rules under a column
+       before totalling it. Inverts against dark browser chrome the way the PNG
+       pair does. -->
   <style>
     .ground { fill: #10202f; }
     .glyph { fill: #ffffff; }
@@ -12,7 +13,13 @@
     }
   </style>
   <rect class="ground" width="180" height="180" rx="37" />
-  <rect class="glyph" x="40" y="46" width="100" height="20" rx="3" />
-  <rect class="glyph" x="80" y="46" width="20" height="74" rx="3" />
-  <rect class="rule" x="40" y="132" width="100" height="8" rx="4" />
+  <g class="glyph">
+    <rect x="41" y="46" width="12" height="70" />
+    <rect x="41" y="46" width="44" height="12" />
+    <rect x="41" y="75" width="36" height="12" />
+    <rect x="41" y="104" width="44" height="12" />
+    <polygon points="95,46 109,46 139,116 125,116" />
+    <polygon points="125,46 139,46 109,116 95,116" />
+  </g>
+  <rect class="rule" x="41" y="132" width="98" height="8" rx="4" />
 </svg>

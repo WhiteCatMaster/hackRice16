@@ -6,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ===========================================================================
-   ExchangeTreasurer — "treasury desk" direction.
+   EXTreasurer — "treasury desk" direction.
 
    A dark navy ledger rail against a cool paper workspace. Three semantic
    families carry every state in the product, and nothing else is allowed a
@@ -144,18 +144,19 @@ h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -0.0
   flex-direction: column;
 }
 
-.brand { display: flex; align-items: center; gap: 11px; color: #fff; font-family: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -0.035em; }
-.brand-mark {
-  width: 30px; height: 30px; flex: 0 0 30px;
-  display: grid; place-items: center;
-  border-radius: var(--r);
-  background: var(--teal);
+/* The wordmark. It is set in the mono, not the display serif: the logo is a
+   typewritten one, and the mono is already the voice this product uses for
+   anything that has to line up in a column. The teal rule under it is the same
+   ledger line the app icon draws under its EX. */
+.brand { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
+.brand-word {
   color: #fff;
   font-family: var(--figure);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
+.brand-rule { width: 34px; height: 3px; border-radius: 2px; background: var(--teal-line); }
 
 .workspace-label { color: var(--vault-mute); margin: 44px 10px 12px; }
 

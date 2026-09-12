@@ -103,7 +103,7 @@ class Handler(BaseHTTPRequestHandler):
 
 def main(host: str = "127.0.0.1", port: int = 8000) -> None:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
-    log.info("ExchangeTreasurer API (stdlib mode) on http://%s:%d", host, port)
+    log.info("EXTreasurer API (stdlib mode) on http://%s:%d", host, port)
     ThreadingHTTPServer((host, port), Handler).serve_forever()
 
 

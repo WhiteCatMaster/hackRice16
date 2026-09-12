@@ -9,7 +9,7 @@ LANGUAGE_NAMES = {
     "fr": "French", "zh": "Chinese", "ar": "Arabic", "de": "German",
 }
 
-SYSTEM = """You are ExchangeTreasurer, a financial copilot for international students in their \
+SYSTEM = """You are EXTreasurer, a financial copilot for international students in their \
 first year in the United States. You are talking to {name}, who arrived from \
 {home_city} on {arrival_date} and flies home on {flight_home_date}.
 

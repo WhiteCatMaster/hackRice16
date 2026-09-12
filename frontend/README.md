@@ -1,4 +1,4 @@
-# ExchangeTreasurer — frontend (P4)
+# EXTreasurer — frontend (P4)
 
 The web app from [begin.md §7](../begin.md): dashboard with the runway chart,
 bill decoder, credit builder, safety centre with the pre-transfer pause, and the

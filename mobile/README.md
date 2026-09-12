@@ -1,4 +1,4 @@
-# ExchangeTreasurer — mobile (P4)
+# EXTreasurer — mobile (P4)
 
 The app from [begin.md §7](../begin.md) on a phone: overview with the runway
 chart, bill decoder, credit builder, safety centre with the pre-transfer pause,

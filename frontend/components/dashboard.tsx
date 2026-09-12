@@ -124,8 +124,8 @@ export default function Dashboard({
     <main className="treasury-shell">
       <aside className="sidebar">
         <div className="brand">
-          <span className="brand-mark">ET</span>
-          <span>exchangetreasurer</span>
+          <span className="brand-word">EXTreasurer</span>
+          <span className="brand-rule" aria-hidden="true" />
         </div>
         <div className="workspace-label">YOUR MONEY, MADE CLEAR</div>
         <nav className="side-nav" aria-label="Main navigation">
@@ -171,7 +171,7 @@ export default function Dashboard({
       <section className="main-content">
         <header className="topbar">
           <div className="ledger-brand">
-            EXCHANGETREASURER <span>· TREASURY DESK</span>
+            EXTREASURER <span>· TREASURY DESK</span>
           </div>
           <div className="nessie-status">
             <span className={`status-dot ${live ? '' : 'fixture'}`} />
