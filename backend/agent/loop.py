@@ -279,8 +279,16 @@ def _scripted(conn, user: str, message: str, language: str | None) -> dict:
             return _reply(conn, user, reply, used, None, lang)
 
         amount = _amount_in(text)
-        transfer = next((f for f in fixes if f["type"] == "transfer"), None)
-        cap = next((f for f in fixes if f["type"] == "spending_cap"), None)
+
+        # Select by the engine's own notion of the plan, not by type name. P2 calls
+        # the cap `category_cap` while the reference calls it `spending_cap`, and
+        # matching one name silently dropped the second line of the action card —
+        # the line that is the entire reason the demo has two fixes.
+        plan = [f for f in fixes if f.get("in_plan")]
+        pool = plan or fixes
+        transfer = (next((f for f in pool if f.get("type") == "transfer"), None)
+                    or next((f for f in fixes if f.get("type") == "transfer"), None))
+        cap = next((f for f in pool if f is not transfer), None)
         if transfer and amount:
             transfer = {**transfer, "amount": amount, "label": f"Move ${amount:,.0f} from savings to checking"}
 
@@ -320,9 +328,21 @@ def _scripted(conn, user: str, message: str, language: str | None) -> dict:
                         f"That still leaves you {_money(still_short)} short.")
 
         if cap:
-            lines.append(
-                f"Y {cap['label'].lower()} cubre el resto."
-                if es else f"And {cap['label'].lower()} covers the rest.")
+            # The engine carries the *combined* outcome on each step of the plan
+            # (`effect_with_plan`), so the payoff can be a measured number rather
+            # than an unbacked "covers the rest". Only claim it clears the gap if
+            # the engine says it does.
+            plan = cap.get("effect_with_plan") or {}
+            if plan.get("clears_the_gap"):
+                lasts = _lasts_phrase(plan.get("runway_date_after"), es)
+                lines.append(
+                    f"{cap['label']} también, y juntos tu dinero duraría {lasts}."
+                    if es else
+                    f"{cap['label']} too, and together they stretch you {lasts}.")
+            else:
+                lines.append(
+                    f"Y {cap['label'].lower()} cubre el resto."
+                    if es else f"And {cap['label'].lower()} covers the rest.")
         lines.append("Nada se mueve hasta que lo apruebes." if es
                      else "Nothing moves until you approve it.")
         return _reply(conn, user, " ".join(lines), used, proposed, lang)

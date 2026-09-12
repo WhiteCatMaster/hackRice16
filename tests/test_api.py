@@ -413,6 +413,25 @@ class TestAgent(EngineBase):
         if short > 0:
             self.assertIn("short", got["reply"])
 
+    def test_the_combined_plan_is_stated_as_a_measured_outcome(self):
+        """The §9 payoff: two fixes together carry her past the flight.
+
+        The engine puts the combined result on each step as `effect_with_plan`,
+        so this can be a measured claim. Asserted conditionally because whether a
+        plan clears the gap is the engine's to decide, not this test's.
+        """
+        from backend.api import engine_port
+
+        fixes = engine_port.call("suggest_fixes", self.conn, "ana")
+        plan = next((f.get("effect_with_plan") for f in fixes
+                     if (f.get("effect_with_plan") or {}).get("clears_the_gap")), None)
+        reply = self._ask("What should I do?")["reply"]
+        if plan:
+            self.assertIn("together they stretch you", reply)
+            if not plan.get("runway_date_after"):
+                self.assertIn("past your flight home", reply)
+        self.assertNotIn("None", reply)
+
     def test_a_null_runway_reads_as_good_news_not_a_blank(self):
         self.assertEqual(loop._lasts_phrase(None, es=False), "past your flight home")
         self.assertEqual(loop._lasts_phrase(None, es=True), "más allá de tu vuelo de vuelta")
