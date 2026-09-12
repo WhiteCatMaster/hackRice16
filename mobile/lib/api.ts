@@ -56,7 +56,9 @@ function resolveBase(raw: string): string {
   const host = hostUri.replace(/^\w+:\/\//, '').split('/')[0].split(':')[0]
   if (!host || host === 'localhost' || host === '127.0.0.1') return base
 
-  return base.replace(loopback, `${match[1]}${host}${match[3] ?? ''}`)
+  // A function replacement, not a string one: `$&` and friends in a host name
+  // would otherwise be read as backreferences.
+  return base.replace(loopback, () => `${match[1]}${host}${match[3] ?? ''}`)
 }
 
 export const API_BASE = resolveBase(process.env.EXPO_PUBLIC_TREASURER_API_BASE ?? '')
@@ -153,7 +155,12 @@ export async function getActivity(user: string, limit = 8): Promise<Activity> {
     })),
   ]
 
-  items.sort((a, b) => (a.occurred_at < b.occurred_at ? 1 : -1))
+  // Newest first. The two-way version of this returned -1 for equal
+  // timestamps, which is not a valid comparator: two movements stamped the same
+  // minute — a card payment and the purchase that triggered it, say — came back
+  // in whatever order the sort happened to leave them, and a reload could
+  // reorder them under the user.
+  items.sort((a, b) => (b.occurred_at ?? '').localeCompare(a.occurred_at ?? ''))
   return { user, items: items.slice(0, limit) }
 }
 
