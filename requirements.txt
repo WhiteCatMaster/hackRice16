@@ -1,6 +1,13 @@
 # P1 (data & Nessie integration) is intentionally stdlib-only:
 # urllib + sqlite3 + json. Nothing to install to seed, sync or reset the demo.
 #
-# The rest of the team adds their own deps below.
-# P2 (engine):   pandas, scikit-learn
-# P3 (api/agent): fastapi, uvicorn, anthropic
+# P3 (api/agent) keeps that property as a fallback: `python -m backend.api.serve`
+# serves the same routes from http.server, and the agent answers from the
+# scripted router, if the installs below are missing or the LLM API is down.
+#
+# P2 (engine): pandas, scikit-learn — add here if the engine grows them.
+
+# P3 (api/agent)
+fastapi>=0.115
+uvicorn>=0.30
+anthropic>=0.40

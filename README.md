@@ -10,8 +10,8 @@ Full plan: [begin.md](begin.md). Team split, timeline, demo script and pitch liv
 | Layer | Owner | State |
 |---|---|---|
 | Data & Nessie integration | P1 | **done** — see [docs/data-layer.md](docs/data-layer.md) |
-| Engine (forecast & risk) | P2 | not started |
-| Backend API & agent | P3 | not started |
+| Engine (forecast & risk) | P2 | **done** — see [docs/engine.md](docs/engine.md) |
+| Backend API & agent | P3 | **done** — see [docs/api.md](docs/api.md) |
 | Frontend | P4 | **screens done** — see [frontend/README.md](frontend/README.md) |
 | Pitch, deck, demo video | P4 | not started |
 
@@ -23,6 +23,7 @@ No dependencies for the data layer — Python 3.11+, standard library only.
 cp .env.example .env          # add NESSIE_API_KEY when you have one
 python -m seed.reset_demo     # generate, validate, cache, and write mocks/
 python -m backend.nessie.repo # see what is in the cache
+python -m backend.engine      # the forecast, the fixes and the scam checks for Ana
 ```
 
 That works with no API key and no network. With a key:
@@ -42,8 +43,9 @@ It reads `mocks/` directly, so it works with no backend. Point
 
 Then:
 
-- **P2** — start at `repo.snapshot(conn, "ana")` and `repo.expected_forecast(conn, "ana")`.
-- **P3** — `mocks/api_*.json` fix every response shape in the contract, and
+- **P3** — `from backend.engine import summary, forecast, check_transfer, alerts`;
+  one call per endpoint, already in the contract's shape. See [docs/engine.md](docs/engine.md).
+- **P4** — `mocks/api_*.json` fix every response shape in the contract, and
   `frontend/lib/contract.ts` types them.
 - **P4** — the screens are in `frontend/`.
 
@@ -53,10 +55,24 @@ Then:
 python -m unittest discover tests
 ```
 
-18 tests, including a full push-and-sync round trip against an in-memory Nessie.
+119 tests across the three layers, including a full push-and-sync round trip
+against an in-memory Nessie and the whole §9 demo path over real HTTP.
+
+## The API
+
+```bash
+python -m venv .venv && .venv/bin/pip install -r requirements.txt
+.venv/bin/uvicorn backend.api.app:app --port 8000
+curl -s localhost:8000/api/health | python -m json.tool
+```
+
+No FastAPI, or a failed install? `python -m backend.api.serve 8000` serves the
+identical routes from the standard library. Point the frontend at it with
+`LANDED_API_BASE=http://127.0.0.1:8000` in `frontend/.env.local`.
 
 ## Before the demo
 
 ```bash
 python -m seed.reset_demo && python -m seed.scenarios --clear
+python -m backend.engine.export     # engine fixtures + the diff against P1's numbers
 ```
