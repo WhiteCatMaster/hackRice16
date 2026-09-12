@@ -59,5 +59,3 @@ export function transferFixture<T>(scenario: string): T | null {
 export function chatFixture<T>(): T {
   return CHAT as T
 }
-
-export const PERSONAS = Object.keys(BY_USER)

@@ -54,7 +54,7 @@ export function ForecastChart({ forecast, rate, currency, labelCount = 4 }: Prop
   const W = Math.max(0, width)
   const plot = (
     <View style={styles.plot} onLayout={onLayout}>
-      {W > 0 && <Plot forecast={forecast} values={values} W={W} max={max} min={min} span={span} />}
+      {W > 0 && <Plot forecast={forecast} values={values} W={W} max={max} span={span} />}
     </View>
   )
 
@@ -101,7 +101,6 @@ function Plot({
   values: number[]
   W: number
   max: number
-  min: number
   span: number
 }) {
   const series = forecast.series
