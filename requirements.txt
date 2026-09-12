@@ -1,0 +1,6 @@
+# P1 (data & Nessie integration) is intentionally stdlib-only:
+# urllib + sqlite3 + json. Nothing to install to seed, sync or reset the demo.
+#
+# The rest of the team adds their own deps below.
+# P2 (engine):   pandas, scikit-learn
+# P3 (api/agent): fastapi, uvicorn, anthropic
