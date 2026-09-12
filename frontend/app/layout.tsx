@@ -42,7 +42,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {/* Only on Vercel: its script is served by the platform, so anywhere
+            else (the demo laptop, a production build run locally) it 404s and
+            puts a red line in the console mid-demo. */}
+        {process.env.VERCEL === '1' && <Analytics />}
       </body>
     </html>
   )

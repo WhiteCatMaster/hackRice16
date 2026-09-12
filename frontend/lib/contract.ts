@@ -47,6 +47,46 @@ export interface ForecastEvent {
   label: string
 }
 
+/**
+ * One thing the user can do about being short, with the effect already
+ * measured by the engine. The frontend never computes `effect` — it renders it.
+ */
+export interface Fix {
+  id: string
+  type: 'cap_category' | 'transfer' | 'cancel_bill' | string
+  label: string
+  detail?: string
+  amount: number
+  /** Whether the engine put this one in its recommended plan. */
+  in_plan?: boolean
+  effect?: {
+    runway_date_before?: string | null
+    runway_date_after?: string | null
+    gap_after?: number
+    min_balance_after?: number
+    clears_the_gap?: boolean
+  }
+}
+
+/**
+ * A recurring payment the engine spotted that is deliberately NOT in the
+ * projection — money she sends her roommate every month, say. Real and
+ * repeating, but not a bill we will commit her to, so it is shown apart.
+ */
+export interface Detected {
+  key: string
+  kind: string
+  label: string
+  amount: number
+  cadence: string
+  confidence: number
+  times_seen: number
+  last_seen: string
+  category?: string | null
+  day_of_month?: number
+  interval_days?: number
+}
+
 export interface Forecast {
   user: string
   target: string
@@ -57,6 +97,13 @@ export interface Forecast {
   daily_burn: number
   series: ForecastPoint[]
   events: ForecastEvent[]
+  /** Present from the engine; absent in P1's older fixtures. */
+  starting_balance?: number
+  safety_buffer?: number
+  fixes?: Fix[]
+  also_detected?: Detected[]
+  /** Fix ids already applied to this projection. */
+  applied?: string[]
 }
 
 export interface Bill {
@@ -70,11 +117,20 @@ export interface Bill {
   explanation: string
   /** Set when something is about to change, e.g. a trial converting to paid. */
   heads_up?: string
+  /** From the engine: whether the projection covers it, and by when. */
+  covered?: boolean
+  days_away?: number
+  usual_amount?: number
+  cadence?: string
+  times_paid?: number
+  payments_left?: number
 }
 
 export interface Bills {
   user: string
   bills: Bill[]
+  monthly_total?: number
+  next_30_days?: number
 }
 
 export interface Credit {
@@ -86,6 +142,10 @@ export interface Credit {
   statement_day: number
   suggested_payment: number
   tip: string
+  available?: number
+  interest_if_carried?: number
+  /** Plain-language answers to "why did my balance go up if I paid it?" */
+  explanations?: { title: string; body: string }[]
   _simulated?: string[]
   _note?: string
 }
@@ -99,6 +159,10 @@ export interface Alert {
   reason: string
   created_at: string
   status: 'open' | 'resolved' | string
+  /** The engine's score and the plain-words signals behind it. */
+  risk_score?: number
+  signals?: string[]
+  purchase_ids?: string[]
 }
 
 export interface Alerts {
@@ -109,11 +173,53 @@ export interface Alerts {
 /** POST /api/transfers/check — the scam pause. */
 export interface TransferCheck {
   scenario?: string
+  user?: string
   amount: number
   risk_score: number
   pause: boolean
   reasons: string[]
   questions: string[]
+  /** PAUSE | ALLOW — the engine's own word for the outcome. */
+  verdict?: string
+  signals?: string[]
+  payee?: string | null
+  known_payee?: boolean
+  /** Where the runway would land if this went through. */
+  runway_date_after?: string | null
+}
+
+/**
+ * POST /api/users/{id}/affordability — "can I afford this?"
+ *
+ * The honest answer for someone already short is not "no": it is "not yet,
+ * and here is what makes it yes". `if_you_fix_first` is that second half.
+ */
+export interface Affordability {
+  user?: string
+  amount: number
+  when?: string
+  affordable: boolean
+  already_short?: boolean
+  runway_date_before: string | null
+  runway_date_after: string | null
+  days_lost?: number
+  min_balance_after?: number
+  min_balance_date_after?: string | null
+  /** The safe number, and the date it holds to. Meaningless apart. */
+  max_safe_amount: number
+  max_safe_through?: string | null
+  /** Largest spend that does not move the runway — real, but not a fix. */
+  max_without_moving_runway?: number
+  safety_buffer?: number
+  gap_after?: number
+  if_you_fix_first?: {
+    plan: string[]
+    max_safe_amount: number
+    max_safe_through?: string | null
+    runway_date_after?: string | null
+    closes_the_gap?: boolean
+  } | null
+  reason: string
 }
 
 export interface ProposedAction {

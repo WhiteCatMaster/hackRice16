@@ -1,7 +1,9 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useMemo, useState, useTransition } from 'react'
 
+import { AffordabilityCard } from './affordability'
 import { ForecastChart } from './forecast-chart'
 import { Copilot } from './copilot'
 import { AlertList, ScamModal, TRANSFER_SCENARIOS, useTransferCheck } from './safety'
@@ -11,6 +13,7 @@ import type {
   Alert,
   Bill,
   Credit,
+  Fix,
   Forecast,
   Profile,
   Summary,
@@ -81,6 +84,8 @@ export default function Dashboard({
   const [copilot, setCopilot] = useState(false)
   const [confirmed, setConfirmed] = useState<ActionResult | null>(null)
   const check = useTransferCheck(user)
+  const router = useRouter()
+  const [refreshing, startRefresh] = useTransition()
 
   // Every dollar figure on screen goes through these two.
   const rate = home ? summary.fx_rate : 1
@@ -272,6 +277,7 @@ export default function Dashboard({
             <div className={`confirm-strip ${confirmed.executed_in_nessie ? 'live' : 'simulated'}`}>
               <strong>{confirmed.status === 'executed' ? 'Action approved' : 'Action failed'}</strong>
               <span>{confirmed.message}</span>
+              {refreshing && <span className="confirm-refreshing">updating your numbers…</span>}
               {confirmed.runway_date_after && (
                 <span>
                   New runway date <strong>{dayMonth(confirmed.runway_date_after)}</strong>
@@ -534,6 +540,66 @@ export default function Dashboard({
                   ))}
                 </div>
               </section>
+
+              {forecast.fixes && forecast.fixes.length > 0 && (
+                <section className="panel fixes-panel">
+                  <div className="panel-header">
+                    <div>
+                      <p className="eyebrow">WHAT WOULD ACTUALLY FIX IT</p>
+                      <h2>Your options</h2>
+                    </div>
+                    <div className="stat-inline">
+                      <span>Short by</span>
+                      <strong>{fmt(summary.gap)}</strong>
+                    </div>
+                  </div>
+                  <div className="fix-list">
+                    {forecast.fixes.map((fix) => (
+                      <article
+                        className={fix.in_plan ? 'fix-row recommended' : 'fix-row'}
+                        key={fix.id}
+                      >
+                        <div className="fix-copy">
+                          <strong>{fix.label}</strong>
+                          {fix.detail && <small>{fix.detail}</small>}
+                        </div>
+                        <div className="fix-effect">
+                          <FixEffect fix={fix} gapBefore={summary.gap} fmt={fmt} />
+                          {fix.effect?.clears_the_gap && (
+                            <span className="fix-clears">closes the gap</span>
+                          )}
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              <AffordabilityCard user={user} fmt={fmt} live={live} />
+
+              {forecast.also_detected && forecast.also_detected.length > 0 && (
+                <section className="panel detected-panel">
+                  <div className="panel-header">
+                    <div>
+                      <p className="eyebrow">SPOTTED, BUT NOT PROJECTED</p>
+                      <h2>Recurring, and yours to decide</h2>
+                    </div>
+                  </div>
+                  <p className="detected-copy">
+                    These repeat like bills but we have not committed you to them, so they are
+                    not in the projection above.
+                  </p>
+                  <div className="event-list">
+                    {forecast.also_detected.map((item) => (
+                      <div className="event-row" key={item.key}>
+                        <span className="event-date">{item.cadence}</span>
+                        <strong>{item.label}</strong>
+                        <span className="event-amount">{fmt(item.amount)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
             </>
           )}
 
@@ -681,9 +747,73 @@ export default function Dashboard({
         onActionConfirmed={(result) => {
           setConfirmed(result)
           setCopilot(false)
+          // The money actually moved. Everything on this page was rendered on
+          // the server before that happened, so without this the strip would
+          // announce a new runway date while the card above it still shows the
+          // old one. Re-run the server component against the changed cache.
+          if (result.status === 'executed') {
+            startRefresh(() => router.refresh())
+          }
         }}
       />
     </main>
+  )
+}
+
+/**
+ * What one fix actually buys you.
+ *
+ * Two traps here, both of which read as bugs on screen. A fix that shrinks the
+ * gap without moving the day she runs out would render as "Oct 10 → Oct 10", so
+ * those show the gap closing instead. And `runway_date_after: null` is not a
+ * missing value — it is the best outcome there is: the money now lasts past the
+ * flight. Falling back to the amount there hid the headline.
+ */
+function FixEffect({
+  fix,
+  gapBefore,
+  fmt,
+}: {
+  fix: Fix
+  gapBefore: number
+  fmt: (amount: number) => string
+}) {
+  const effect = fix.effect
+  if (!effect || !('runway_date_after' in effect)) {
+    return <span>{fmt(fix.amount)}</span>
+  }
+
+  const before = effect.runway_date_before ?? null
+  const after = effect.runway_date_after ?? null
+  const moved = before !== after
+
+  if (!moved) {
+    // Same runway date. Say what did change, which is how short she still is.
+    const gapAfter = effect.gap_after
+    return (
+      <>
+        <span>Still short</span>
+        <strong>
+          {typeof gapAfter === 'number' ? (
+            <>
+              <s>{fmt(gapBefore)}</s> {fmt(gapAfter)}
+            </>
+          ) : (
+            fmt(fix.amount)
+          )}
+        </strong>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <span>Runway</span>
+      <strong>
+        {before && <s>{dayMonth(before)}</s>}{' '}
+        {after ? dayMonth(after) : 'past the flight'}
+      </strong>
+    </>
   )
 }
 

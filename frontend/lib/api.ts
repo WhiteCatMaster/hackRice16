@@ -13,6 +13,7 @@ import path from 'node:path'
 import type {
   Activity,
   ActivityItem,
+  Affordability,
   Alerts,
   Bills,
   ChatReply,
@@ -170,6 +171,29 @@ export async function checkTransfer(body: {
   }
   const scenario = body.scenario ?? 'fake_landlord'
   return mock<TransferCheck>(`api_transfers_check_${scenario}.json`)
+}
+
+/**
+ * "Can I afford this?" — the §9 chat beat, as a screen.
+ *
+ * Every number comes back measured by the engine, including the two that make
+ * the answer useful: `max_safe_through` (the date the safe number holds to) and
+ * `if_you_fix_first` (what becomes safe once the recommended plan is approved).
+ *
+ * There is no fixture for this: the answer depends on the amount the user types,
+ * so it cannot be pre-exported. Without a backend the card says so rather than
+ * inventing a number.
+ */
+export async function checkAffordability(
+  user: string,
+  amount: number,
+  description?: string,
+): Promise<Affordability | null> {
+  if (!LIVE) return null
+  return live<Affordability>(`/api/users/${user}/affordability`, {
+    method: 'POST',
+    body: JSON.stringify({ amount, description }),
+  })
 }
 
 export async function chat(body: {

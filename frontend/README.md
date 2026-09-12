@@ -6,6 +6,8 @@ copilot with an approval gate in front of every write.
 
 ## Run it
 
+Node 20+ and pnpm (`npm i -g pnpm`).
+
 ```bash
 pnpm install
 pnpm dev        # http://localhost:3000
@@ -43,14 +45,17 @@ app/page.tsx ──────────────────────�
 `app/api` mirror those paths exactly, so a client component calls
 `/api/transfers/check` whether or not P3 is up.
 
-Two shapes the screens need that §7 does not define:
+Three shapes the screens need that §7 does not define:
 
 | Needs | Mock mode | Live mode |
 |---|---|---|
 | Recent activity | derived from `<persona>_snapshot.json` | `GET /api/users/{id}/activity`, empty if absent |
 | Home city, arrival date | `<persona>_snapshot.json` → `customer` | `GET /api/users/{id}/profile`, header degrades if absent |
+| "Can I afford $X?" | *nothing* — the card says so | `POST /api/users/{id}/affordability` |
 
-Both degrade instead of breaking, so P3 can add them whenever.
+The first two degrade instead of breaking. Affordability cannot: the answer
+depends on the amount typed, so there is no fixture to pre-export and the card
+asks for the backend rather than inventing a number.
 
 ## What is honest about this UI
 
@@ -66,10 +71,21 @@ Both degrade instead of breaking, so P3 can add them whenever.
 
 ## Demo path (begin.md §9)
 
+Arm the demo data first, or the Safety centre is empty in live mode:
+
+```bash
+cd .. && python -m seed.reset_demo --arm
+```
+
 1. Dashboard, `$` ↔ `€` toggle — the runway ends before the flight home.
-2. **Copilot** → an affordability question → the proposed action card → Approve.
-3. **Safety center** → *Send money* → the fake landlord transfer → the pause.
-4. Same list, `Marta Aguirre` → goes through. That one matters: a check that
+2. **Runway** → *Your options* (what the engine would do about it, each with a
+   measured effect) → *Can I afford it?* → type `47.34` → "Not yet", with the
+   plan that turns it into a yes.
+3. **Copilot** → the same question in words → the proposed action card →
+   Approve. The dashboard behind it re-reads itself: the balance and the runway
+   date actually move.
+4. **Safety center** → *Send money* → the fake landlord transfer → the pause.
+5. Same list, `Marta Aguirre` → goes through. That one matters: a check that
    stops everything is not a feature, and a judge will ask.
 
 ## Layout
@@ -81,6 +97,7 @@ app/
   globals.css       the design system (warm paper, editorial type)
 components/
   dashboard.tsx     the shell and the five views
+  affordability.tsx "can I afford it?", answered by the engine
   forecast-chart.tsx  the runway line, drawn from the forecast series
   copilot.tsx       chat, proposed actions, the confirmation gate
   safety.tsx        alerts, the scenario runner, the pause modal

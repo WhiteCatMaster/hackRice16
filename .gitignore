@@ -3,5 +3,7 @@ __pycache__/
 *.pyc
 data/*.db
 data/*.db-journal
+data/*.db-shm
+data/*.db-wal
 .venv/
 node_modules/

@@ -255,3 +255,60 @@ body { background: var(--paper); color: var(--ink-deep); font-family: 'Space Mon
   .event-row > span:last-child { grid-column: 2; text-align: left; }
   .confirm-strip .ghost-button { margin-left: 0; }
 }
+
+/* --- The runway planner's action panels ---------------------------------
+   What would fix it, what you can safely spend, and what repeats but is
+   deliberately outside the projection. Same paper-and-rust language as the
+   rest of the shell. */
+
+.fixes-panel, .afford-panel, .detected-panel { margin-top: 15px; padding: 27px; }
+
+.fix-list { display: flex; flex-direction: column; margin-top: 18px; }
+.fix-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; border-top: 1px solid #f0ded7; padding: 14px 0; }
+.fix-row:first-child { border-top: 0; }
+.fix-row.recommended { border-left: 2px solid var(--green); padding-left: 14px; }
+.fix-copy { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.fix-copy strong { color: var(--ink-deep); font-family: 'Newsreader', Georgia, serif; font-size: 16px; font-weight: 400; }
+.fix-copy small { color: var(--ink-soft); font-size: 11px; line-height: 1.45; }
+.fix-effect { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; color: var(--ink-soft); font-size: 9px; text-transform: uppercase; letter-spacing: .1em; white-space: nowrap; }
+.fix-effect strong { color: var(--ink-deep); font-family: 'Space Mono', monospace; font-size: 12px; text-transform: none; letter-spacing: 0; font-weight: 400; }
+.fix-effect s { color: #b09a92; margin-right: 4px; }
+.fix-clears { color: var(--green); text-transform: none; letter-spacing: .02em; font-size: 10px; }
+
+.afford-form { display: flex; gap: 10px; align-items: stretch; margin-top: 18px; }
+.afford-input { display: flex; align-items: center; gap: 6px; flex: 1; max-width: 260px; border: 1px solid var(--line); border-radius: 3px; padding: 0 12px; background: var(--paper); }
+.afford-input span { color: var(--ink-soft); font-size: 13px; }
+.afford-input input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink-deep); font-family: 'Space Mono', monospace; font-size: 14px; padding: 11px 0; }
+.afford-note { color: var(--ink-soft); font-size: 11px; line-height: 1.5; margin-top: 14px; }
+.afford-note code { background: var(--paper-card); border-radius: 2px; padding: 1px 4px; }
+
+.afford-answer { margin-top: 20px; border-top: 1px solid #f0ded7; padding-top: 18px; }
+.afford-verdict { color: var(--ink-deep); font-family: 'Newsreader', Georgia, serif; font-size: 30px; font-weight: 500; letter-spacing: -.03em; }
+.afford-answer.yes .afford-verdict { color: var(--green); }
+.afford-answer.no .afford-verdict { color: var(--rust); }
+.afford-reason { color: var(--ink-soft); font-family: 'Newsreader', Georgia, serif; font-size: 16px; line-height: 1.55; margin: 8px 0 20px; max-width: 62ch; }
+
+.afford-figures { display: flex; flex-wrap: wrap; gap: 28px; margin: 0; }
+.afford-figures dt { color: var(--ink-soft); font-size: 9px; text-transform: uppercase; letter-spacing: .12em; }
+.afford-figures dd { display: flex; flex-direction: column; gap: 3px; margin: 6px 0 0; color: var(--ink-deep); font-family: 'Space Mono', monospace; font-size: 15px; }
+.afford-figures dd small { color: var(--ink-soft); font-family: 'Space Mono', monospace; font-size: 10px; }
+
+.afford-fix { margin-top: 22px; background: var(--paper-low); border-radius: 4px; padding: 17px 19px; }
+.afford-fix ul { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+.afford-fix li { color: var(--ink-deep); font-family: 'Newsreader', Georgia, serif; font-size: 15px; padding-left: 16px; position: relative; }
+.afford-fix li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-family: 'Space Mono', monospace; font-size: 11px; }
+.afford-fix-effect { color: var(--ink-soft); font-size: 12px; line-height: 1.5; margin-top: 13px; }
+.afford-fix-effect strong { color: var(--green); font-family: 'Space Mono', monospace; }
+
+.detected-copy { color: var(--ink-soft); font-size: 12px; line-height: 1.5; margin: 14px 0 4px; max-width: 62ch; }
+
+@media (max-width: 720px) {
+  .fixes-panel, .afford-panel, .detected-panel { padding: 21px 16px; }
+  .fix-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .fix-effect { align-items: flex-start; text-align: left; }
+  .afford-form { flex-direction: column; }
+  .afford-input { max-width: none; }
+  .afford-figures { gap: 18px; }
+}
+
+.confirm-refreshing { color: var(--ink-soft); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }

@@ -16,3 +16,7 @@ node_modules
 # Local environment
 .env
 .env.local
+
+# Build artefacts
+*.tsbuildinfo
+next-env.d.ts

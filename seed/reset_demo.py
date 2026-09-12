@@ -1,6 +1,7 @@
 """Put the demo back to its starting state, in one command.
 
     python -m seed.reset_demo            # local cache only, ~1 second
+    python -m seed.reset_demo --arm      # ...and fire every scenario
     python -m seed.reset_demo --push     # also re-seed Nessie
 
 Run this before every rehearsal and immediately before going on stage. It wipes
@@ -57,6 +58,10 @@ def main() -> int:
     parser.add_argument("--no-mocks", action="store_true", help="skip refreshing mocks/")
     parser.add_argument("--scenario", action="append", default=[],
                         help="fire a scenario after resetting (repeatable)")
+    parser.add_argument("--arm", action="store_true",
+                        help="fire every scenario after resetting, so the Safety centre has "
+                             "something in it. This is the state mocks/api_users_*_alerts.json "
+                             "was exported from, so the live app and the fixtures agree.")
     args = parser.parse_args()
 
     started = time.time()
@@ -109,7 +114,15 @@ def main() -> int:
         print("refreshing mocks...")
         export_mocks()
 
-    for key in args.scenario:
+    scenarios = list(args.scenario)
+    if args.arm:
+        from backend.nessie import repo
+        # Every one of them: a clean cache has no alerts at all, which makes the
+        # Safety centre look broken rather than calm. The alerts fixture is
+        # exported with all of them fired, so this is also what keeps live mode
+        # and mock mode showing the same screen.
+        scenarios = [s["key"] for s in repo.scenarios(conn)]
+    for key in scenarios:
         from seed.scenarios import inject
         inject(key, conn, push=args.push)
 
@@ -122,6 +135,10 @@ def main() -> int:
     print(f"  Ana runway       {ana['runway_date']}")
     print(f"  Ana flies home   {ana['flight_home']}")
     print(f"  Ana's gap        ${ana['gap']:.2f}")
+    if scenarios:
+        print(f"  scenarios armed  {', '.join(scenarios)}")
+    else:
+        print("  scenarios armed  none -- the Safety centre will be empty. Use --arm.")
     if elapsed > 60:
         print("\n  WARNING: reset took over a minute. Use the local reset before going on stage.")
     return 0
