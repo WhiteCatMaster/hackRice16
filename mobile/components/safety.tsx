@@ -7,7 +7,7 @@
 
 import { Feather } from '@expo/vector-icons'
 import * as Haptics from 'expo-haptics'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -107,6 +107,12 @@ export function ScamSheet({
   const insets = useSafeAreaInsets()
   const [answered, setAnswered] = useState<Record<string, boolean>>({})
   const paused = check?.pause ?? false
+
+  // A new check is a new set of questions. These are things like "were you
+  // asked to keep this payment private?", so carrying a tick over from the
+  // previous transfer — the two scam scenarios ask two of the same three — is
+  // worse than showing no box at all.
+  useEffect(() => setAnswered({}), [check])
 
   return (
     <Modal
