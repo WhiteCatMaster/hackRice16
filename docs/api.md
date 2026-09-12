@@ -89,10 +89,14 @@ for an action that does help is a wrong number in front of a judge.
 has one and `backend/api/reference.py` otherwise, **per function, re-checked every
 call**. P2's engine takes over the moment it imports; nothing restarts.
 
-The reference is not a competing engine. It reproduces P1's published calibration
-exactly — all four fields for all three personas, asserted in
-`TestReferenceMatchesCalibration` — and exists so the API is demo-ready before P2
-lands and still works if a change breaks the engine mid-event.
+The reference is not a competing engine, and it is not a forecast: it reads the
+generator's own calibrated burn rate, which by P2's standard is grading its own
+homework. That is the right trade for what it is — a stand-in whose one job is to
+reproduce P1's published numbers, asserted field by field and persona by persona
+in `TestReferenceMatchesCalibration` — so the API answered before the engine
+landed and still answers if a change breaks it mid-event. Every number the app
+shows comes from `backend.engine` whenever it is importable; check
+`/api/health`.
 
 One hook the reference has and P2's forecast does not yet:
 
@@ -104,14 +108,26 @@ Signed amounts, merged into the projection like any scheduled event. It is what
 measures an action's before/after. `engine_port.accepts("forecast", "extra_events")`
 reports whether the live engine takes it.
 
-### A note on rounding
+### A note on rounding, and a warning about diagnosing with it
 
-Round the *running* balance each day and Ana's runway date moves from 2026-10-10
-to 2026-10-11. The daily discretionary figure is 13.7614; rounding it to 13.76
-every day loses $0.07 over the 51-day projection, which is enough to keep her at
-or above the $100 buffer for one more day. Round only on the way into `series`,
-and track `min_balance` and `runway_date` off the unrounded value.
-`test_rounding_does_not_drift` pins it.
+The reference rounds only on the way into `series`, and tracks `min_balance` and
+`runway_date` off the unrounded value. Rounding the *running* balance instead
+loses a fraction of a cent per step, and over a ~50-day projection that is enough
+to move the runway date by a day when the balance is calibrated to land just
+under the buffer. `test_rounding_does_not_drift` asserts the stepped balance
+equals the same balance computed in one shot.
+
+Worth recording how that theory was misapplied. P3's reference and P2's engine
+disagreed by one day on Ana, and this was diagnosed — by me — as that rounding
+bug in the engine. It was not. Holding the projection fixed and varying only the
+burn rate reproduced each side's numbers exactly: the engine measures the rate
+from the transactions, while P1's generator projected from the knob it had solved
+for, and the two differed in the fourth decimal place. Same arithmetic, different
+input. P1 has since retuned so the measured rate and the solved knob agree.
+
+The lesson for anyone chasing the next one-day disagreement: vary one input at a
+time against a fixed projection before blaming the projection. `_project()` takes
+the burn rate through `daily_burn()`, so this is a two-line experiment.
 
 ## The agent
 
@@ -137,8 +153,8 @@ deliberate: an LLM API is one more thing that can be down at 9 a.m. on stage.
 ## Tests
 
 ```bash
-python -m unittest discover tests      # 119 tests across P1, P2 and P3
-python -m unittest tests.test_api      # 53 for this layer
+python -m unittest discover tests      # P1, P2 and P3
+python -m unittest tests.test_api      # this layer
 ```
 
 `TestHttpRoutes.test_the_full_demo_path` walks §9 in order over real HTTP:
