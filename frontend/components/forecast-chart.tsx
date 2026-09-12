@@ -68,47 +68,45 @@ export function ForecastChart({ forecast, rate, currency, labelCount = 5 }: Prop
       >
         <defs>
           <linearGradient id="forecast-area" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#3a674f" stopOpacity=".28" />
-            <stop offset="100%" stopColor="#3a674f" stopOpacity="0" />
+            <stop className="chart-area-top" offset="0%" />
+            <stop className="chart-area-bottom" offset="100%" />
           </linearGradient>
         </defs>
 
         {ticks.slice(1, -1).map((t, i) => (
-          <line key={i} x1="0" y1={y(t)} x2={W} y2={y(t)} stroke="#ecd9d2" strokeDasharray="4 5" />
+          <line className="chart-grid" key={i} x1="0" y1={y(t)} x2={W} y2={y(t)} strokeDasharray="4 5" />
         ))}
-        <line x1="0" y1={zeroY} x2={W} y2={zeroY} stroke="#dec0b7" />
+        <line className="chart-zero" x1="0" y1={zeroY} x2={W} y2={zeroY} />
 
         <path d={area} fill="url(#forecast-area)" />
-        <path d={line} fill="none" stroke="#3a674f" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+        <path className="chart-line" d={line} fill="none" strokeWidth="3" vectorEffect="non-scaling-stroke" />
 
         {runwayIndex >= 0 && (
           <g>
             <line
+              className="chart-runway-line"
               x1={x(runwayIndex)}
               y1={TOP}
               x2={x(runwayIndex)}
               y2={H - BOTTOM + 12}
-              stroke="#9f3c16"
               strokeDasharray="4 4"
               vectorEffect="non-scaling-stroke"
             />
             <circle
+              className="chart-runway-dot"
               cx={x(runwayIndex)}
               cy={y(values[runwayIndex])}
               r="5"
-              fill="#fffdf9"
-              stroke="#9f3c16"
               strokeWidth="3"
               vectorEffect="non-scaling-stroke"
             />
           </g>
         )}
         <circle
+          className="chart-end-dot"
           cx={W}
           cy={y(values[values.length - 1])}
           r="5"
-          fill="#fffdf9"
-          stroke="#3a674f"
           strokeWidth="3"
           vectorEffect="non-scaling-stroke"
         />

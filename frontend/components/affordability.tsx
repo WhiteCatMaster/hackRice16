@@ -80,7 +80,7 @@ export function AffordabilityCard({ user, fmt, live }: Props) {
       {!live && (
         <p className="afford-note">
           This one needs the engine — it depends on the amount you type, so there is no
-          fixture for it. Start the backend and set <code>LANDED_API_BASE</code>.
+          fixture for it. Start the backend and set <code>TREASURER_API_BASE</code>.
         </p>
       )}
 

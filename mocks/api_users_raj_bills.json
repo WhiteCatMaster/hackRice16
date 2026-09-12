@@ -4,7 +4,7 @@
     {
       "id": "b_raj_card",
       "nickname": "Credit card payment",
-      "payee": "Landed Bank Student Card",
+      "payee": "Treasurer Bank Student Card",
       "amount": 60.0,
       "next_date": "2026-09-18",
       "recurring_day": 18,

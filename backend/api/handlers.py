@@ -13,7 +13,7 @@ import logging
 from backend.api import actions, engine_port
 from backend.nessie import config, db, repo
 
-log = logging.getLogger("landed.api")
+log = logging.getLogger("treasurer.api")
 
 PERSONA_FALLBACK = "ana"
 
@@ -44,7 +44,7 @@ def health(_conn_=None, probe: bool = False):
     conn = _conn_ or _conn()
     body = {
         "ok": True,
-        "service": "landed-api",
+        "service": "exchangetreasurer-api",
         "owner": "P3",
         "as_of": repo.as_of(conn).isoformat(),
         "cache": db.counts(conn),

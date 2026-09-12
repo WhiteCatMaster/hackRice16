@@ -30,7 +30,7 @@ _load_dotenv(ROOT / ".env")
 NESSIE_BASE_URL = os.environ.get("NESSIE_BASE_URL", "https://api.nessieisreal.com").rstrip("/")
 NESSIE_API_KEY = os.environ.get("NESSIE_API_KEY", "").strip()
 
-DB_PATH = Path(os.environ.get("LANDED_DB") or (ROOT / "data" / "landed.db"))
+DB_PATH = Path(os.environ.get("TREASURER_DB") or (ROOT / "data" / "treasurer.db"))
 if not DB_PATH.is_absolute():
     DB_PATH = ROOT / DB_PATH
 

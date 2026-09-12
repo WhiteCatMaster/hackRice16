@@ -29,8 +29,8 @@ curl -s 'localhost:8000/api/health?probe=1'        # also asks Nessie
 ```
 
 `/api/health` names, per capability, whether **P2's engine** or **P3's reference
-projection** answered, and whether the agent is running on **Claude** or its
-**scripted router**. Nothing else in the app has to guess.
+projection** answered, and whether the agent is running on a **model**
+(and which one) or its **scripted router**. Nothing else in the app has to guess.
 
 `?probe=1` adds a live Nessie check through `NessieClient.check_access()`, which
 reports `{reachable, authorized, detail}`. It is opt-in because it makes a network
@@ -97,14 +97,26 @@ for an action that does help is a wrong number in front of a judge.
 has one and `backend/api/reference.py` otherwise, **per function, re-checked every
 call**. P2's engine takes over the moment it imports; nothing restarts.
 
+> **Right now it never imports.** `backend/engine/` has no source in it — only
+> stale bytecode, and it was never committed. So every capability currently
+> resolves to the reference and every payload says `"_engine": "p3-reference"`.
+> The fallback is doing exactly what it was built for, which is why nothing looks
+> broken. The root README has the details and what it costs.
+
 The reference is not a competing engine, and it is not a forecast: it reads the
 generator's own calibrated burn rate, which by P2's standard is grading its own
 homework. That is the right trade for what it is — a stand-in whose one job is to
 reproduce P1's published numbers, asserted field by field and persona by persona
 in `TestReferenceMatchesCalibration` — so the API answered before the engine
-landed and still answers if a change breaks it mid-event. Every number the app
-shows comes from `backend.engine` whenever it is importable; check
-`/api/health`.
+landed and still answers if a change breaks it mid-event — which is the situation
+it is holding up today. Every number the app shows comes from `backend.engine`
+whenever it is importable; check `/api/health` rather than assuming.
+
+Two gaps to know about while the reference is the one answering. It does not
+return `already_short` or `max_safe_through` on affordability, nor `days_gained`
+on a fix's effect, so the screens that want those fall back to their less precise
+branch and five tests in `tests/test_integration.py` fail. Those five are one
+missing module, not five bugs.
 
 One hook the reference has and P2's forecast does not yet:
 
@@ -139,13 +151,34 @@ the burn rate through `daily_burn()`, so this is a two-line experiment.
 
 ## The agent
 
-Two modes, chosen by whether `ANTHROPIC_API_KEY` is set.
+Two modes, chosen by whether there is a model key.
 
-- **llm** — Claude with eleven tools, up to six tool-calling turns. If the API
+- **llm** — a model with eleven tools, up to six tool-calling turns. If the API
   errors or is throttled mid-demo it falls back to the scripted router and says so
   in `_fell_back`.
 - **scripted** — no key, no network. Routes the question to the same tools by
   keyword and formats the answer from the same numbers.
+
+Two providers answer to the **llm** contract, and `/api/health` names the live one
+in `agent.provider`:
+
+| Provider | Key | Model setting |
+| --- | --- | --- |
+| `gemini` | `GEMINI_API_KEY` | `TREASURER_GEMINI_MODEL` (default `gemini-flash-latest`) |
+| `anthropic` | `ANTHROPIC_API_KEY` | `TREASURER_MODEL` (default `claude-sonnet-5`) |
+
+`TREASURER_PROVIDER` pins one; unset, whichever key is present answers, Gemini
+first. Gemini speaks a different wire shape — tool calls arrive as `functionCall`
+parts and results go back as `functionResponse` parts in a *user* turn — so it has
+its own turn loop in `loop.py` and its own transport in `gemini.py`. Both loops
+call the same `tools.run`, so a tool never learns which model asked. The transport
+is urllib, not a new dependency: `requirements.txt` installs nothing that the
+fallback needs.
+
+Gemini's free tier is 20 requests a day per model, and one chat turn spends one
+per tool round. Expect `_fell_back` with an HTTP 429 once that runs out — the
+answer is still correct, it is just the router's phrasing. A paid key, or a
+lighter model in `TREASURER_GEMINI_MODEL`, buys more room.
 
 Both answer in the language the question was asked in (`detect_language`), not
 merely the persona's own, and both return `used_tools` and any `proposed_action`.
@@ -198,6 +231,7 @@ backend/api/
 backend/agent/
   prompts.py      system prompt and persona context
   tools.py        eleven tools, all data, none of them execute
-  loop.py         Claude tool loop, and the scripted router
+  loop.py         provider choice, the two tool loops, the scripted router
+  gemini.py       Gemini transport: schema translation and one POST
 tests/test_api.py
 ```

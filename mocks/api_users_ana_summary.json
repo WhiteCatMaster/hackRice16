@@ -7,7 +7,7 @@
       "id": "acc_ana_chk",
       "type": "Checking",
       "nickname": "Ana Checking",
-      "balance": 1579.57
+      "balance": 1552.93
     },
     {
       "id": "acc_ana_cc",
@@ -24,7 +24,7 @@
       "balance": 2600.0
     }
   ],
-  "as_of": "2026-09-11",
+  "as_of": "2026-09-12",
   "runway_date": "2026-10-10",
   "target_date": "2026-10-31",
   "gap": 409.91,

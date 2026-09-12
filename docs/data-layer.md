@@ -75,7 +75,7 @@ are solved numerically until the forecast lands on the story:
 
 | | |
 |---|---|
-| Checking | $1,579.57 |
+| Checking | solved for the anchor — $1,552.93 at `DEMO_AS_OF=2026-09-12` |
 | Savings | $2,600.00 |
 | Card | $312.40 of a $500 limit → **62.5% utilization**, high enough to trigger the credit tip |
 | Runs out | **2026-10-10** |
@@ -89,6 +89,13 @@ in the demo script has two lines. `tests/test_data_layer.py` asserts both halves
 Everything is relative to `DEMO_AS_OF` (default: today), so these dates move with the
 calendar and the story stays true. `test_works_on_any_anchor_date` checks four
 anchors.
+
+Which is why only one row above is a constant you can quote back. The gap, the
+runway date and the days between them are what the solver *holds fixed*; the
+starting balance is what it *moves* to get there, so it lands somewhere slightly
+new each day the anchor advances. If the checking figure on your screen does not
+match this table, check the `as_of` in the payload before you go looking for a
+bug.
 
 ### Why the runway date is stable
 

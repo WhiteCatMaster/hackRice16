@@ -1,6 +1,6 @@
 {
   "ana": {
-    "checking_balance": 1579.57,
+    "checking_balance": 1552.93,
     "daily_discretionary": 10.65,
     "runway_target": "2026-10-10",
     "runway_date": "2026-10-10",
@@ -10,22 +10,18 @@
     "daily_discretionary_solved": 10.652,
     "persona": "ana",
     "flight_home": "2026-10-31",
-    "arrival": "2026-06-11",
+    "arrival": "2026-06-12",
     "rent_amount": 950.0,
     "safety_buffer": 100.0,
     "savings_balance": 2600.0,
     "credit_balance": 312.4,
     "credit_limit": 500.0,
     "credit_utilization": 0.6248,
-    "arrival_lump": 6085.02,
+    "arrival_lump": 6044.6,
     "future_events": [
       {
         "date": "2026-09-15",
         "amount": -30.0
-      },
-      {
-        "date": "2026-09-20",
-        "amount": -15.99
       },
       {
         "date": "2026-09-22",
@@ -59,30 +55,30 @@
   },
   "raj": {
     "checking_balance": 620.0,
-    "daily_discretionary": 31.51,
+    "daily_discretionary": 31.5,
     "runway_target": "2026-11-09",
     "runway_date": null,
     "gap": 0.0,
-    "min_balance": 276.41,
-    "min_balance_date": "2026-09-20",
+    "min_balance": 276.5,
+    "min_balance_date": "2026-09-21",
     "daily_discretionary_solved": 31.5,
     "persona": "raj",
     "flight_home": "2026-11-30",
-    "arrival": "2026-06-11",
+    "arrival": "2026-06-12",
     "rent_amount": 720.0,
     "safety_buffer": 100.0,
     "savings_balance": 1450.0,
     "credit_balance": 128.55,
     "credit_limit": 1000.0,
     "credit_utilization": 0.1285,
-    "arrival_lump": -1038.51,
+    "arrival_lump": -1169.37,
     "future_events": [
       {
         "date": "2026-09-18",
         "amount": -60.0
       },
       {
-        "date": "2026-09-21",
+        "date": "2026-09-22",
         "amount": 420.0
       },
       {
@@ -94,7 +90,7 @@
         "amount": 1800.0
       },
       {
-        "date": "2026-10-05",
+        "date": "2026-10-06",
         "amount": 420.0
       },
       {
@@ -106,7 +102,7 @@
         "amount": -60.0
       },
       {
-        "date": "2026-10-19",
+        "date": "2026-10-20",
         "amount": 420.0
       },
       {
@@ -118,7 +114,7 @@
         "amount": 1800.0
       },
       {
-        "date": "2026-11-02",
+        "date": "2026-11-03",
         "amount": 420.0
       },
       {
@@ -126,16 +122,12 @@
         "amount": -55.0
       },
       {
-        "date": "2026-11-16",
+        "date": "2026-11-17",
         "amount": 420.0
       },
       {
         "date": "2026-11-18",
         "amount": -60.0
-      },
-      {
-        "date": "2026-11-30",
-        "amount": 420.0
       }
     ]
   },
@@ -145,26 +137,22 @@
     "runway_target": "2026-11-09",
     "runway_date": null,
     "gap": 0.0,
-    "min_balance": 1794.8,
-    "min_balance_date": "2026-11-18",
+    "min_balance": 1874.8,
+    "min_balance_date": "2026-11-19",
     "daily_discretionary_solved": 16.4,
     "persona": "lucia",
     "flight_home": "2026-11-30",
-    "arrival": "2026-06-11",
+    "arrival": "2026-06-12",
     "rent_amount": 640.0,
     "safety_buffer": 100.0,
     "savings_balance": 4100.0,
     "credit_balance": 64.2,
     "credit_limit": 800.0,
     "credit_utilization": 0.0803,
-    "arrival_lump": 5266.15,
+    "arrival_lump": 5205.77,
     "future_events": [
       {
-        "date": "2026-09-12",
-        "amount": -80.0
-      },
-      {
-        "date": "2026-09-24",
+        "date": "2026-09-25",
         "amount": 310.0
       },
       {
@@ -176,7 +164,7 @@
         "amount": -30.0
       },
       {
-        "date": "2026-10-08",
+        "date": "2026-10-09",
         "amount": 310.0
       },
       {
@@ -184,7 +172,7 @@
         "amount": -80.0
       },
       {
-        "date": "2026-10-22",
+        "date": "2026-10-23",
         "amount": 310.0
       },
       {
@@ -192,19 +180,19 @@
         "amount": -640.0
       },
       {
-        "date": "2026-11-05",
-        "amount": 310.0
+        "date": "2026-11-06",
+        "amount": -30.0
       },
       {
         "date": "2026-11-06",
-        "amount": -30.0
+        "amount": 310.0
       },
       {
         "date": "2026-11-12",
         "amount": -80.0
       },
       {
-        "date": "2026-11-19",
+        "date": "2026-11-20",
         "amount": 310.0
       }
     ]

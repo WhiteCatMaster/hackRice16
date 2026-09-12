@@ -1,6 +1,6 @@
 # Capital One: Best Use of Nessie. Project Plan
 
-> Working name: **Landed**, a financial copilot for international students in their first year in the US, with built-in scam protection.
+> Working name: **ExchangeTreasurer**, a financial copilot for international students in their first year in the US, with built-in scam protection.
 
 ## Contents
 
@@ -392,7 +392,7 @@ Suggested assignment: whoever is strongest in ML takes P2; whoever is strongest 
 ### Repository structure
 
 ```
-landed/
+exchangetreasurer/
 ├── seed/            # P1: seed.py, reset_demo.py, personas.json
 ├── backend/
 │   ├── nessie/      # P1: API client, sync worker, db models
@@ -462,7 +462,7 @@ Target length: **2.5 minutes.** P4 drives the laptop; the presenter (ideally the
 ## 10. Pitch outline
 
 1. **Problem (30s).** International students face an unfamiliar financial system with irregular income and a hard deadline. Personal story from Creighton.
-2. **Solution (15s).** Landed: a copilot that tells you if your money lasts, explains US banking in your language, and stops scams before money leaves.
+2. **Solution (15s).** ExchangeTreasurer: a copilot that tells you if your money lasts, explains US banking in your language, and stops scams before money leaves.
 3. **Demo (90s).** Section 9.
 4. **How it works (20s).** Nessie endpoints used, deterministic forecast engine, LLM with tool calling and a confirmation gate, risk scoring on transfers.
 5. **Impact and next steps (15s).** Who it helps, what we'd add with real data (real credit data, bank notifications, more languages).

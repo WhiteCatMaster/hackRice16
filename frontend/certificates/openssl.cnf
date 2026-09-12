@@ -1,0 +1,23 @@
+# Self-signed TLS certificate for ExchangeTreasurer's local dev server.
+# Regenerate with: pnpm cert
+
+[req]
+distinguished_name = dn
+x509_extensions    = v3_req
+prompt             = no
+
+[dn]
+CN = localhost
+O  = ExchangeTreasurer (local development)
+
+[v3_req]
+basicConstraints       = critical, CA:FALSE
+keyUsage               = critical, digitalSignature, keyEncipherment
+extendedKeyUsage       = serverAuth
+subjectAltName         = @alt_names
+
+[alt_names]
+DNS.1 = localhost
+DNS.2 = *.localhost
+IP.1  = 127.0.0.1
+IP.2  = ::1

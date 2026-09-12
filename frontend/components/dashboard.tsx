@@ -121,11 +121,11 @@ export default function Dashboard({
   const upcoming = bills.slice(0, 3)
 
   return (
-    <main className="landed-shell">
+    <main className="treasury-shell">
       <aside className="sidebar">
         <div className="brand">
-          <span className="brand-mark">L</span>
-          <span>landed</span>
+          <span className="brand-mark">ET</span>
+          <span>exchangetreasurer</span>
         </div>
         <div className="workspace-label">YOUR MONEY, MADE CLEAR</div>
         <nav className="side-nav" aria-label="Main navigation">
@@ -171,7 +171,7 @@ export default function Dashboard({
       <section className="main-content">
         <header className="topbar">
           <div className="ledger-brand">
-            LANDED <span>· FIELD LEDGER</span>
+            EXCHANGETREASURER <span>· TREASURY DESK</span>
           </div>
           <div className="nessie-status">
             <span className={`status-dot ${live ? '' : 'fixture'}`} />
@@ -275,7 +275,11 @@ export default function Dashboard({
           </div>
 
           {confirmed && (
-            <div className={`confirm-strip ${confirmed.executed_in_nessie ? 'live' : 'simulated'}`}>
+            <div
+              className={`confirm-strip ${confirmed.executed_in_nessie ? 'live' : 'simulated'}`}
+              role="status"
+              aria-live="polite"
+            >
               <strong>{confirmed.status === 'executed' ? 'Action approved' : 'Action failed'}</strong>
               <span>{confirmed.message}</span>
               {refreshing && <span className="confirm-refreshing">updating your numbers…</span>}
@@ -908,13 +912,13 @@ function UtilizationRing({ utilization }: { utilization: number }) {
   return (
     <div className="credit-ring">
       <svg viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r={radius} fill="none" stroke="#e8d6cd" strokeWidth="8" />
+        <circle className="ring-track" cx="50" cy="50" r={radius} fill="none" strokeWidth="8" />
         <circle
+          className={utilization > 0.3 ? 'ring-value high' : 'ring-value'}
           cx="50"
           cy="50"
           r={radius}
           fill="none"
-          stroke={utilization > 0.3 ? '#9f3c16' : '#3a674f'}
           strokeWidth="8"
           strokeDasharray={`${filled.toFixed(1)} ${circumference.toFixed(1)}`}
           strokeLinecap="round"

@@ -20,9 +20,9 @@ from backend.api import handlers
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 
 app = FastAPI(
-    title="Landed API",
+    title="ExchangeTreasurer API",
     version="1.0",
-    description="P3: the backend API and agent for Landed, a financial copilot for "
+    description="P3: the backend API and agent for ExchangeTreasurer, a financial copilot for "
                 "international students. Contract: begin.md §7.",
 )
 

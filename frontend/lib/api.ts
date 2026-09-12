@@ -1,7 +1,7 @@
 // Server-side data access. Two modes, one switch.
 //
-//   LANDED_API_BASE set    -> call P3's FastAPI, which owns the contract.
-//   LANDED_API_BASE unset  -> read P1's fixtures out of mocks/.
+//   TREASURER_API_BASE set    -> call P3's FastAPI, which owns the contract.
+//   TREASURER_API_BASE unset  -> read P1's fixtures out of mocks/.
 //
 // begin.md's working agreement is "mocks first: nobody waits for anyone". This
 // is that rule in code — the screens are built against mocks/ and the backend
@@ -25,13 +25,13 @@ import type {
   TransferCheck,
 } from './contract'
 
-export const API_BASE = process.env.LANDED_API_BASE?.replace(/\/$/, '') ?? ''
+export const API_BASE = process.env.TREASURER_API_BASE?.replace(/\/$/, '') ?? ''
 export const LIVE = API_BASE !== ''
 
 const MOCKS_DIR =
-  process.env.LANDED_MOCKS_DIR ?? path.join(process.cwd(), '..', 'mocks')
+  process.env.TREASURER_MOCKS_DIR ?? path.join(process.cwd(), '..', 'mocks')
 
-export const DEFAULT_USER = process.env.LANDED_USER ?? 'ana'
+export const DEFAULT_USER = process.env.TREASURER_USER ?? 'ana'
 
 async function mock<T>(file: string): Promise<T | null> {
   try {

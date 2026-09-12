@@ -9,58 +9,51 @@
   "daily_burn": 10.65,
   "series": [
     {
-      "date": "2026-09-11",
-      "balance": 1579.57,
-      "events": []
-    },
-    {
       "date": "2026-09-12",
-      "balance": 1568.92,
+      "balance": 1552.93,
       "events": []
     },
     {
       "date": "2026-09-13",
-      "balance": 1558.27,
+      "balance": 1542.28,
       "events": []
     },
     {
       "date": "2026-09-14",
-      "balance": 1547.62,
+      "balance": 1531.63,
       "events": []
     },
     {
       "date": "2026-09-15",
-      "balance": 1506.97,
+      "balance": 1490.98,
       "events": [
         -30.0
       ]
     },
     {
       "date": "2026-09-16",
-      "balance": 1496.32,
+      "balance": 1480.33,
       "events": []
     },
     {
       "date": "2026-09-17",
-      "balance": 1485.67,
+      "balance": 1469.68,
       "events": []
     },
     {
       "date": "2026-09-18",
-      "balance": 1475.02,
+      "balance": 1459.03,
       "events": []
     },
     {
       "date": "2026-09-19",
-      "balance": 1464.37,
+      "balance": 1448.38,
       "events": []
     },
     {
       "date": "2026-09-20",
       "balance": 1437.73,
-      "events": [
-        -15.99
-      ]
+      "events": []
     },
     {
       "date": "2026-09-21",
@@ -287,11 +280,6 @@
       "date": "2026-09-15",
       "amount": -30.0,
       "label": "Gym"
-    },
-    {
-      "date": "2026-09-20",
-      "amount": -15.99,
-      "label": "Streaming"
     },
     {
       "date": "2026-09-22",

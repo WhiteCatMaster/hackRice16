@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Landed — Your money, made clear',
+  title: 'ExchangeTreasurer — Your money, made clear',
   description: 'A financial copilot for international students navigating their first year in the US.',
   generator: 'v0.app',
   icons: {
@@ -26,10 +26,12 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
+  // The app itself is light-only; these are the browser chrome around it, and
+  // they take the same paper and navy as the stylesheet's --paper and --vault.
+  colorScheme: 'light',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: '(prefers-color-scheme: light)', color: '#eef1f5' },
+    { media: '(prefers-color-scheme: dark)', color: '#10202f' },
   ],
 }
 

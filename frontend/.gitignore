@@ -20,3 +20,6 @@ node_modules
 # Build artefacts
 *.tsbuildinfo
 next-env.d.ts
+
+# Local TLS certificate (self-signed, regenerate with `pnpm cert`)
+certificates/*.pem

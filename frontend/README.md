@@ -1,4 +1,4 @@
-# Landed — frontend (P4)
+# ExchangeTreasurer — frontend (P4)
 
 The web app from [begin.md §7](../begin.md): dashboard with the runway chart,
 bill decoder, credit builder, safety centre with the pre-transfer pause, and the
@@ -13,7 +13,18 @@ pnpm install
 pnpm dev        # http://localhost:3000
 ```
 
-No API key, no backend, no network needed. With `LANDED_API_BASE` unset the app
+Over HTTPS instead:
+
+```bash
+pnpm dev:https  # https://localhost:3000
+```
+
+The certificate in `certificates/` is self-signed and only covers `localhost`,
+`*.localhost`, `127.0.0.1` and `::1`, so the browser warns once and you accept
+it. It is not committed — `pnpm cert` makes a fresh one (valid a year) if it is
+missing or expired. Nothing outside your machine should ever trust it.
+
+No API key, no backend, no network needed. With `TREASURER_API_BASE` unset the app
 reads P1's fixtures from `../mocks`. If that folder is missing, generate it:
 
 ```bash
@@ -26,7 +37,7 @@ Personas: `/?user=ana` (the demo), `/?user=raj`, `/?user=lucia`.
 
 ```bash
 cp .env.example .env
-# LANDED_API_BASE=http://localhost:8000
+# TREASURER_API_BASE=http://localhost:8000
 ```
 
 That is the only change. The top bar says which mode you are in, so nobody
@@ -35,7 +46,7 @@ demos fixtures thinking they are live.
 ## How the data gets in
 
 ```
-components/*  ──►  app/api/**/route.ts  ──►  lib/api.ts  ──┬─► P3's FastAPI   (LANDED_API_BASE set)
+components/*  ──►  app/api/**/route.ts  ──►  lib/api.ts  ──┬─► P3's FastAPI   (TREASURER_API_BASE set)
 (client)           (the contract, mirrored)                └─► ../mocks/*.json (otherwise)
 
 app/page.tsx ─────────────────────────────────────────────► lib/api.ts (server, no HTTP hop)

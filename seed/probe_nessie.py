@@ -110,7 +110,7 @@ class Probe:
     def setup(self) -> bool:
         try:
             self.customer_id = self.client.create_customer({
-                "first_name": "Landed", "last_name": "Probe",
+                "first_name": "Treasurer", "last_name": "Probe",
                 "address": {"street_number": "1", "street_name": "Probe St",
                             "city": "Omaha", "state": "NE", "zip": "68102"},
             })
@@ -120,7 +120,7 @@ class Probe:
                 "type": "Checking", "nickname": "probe checking", "rewards": 0, "balance": 500,
             })
             self.merchant_id = self.client.create_merchant({
-                "name": "Landed Probe Merchant", "category": ["groceries"],
+                "name": "Treasurer Probe Merchant", "category": ["groceries"],
                 "address": {"street_number": "1", "street_name": "Probe St",
                             "city": "Omaha", "state": "NE", "zip": "68102"},
                 "geocode": {"lat": 41.2655, "lng": -95.9450},
@@ -136,7 +136,7 @@ class Probe:
         """#5 Create response shape."""
         try:
             raw = self.client.post("/customers", {
-                "first_name": "Landed", "last_name": "Shape",
+                "first_name": "Treasurer", "last_name": "Shape",
                 "address": {"street_number": "1", "street_name": "Probe St",
                             "city": "Omaha", "state": "NE", "zip": "68102"},
             })
@@ -337,7 +337,7 @@ class Probe:
     def check_8_bulk_delete(self):
         """#8 Does DELETE /data exist? Probed with an invalid type, never executed."""
         try:
-            self.client.delete("/data", type="LandedProbeInvalidType")
+            self.client.delete("/data", type="TreasurerProbeInvalidType")
         except NessieError as exc:
             if exc.status == 404:
                 return self.note(8, "DELETE /data exists", UNKNOWN,

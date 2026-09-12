@@ -20,12 +20,12 @@
       "recurring_day": 20,
       "category": "subscription",
       "explanation": "Free trial. It becomes a paid 15.99 charge on the 20th unless you cancel first.",
-      "heads_up": "Free trial ends 2026-09-20, then 15.99/month"
+      "heads_up": "Free trial ends 2026-09-21, then 15.99/month"
     },
     {
       "id": "b_ana_card",
       "nickname": "Credit card payment",
-      "payee": "Landed Bank Student Card",
+      "payee": "Treasurer Bank Student Card",
       "amount": 75.0,
       "next_date": "2026-09-22",
       "recurring_day": 22,

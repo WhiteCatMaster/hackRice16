@@ -107,7 +107,7 @@
         },
         {
           "local_id": "b_ana_card",
-          "payee": "Landed Bank Student Card",
+          "payee": "Treasurer Bank Student Card",
           "nickname": "Credit card payment",
           "category": "credit_card",
           "day": 22,
@@ -313,7 +313,7 @@
         },
         {
           "local_id": "b_raj_card",
-          "payee": "Landed Bank Student Card",
+          "payee": "Treasurer Bank Student Card",
           "nickname": "Credit card payment",
           "category": "credit_card",
           "day": 18,
@@ -475,7 +475,7 @@
         },
         {
           "local_id": "b_luc_card",
-          "payee": "Landed Bank Student Card",
+          "payee": "Treasurer Bank Student Card",
           "nickname": "Credit card payment",
           "category": "credit_card",
           "day": 12,

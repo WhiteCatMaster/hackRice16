@@ -33,9 +33,11 @@ export const TRANSFER_SCENARIOS = [
 export function useTransferCheck(user: string) {
   const [check, setCheck] = useState<(TransferCheck & { payee?: string }) | null>(null)
   const [busy, setBusy] = useState(false)
+  const [status, setStatus] = useState('')
 
   async function run(scenario: (typeof TRANSFER_SCENARIOS)[number]) {
     setBusy(true)
+    setStatus(`Checking ${scenario.payee}…`)
     try {
       const res = await fetch('/api/transfers/check', {
         method: 'POST',
@@ -47,15 +49,25 @@ export function useTransferCheck(user: string) {
           description: scenario.note,
         }),
       })
-      if (!res.ok) return
+      if (!res.ok) {
+        setStatus('Could not verify this transfer right now.')
+        return
+      }
       const data: TransferCheck = await res.json()
       setCheck({ ...data, payee: scenario.payee })
+      setStatus(
+        data.pause
+          ? 'Transfer paused before sending — we found a risk signal.'
+          : 'This transfer looks normal and can continue.',
+      )
+    } catch {
+      setStatus('The risk check failed. Please try again.')
     } finally {
       setBusy(false)
     }
   }
 
-  return { check, busy, run, clear: () => setCheck(null) }
+  return { check, busy, status, run, clear: () => { setCheck(null); setStatus('') } }
 }
 
 /**
@@ -72,30 +84,36 @@ export function ScamModal({
   const paused = check.pause
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className="scam-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
-        <button className="modal-close" onClick={onClose} aria-label="Close">
+      <div className="scam-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="transfer-check-heading">
+        <button className="modal-close" onClick={onClose} aria-label="Close transfer safety panel">
           ×
         </button>
         <div className={`modal-shield ${paused ? '' : 'clear'}`}>{paused ? '!' : '✓'}</div>
         <p className="eyebrow">{paused ? 'TRANSFER PAUSED' : 'TRANSFER LOOKS NORMAL'}</p>
-        <h2>
+        <h2 id="transfer-check-heading">
           {paused ? 'A pause before you pay' : 'This one looks like you'}
         </h2>
         <p>
           {money(check.amount)} to {check.payee ?? 'this payee'}.{' '}
           {paused
-            ? 'Nothing has left your account. Here is what we noticed.'
+            ? 'Nothing has left your account. We stopped it before the payment went out.'
             : 'We found nothing unusual, so we are not going to get in your way.'}
         </p>
 
-        <div className="risk-meter">
-          <div className="risk-bar">
+        <div className="risk-meter" aria-live="polite">
+          <div className="risk-bar" aria-hidden="true">
             <span
               className={paused ? 'high' : 'low'}
               style={{ width: `${Math.min(100, Math.max(4, check.risk_score))}%` }}
             />
           </div>
           <strong>{check.risk_score}/100</strong>
+        </div>
+
+        <div className="status-note" aria-live="polite">
+          {paused
+            ? 'We recommend cancelling this transfer and confirming the recipient directly.'
+            : 'This payment matches the normal pattern for this account.'}
         </div>
 
         {check.reasons.map((reason) => (
@@ -136,14 +154,14 @@ export function ScamModal({
 export function AlertList({ alerts, asOf }: { alerts: Alert[]; asOf: string }) {
   if (alerts.length === 0) {
     return (
-      <div className="empty-note">
-        <strong>Nothing to look at.</strong>
-        <span>No unusual activity on this account.</span>
+      <div className="empty-note" role="status" aria-live="polite">
+        <strong>Nothing unusual right now.</strong>
+        <span>No open alerts on this account. We will flag anything suspicious as soon as it appears.</span>
       </div>
     )
   }
   return (
-    <div className="alerts-list">
+    <div className="alerts-list" aria-live="polite">
       {alerts.map((alert) => (
         <article className={`alert-row ${alert.severity}`} key={alert.id}>
           <span className="alert-mark">!</span>

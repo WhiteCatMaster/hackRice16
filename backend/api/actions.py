@@ -21,7 +21,7 @@ from backend.api import engine_port, reference
 from backend.nessie import config, db, repo
 from backend.nessie.client import NessieClient, NessieError
 
-log = logging.getLogger("landed.actions")
+log = logging.getLogger("treasurer.actions")
 
 _LOCK = threading.Lock()
 _ACTIONS: dict[str, dict] = {}

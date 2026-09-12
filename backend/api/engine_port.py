@@ -17,7 +17,7 @@ from typing import Any, Callable
 
 from backend.api import reference
 
-log = logging.getLogger("landed.engine")
+log = logging.getLogger("treasurer.engine")
 
 #: Every capability the API needs, in the names P2 committed to.
 CAPABILITIES = (

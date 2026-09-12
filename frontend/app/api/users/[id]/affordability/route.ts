@@ -20,7 +20,7 @@ export async function POST(
     // Mock mode, or the backend is down. The honest answer is "ask the backend",
     // not a number we made up here.
     return NextResponse.json(
-      { error: 'Affordability needs the live engine. Set LANDED_API_BASE.' },
+      { error: 'Affordability needs the live engine. Set TREASURER_API_BASE.' },
       { status: 503 },
     )
   }

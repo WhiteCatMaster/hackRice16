@@ -4,448 +4,435 @@
   "target": "2026-11-30",
   "runway_date": null,
   "gap": 0.0,
-  "min_balance": 1794.8,
-  "min_balance_date": "2026-11-18",
+  "min_balance": 1874.8,
+  "min_balance_date": "2026-11-19",
   "daily_burn": 16.4,
   "series": [
     {
-      "date": "2026-09-11",
+      "date": "2026-09-12",
       "balance": 3250.0,
       "events": []
     },
     {
-      "date": "2026-09-12",
-      "balance": 3153.6,
-      "events": [
-        -80.0
-      ]
-    },
-    {
       "date": "2026-09-13",
-      "balance": 3137.2,
+      "balance": 3233.6,
       "events": []
     },
     {
       "date": "2026-09-14",
-      "balance": 3120.8,
+      "balance": 3217.2,
       "events": []
     },
     {
       "date": "2026-09-15",
-      "balance": 3104.4,
+      "balance": 3200.8,
       "events": []
     },
     {
       "date": "2026-09-16",
-      "balance": 3088.0,
+      "balance": 3184.4,
       "events": []
     },
     {
       "date": "2026-09-17",
-      "balance": 3071.6,
+      "balance": 3168.0,
       "events": []
     },
     {
       "date": "2026-09-18",
-      "balance": 3055.2,
+      "balance": 3151.6,
       "events": []
     },
     {
       "date": "2026-09-19",
-      "balance": 3038.8,
+      "balance": 3135.2,
       "events": []
     },
     {
       "date": "2026-09-20",
-      "balance": 3022.4,
+      "balance": 3118.8,
       "events": []
     },
     {
       "date": "2026-09-21",
-      "balance": 3006.0,
+      "balance": 3102.4,
       "events": []
     },
     {
       "date": "2026-09-22",
-      "balance": 2989.6,
+      "balance": 3086.0,
       "events": []
     },
     {
       "date": "2026-09-23",
-      "balance": 2973.2,
+      "balance": 3069.6,
       "events": []
     },
     {
       "date": "2026-09-24",
-      "balance": 3266.8,
+      "balance": 3053.2,
+      "events": []
+    },
+    {
+      "date": "2026-09-25",
+      "balance": 3346.8,
       "events": [
         310.0
       ]
     },
     {
-      "date": "2026-09-25",
-      "balance": 3250.4,
-      "events": []
-    },
-    {
       "date": "2026-09-26",
-      "balance": 3234.0,
+      "balance": 3330.4,
       "events": []
     },
     {
       "date": "2026-09-27",
-      "balance": 3217.6,
+      "balance": 3314.0,
       "events": []
     },
     {
       "date": "2026-09-28",
-      "balance": 3201.2,
+      "balance": 3297.6,
       "events": []
     },
     {
       "date": "2026-09-29",
-      "balance": 3184.8,
+      "balance": 3281.2,
       "events": []
     },
     {
       "date": "2026-09-30",
-      "balance": 3168.4,
+      "balance": 3264.8,
       "events": []
     },
     {
       "date": "2026-10-01",
-      "balance": 2512.0,
+      "balance": 2608.4,
       "events": [
         -640.0
       ]
     },
     {
       "date": "2026-10-02",
-      "balance": 2495.6,
+      "balance": 2592.0,
       "events": []
     },
     {
       "date": "2026-10-03",
-      "balance": 2479.2,
+      "balance": 2575.6,
       "events": []
     },
     {
       "date": "2026-10-04",
-      "balance": 2462.8,
+      "balance": 2559.2,
       "events": []
     },
     {
       "date": "2026-10-05",
-      "balance": 2446.4,
+      "balance": 2542.8,
       "events": []
     },
     {
       "date": "2026-10-06",
-      "balance": 2400.0,
+      "balance": 2496.4,
       "events": [
         -30.0
       ]
     },
     {
       "date": "2026-10-07",
-      "balance": 2383.6,
+      "balance": 2480.0,
       "events": []
     },
     {
       "date": "2026-10-08",
-      "balance": 2677.2,
+      "balance": 2463.6,
+      "events": []
+    },
+    {
+      "date": "2026-10-09",
+      "balance": 2757.2,
       "events": [
         310.0
       ]
     },
     {
-      "date": "2026-10-09",
-      "balance": 2660.8,
-      "events": []
-    },
-    {
       "date": "2026-10-10",
-      "balance": 2644.4,
+      "balance": 2740.8,
       "events": []
     },
     {
       "date": "2026-10-11",
-      "balance": 2628.0,
+      "balance": 2724.4,
       "events": []
     },
     {
       "date": "2026-10-12",
-      "balance": 2531.6,
+      "balance": 2628.0,
       "events": [
         -80.0
       ]
     },
     {
       "date": "2026-10-13",
-      "balance": 2515.2,
+      "balance": 2611.6,
       "events": []
     },
     {
       "date": "2026-10-14",
-      "balance": 2498.8,
+      "balance": 2595.2,
       "events": []
     },
     {
       "date": "2026-10-15",
-      "balance": 2482.4,
+      "balance": 2578.8,
       "events": []
     },
     {
       "date": "2026-10-16",
-      "balance": 2466.0,
+      "balance": 2562.4,
       "events": []
     },
     {
       "date": "2026-10-17",
-      "balance": 2449.6,
+      "balance": 2546.0,
       "events": []
     },
     {
       "date": "2026-10-18",
-      "balance": 2433.2,
+      "balance": 2529.6,
       "events": []
     },
     {
       "date": "2026-10-19",
-      "balance": 2416.8,
+      "balance": 2513.2,
       "events": []
     },
     {
       "date": "2026-10-20",
-      "balance": 2400.4,
+      "balance": 2496.8,
       "events": []
     },
     {
       "date": "2026-10-21",
-      "balance": 2384.0,
+      "balance": 2480.4,
       "events": []
     },
     {
       "date": "2026-10-22",
-      "balance": 2677.6,
+      "balance": 2464.0,
+      "events": []
+    },
+    {
+      "date": "2026-10-23",
+      "balance": 2757.6,
       "events": [
         310.0
       ]
     },
     {
-      "date": "2026-10-23",
-      "balance": 2661.2,
-      "events": []
-    },
-    {
       "date": "2026-10-24",
-      "balance": 2644.8,
+      "balance": 2741.2,
       "events": []
     },
     {
       "date": "2026-10-25",
-      "balance": 2628.4,
+      "balance": 2724.8,
       "events": []
     },
     {
       "date": "2026-10-26",
-      "balance": 2612.0,
+      "balance": 2708.4,
       "events": []
     },
     {
       "date": "2026-10-27",
-      "balance": 2595.6,
+      "balance": 2692.0,
       "events": []
     },
     {
       "date": "2026-10-28",
-      "balance": 2579.2,
+      "balance": 2675.6,
       "events": []
     },
     {
       "date": "2026-10-29",
-      "balance": 2562.8,
+      "balance": 2659.2,
       "events": []
     },
     {
       "date": "2026-10-30",
-      "balance": 2546.4,
+      "balance": 2642.8,
       "events": []
     },
     {
       "date": "2026-10-31",
-      "balance": 2530.0,
+      "balance": 2626.4,
       "events": []
     },
     {
       "date": "2026-11-01",
-      "balance": 1873.6,
+      "balance": 1970.0,
       "events": [
         -640.0
       ]
     },
     {
       "date": "2026-11-02",
-      "balance": 1857.2,
+      "balance": 1953.6,
       "events": []
     },
     {
       "date": "2026-11-03",
-      "balance": 1840.8,
+      "balance": 1937.2,
       "events": []
     },
     {
       "date": "2026-11-04",
-      "balance": 1824.4,
+      "balance": 1920.8,
       "events": []
     },
     {
       "date": "2026-11-05",
-      "balance": 2118.0,
+      "balance": 1904.4,
+      "events": []
+    },
+    {
+      "date": "2026-11-06",
+      "balance": 2168.0,
       "events": [
+        -30.0,
         310.0
       ]
     },
     {
-      "date": "2026-11-06",
-      "balance": 2071.6,
-      "events": [
-        -30.0
-      ]
-    },
-    {
       "date": "2026-11-07",
-      "balance": 2055.2,
+      "balance": 2151.6,
       "events": []
     },
     {
       "date": "2026-11-08",
-      "balance": 2038.8,
+      "balance": 2135.2,
       "events": []
     },
     {
       "date": "2026-11-09",
-      "balance": 2022.4,
+      "balance": 2118.8,
       "events": []
     },
     {
       "date": "2026-11-10",
-      "balance": 2006.0,
+      "balance": 2102.4,
       "events": []
     },
     {
       "date": "2026-11-11",
-      "balance": 1989.6,
+      "balance": 2086.0,
       "events": []
     },
     {
       "date": "2026-11-12",
-      "balance": 1893.2,
+      "balance": 1989.6,
       "events": [
         -80.0
       ]
     },
     {
       "date": "2026-11-13",
-      "balance": 1876.8,
+      "balance": 1973.2,
       "events": []
     },
     {
       "date": "2026-11-14",
-      "balance": 1860.4,
+      "balance": 1956.8,
       "events": []
     },
     {
       "date": "2026-11-15",
-      "balance": 1844.0,
+      "balance": 1940.4,
       "events": []
     },
     {
       "date": "2026-11-16",
-      "balance": 1827.6,
+      "balance": 1924.0,
       "events": []
     },
     {
       "date": "2026-11-17",
-      "balance": 1811.2,
+      "balance": 1907.6,
       "events": []
     },
     {
       "date": "2026-11-18",
-      "balance": 1794.8,
+      "balance": 1891.2,
       "events": []
     },
     {
       "date": "2026-11-19",
-      "balance": 2088.4,
+      "balance": 1874.8,
+      "events": []
+    },
+    {
+      "date": "2026-11-20",
+      "balance": 2168.4,
       "events": [
         310.0
       ]
     },
     {
-      "date": "2026-11-20",
-      "balance": 2072.0,
-      "events": []
-    },
-    {
       "date": "2026-11-21",
-      "balance": 2055.6,
+      "balance": 2152.0,
       "events": []
     },
     {
       "date": "2026-11-22",
-      "balance": 2039.2,
+      "balance": 2135.6,
       "events": []
     },
     {
       "date": "2026-11-23",
-      "balance": 2022.8,
+      "balance": 2119.2,
       "events": []
     },
     {
       "date": "2026-11-24",
-      "balance": 2006.4,
+      "balance": 2102.8,
       "events": []
     },
     {
       "date": "2026-11-25",
-      "balance": 1990.0,
+      "balance": 2086.4,
       "events": []
     },
     {
       "date": "2026-11-26",
-      "balance": 1973.6,
+      "balance": 2070.0,
       "events": []
     },
     {
       "date": "2026-11-27",
-      "balance": 1957.2,
+      "balance": 2053.6,
       "events": []
     },
     {
       "date": "2026-11-28",
-      "balance": 1940.8,
+      "balance": 2037.2,
       "events": []
     },
     {
       "date": "2026-11-29",
-      "balance": 1924.4,
+      "balance": 2020.8,
       "events": []
     },
     {
       "date": "2026-11-30",
-      "balance": 1908.0,
+      "balance": 2004.4,
       "events": []
     }
   ],
   "events": [
     {
-      "date": "2026-09-12",
-      "amount": -80.0,
-      "label": "Credit card payment"
-    },
-    {
-      "date": "2026-09-24",
+      "date": "2026-09-25",
       "amount": 310.0,
       "label": "Income"
     },
@@ -460,7 +447,7 @@
       "label": "Phone"
     },
     {
-      "date": "2026-10-08",
+      "date": "2026-10-09",
       "amount": 310.0,
       "label": "Income"
     },
@@ -470,7 +457,7 @@
       "label": "Credit card payment"
     },
     {
-      "date": "2026-10-22",
+      "date": "2026-10-23",
       "amount": 310.0,
       "label": "Income"
     },
@@ -480,14 +467,14 @@
       "label": "Rent"
     },
     {
-      "date": "2026-11-05",
-      "amount": 310.0,
-      "label": "Income"
-    },
-    {
       "date": "2026-11-06",
       "amount": -30.0,
       "label": "Phone"
+    },
+    {
+      "date": "2026-11-06",
+      "amount": 310.0,
+      "label": "Income"
     },
     {
       "date": "2026-11-12",
@@ -495,7 +482,7 @@
       "label": "Credit card payment"
     },
     {
-      "date": "2026-11-19",
+      "date": "2026-11-20",
       "amount": 310.0,
       "label": "Income"
     }

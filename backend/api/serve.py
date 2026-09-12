@@ -16,7 +16,7 @@ from urllib.parse import parse_qs, urlparse
 
 from backend.api import handlers
 
-log = logging.getLogger("landed.api")
+log = logging.getLogger("treasurer.api")
 
 #: (method, compiled path) -> handler taking (**path groups, query, body)
 ROUTES = [
@@ -47,7 +47,7 @@ COMPILED = [(method, re.compile(pattern), fn) for method, pattern, fn in ROUTES]
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "landed/1.0"
+    server_version = "exchangetreasurer/1.0"
 
     def _dispatch(self, method: str) -> None:
         parsed = urlparse(self.path)
@@ -103,7 +103,7 @@ class Handler(BaseHTTPRequestHandler):
 
 def main(host: str = "127.0.0.1", port: int = 8000) -> None:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
-    log.info("Landed API (stdlib mode) on http://%s:%d", host, port)
+    log.info("ExchangeTreasurer API (stdlib mode) on http://%s:%d", host, port)
     ThreadingHTTPServer((host, port), Handler).serve_forever()
 
 

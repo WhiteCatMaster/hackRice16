@@ -1,10 +1,12 @@
 {
-  "name": "landed-frontend",
+  "name": "exchangetreasurer-frontend",
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@12.3.4",
   "scripts": {
     "dev": "next dev",
+    "dev:https": "next dev --experimental-https --experimental-https-key certificates/localhost-key.pem --experimental-https-cert certificates/localhost.pem",
+    "cert": "openssl req -x509 -newkey rsa:2048 -sha256 -days 365 -nodes -keyout certificates/localhost-key.pem -out certificates/localhost.pem -config certificates/openssl.cnf && chmod 600 certificates/localhost-key.pem",
     "build": "next build",
     "start": "next start"
   },
@@ -30,5 +32,5 @@
     "tailwindcss": "^4.3.3",
     "typescript": "5.7.3"
   },
-  "description": "Landed's web app: the dashboard, runway, bills, credit, safety centre and copilot."
+  "description": "ExchangeTreasurer's web app: the dashboard, runway, bills, credit, safety centre and copilot."
 }

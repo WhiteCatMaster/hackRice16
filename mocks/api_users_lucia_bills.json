@@ -2,16 +2,6 @@
   "user": "lucia",
   "bills": [
     {
-      "id": "b_luc_card",
-      "nickname": "Credit card payment",
-      "payee": "Landed Bank Student Card",
-      "amount": 80.0,
-      "next_date": "2026-09-12",
-      "recurring_day": 12,
-      "category": "credit_card",
-      "explanation": "She pays the full statement balance every month, which is why her card costs her nothing."
-    },
-    {
       "id": "b_luc_rent",
       "nickname": "Rent",
       "payee": "Gold Coast Housing",
@@ -30,6 +20,16 @@
       "recurring_day": 6,
       "category": "phone",
       "explanation": "Phone plan, charged on the 6th."
+    },
+    {
+      "id": "b_luc_card",
+      "nickname": "Credit card payment",
+      "payee": "Treasurer Bank Student Card",
+      "amount": 80.0,
+      "next_date": "2026-10-12",
+      "recurring_day": 12,
+      "category": "credit_card",
+      "explanation": "She pays the full statement balance every month, which is why her card costs her nothing."
     }
   ]
 }
