@@ -1,0 +1,38 @@
+{
+  "_note": "Real Omaha / Creighton-area places with approximate coordinates. Coordinates matter: the risk engine uses distance-from-home and distance-from-previous-purchase.",
+  "home_base": {"city": "Omaha, NE", "lat": 41.2655, "lng": -95.9450},
+  "merchants": [
+    {"local_id": "m_hyvee",      "name": "Hy-Vee",                  "category": "groceries",     "lat": 41.2588, "lng": -95.9814, "street": "1000 S 178th St", "city": "Omaha", "state": "NE", "zip": "68130"},
+    {"local_id": "m_traderjoes", "name": "Trader Joe's",            "category": "groceries",     "lat": 41.2596, "lng": -96.0207, "street": "10305 Pacific St", "city": "Omaha", "state": "NE", "zip": "68114"},
+    {"local_id": "m_bakersgro",  "name": "Baker's Supermarket",     "category": "groceries",     "lat": 41.2643, "lng": -95.9702, "street": "2929 Leavenworth St", "city": "Omaha", "state": "NE", "zip": "68105"},
+    {"local_id": "m_scooters",   "name": "Scooter's Coffee",        "category": "coffee",        "lat": 41.2668, "lng": -95.9427, "street": "2001 Cuming St", "city": "Omaha", "state": "NE", "zip": "68102"},
+    {"local_id": "m_starbucks",  "name": "Starbucks",               "category": "coffee",        "lat": 41.2652, "lng": -95.9470, "street": "602 N 20th St", "city": "Omaha", "state": "NE", "zip": "68102"},
+    {"local_id": "m_bikeunion",  "name": "The Bike Union Coffee",   "category": "coffee",        "lat": 41.2645, "lng": -95.9445, "street": "1818 Cuming St", "city": "Omaha", "state": "NE", "zip": "68102"},
+    {"local_id": "m_chipotle",   "name": "Chipotle Mexican Grill",  "category": "dining",        "lat": 41.2570, "lng": -95.9350, "street": "1201 Mike Fahey St", "city": "Omaha", "state": "NE", "zip": "68102"},
+    {"local_id": "m_runza",      "name": "Runza",                   "category": "dining",        "lat": 41.2620, "lng": -95.9300, "street": "1101 Capitol Ave", "city": "Omaha", "state": "NE", "zip": "68102"},
+    {"local_id": "m_lacasa",     "name": "La Casa Pizzaria",        "category": "dining",        "lat": 41.2400, "lng": -95.9700, "street": "4432 Leavenworth St", "city": "Omaha", "state": "NE", "zip": "68106"},
+    {"local_id": "m_bluesushi",  "name": "Blue Sushi Sake Grill",   "category": "dining",        "lat": 41.2560, "lng": -95.9650, "street": "3016 Farnam St", "city": "Omaha", "state": "NE", "zip": "68131"},
+    {"local_id": "m_culvers",    "name": "Culver's",                "category": "dining",        "lat": 41.2480, "lng": -95.9900, "street": "5505 Center St", "city": "Omaha", "state": "NE", "zip": "68106"},
+    {"local_id": "m_target",     "name": "Target",                  "category": "retail",        "lat": 41.2568, "lng": -95.9640, "street": "3001 Farnam St", "city": "Omaha", "state": "NE", "zip": "68131"},
+    {"local_id": "m_walgreens",  "name": "Walgreens",               "category": "pharmacy",      "lat": 41.2610, "lng": -95.9500, "street": "1802 Farnam St", "city": "Omaha", "state": "NE", "zip": "68102"},
+    {"local_id": "m_cvs",        "name": "CVS Pharmacy",            "category": "pharmacy",      "lat": 41.2550, "lng": -95.9600, "street": "2900 Dodge St", "city": "Omaha", "state": "NE", "zip": "68131"},
+    {"local_id": "m_bookstore",  "name": "Creighton University Bookstore", "category": "campus", "lat": 41.2658, "lng": -95.9438, "street": "2500 California Plaza", "city": "Omaha", "state": "NE", "zip": "68178"},
+    {"local_id": "m_skutt",      "name": "Skutt Student Center Cafe", "category": "campus",      "lat": 41.2649, "lng": -95.9464, "street": "2500 California Plaza", "city": "Omaha", "state": "NE", "zip": "68178"},
+    {"local_id": "m_metro",      "name": "Metro Transit ORBT",      "category": "transport",     "lat": 41.2600, "lng": -95.9400, "street": "2222 Cuming St", "city": "Omaha", "state": "NE", "zip": "68102"},
+    {"local_id": "m_uber",       "name": "Uber",                    "category": "transport",     "lat": 41.2586, "lng": -95.9378, "street": "Downtown", "city": "Omaha", "state": "NE", "zip": "68102", "is_online": 1},
+    {"local_id": "m_kwikshop",   "name": "Kwik Shop",               "category": "transport",     "lat": 41.2700, "lng": -95.9520, "street": "2320 N 24th St", "city": "Omaha", "state": "NE", "zip": "68110"},
+    {"local_id": "m_marcus",     "name": "Marcus Midtown Cinema",   "category": "entertainment", "lat": 41.2572, "lng": -95.9635, "street": "3201 Farnam St", "city": "Omaha", "state": "NE", "zip": "68131"},
+    {"local_id": "m_henryzoo",   "name": "Henry Doorly Zoo",        "category": "entertainment", "lat": 41.2286, "lng": -95.9260, "street": "3701 S 10th St", "city": "Omaha", "state": "NE", "zip": "68107"},
+    {"local_id": "m_spotify",    "name": "Spotify",                 "category": "subscription",  "lat": 41.2655, "lng": -95.9450, "street": "Online", "city": "Omaha", "state": "NE", "zip": "68102", "is_online": 1},
+    {"local_id": "m_amazon",     "name": "Amazon",                  "category": "online",        "lat": 41.2655, "lng": -95.9450, "street": "Online", "city": "Omaha", "state": "NE", "zip": "68102", "is_online": 1},
+
+    {"local_id": "m_bestbuy",    "name": "Best Buy",                "category": "electronics",   "lat": 41.2380, "lng": -96.0480, "street": "7802 Dodge St", "city": "Omaha", "state": "NE", "zip": "68114", "risk_tag": "high_value"},
+    {"local_id": "m_giftcards",  "name": "GiftCardMall Online",     "category": "gift_cards",    "lat": 41.2655, "lng": -95.9450, "street": "Online", "city": "Omaha", "state": "NE", "zip": "68102", "is_online": 1, "risk_tag": "gift_cards"},
+    {"local_id": "m_wireco",     "name": "QuickWire Money Transfer","category": "money_transfer","lat": 41.2612, "lng": -95.9377, "street": "1620 Dodge St", "city": "Omaha", "state": "NE", "zip": "68102", "risk_tag": "money_transfer"},
+
+    {"local_id": "m_test1",      "name": "digigoods-web",           "category": "online",        "lat": 40.7128, "lng": -74.0060, "street": "Online", "city": "New York", "state": "NY", "zip": "10001", "is_online": 1, "risk_tag": "card_testing"},
+    {"local_id": "m_test2",      "name": "fastpay-checkout",        "category": "online",        "lat": 34.0522, "lng": -118.2437, "street": "Online", "city": "Los Angeles", "state": "CA", "zip": "90001", "is_online": 1, "risk_tag": "card_testing"},
+    {"local_id": "m_test3",      "name": "nsg-media-svc",           "category": "online",        "lat": 25.7617, "lng": -80.1918, "street": "Online", "city": "Miami", "state": "FL", "zip": "33101", "is_online": 1, "risk_tag": "card_testing"},
+    {"local_id": "m_miami",      "name": "Brickell Duty Free",      "category": "retail",        "lat": 25.7617, "lng": -80.1918, "street": "900 S Miami Ave", "city": "Miami", "state": "FL", "zip": "33130", "risk_tag": "far_from_home"}
+  ]
+}
