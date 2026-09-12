@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 import type { ActionResult, ChatReply, ProposedAction } from '@/lib/contract'
-import { dayMonth, money } from '@/lib/format'
+import { dayMonth, money, runwayLabel } from '@/lib/format'
 
 interface Message {
   role: 'user' | 'agent'
@@ -141,18 +141,29 @@ export function Copilot({ user, open, onClose, onActionConfirmed }: Props) {
               <h3>
                 Move {money(action.amount)} from {action.from} to {action.to}
               </h3>
-              {action.effect?.runway_date_after && (
-                <p className="action-effect">
-                  Runway{' '}
-                  {action.effect.runway_date_before && (
-                    <>
-                      <s>{dayMonth(action.effect.runway_date_before)}</s>{' '}
-                      <span aria-hidden>→</span>{' '}
-                    </>
-                  )}
-                  <strong>{dayMonth(action.effect.runway_date_after)}</strong>
-                </p>
-              )}
+              {action.effect &&
+                (action.effect.measured === false ? (
+                  // A null date here means "we could not work it out", which is
+                  // the opposite of what it means when the effect was measured.
+                  // Saying so is better than implying the best outcome.
+                  <p className="action-effect unmeasured">
+                    {action.effect.measured_note ??
+                      'We could not measure what this would do to your runway.'}
+                  </p>
+                ) : (
+                  <p className="action-effect">
+                    Runway{' '}
+                    {action.effect.runway_date_before && (
+                      <>
+                        <s>{dayMonth(action.effect.runway_date_before)}</s>{' '}
+                        <span aria-hidden>→</span>{' '}
+                      </>
+                    )}
+                    {/* Never hidden: null is the best outcome there is, and
+                        dropping the line loses the payoff of the whole beat. */}
+                    <strong>{runwayLabel(action.effect.runway_date_after)}</strong>
+                  </p>
+                ))}
               {result ? (
                 <p className={`action-result ${result.executed_in_nessie ? 'live' : 'simulated'}`}>
                   {result.message}

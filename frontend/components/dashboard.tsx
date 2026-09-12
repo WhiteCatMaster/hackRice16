@@ -25,6 +25,7 @@ import {
   money,
   moneyRound,
   percent,
+  runwayLabel,
   signedMoney,
   whenLabel,
 } from '@/lib/format'
@@ -278,9 +279,16 @@ export default function Dashboard({
               <strong>{confirmed.status === 'executed' ? 'Action approved' : 'Action failed'}</strong>
               <span>{confirmed.message}</span>
               {refreshing && <span className="confirm-refreshing">updating your numbers…</span>}
-              {confirmed.runway_date_after && (
+              {confirmed.status === 'executed' && (
                 <span>
-                  New runway date <strong>{dayMonth(confirmed.runway_date_after)}</strong>
+                  {confirmed.runway_date_after ? (
+                    <>
+                      New runway date{' '}
+                      <strong>{dayMonth(confirmed.runway_date_after)}</strong>
+                    </>
+                  ) : (
+                    <strong>Your money now lasts past your flight home.</strong>
+                  )}
                 </span>
               )}
               <button className="ghost-button" onClick={() => setConfirmed(null)}>
@@ -320,8 +328,16 @@ export default function Dashboard({
                     </span>
                   </div>
                   <div className="runway-date">
-                    {summary.runway_date ? dayMonth(summary.runway_date) : 'Past'} <span>→</span>{' '}
-                    {dayMonth(summary.target_date)}
+                    {summary.runway_date ? (
+                      <>
+                        {dayMonth(summary.runway_date)} <span>→</span>{' '}
+                        {dayMonth(summary.target_date)}
+                      </>
+                    ) : (
+                      // Null is the healthy case, which "Past" read as a warning
+                      // about something overdue rather than as good news.
+                      <>Lasts past {dayMonth(summary.target_date)}</>
+                    )}
                   </div>
                   <p>
                     {summary.runway_date ? (

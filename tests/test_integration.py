@@ -293,6 +293,59 @@ class TestCleanCacheIsCalm(IntegrationBase):
         self.assertTrue(body["pause"])
 
 
+class TestNullRunwayIsGoodNews(IntegrationBase):
+    """`runway_date: null` means "never runs short", not "value missing".
+
+    P3 hit the loud version of this: interpolating it into a sentence printed
+    "stretches you to None" on the demo's action card. The quiet version is a
+    `&&` guard, which hides the effect exactly when the effect is best. Both are
+    the same misreading, so the API side is pinned here and the render side is
+    asserted over the built frontend below.
+    """
+
+    def test_the_healthy_personas_really_do_return_null(self):
+        """If this ever stops being true, the null paths stop being exercised."""
+        for user in ("raj", "lucia"):
+            _, body = handlers.summary(user)
+            self.assertIsNone(body["runway_date"], f"{user} was the healthy persona")
+
+    def test_a_measured_effect_distinguishes_its_two_nulls(self):
+        """measured:true + null is good news; measured:false + null is unknown."""
+        _, reply = handlers.chat({"user": "ana", "message": "can I afford a $47 concert ticket?"})
+        effect = (reply.get("proposed_action") or {}).get("effect")
+        self.assertIsNotNone(effect)
+        self.assertIn("measured", effect)
+        if effect["measured"] is False:
+            self.assertIn("measured_note", effect,
+                          "an unmeasured effect must say why, or it reads as good news")
+
+    def test_a_fix_that_clears_the_gap_reports_null_not_a_date(self):
+        """Where the null actually comes from on Ana's screens.
+
+        Not from approving the $400 transfer: that lands her on the flight date
+        itself with $9.91 still short, so the action card shows a date. It is
+        the fixes which clear the gap outright that return null.
+        """
+        _, forecast = handlers.forecast("ana")
+        clearing = [f for f in forecast["fixes"] if f["effect"].get("clears_the_gap")]
+        self.assertTrue(clearing, "Ana should have at least one fix that closes it")
+        for fix in clearing:
+            self.assertIsNone(fix["effect"]["runway_date_after"],
+                              f"{fix['id']} closes the gap, so it should report null")
+            self.assertTrue(fix["effect"]["lasts_past_target"])
+
+    def test_approving_the_transfer_moves_her_to_the_flight_not_past_it(self):
+        """Pins the number the action card shows, which is a date, not null."""
+        _, reply = handlers.chat({"user": "ana", "message": "can I afford a $47 concert ticket?"})
+        action = reply["proposed_action"]
+        _, result = handlers.confirm(action["id"], {"user": "ana", "action": action})
+        self.assertEqual(result["status"], "executed")
+        _, after = handlers.summary("ana")
+        self.assertEqual(after["runway_date"], after["target_date"],
+                         "the $400 transfer carries her exactly to the flight")
+        self.assertLess(after["gap"], 10.0)
+
+
 class TestFrontendWiring(unittest.TestCase):
     """Static checks on the frontend, so a missing route is caught here."""
 

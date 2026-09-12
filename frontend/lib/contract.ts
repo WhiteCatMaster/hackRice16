@@ -237,7 +237,18 @@ export interface ProposedAction {
   amount: number
   effect?: {
     runway_date_before?: string | null
+    /** Null means she never runs short before the flight — good news, not a blank. */
     runway_date_after?: string | null
+    gap_before?: number
+    gap_after?: number
+    min_balance_after?: number
+    /** False when the effect could not be computed. Then a null
+     *  `runway_date_after` means "we could not work it out", which is the
+     *  opposite of what it means when this is true. */
+    measured?: boolean
+    measured_note?: string
+    /** "backend.engine", or "p3-reference" if it fell back. */
+    measured_by?: string
   }
 }
 

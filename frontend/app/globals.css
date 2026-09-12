@@ -314,3 +314,5 @@ body { background: var(--paper); color: var(--ink-deep); font-family: 'Space Mon
 .confirm-refreshing { color: var(--ink-soft); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
 
 .fix-gained { color: var(--green); text-transform: none; letter-spacing: .02em; font-size: 10px; font-family: 'Space Mono', monospace; }
+
+.action-effect.unmeasured { color: var(--ink-soft); font-style: italic; }

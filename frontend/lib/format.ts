@@ -75,3 +75,22 @@ export function whenLabel(value: string, asOf: string): string {
 export function percent(fraction: number): string {
   return `${Math.round(fraction * 100)}%`
 }
+
+/**
+ * A runway date, where null is good news rather than a missing value.
+ *
+ * The engine returns `null` for "never runs short inside the horizon" — the
+ * best outcome there is, and what both healthy personas report all the time.
+ * Printing it raw puts "null" on screen; guarding it with `&&` is the quieter
+ * version of the same bug, because it hides the effect exactly when the effect
+ * is best. Both go through here instead.
+ *
+ * `measured: false` is the genuinely unknown case and must not borrow this
+ * wording — see `runwayEffect` callers, which check that first.
+ */
+export function runwayLabel(
+  value: string | null | undefined,
+  lastsPast = 'past your flight home',
+): string {
+  return value ? dayMonth(value) : lastsPast
+}
