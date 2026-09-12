@@ -356,6 +356,33 @@ class TestAgent(EngineBase):
             self.conn, repo.resolve_customer(self.conn, "ana")["id"], "Savings")["balance"]
         self.assertEqual(before, after, "chat alone must never move money")
 
+    def test_no_reply_ever_shows_a_placeholder(self):
+        """The engine returns null for "never runs short" — the best answer there is.
+
+        Interpolated raw that reads "tu dinero duraría hasta None" on the approval
+        card, which is the beat the demo is built around. This covers the class,
+        not just the one sentence that had it.
+        """
+        questions = [
+            "¿Qué hago para llegar a fin de mes?", "What should I do?",
+            "¿Puedo permitirme ir a Chicago este finde? Unos 250$",
+            "Can I afford a $250 trip this weekend?",
+            "Can I afford a $5 coffee?", "¿Puedo permitirme un café de 5$?",
+            "How am I doing?", "¿Cómo voy?", "What bills are coming up?",
+            "¿Cómo va mi tarjeta?", "Any alerts?", "Where did my money go?",
+        ]
+        for question in questions:
+            with self.subTest(question=question):
+                reply = self._ask(question)["reply"]
+                for junk in ("None", "null", "undefined", "nan", "{", "}", "$-"):
+                    self.assertNotIn(junk, reply, f"{junk!r} leaked into: {reply}")
+                self.assertTrue(reply.strip())
+
+    def test_a_fix_that_removes_the_runway_entirely_reads_as_good_news(self):
+        # runway_date_after is None when the fix means she never runs short.
+        reply = self._ask("What should I do?")["reply"]
+        self.assertIn("past your flight home", reply)
+
     def test_system_prompt_carries_the_persona_and_the_rule(self):
         system = prompts.system(self.conn, "ana")
         self.assertIn("Ana", system)

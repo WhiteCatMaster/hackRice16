@@ -169,6 +169,19 @@ def _money(value) -> str:
     return f"-${abs(value):,.2f}" if value < 0 else f"${value:,.2f}"
 
 
+def _lasts_phrase(runway_date, es: bool) -> str:
+    """How far the money reaches, as a phrase that reads either way.
+
+    The engine returns null for "never runs short before the flight", which is
+    the best possible answer — but interpolated raw it renders as "hasta None" on
+    the approval card, the one beat the whole demo is built around. The
+    preposition lives in here so both branches read as English (and Spanish).
+    """
+    if runway_date:
+        return f"hasta el {runway_date}" if es else f"to {runway_date}"
+    return "más allá de tu vuelo de vuelta" if es else "past your flight home"
+
+
 def _amount_in(text: str) -> float | None:
     matches = AMOUNT.findall(text)
     values = []
@@ -229,22 +242,24 @@ def _scripted(conn, user: str, message: str, language: str | None) -> dict:
         if check["affordable"]:
             reply = (
                 f"Sí. Gastar {_money(amount)} te deja en {_money(check['min_balance_after'])} "
-                f"en tu punto más bajo, y tu dinero sigue llegando hasta "
-                f"{check['runway_date_after'] or summary['target_date']}."
+                f"en tu punto más bajo, y tu dinero sigue llegando "
+                f"{_lasts_phrase(check.get('runway_date_after'), True)}."
                 if es else
                 f"Yes. Spending {_money(amount)} leaves you at "
                 f"{_money(check['min_balance_after'])} at your lowest point, and your money "
-                f"still lasts until {check['runway_date_after']}."
+                f"still lasts {_lasts_phrase(check.get('runway_date_after'), False)}."
             )
         else:
             reply = (
                 f"Ahora mismo no. Gastar {_money(amount)} adelanta el día en que te quedas "
-                f"sin margen del {check['runway_date_before']} al {check['runway_date_after']}, "
+                f"sin margen del {check['runway_date_before']} al "
+                f"{check.get('runway_date_after') or summary['target_date']}, "
                 f"y vuelas a casa el {summary['target_date']}. Puedo proponerte cómo cubrirlo."
                 if es else
                 f"Not right now. Spending {_money(amount)} moves the day you run short from "
-                f"{check['runway_date_before']} to {check['runway_date_after']}, and you fly "
-                f"home on {summary['target_date']}. I can propose a way to cover it."
+                f"{check['runway_date_before']} to "
+                f"{check.get('runway_date_after') or summary['target_date']}, "
+                f"and you fly home on {summary['target_date']}. I can propose a way to cover it."
             )
             fixes = tool("suggest_fixes")["fixes"]
             transfer = next((f for f in fixes if f["type"] == "transfer"), None)
@@ -275,12 +290,11 @@ def _scripted(conn, user: str, message: str, language: str | None) -> dict:
             f"You are {_money(summary['gap'])} short of reaching {summary['target_date']}."
         ]
         if transfer:
+            lasts = _lasts_phrase(transfer["effect"].get("runway_date_after"), es)
             lines.append(
-                f"{transfer['label']}: tu dinero pasaría a durar hasta "
-                f"{transfer['effect']['runway_date_after']}."
+                f"{transfer['label']}: tu dinero duraría {lasts}."
                 if es else
-                f"{transfer['label']}: that alone stretches you to "
-                f"{transfer['effect']['runway_date_after']}.")
+                f"{transfer['label']}: that alone stretches you {lasts}.")
         if cap:
             lines.append(
                 f"Y {cap['label'].lower()} cubre el resto."
