@@ -1,0 +1,37 @@
+[
+  {
+    "n": 0,
+    "q": "API is reachable over HTTPS",
+    "verdict": "MATCHES",
+    "detail": "https://api.nessieisreal.com answered",
+    "action": ""
+  },
+  {
+    "n": 0.1,
+    "q": "API key is valid for writes",
+    "verdict": "DIFFERS",
+    "detail": "reachable, but NESSIE_API_KEY is not set, so writes are impossible",
+    "action": "seeding needs a valid key; reads work without one"
+  },
+  {
+    "n": 6,
+    "q": "Merchant category is a list",
+    "verdict": "DIFFERS",
+    "detail": "live merchant has category as str: 'Comida'",
+    "action": "seed.py negotiates this automatically, but a string is the likely shape"
+  },
+  {
+    "n": 6.2,
+    "q": "Address shape matches what we send",
+    "verdict": "MATCHES",
+    "detail": "live address keys: ['city', 'state', 'street_name', 'street_number', 'zip']",
+    "action": ""
+  },
+  {
+    "n": 6.1,
+    "q": "Geocode shape matches what we send",
+    "verdict": "MATCHES",
+    "detail": "live geocode keys: ['lat', 'lng']",
+    "action": ""
+  }
+]

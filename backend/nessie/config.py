@@ -27,7 +27,7 @@ def _load_dotenv(path: Path) -> None:
 
 _load_dotenv(ROOT / ".env")
 
-NESSIE_BASE_URL = os.environ.get("NESSIE_BASE_URL", "http://api.nessieisreal.com").rstrip("/")
+NESSIE_BASE_URL = os.environ.get("NESSIE_BASE_URL", "https://api.nessieisreal.com").rstrip("/")
 NESSIE_API_KEY = os.environ.get("NESSIE_API_KEY", "").strip()
 
 DB_PATH = Path(os.environ.get("LANDED_DB") or (ROOT / "data" / "landed.db"))

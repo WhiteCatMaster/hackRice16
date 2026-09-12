@@ -9,9 +9,13 @@ they turn out different at hour 14.
 
 | Thing | Value |
 |---|---|
-| Base URL | `http://api.nessieisreal.com` |
+| Base URL | `https://api.nessieisreal.com` — **HTTPS only** |
 | Auth | `?key=<API_KEY>` as a query parameter, on every request |
-| Key | from the developer portal at nessieisreal.com, into `.env` as `NESSIE_API_KEY` |
+| Key | from the portal at nessieisreal.com, into `.env` as `NESSIE_API_KEY` |
+
+**`http://` does not work.** It is refused at the TCP level, not redirected, so you
+get `Connection refused` rather than anything that hints at the cause. This cost us
+an hour; it is the first thing to check if nothing connects.
 
 Check reachability without seeding anything:
 
@@ -48,7 +52,28 @@ saved to `docs/probe-results.json`.
 
 Seven resource types, reads and writes. That is the "creative use of the API" slide.
 
-## ❓ Verify these first
+## ✅ Confirmed against the live API
+
+Verified on 2026-09-11 by `python -m seed.probe_nessie`, with no key.
+
+| # | Question | Answer |
+|---|---|---|
+| — | Protocol | **HTTPS only.** `http://` is refused at the TCP level |
+| — | Are reads gated? | **No.** `GET /customers` returns `200 []` for any key, including an empty one |
+| — | Are writes gated? | **Yes.** `POST` without a valid key returns `401 Invalid API key.` |
+| — | Key check order | The key is checked **before** the body, so an empty `POST` tests the key without creating anything |
+| 6 | Merchant `category` shape | **A plain string**, not a list. Live data returns `"Comida"`. `seed.py` now negotiates both |
+| 6.1 | `geocode` shape | `{lat, lng}` — matches what we send |
+| 6.2 | `address` shape | `{street_number, street_name, city, state, zip}` — matches what we send |
+
+The sandbox ships with its own readable data — 207 branches, 13 ATMs, 4 enterprise
+merchants — and `/customers`, `/accounts` and `/merchants` are globally empty. That
+data is how the questions above got answered without a key.
+
+## ❓ Still open — these need a key
+
+Everything below is a **write** question, so no amount of reading answers it. Get a
+key, then `python -m seed.probe_nessie` answers all of them in one run.
 
 1. **Date granularity.** Is `purchase_date` day-only (`2026-09-11`) or a full
    timestamp? We assume day-only. If we are wrong, drop the workaround below.
@@ -61,10 +86,8 @@ Seven resource types, reads and writes. That is the "creative use of the API" sl
    a card balance being debt.
 5. **Create response shape.** We handle both `{code, message, objectCreated:{_id}}`
    and a bare object; confirm which one you get.
-6. **Merchant category.** We send a list (`"category": ["groceries"]`). Confirm it is
-   not a plain string.
-7. **Bill status values.** We send `"recurring"`. Confirm the accepted set.
-8. **Bulk delete.** Does `DELETE /data?type=Customers` exist? We do not rely on it —
+6. **Bill status values.** We send `"recurring"`. Confirm the accepted set.
+7. **Bulk delete.** Does `DELETE /data?type=Customers` exist? We do not rely on it —
    `reset_demo.py` deletes only the objects in our own `id_map`.
 
 ## Workarounds we built, and why

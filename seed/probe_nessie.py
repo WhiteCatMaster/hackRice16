@@ -21,6 +21,76 @@ from backend.nessie.client import NessieClient, NessieError
 MATCHES, DIFFERS, UNKNOWN = "MATCHES", "DIFFERS", "UNKNOWN"
 
 
+# --------------------------------------------------------- no key needed
+
+def probe_read_only(client: NessieClient) -> list[dict]:
+    """What the ungated read endpoints tell us without any key at all.
+
+    Reads are not gated: GET returns 200 for any key, an empty one included. The
+    sandbox's own seeded data (branches, ATMs, enterprise merchants) is therefore
+    readable, and it shows us the real field shapes.
+    """
+    findings = []
+
+    def note(n, q, verdict, detail, action=""):
+        findings.append({"n": n, "q": q, "verdict": verdict, "detail": detail, "action": action})
+
+    try:
+        client.get("/customers")
+        note(0, "API is reachable over HTTPS", MATCHES,
+             f"{client.base_url} answered", "")
+    except NessieError as exc:
+        note(0, "API is reachable over HTTPS", DIFFERS, str(exc),
+             "the API is HTTPS-only; http:// is refused at the TCP level")
+        return findings
+
+    access = client.check_access()
+    note(0.1, "API key is valid for writes",
+         MATCHES if access["authorized"] else DIFFERS,
+         access["detail"],
+         "" if access["authorized"] else "seeding needs a valid key; reads work without one")
+
+    # Real objects the sandbox ships with, so we can read actual field shapes.
+    try:
+        merchants = client.get("/enterprise/merchants") or []
+    except NessieError:
+        merchants = []
+    if merchants:
+        category = merchants[0].get("category")
+        is_list = isinstance(category, list)
+        note(6, "Merchant category is a list",
+             MATCHES if is_list else DIFFERS,
+             f"live merchant has category as {type(category).__name__}: {category!r}",
+             "" if is_list else "seed.py negotiates this automatically, but a string is the likely shape")
+
+    try:
+        branches = client.get("/branches") or []
+    except NessieError:
+        branches = []
+    if branches:
+        address = branches[0].get("address") or {}
+        expected = {"street_number", "street_name", "city", "state", "zip"}
+        matches = expected <= set(address)
+        note(6.2, "Address shape matches what we send",
+             MATCHES if matches else DIFFERS,
+             f"live address keys: {sorted(address)}",
+             "" if matches else f"we send {sorted(expected)}")
+
+    try:
+        atms = client.get("/atms") or []
+    except NessieError:
+        atms = []
+    if atms:
+        geo = atms[0].get("geocode") or {}
+        matches = {"lat", "lng"} <= set(geo)
+        note(6.1, "Geocode shape matches what we send",
+             MATCHES if matches else DIFFERS,
+             f"live geocode keys: {sorted(geo)}",
+             "" if matches else "distance signals depend on this shape")
+
+    return findings
+
+
 class Probe:
     def __init__(self, client: NessieClient):
         self.client = client
@@ -313,42 +383,42 @@ class Probe:
 
 
 def main() -> int:
-    if not config.has_api_key():
-        print("No NESSIE_API_KEY.\n\n"
-              "  1. Get a key at http://api.nessieisreal.com\n"
-              "  2. cp .env.example .env\n"
-              "  3. put the key in .env\n"
-              "  4. re-run: python -m seed.probe_nessie")
-        return 2
-
     client = NessieClient(verbose=False)
-    reachable, why = client.ping()
-    if not reachable:
-        print(f"cannot reach Nessie: {why}")
-        return 1
-
     print(f"probing {config.NESSIE_BASE_URL}\n")
-    probe = Probe(client)
-    if not probe.setup():
-        return 1
-    try:
-        probe.run()
-    finally:
-        probe.cleanup()
+
+    findings = probe_read_only(client)
+    authorized = any(f["n"] == 0.1 and f["verdict"] == MATCHES for f in findings)
+
+    probe = None
+    if not authorized:
+        print("No valid API key, so only the read-only checks ran.\n"
+              "Reads are ungated; writes are not. To answer the rest:\n"
+              "  1. get a key at https://nessieisreal.com\n"
+              "  2. cp .env.example .env  and put the key in NESSIE_API_KEY\n"
+              "  3. re-run: python -m seed.probe_nessie\n")
+    else:
+        probe = Probe(client)
+        if not probe.setup():
+            return 1
+        try:
+            probe.run()
+        finally:
+            probe.cleanup()
+        findings += probe.findings
 
     print("\n" + "=" * 78)
     print("RESULTS  (question numbers match docs/nessie-api-notes.md)")
     print("=" * 78)
-    for f in sorted(probe.findings, key=lambda x: x["n"]):
+    for f in sorted(findings, key=lambda x: x["n"]):
         print(f"\n[{f['verdict']:<7}] #{f['n']:<4} {f['q']}")
         print(f"           {f['detail']}")
         if f["action"]:
             print(f"           ACTION: {f['action']}")
 
-    differs = [f for f in probe.findings if f["verdict"] == DIFFERS]
-    unknown = [f for f in probe.findings if f["verdict"] == UNKNOWN]
+    differs = [f for f in findings if f["verdict"] == DIFFERS]
+    unknown = [f for f in findings if f["verdict"] == UNKNOWN]
     print("\n" + "=" * 78)
-    print(f"{len(probe.findings) - len(differs) - len(unknown)} assumptions hold, "
+    print(f"{len(findings) - len(differs) - len(unknown)} assumptions hold, "
           f"{len(differs)} differ, {len(unknown)} undetermined")
     if differs:
         print("\nCode changes needed:")
@@ -358,7 +428,7 @@ def main() -> int:
     print("\nPaste this output back and the code gets fixed to match.")
 
     (config.ROOT / "docs" / "probe-results.json").write_text(
-        json.dumps(probe.findings, indent=2) + "\n")
+        json.dumps(findings, indent=2) + "\n")
     print("Saved to docs/probe-results.json")
     return 0
 

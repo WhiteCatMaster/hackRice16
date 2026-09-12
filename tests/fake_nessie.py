@@ -66,6 +66,8 @@ class FakeNessie(NessieClient):
 
         if method == "POST":
             if path == "/customers":
+                if not (payload or {}).get("first_name"):
+                    raise NessieError(method, path, 400, "first_name is required")
                 return self._created("customers", dict(payload))
             if path == "/merchants":
                 return self._created("merchants", dict(payload))
@@ -103,6 +105,3 @@ class FakeNessie(NessieClient):
                 return {"code": 204}
 
         raise NessieError(method, path, 405, "not implemented in the fake")
-
-    def ping(self):
-        return True, "ok"

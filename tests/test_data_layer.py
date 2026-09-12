@@ -187,3 +187,27 @@ class TestNessieRoundTrip(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestAccessChecks(unittest.TestCase):
+    """ping() used to pass with no key at all, because reads are ungated on this
+    API. The first POST of a seed run then died with 401."""
+
+    def test_a_valid_key_reads_as_authorized(self):
+        client = FakeNessie()
+        access = client.check_access()
+        self.assertTrue(access["reachable"])
+        self.assertTrue(access["authorized"], access["detail"])
+
+    def test_no_key_is_not_authorized(self):
+        client = FakeNessie()
+        client.api_key = ""
+        access = client.check_access()
+        self.assertFalse(access["authorized"])
+        self.assertIn("not set", access["detail"])
+
+    def test_the_probe_creates_nothing(self):
+        client = FakeNessie()
+        before = len(client.store["customers"])
+        client.check_access()
+        self.assertEqual(len(client.store["customers"]), before)

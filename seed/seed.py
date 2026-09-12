@@ -109,16 +109,37 @@ def push_dataset(ds: Dataset, client: NessieClient, conn, resume: bool = False,
             print(message)
 
     say("creating merchants...")
-    for m in ds.merchants:
-        p.push("merchant", m["local_id"], lambda m=m: client.create_merchant({
+
+    def merchant_payload(m: dict, category_as_list: bool) -> dict:
+        return {
             "name": m["name"],
-            "category": [m["category"]],
+            "category": [m["category"]] if category_as_list else m["category"],
             "address": {"street_number": m["street"].split(" ")[0] if m.get("street") else "1",
                         "street_name": " ".join(m.get("street", "Main St").split(" ")[1:]) or "Main St",
                         "city": m.get("city", "Omaha"), "state": m.get("state", "NE"),
                         "zip": m.get("zip", "68102")},
             "geocode": {"lat": m["lat"], "lng": m["lng"]},
-        }))
+        }
+
+    # The live sandbox returns `category` as a plain string, but the docs imply a
+    # list. Rather than guess wrong and lose the run on the first POST, try one
+    # shape and fall back to the other.
+    def create_merchant(m: dict) -> str:
+        nonlocal category_as_list
+        try:
+            return client.create_merchant(merchant_payload(m, category_as_list))
+        except NessieError as exc:
+            if exc.status != 400:
+                raise
+            category_as_list = not category_as_list
+            say(f"  merchant category rejected as "
+                f"{'a list' if not category_as_list else 'a string'}; "
+                f"retrying as {'a list' if category_as_list else 'a string'}")
+            return client.create_merchant(merchant_payload(m, category_as_list))
+
+    category_as_list = True
+    for m in ds.merchants:
+        p.push("merchant", m["local_id"], lambda m=m: create_merchant(m))
 
     say("creating customers and accounts...")
     for c in ds.customers:

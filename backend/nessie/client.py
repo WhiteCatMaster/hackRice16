@@ -53,8 +53,12 @@ class NessieClient:
         payload: dict | None = None,
         params: dict | None = None,
     ) -> Any:
-        if not self.api_key:
-            raise NessieError(method, path, None, "NESSIE_API_KEY is not set (see .env.example)")
+        # Reads are ungated on this API, so a missing key should only stop writes.
+        # Refusing reads too meant we could not inspect the sandbox's own data
+        # (branches, ATMs, merchants) to learn the real field shapes.
+        if not self.api_key and method != "GET":
+            raise NessieError(method, path, None,
+                              f"{method} needs a key. NESSIE_API_KEY is not set (see .env.example)")
 
         url = self._url(path, params)
         data = json.dumps(payload).encode() if payload is not None else None
@@ -116,13 +120,65 @@ class NessieClient:
             return obj.get("_id") or obj.get("id")
         return None
 
-    def ping(self) -> tuple[bool, str]:
-        """Cheap reachability + key check. Never raises."""
+    def check_access(self) -> dict:
+        """Is the API reachable, and is our key good enough to write?
+
+        Reads are ungated: `GET /customers` returns 200 [] for any key, an empty
+        key included. So a read is worthless as a key check -- it was passing with
+        no key at all and the first POST then died with 401.
+
+        Writes are gated, and the key is checked *before* the body is validated.
+        So we POST a deliberately empty customer: 401 means the key is bad, and a
+        validation error means the key is good. Nothing is created either way.
+        """
+        result = {"reachable": False, "authorized": False, "detail": ""}
+        if not self.api_key:
+            try:
+                self.get("/customers")
+                result["reachable"] = True
+                result["detail"] = "reachable, but NESSIE_API_KEY is not set, so writes are impossible"
+            except NessieError as exc:
+                result["detail"] = f"cannot reach {self.base_url}: {exc}"
+            return result
+
         try:
             self.get("/customers")
-            return True, "ok"
+            result["reachable"] = True
         except NessieError as exc:
-            return False, str(exc)
+            result["detail"] = f"cannot reach {self.base_url}: {exc}"
+            return result
+
+        try:
+            response = self.post("/customers", {})
+        except NessieError as exc:
+            body = (exc.body or "").lower()
+            if exc.status == 401 or "invalid api key" in body:
+                result["detail"] = "reachable, but the API key is not valid for writes"
+            elif "api key not found" in body or "key not found" in body:
+                result["detail"] = "reachable, but no API key was sent (set NESSIE_API_KEY)"
+            elif exc.status is not None and 400 <= exc.status < 500:
+                # Rejected on the body, which means it got past the key check.
+                result["authorized"] = True
+                result["detail"] = "ok"
+            else:
+                result["detail"] = f"could not determine key validity: {exc}"
+            return result
+
+        # An empty payload should never be accepted; if it was, clean up after us.
+        created = self.created_id(response)
+        if created:
+            try:
+                self.delete_customer(created)
+            except NessieError:
+                pass
+        result["authorized"] = True
+        result["detail"] = "ok (the empty-payload probe was accepted; API does not validate bodies)"
+        return result
+
+    def ping(self) -> tuple[bool, str]:
+        """(ok, detail) where ok means reachable AND able to write. Never raises."""
+        access = self.check_access()
+        return access["reachable"] and access["authorized"], access["detail"]
 
     # ------------------------------------------------------------------- reads
 
