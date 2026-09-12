@@ -180,7 +180,8 @@ export interface Alert {
   reason: string
   created_at: string
   status: 'open' | 'resolved' | string
-  /** The engine's score and the plain-words signals behind it. */
+  /** The engine's score and the plain-words signals behind it. Strings here,
+   *  unlike `TransferCheck.signals` — an alert has already been summarised. */
   risk_score?: number
   signals?: string[]
   purchase_ids?: string[]
@@ -189,6 +190,22 @@ export interface Alert {
 export interface Alerts {
   user: string
   alerts: Alert[]
+}
+
+/**
+ * One scored rule behind a risk decision.
+ *
+ * The engine returns objects here, not sentences: `reasons` is the readable
+ * half and this is the arithmetic behind it. They were typed as `string[]`,
+ * which reads fine until something renders `signals` and puts `[object
+ * Object]` on screen next to the number that stopped a payment.
+ */
+export interface RiskSignal {
+  code: string
+  points: number
+  reason: string
+  /** Empty string rather than absent, in the fixtures P1 exports. */
+  detail?: string
 }
 
 /** POST /api/transfers/check — the scam pause. */
@@ -202,7 +219,7 @@ export interface TransferCheck {
   questions: string[]
   /** PAUSE | ALLOW — the engine's own word for the outcome. */
   verdict?: string
-  signals?: string[]
+  signals?: RiskSignal[]
   payee?: string | null
   known_payee?: boolean
   /** Where the runway would land if this went through. */
