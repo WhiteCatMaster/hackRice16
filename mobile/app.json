@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "ExchangeTreasurer",
+    "slug": "exchangetreasurer",
+    "scheme": "treasurer",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#eef1f5",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.exchangetreasurer.mobile"
+    },
+    "android": {
+      "package": "com.exchangetreasurer.mobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#eef1f5",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#eef1f5"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
