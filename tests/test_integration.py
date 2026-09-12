@@ -158,6 +158,37 @@ class TestContractIsSatisfied(IntegrationBase):
                 self.assertEqual(effect["runway_date_before"], effect["runway_date_after"],
                                  f"{fix['id']}: no days gained, but the date moved")
 
+    def test_no_single_step_of_a_plan_claims_to_close_the_gap_alone(self):
+        """The bug this exists for: transfer_400 advertising two fixes' work.
+
+        Its effect was computed with the dining cap's burn reduction already
+        applied, so one step reported clears_the_gap on something that leaves
+        Ana $9.91 short by itself -- and the panel repeated the claim. Every
+        `effect` measures its own fix; the plan's outcome lives in
+        `effect_with_plan`.
+        """
+        _, body = handlers.forecast("ana")
+        fixes = body.get("fixes") or []
+        plan = [f for f in fixes if f.get("in_plan")]
+        if len(plan) < 2:
+            self.skipTest("single-step plan: nothing to conflate")
+        for fix in plan:
+            self.assertFalse(
+                fix["effect"].get("clears_the_gap"),
+                f"{fix['id']} is one step of a {len(plan)}-step plan but claims to close the gap")
+
+    def test_the_plan_as_a_whole_does_close_it(self):
+        """And it is the same object on every step, so the UI can state it once."""
+        _, body = handlers.forecast("ana")
+        plan = [f for f in (body.get("fixes") or []) if f.get("in_plan")]
+        if len(plan) < 2:
+            self.skipTest("single-step plan")
+        combined = [f["effect_with_plan"] for f in plan]
+        for c in combined:
+            self.assertEqual(c, combined[0], "effect_with_plan must be identical on every step")
+        self.assertTrue(combined[0]["clears_the_gap"], "the recommended plan should close the gap")
+        self.assertTrue(combined[0]["lasts_past_target"])
+
     def test_bills(self):
         for user in PERSONAS:
             status, body = handlers.bills(user)

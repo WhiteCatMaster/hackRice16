@@ -569,6 +569,33 @@ export default function Dashboard({
                       <strong>{fmt(summary.gap)}</strong>
                     </div>
                   </div>
+                  {(() => {
+                    // Every in_plan fix carries the same effect_with_plan. The
+                    // plan's outcome is stated once, here, because a step that
+                    // claimed it alone would be the exact false claim this
+                    // field was added to remove.
+                    const plan = forecast.fixes!.filter((f) => f.in_plan)
+                    const combined = plan.find((f) => f.effect_with_plan)?.effect_with_plan
+                    if (plan.length < 2 || !combined) return null
+                    return (
+                      <div className="plan-banner">
+                        <p className="eyebrow">THE RECOMMENDED PLAN · {plan.length} STEPS</p>
+                        <p>
+                          Neither step closes the gap by itself. Together they{' '}
+                          {combined.clears_the_gap ? (
+                            <>
+                              <strong>close it</strong>, and your money{' '}
+                              <strong>{runwayLabel(combined.runway_date_after, 'lasts past your flight home')}</strong>.
+                            </>
+                          ) : (
+                            <>
+                              bring you to <strong>{fmt(combined.gap_after ?? 0)}</strong> short.
+                            </>
+                          )}
+                        </p>
+                      </div>
+                    )
+                  })()}
                   <div className="fix-list">
                     {forecast.fixes.map((fix) => (
                       <article

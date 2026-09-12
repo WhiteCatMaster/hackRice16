@@ -316,3 +316,7 @@ body { background: var(--paper); color: var(--ink-deep); font-family: 'Space Mon
 .fix-gained { color: var(--green); text-transform: none; letter-spacing: .02em; font-size: 10px; font-family: 'Space Mono', monospace; }
 
 .action-effect.unmeasured { color: var(--ink-soft); font-style: italic; }
+
+.plan-banner { margin-top: 18px; background: var(--paper-low); border-left: 2px solid var(--green); border-radius: 0 4px 4px 0; padding: 15px 18px; }
+.plan-banner p:not(.eyebrow) { color: var(--ink-soft); font-family: 'Newsreader', Georgia, serif; font-size: 15px; line-height: 1.55; margin-top: 7px; max-width: 62ch; }
+.plan-banner strong { color: var(--green); }

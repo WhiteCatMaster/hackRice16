@@ -59,20 +59,30 @@ export interface Fix {
   amount: number
   /** Whether the engine put this one in its recommended plan. */
   in_plan?: boolean
-  effect?: {
-    runway_date_before?: string | null
-    runway_date_after?: string | null
-    /** True when the money now lasts past the flight. Says outright what a
-     *  null `runway_date_after` means, so nobody has to infer it. */
-    lasts_past_target?: boolean
-    /** Days the crossing day moves. Legitimately 0 for a fix that shrinks the
-     *  gap without moving the date — the crossing day is a big bill day. */
-    days_gained?: number
-    gap_before?: number
-    gap_after?: number
-    min_balance_after?: number
-    clears_the_gap?: boolean
-  }
+  /**
+   * The whole plan's outcome, not this step's — the identical object on every
+   * `in_plan` fix. `effect` always measures the fix alone, so a two-step plan
+   * has two steps that each say "still short" and a plan that says "closed".
+   * Rendering this per row would re-create the bug it was added to fix: one
+   * step advertising the work of two.
+   */
+  effect_with_plan?: FixEffect
+  effect?: FixEffect
+}
+
+export interface FixEffect {
+  runway_date_before?: string | null
+  runway_date_after?: string | null
+  /** True when the money now lasts past the flight. Says outright what a
+   *  null `runway_date_after` means, so nobody has to infer it. */
+  lasts_past_target?: boolean
+  /** Days the crossing day moves. Legitimately 0 for a fix that shrinks the
+   *  gap without moving the date — the crossing day is a big bill day. */
+  days_gained?: number
+  gap_before?: number
+  gap_after?: number
+  min_balance_after?: number
+  clears_the_gap?: boolean
 }
 
 /**
