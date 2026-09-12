@@ -1,0 +1,689 @@
+{
+  "_note": "All dates are offsets from DEMO_AS_OF so the demo stays coherent whenever it runs. 'calibration' is solved numerically by generator.py -- see docs/nessie-api-notes.md.",
+  "defaults": {
+    "history_days": 92,
+    "safety_buffer": 100.0,
+    "purchase_status": "completed",
+    "transfer_status": "completed",
+    "deposit_status": "completed"
+  },
+  "personas": [
+    {
+      "key": "ana",
+      "role": "main",
+      "first_name": "Ana",
+      "last_name": "Etxeberria",
+      "language": "es",
+      "home_city": "Bilbao, Spain",
+      "home_currency": "EUR",
+      "fx_rate": 0.92,
+      "home_lat": 43.263,
+      "home_lng": -2.935,
+      "address": {
+        "street_number": "2412",
+        "street_name": "Burt St Apt 3B",
+        "city": "Omaha",
+        "state": "NE",
+        "zip": "68131"
+      },
+      "arrival_offset_days": -92,
+      "flight_home": {
+        "rule": "end_of_month",
+        "months_ahead": 1
+      },
+      "accounts": {
+        "checking": {
+          "nickname": "Ana Checking",
+          "type": "Checking"
+        },
+        "savings": {
+          "nickname": "Ana Savings",
+          "type": "Savings",
+          "balance": 2600.0
+        },
+        "credit": {
+          "nickname": "Ana Student Card",
+          "type": "Credit Card",
+          "balance": 312.4,
+          "credit_limit": 500.0,
+          "apr": 24.99,
+          "statement_day": 22
+        }
+      },
+      "calibration": {
+        "_comment": "Two knobs solved by bisection so the demo lands on a story we can tell: the runway stops short of the flight, and one 300 transfer alone does NOT quite close the gap (hence the second fix, a dining cap).",
+        "solve_for": [
+          "checking_balance",
+          "daily_discretionary"
+        ],
+        "target_runway_days_before_flight": 21,
+        "target_gap": 410.0,
+        "rent_amount": 950.0
+      },
+      "bills": [
+        {
+          "local_id": "b_ana_rent",
+          "payee": "Midtown Flats Leasing",
+          "nickname": "Rent",
+          "category": "housing",
+          "day": 1,
+          "amount": null,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "Your rent. It leaves your checking account on the 1st of each month. Your lease ends when you fly home, so this is the last month you pay it."
+        },
+        {
+          "local_id": "b_ana_phone",
+          "payee": "Mint Mobile",
+          "nickname": "Phone",
+          "category": "phone",
+          "day": 5,
+          "amount": 45.0,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "Prepaid phone plan. Charged on the 5th. In the US the plan is usually billed a month in advance."
+        },
+        {
+          "local_id": "b_ana_health",
+          "payee": "Creighton Student Health Plan",
+          "nickname": "Health insurance",
+          "category": "insurance",
+          "day": 10,
+          "amount": 120.0,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "Health insurance required by your university. It is not optional and does not stop if you skip a payment; the charge just keeps accruing."
+        },
+        {
+          "local_id": "b_ana_gym",
+          "payee": "Planet Fitness",
+          "nickname": "Gym",
+          "category": "fitness",
+          "day": 15,
+          "amount": 30.0,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "Gym membership. US gyms usually need written cancellation notice, so cancel before you fly home or it keeps charging."
+        },
+        {
+          "local_id": "b_ana_card",
+          "payee": "Landed Bank Student Card",
+          "nickname": "Credit card payment",
+          "category": "credit_card",
+          "day": 22,
+          "amount": 75.0,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "Minimum-ish payment on your student card. Paying only this much still costs you interest; paying the full statement balance costs nothing."
+        },
+        {
+          "local_id": "b_ana_stream",
+          "payee": "Spotify",
+          "nickname": "Streaming",
+          "category": "subscription",
+          "day": 20,
+          "amount": 15.99,
+          "cadence": "monthly",
+          "from": "checking",
+          "trial": {
+            "free_until_offset_days": 9,
+            "amount_before": 0.0
+          },
+          "explanation": "Free trial. It becomes a paid 15.99 charge on the 20th unless you cancel first."
+        }
+      ],
+      "deposits": [
+        {
+          "local_id": "d_ana_arrival",
+          "description": "Transferencia de casa - semestre",
+          "offset_days": -90,
+          "amount": null,
+          "type": "arrival_lump",
+          "category": "family"
+        },
+        {
+          "local_id": "d_ana_topup",
+          "description": "Transferencia de casa - extra",
+          "offset_days": -35,
+          "amount": 800.0,
+          "type": "topup",
+          "category": "family"
+        }
+      ],
+      "spending": {
+        "weekend_uplift": 1.45,
+        "category_weights": {
+          "groceries": 0.28,
+          "coffee": 0.14,
+          "dining": 0.24,
+          "transport": 0.1,
+          "campus": 0.08,
+          "pharmacy": 0.05,
+          "entertainment": 0.07,
+          "retail": 0.04
+        },
+        "typical_amounts": {
+          "groceries": [
+            18,
+            62
+          ],
+          "coffee": [
+            3.5,
+            7.5
+          ],
+          "dining": [
+            9,
+            28
+          ],
+          "transport": [
+            2,
+            14
+          ],
+          "campus": [
+            4,
+            35
+          ],
+          "pharmacy": [
+            6,
+            24
+          ],
+          "entertainment": [
+            8,
+            30
+          ],
+          "retail": [
+            12,
+            55
+          ]
+        },
+        "credit_card": {
+          "monthly_spend": 150.0,
+          "categories": [
+            "online",
+            "retail",
+            "subscription",
+            "dining"
+          ]
+        }
+      },
+      "known_payees": [
+        {
+          "local_id": "p_marta",
+          "first_name": "Marta",
+          "last_name": "Aguirre",
+          "nickname": "Marta (roommate)",
+          "address": {
+            "street_number": "2412",
+            "street_name": "Burt St Apt 3B",
+            "city": "Omaha",
+            "state": "NE",
+            "zip": "68131"
+          },
+          "history": [
+            {
+              "offset_days": -74,
+              "amount": 60.0,
+              "description": "internet share"
+            },
+            {
+              "offset_days": -44,
+              "amount": 60.0,
+              "description": "internet share"
+            },
+            {
+              "offset_days": -14,
+              "amount": 60.0,
+              "description": "internet share"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "raj",
+      "role": "support",
+      "first_name": "Raj",
+      "last_name": "Krishnan",
+      "language": "en",
+      "home_city": "Chennai, India",
+      "home_currency": "INR",
+      "fx_rate": 83.2,
+      "home_lat": 13.0827,
+      "home_lng": 80.2707,
+      "address": {
+        "street_number": "1150",
+        "street_name": "N 38th St",
+        "city": "Omaha",
+        "state": "NE",
+        "zip": "68131"
+      },
+      "arrival_offset_days": -92,
+      "flight_home": {
+        "rule": "end_of_month",
+        "months_ahead": 2
+      },
+      "accounts": {
+        "checking": {
+          "nickname": "Raj Checking",
+          "type": "Checking"
+        },
+        "savings": {
+          "nickname": "Raj Savings",
+          "type": "Savings",
+          "balance": 1450.0
+        },
+        "credit": {
+          "nickname": "Raj Student Card",
+          "type": "Credit Card",
+          "balance": 128.55,
+          "credit_limit": 1000.0,
+          "apr": 22.99,
+          "statement_day": 18
+        }
+      },
+      "calibration": {
+        "_comment": "Raj's stipend covers his outflow, so there is no shortfall to solve for. Both knobs are pinned: he stays solvent but goes thin right before payday, which is the point -- the forecast has to work for regular income too.",
+        "solve_for": [],
+        "checking_balance": 620.0,
+        "daily_discretionary": 31.5,
+        "rent_amount": 720.0
+      },
+      "bills": [
+        {
+          "local_id": "b_raj_rent",
+          "payee": "Dundee Apartments",
+          "nickname": "Rent",
+          "category": "housing",
+          "day": 1,
+          "amount": null,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "Shared apartment rent, due on the 1st."
+        },
+        {
+          "local_id": "b_raj_phone",
+          "payee": "T-Mobile",
+          "nickname": "Phone",
+          "category": "phone",
+          "day": 8,
+          "amount": 55.0,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "Phone plan, charged on the 8th."
+        },
+        {
+          "local_id": "b_raj_card",
+          "payee": "Landed Bank Student Card",
+          "nickname": "Credit card payment",
+          "category": "credit_card",
+          "day": 18,
+          "amount": 60.0,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "Card payment on the 18th."
+        }
+      ],
+      "deposits": [
+        {
+          "local_id": "d_raj_stipend",
+          "description": "Graduate stipend",
+          "day": 1,
+          "amount": 1800.0,
+          "cadence": "monthly",
+          "type": "recurring",
+          "category": "stipend"
+        },
+        {
+          "local_id": "d_raj_job",
+          "description": "Campus job payroll",
+          "offset_days": -88,
+          "amount": 420.0,
+          "cadence": "biweekly",
+          "type": "recurring",
+          "category": "payroll"
+        }
+      ],
+      "spending": {
+        "weekend_uplift": 1.25,
+        "category_weights": {
+          "groceries": 0.34,
+          "coffee": 0.1,
+          "dining": 0.2,
+          "transport": 0.14,
+          "campus": 0.08,
+          "pharmacy": 0.05,
+          "entertainment": 0.05,
+          "retail": 0.04
+        },
+        "typical_amounts": {
+          "groceries": [
+            22,
+            70
+          ],
+          "coffee": [
+            3,
+            6.5
+          ],
+          "dining": [
+            8,
+            24
+          ],
+          "transport": [
+            2,
+            16
+          ],
+          "campus": [
+            4,
+            30
+          ],
+          "pharmacy": [
+            6,
+            22
+          ],
+          "entertainment": [
+            8,
+            26
+          ],
+          "retail": [
+            10,
+            45
+          ]
+        },
+        "credit_card": {
+          "monthly_spend": 90.0,
+          "categories": [
+            "online",
+            "retail",
+            "dining"
+          ]
+        }
+      },
+      "known_payees": [],
+      "upfront_cost_description": "Tuition and university fees"
+    },
+    {
+      "key": "lucia",
+      "role": "support",
+      "first_name": "Lucia",
+      "last_name": "Moreno",
+      "language": "es",
+      "home_city": "Monterrey, Mexico",
+      "home_currency": "MXN",
+      "fx_rate": 17.1,
+      "home_lat": 25.6866,
+      "home_lng": -100.3161,
+      "address": {
+        "street_number": "3210",
+        "street_name": "California St",
+        "city": "Omaha",
+        "state": "NE",
+        "zip": "68131"
+      },
+      "arrival_offset_days": -92,
+      "flight_home": {
+        "rule": "end_of_month",
+        "months_ahead": 2
+      },
+      "accounts": {
+        "checking": {
+          "nickname": "Lucia Checking",
+          "type": "Checking"
+        },
+        "savings": {
+          "nickname": "Lucia Savings",
+          "type": "Savings",
+          "balance": 4100.0
+        },
+        "credit": {
+          "nickname": "Lucia Student Card",
+          "type": "Credit Card",
+          "balance": 64.2,
+          "credit_limit": 800.0,
+          "apr": 21.99,
+          "statement_day": 12
+        }
+      },
+      "calibration": {
+        "_comment": "The contrast persona: healthy runway, no alerts. Both knobs pinned at frugal, realistic values so her runway clears the flight home with room to spare.",
+        "solve_for": [],
+        "checking_balance": 3250.0,
+        "daily_discretionary": 16.4,
+        "rent_amount": 640.0
+      },
+      "bills": [
+        {
+          "local_id": "b_luc_rent",
+          "payee": "Gold Coast Housing",
+          "nickname": "Rent",
+          "category": "housing",
+          "day": 1,
+          "amount": null,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "Room in a shared house, due on the 1st."
+        },
+        {
+          "local_id": "b_luc_phone",
+          "payee": "Visible",
+          "nickname": "Phone",
+          "category": "phone",
+          "day": 6,
+          "amount": 30.0,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "Phone plan, charged on the 6th."
+        },
+        {
+          "local_id": "b_luc_card",
+          "payee": "Landed Bank Student Card",
+          "nickname": "Credit card payment",
+          "category": "credit_card",
+          "day": 12,
+          "amount": 80.0,
+          "cadence": "monthly",
+          "from": "checking",
+          "explanation": "She pays the full statement balance every month, which is why her card costs her nothing."
+        }
+      ],
+      "deposits": [
+        {
+          "local_id": "d_luc_arrival",
+          "description": "Beca semestral",
+          "offset_days": -90,
+          "amount": null,
+          "type": "arrival_lump",
+          "category": "scholarship"
+        },
+        {
+          "local_id": "d_luc_job",
+          "description": "Library job payroll",
+          "offset_days": -85,
+          "amount": 310.0,
+          "cadence": "biweekly",
+          "type": "recurring",
+          "category": "payroll"
+        }
+      ],
+      "spending": {
+        "weekend_uplift": 1.15,
+        "category_weights": {
+          "groceries": 0.4,
+          "coffee": 0.08,
+          "dining": 0.14,
+          "transport": 0.12,
+          "campus": 0.1,
+          "pharmacy": 0.06,
+          "entertainment": 0.06,
+          "retail": 0.04
+        },
+        "typical_amounts": {
+          "groceries": [
+            20,
+            58
+          ],
+          "coffee": [
+            3,
+            5.5
+          ],
+          "dining": [
+            7,
+            19
+          ],
+          "transport": [
+            2,
+            12
+          ],
+          "campus": [
+            4,
+            26
+          ],
+          "pharmacy": [
+            5,
+            18
+          ],
+          "entertainment": [
+            7,
+            20
+          ],
+          "retail": [
+            9,
+            38
+          ]
+        },
+        "credit_card": {
+          "monthly_spend": 70.0,
+          "categories": [
+            "online",
+            "retail"
+          ]
+        }
+      },
+      "known_payees": []
+    }
+  ],
+  "counterparties": [
+    {
+      "local_id": "cp_landlord",
+      "first_name": "Michael",
+      "last_name": "Reyes",
+      "nickname": "\"landlord\" (scam)",
+      "address": {
+        "street_number": "500",
+        "street_name": "S 16th St",
+        "city": "Omaha",
+        "state": "NE",
+        "zip": "68102"
+      }
+    },
+    {
+      "local_id": "cp_uscis",
+      "first_name": "US Immigration",
+      "last_name": "Processing Unit",
+      "nickname": "fake immigration office",
+      "address": {
+        "street_number": "1717",
+        "street_name": "Avenue H",
+        "city": "Carter Lake",
+        "state": "IA",
+        "zip": "51510"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "key": "fake_landlord",
+      "persona": "ana",
+      "kind": "transfer",
+      "title": "Fake landlord deposit",
+      "expect": "pause",
+      "payee": "cp_landlord",
+      "amount": 800.0,
+      "description": "URGENT apartment deposit - pay today or you lose the place",
+      "why": "Brand-new payee, 43% of checking, round amount, urgency wording."
+    },
+    {
+      "key": "immigration_fine",
+      "persona": "ana",
+      "kind": "transfer",
+      "title": "Immigration impersonation fine",
+      "expect": "pause",
+      "payee": "cp_uscis",
+      "amount": 1200.0,
+      "description": "USCIS processing fine - immediate payment required to avoid deportation",
+      "why": "New payee, round amount, agency impersonation, threat wording."
+    },
+    {
+      "key": "legit_roommate",
+      "persona": "ana",
+      "kind": "transfer",
+      "title": "Paying her roommate (control case)",
+      "expect": "allow",
+      "payee": "p_marta",
+      "amount": 60.0,
+      "description": "internet share",
+      "why": "Known payee, usual amount. Must NOT trigger a pause - this is the false-positive check."
+    },
+    {
+      "key": "card_testing",
+      "persona": "ana",
+      "kind": "purchases",
+      "title": "Card-testing burst then a big hit",
+      "expect": "alert",
+      "account": "credit",
+      "purchases": [
+        {
+          "merchant": "m_test1",
+          "amount": 1.14,
+          "minutes_from_start": 0
+        },
+        {
+          "merchant": "m_test2",
+          "amount": 2.87,
+          "minutes_from_start": 6
+        },
+        {
+          "merchant": "m_test1",
+          "amount": 1.09,
+          "minutes_from_start": 11
+        },
+        {
+          "merchant": "m_test3",
+          "amount": 2.15,
+          "minutes_from_start": 19
+        },
+        {
+          "merchant": "m_test2",
+          "amount": 1.76,
+          "minutes_from_start": 24
+        },
+        {
+          "merchant": "m_bestbuy",
+          "amount": 899.0,
+          "minutes_from_start": 41
+        }
+      ],
+      "why": "Five sub-3-dollar charges at merchants she has never used, then a purchase larger than her whole credit limit."
+    },
+    {
+      "key": "impossible_travel",
+      "persona": "ana",
+      "kind": "purchases",
+      "title": "Impossible travel",
+      "expect": "alert",
+      "account": "checking",
+      "purchases": [
+        {
+          "merchant": "m_hyvee",
+          "amount": 41.28,
+          "minutes_from_start": 0
+        },
+        {
+          "merchant": "m_miami",
+          "amount": 264.9,
+          "minutes_from_start": 95
+        }
+      ],
+      "why": "Omaha then Miami 95 minutes later: 2,200 km apart. Needs our own timestamps, since Nessie dates are day-level."
+    }
+  ]
+}
