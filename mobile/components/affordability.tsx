@@ -30,7 +30,11 @@ export function AffordabilityCard({ user, fmt, live }: Props) {
 
   async function ask() {
     const value = Number(amount)
-    if (!Number.isFinite(value) || value <= 0 || busy) return
+    // `live` is checked here as well as on the button, because the keyboard's
+    // "done" key submits too. Without a backend `checkAffordability` returns
+    // null by design, and reporting that as "the engine did not answer"
+    // contradicts the card right below, which says why there is no answer.
+    if (!live || !Number.isFinite(value) || value <= 0 || busy) return
     setBusy(true)
     setError(null)
     try {
@@ -50,11 +54,12 @@ export function AffordabilityCard({ user, fmt, live }: Props) {
       <PanelHead eyebrow="BEFORE YOU SPEND" title="Can I afford it?" />
 
       <View style={styles.form}>
-        <View style={styles.input}>
+        <View style={[styles.input, !live && styles.inputOff]}>
           <Text style={styles.currency}>$</Text>
           <TextInput
             value={amount}
             onChangeText={setAmount}
+            editable={live}
             keyboardType="decimal-pad"
             returnKeyType="done"
             onSubmitEditing={() => void ask()}
@@ -68,7 +73,7 @@ export function AffordabilityCard({ user, fmt, live }: Props) {
           label={busy ? 'Checking…' : 'Check'}
           onPress={() => void ask()}
           busy={busy}
-          disabled={!amount.trim()}
+          disabled={!live || !amount.trim()}
           style={styles.submit}
         />
       </View>
@@ -174,6 +179,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     backgroundColor: color.surface2,
   },
+  inputOff: { opacity: 0.5 },
   currency: { fontFamily: font.figureMed, fontSize: 14, color: color.inkMute },
   inputField: {
     flex: 1,
