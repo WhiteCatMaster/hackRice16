@@ -2,15 +2,18 @@
 
 Two modes, chosen by whether there is an API key:
 
-- **llm** — Claude with the tools in `tools.py`. The model picks tools and writes
-  the prose; every number in the reply came out of a tool result.
+- **llm** — a model with the tools in `tools.py`. It picks tools and writes the
+  prose; every number in the reply came out of a tool result. Two providers
+  answer to that contract: Gemini (`GEMINI_API_KEY`) and Claude
+  (`ANTHROPIC_API_KEY`). `TREASURER_PROVIDER` forces one; otherwise whichever has a
+  key answers, Gemini first.
 - **scripted** — no key, no network. Routes the question to the same tools by
   keyword and formats the answer from the same numbers.
 
 The scripted mode is not a toy. begin.md's design rule 3 says the demo must not
 depend on a live service, and an LLM API is one more thing that can be down or
-rate-limited at 9 a.m. on stage. Both modes answer the §9 demo questions with
-real numbers, and `/api/health` says which one is running.
+rate-limited at 9 a.m. on stage. All three paths answer the §9 demo questions
+with real numbers, and `/api/health` says which one is running.
 """
 
 from __future__ import annotations
@@ -20,12 +23,12 @@ import logging
 import os
 import re
 
-from backend.agent import prompts, tools
+from backend.agent import gemini, prompts, tools
 from backend.nessie import repo
 
-log = logging.getLogger("landed.agent")
+log = logging.getLogger("treasurer.agent")
 
-MODEL = os.environ.get("LANDED_MODEL", "claude-sonnet-5")
+MODEL = os.environ.get("TREASURER_MODEL", "claude-sonnet-5")
 MAX_TURNS = 6
 MAX_TOKENS = 1024
 
@@ -34,35 +37,75 @@ def _api_key() -> str:
     return (os.environ.get("ANTHROPIC_API_KEY") or "").strip()
 
 
-def status() -> dict:
-    key = bool(_api_key())
+def _anthropic_sdk() -> bool:
     try:
         import anthropic  # noqa: F401
-        sdk = True
+        return True
     except ImportError:
-        sdk = False
-    mode = "llm" if (key and sdk) else "scripted"
+        return False
+
+
+def _provider() -> str:
+    """Who answers this turn: 'gemini', 'anthropic' or 'scripted'.
+
+    Read per turn, not at import, so dropping a key into .env and restarting is
+    the whole configuration story — and so the tests can swap providers.
+    """
+    forced = (os.environ.get("TREASURER_PROVIDER") or "").strip().lower()
+    can_gemini = bool(gemini.api_key())
+    can_anthropic = bool(_api_key()) and _anthropic_sdk()
+
+    if forced == "scripted":
+        return "scripted"
+    if forced == "gemini":
+        return "gemini" if can_gemini else "scripted"
+    if forced == "anthropic":
+        return "anthropic" if can_anthropic else "scripted"
+    if can_gemini:
+        return "gemini"
+    if can_anthropic:
+        return "anthropic"
+    return "scripted"
+
+
+def status() -> dict:
+    provider = _provider()
+    mode = "scripted" if provider == "scripted" else "llm"
+    model = {"gemini": gemini.model(), "anthropic": MODEL}.get(provider)
     return {
         "mode": mode,
-        "model": MODEL if mode == "llm" else None,
-        "anthropic_sdk": sdk,
-        "api_key_present": key,
+        "provider": provider,
+        "model": model,
+        "anthropic_sdk": _anthropic_sdk(),
+        "api_key_present": bool(_api_key()) or bool(gemini.api_key()),
         "tools": [t["name"] for t in tools.SCHEMA],
         "note": (
-            "Claude picks the tools and writes the prose. Numbers come from tool results only."
+            f"{provider.title()} picks the tools and writes the prose. "
+            "Numbers come from tool results only."
             if mode == "llm" else
-            "No ANTHROPIC_API_KEY, so replies are composed by the scripted router. "
-            "Same tools, same numbers, no model."
+            "No GEMINI_API_KEY or ANTHROPIC_API_KEY, so replies are composed by the "
+            "scripted router. Same tools, same numbers, no model."
         ),
     }
 
 
 def answer(conn, user: str, message: str, language: str | None = None) -> dict:
-    if status()["mode"] == "llm":
+    provider = _provider()
+    # Decide the language here rather than leaving it to the model. The persona's
+    # own language is only a default: Ana's is Spanish, so an English question
+    # with no explicit `language` came back in Spanish, which is the one thing
+    # "match the language they used" was supposed to prevent. The scripted router
+    # has always detected it; the model paths now get the same answer.
+    if not language:
+        persona = (repo.resolve_customer(conn, user) or {}).get("language") or "en"
+        language = detect_language(message, persona)
+    if provider != "scripted":
+        turn = _gemini if provider == "gemini" else _llm
         try:
-            return _llm(conn, user, message, language)
+            return turn(conn, user, message, language)
         except Exception as exc:  # the demo must survive a dead or throttled API
-            log.warning("LLM turn failed (%s); falling back to the scripted router", exc)
+            log.warning("%s turn failed (%s); falling back to the scripted router",
+                        provider, exc)
             out = _scripted(conn, user, message, language)
             out["_fell_back"] = str(exc)
             return out
@@ -111,6 +154,52 @@ def _llm(conn, user: str, message: str, language: str | None) -> dict:
                 "content": json.dumps(output, default=str),
             })
         history.append({"role": "user", "content": results})
+
+    return _reply(conn, user, "I need more information to answer that safely.", used, proposed, language)
+
+
+def _gemini(conn, user: str, message: str, language: str | None) -> dict:
+    """The same turn, spoken to Gemini's `:generateContent`.
+
+    The shape differs from Anthropic's in three ways and nothing else: tool calls
+    arrive as `functionCall` parts, results go back as `functionResponse` parts in
+    a *user* turn, and the model's own turn has to be echoed into the history
+    verbatim or the follow-up call is rejected as unpaired.
+    """
+    system = prompts.system(conn, user, language)
+    contents = [{"role": "user", "parts": [{"text": message}]}]
+    used: list[str] = []
+    proposed = None
+
+    for _ in range(MAX_TURNS):
+        response = gemini.generate(system, contents, tools.SCHEMA, max_tokens=MAX_TOKENS)
+        parts = gemini.parts_of(response)
+        contents.append({"role": "model", "parts": parts})
+
+        calls = [p["functionCall"] for p in parts if p.get("functionCall")]
+        if not calls:
+            text = "".join(p.get("text") or "" for p in parts).strip()
+            return _reply(conn, user, text, used, proposed, language)
+
+        results = []
+        for call in calls:
+            name = call.get("name") or ""
+            used.append(name)
+            try:
+                output = tools.run(conn, user, name, dict(call.get("args") or {}))
+            except Exception as exc:
+                log.warning("tool %s failed: %s", name, exc)
+                output = {"error": str(exc)}
+            if name.startswith("propose_") and not output.get("error"):
+                proposed = output
+            results.append({"functionResponse": {
+                "name": name,
+                # Gemini wants an object here, and dates are not JSON. Round-trip
+                # through the same serializer the Anthropic path uses so both
+                # providers see byte-identical tool output.
+                "response": json.loads(json.dumps(output, default=str)),
+            }})
+        contents.append({"role": "user", "parts": results})
 
     return _reply(conn, user, "I need more information to answer that safely.", used, proposed, language)
 
@@ -413,6 +502,49 @@ def _scripted(conn, user: str, message: str, language: str | None) -> dict:
         reply = (f"Tus últimos movimientos: {listed}." if es
                  else f"Your most recent transactions: {listed}.")
         return _reply(conn, user, reply, used, None, lang)
+
+    # A bare amount, after the afford branch asked for one. The router has no
+    # memory of the previous turn — the API sends one message, not a history — so
+    # "1400 dolares?" arriving on its own would otherwise fall through to the
+    # dashboard sentence, which reads as the copilot ignoring the answer it just
+    # asked for. Nothing else in a money app is a naked number, so treat it as the
+    # affordability question it almost certainly is.
+    amount = _amount_in(text)
+    if amount is not None:
+        summary = tool("get_summary")
+        check = tool("check_affordability", {"amount": amount})
+        if not es and check.get("reason"):
+            reply = check["reason"]
+        elif check["affordable"]:
+            reply = (
+                f"Sí. Gastar {_money(amount)} te deja en {_money(check['min_balance_after'])} "
+                f"en tu punto más bajo, y tu dinero sigue llegando "
+                f"{_lasts_phrase(check.get('runway_date_after'), True)}."
+                if es else
+                f"Yes. Spending {_money(amount)} leaves you at "
+                f"{_money(check['min_balance_after'])} at your lowest point, and your money "
+                f"still lasts {_lasts_phrase(check.get('runway_date_after'), False)}."
+            )
+        else:
+            reply = (
+                f"Ahora mismo no. Gastar {_money(amount)} adelanta el día en que te quedas "
+                f"sin margen del {check['runway_date_before']} al "
+                f"{check.get('runway_date_after') or summary['target_date']}, "
+                f"y vuelas a casa el {summary['target_date']}. Puedo proponerte cómo cubrirlo."
+                if es else
+                f"Not right now. Spending {_money(amount)} moves the day you run short from "
+                f"{check['runway_date_before']} to "
+                f"{check.get('runway_date_after') or summary['target_date']}, "
+                f"and you fly home on {summary['target_date']}. I can propose a way to cover it."
+            )
+        if not check["affordable"]:
+            fixes = tool("suggest_fixes")["fixes"]
+            transfer = next((f for f in fixes if f["type"] == "transfer"), None)
+            if transfer:
+                proposed = tool("propose_transfer", {
+                    "amount": transfer["amount"], "from": "savings",
+                    "to": "checking", "label": transfer["label"]})
+        return _reply(conn, user, reply, used, proposed, lang)
 
     # Default: the dashboard in one sentence.
     summary = tool("get_summary")
