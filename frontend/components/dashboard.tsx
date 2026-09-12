@@ -788,10 +788,16 @@ function FixEffect({
   const lastsPast = effect.lasts_past_target ?? after === null
   const gained = effect.days_gained ?? (before === after ? 0 : null)
 
-  // Gaining no days but still lasting past the flight is a real outcome, not a
-  // contradiction: it happens when the runway already ended on the flight date.
-  // That is the best answer there is, so it wins over the "still short" branch.
-  if (gained === 0 && !lastsPast) {
+  // The engine's documented branch order: lasts_past_target, then
+  // clears_the_gap, then days_gained, then the gap. Order matters because a
+  // fix can gain no days and still be the best outcome there is — that is what
+  // happens once the runway already reaches the flight, which is the state
+  // this demo is in right after the transfer is approved. Reading days_gained
+  // first there inverts the headline, reporting "still short" about a fix that
+  // closes it. The two flags coincide in every state we can produce today;
+  // following the order anyway costs nothing and does not depend on that.
+  const bestOutcome = lastsPast || effect.clears_the_gap === true
+  if (!bestOutcome && gained === 0) {
     // The date does not move. Say what does change: how short she still is.
     const from = effect.gap_before ?? gapBefore
     const to = effect.gap_after
@@ -816,7 +822,7 @@ function FixEffect({
       <span>Runway</span>
       <strong>
         {before && <s>{dayMonth(before)}</s>}{' '}
-        {lastsPast ? 'past the flight' : dayMonth(after!)}
+        {lastsPast || !after ? 'past the flight' : dayMonth(after)}
       </strong>
       {typeof gained === 'number' && gained > 0 && (
         <span className="fix-gained">
