@@ -1,224 +1,146 @@
-# EXTreasurer — mobile (P4)
+# EXTreasurer phone app
 
-The app from [begin.md §7](../begin.md) on a phone: overview with the runway
-chart, bill decoder, credit builder, safety centre with the pre-transfer pause,
-and the copilot — a tab of its own — with an approval gate in front of every
-write. It will answer with your own model key if you give it one; see
-[Your own model](#your-own-model).
+Expo SDK 57, React Native 0.86, Expo Router. It is the same product as the
+[web app](../frontend/README.md) against the same API, in six tabs:
 
-Same product as [`../frontend`](../frontend/README.md), same backend, same
-contract. What differs is the shape of the device, and one thing about how it
-reaches the API — see [Switching to the real backend](#switching-to-the-real-backend).
+- **Overview**
+- **Runway**: projection, fixes, affordability
+- **Bills**
+- **Credit**
+- **Safety**: alerts, *Send money*, the pause sheet
+- **Ask**: the copilot
 
-## Run it
+`/model-key` is a modal for the user's own model key. The persona switch
+(ana / raj / lucia) is in the header.
 
-Node 20+ and Expo. npm, not pnpm: this app installs its dependencies nested
-rather than hoisted, which is what Metro expects.
+## Run
+
+Node 20+ and **npm**. Do not use pnpm: Metro expects this app's dependencies
+installed nested, not hoisted.
 
 ```bash
 npm install
-npm start       # then i (iOS), a (Android), w (web), or scan with Expo Go
+npm start           # i: iOS simulator · a: Android · w: web · or scan the QR with Expo Go
+npm run ios | android | web
 ```
 
-`npm install` is not optional reading-material here: the key store needs
-`expo-secure-store`, which is newer than the committed lockfile. If Metro says
-it cannot resolve that module, it is the install that is missing:
-`npx expo install expo-secure-store`.
-
-No API key, no backend, no network needed. With `EXPO_PUBLIC_TREASURER_API_BASE`
-unset the app reads P1's fixtures. If `../mocks` is missing, generate it:
-
-```bash
-cd .. && python -m seed.reset_demo
-```
-
-Personas: all three are in the header. `EXPO_PUBLIC_TREASURER_USER` picks who
-launches first (`ana` is the demo).
-
-## Switching to the real backend
+## Two modes, one variable
 
 ```bash
 cp .env.example .env
 # EXPO_PUBLIC_TREASURER_API_BASE=http://127.0.0.1:8000
 ```
 
-Three things about that line, each of which silently does nothing if you get it
-wrong:
+| `EXPO_PUBLIC_TREASURER_API_BASE` | Data comes from | Header reads |
+|---|---|---|
+| unset | Fixtures from `../mocks`, **bundled into the app** by Metro | FIXTURES · AS OF … |
+| set | The API, called directly from the phone | LIVE BACKEND · NESSIE-BACKED |
 
-- **`EXPO_PUBLIC_` is not decoration.** Expo only inlines variables with that
-  prefix into the bundle. This code runs on the phone, so an unprefixed name
-  arrives as `undefined` and the app stays in mock mode without complaining.
-- **`127.0.0.1` is the phone, not your laptop.** `lib/api.ts` rewrites a
-  loopback host to the address Metro served the bundle from, so the line above
-  works from a real device — as long as the phone and the laptop are on the same
-  network and uvicorn is bound outward:
+`EXPO_PUBLIC_TREASURER_USER` picks the launch persona. Restart Metro
+(`npm start -- --clear`) after changing `.env`.
 
-  ```bash
-  cd .. && .venv/bin/uvicorn backend.api.app:app --host 0.0.0.0 --port 8000
-  ```
+Three things that fail silently if wrong:
 
-- **CORS is the thing to get right, not a proxy.** The web app runs `lib/api.ts`
-  on a server and puts its own `/api` routes in front of the browser. A phone has
-  no server of its own, so these functions *are* the client and they call the
-  backend directly. Both backends already send `access-control-allow-origin: *`
-  — `backend/api/app.py` via `CORSMiddleware`, `backend/api/serve.py` by hand —
-  so this works out of the box. It is only worth knowing about when it does not.
+1. **The `EXPO_PUBLIC_` prefix.** Expo only inlines prefixed variables; without
+   it the value is `undefined` and the app stays on fixtures.
+2. **`127.0.0.1` means the phone.** On native, `lib/api.ts` rewrites a loopback
+   host to the LAN address Metro served the bundle from, keeping the port. The
+   API must listen on that address, and the phone must be on the same network:
+   ```bash
+   cd .. && .venv/bin/uvicorn backend.api.app:app --host 0.0.0.0 --port 8000
+   ```
+3. **CORS, not a proxy.** There is no server in a phone app, so there are no
+   proxy routes; `lib/api.ts` is the client. Both backends already allow any
+   origin and the `X-Model-*` headers.
 
-The header says which mode you are in, so nobody demos fixtures thinking they
-are live.
+Requests time out after 10 seconds and render as empty, not as a spinner that
+never ends.
 
-## How the data gets in
+## How data flows
 
 ```
-app/(tabs)/*  ──►  lib/store.tsx  ──►  lib/api.ts  ──┬─► P3's FastAPI      (API_BASE set)
-app/model-key    (one load, six tabs)                └─► bundled mocks/*.json (otherwise)
+app/(tabs)/*  ──►  lib/store.tsx  ──►  lib/api.ts  ──┬─► API                (live)
+app/model-key     one load, shared                  └─► lib/mocks.ts       (bundled fixtures)
 ```
 
-Two differences from the web app, both forced by the platform:
+`lib/store.tsx` loads summary, forecast, bills, credit, alerts, activity and
+profile once per persona and shares them through context. It also holds the
+currency toggle, so every tab converts together, and the model key. The copilot
+calls `reload()` after an approval; every tab re-reads, and the app returns to
+Overview.
 
-**No proxy layer.** There is no `app/api/**/route.ts` here, because there is no
-server to host it. `lib/api.ts` is the whole data layer.
+**Fixtures are bundled, not read.** `metro.config.js` adds `../mocks` to
+`watchFolders`, and `lib/mocks.ts` `require`s each file by literal path. Metro
+resolves requires at build time, so a template-string path would bundle nothing.
+Adding a persona or fixture means adding lines there.
 
-**One load, shared.** The web app is a single server-rendered page, so one
-`Promise.all` at the top feeds every screen and `router.refresh()` re-runs it.
-Tabs are not branches of one render, so that job moves to `lib/store.tsx`: fetch
-once, share through context, and hand the copilot a `reload()` to call when an
-action is approved. The currency toggle lives there for the same reason — a
-toggle on the overview that the bills screen ignores is a bug.
+Fixture mode has the same limits as the web: no affordability, one canned chat
+reply, and approvals that say nothing was written.
 
-The three shapes §7 does not define behave exactly as on the web:
+## Your own model key
 
-| Needs | Mock mode | Live mode |
-|---|---|---|
-| Recent activity | derived from `<persona>_snapshot.json` | `GET /api/users/{id}/activity`, empty if absent |
-| Home city, arrival date | `<persona>_snapshot.json` → `customer` | `GET /api/users/{id}/profile`, degrades if absent |
-| "Can I afford $X?" | *nothing* — the card says so | `POST /api/users/{id}/affordability` |
+**Ask → the key button**, or navigate to `/model-key`. It supports the same
+three providers as the web.
 
-The first two degrade instead of breaking. Affordability cannot: the answer
-depends on the amount typed, so there is no fixture to pre-export and the card
-asks for a backend rather than inventing a number.
+| Platform | Stored in (`lib/secrets.ts`) |
+|---|---|
+| iOS / Android | `expo-secure-store`: iOS Keychain, Android EncryptedSharedPreferences |
+| Web | `localStorage` |
+| Neither available | Memory for this session only; the screen says so |
 
-## Your own model
+It is never stored in AsyncStorage, which is a plain file. `lib/api.ts` sends
+the key as `X-Model-*` headers with each question, and the backend keeps
+nothing. Unreadable keys are rejected on the phone with the same rules the
+backend applies. [docs/agent.md](../docs/agent.md#bring-your-own-key)
 
-The copilot's prose comes from whatever model the backend has a key for. That is
-one key, on one laptop, belonging to one of us — so the phone can bring its own
-instead: **Ask → the key button in the corner**, or the same screen at
-`/model-key`.
+## Keeping in step with the web app
 
-Three providers, because the backend speaks three (`GET /api/health` →
-`agent.byok.accepted` is the live list):
-
-| | Key looks like | From |
-|---|---|---|
-| Google Gemini | `AIza…` | aistudio.google.com/apikey |
-| Claude | `sk-ant-…` | console.anthropic.com/settings/keys |
-| OpenAI-compatible | `sk-…` | platform.openai.com/api-keys, or any endpoint speaking that shape — OpenRouter, Groq, a model on the laptop |
-
-Where it goes: `lib/secrets.ts` puts it in the phone's keystore — the iOS
-keychain, Android's `EncryptedSharedPreferences` — not in AsyncStorage, which is
-a plain file in the app sandbox. `lib/api.ts` sends it with each question as the
-`X-Model-*` headers, and the backend spends it on that one turn and keeps
-nothing: no disk, no log line (`backend/agent/keys.py`). On a device with no
-keystore available the screen says so — the key then lasts until the app closes.
-
-Two things worth knowing before demoing it:
-
-- **A key needs the backend.** The tools that produce every number live there, so
-  in fixture mode a stored key is stored for later, not used now. The copilot says
-  this rather than letting a canned reply look like a conversation.
-- **A key that does not work is reported, not swallowed.** A typo, an empty
-  quota, a model name that does not exist: the answer still arrives — the backend's
-  scripted router composes it from the same tools — and the copilot says the key
-  did not write it, with the provider's own reason. Unreadable keys never leave
-  the phone; `/model-key` applies the same rules the backend does.
-
-## The fixtures are bundled, not read
-
-The web app reads `mocks/` off disk at request time. A phone has no repository
-to read, so Metro bundles the same files into the app — `metro.config.js` watches
-`../mocks` so the requires in `lib/mocks.ts` resolve one directory up.
-
-One set of fixtures, no second copy inside `mobile/` to drift away from the
-first. The price is that every path in `lib/mocks.ts` is a literal: Metro
-resolves `require` at build time, so a template string bundles nothing and fails
-at runtime.
-
-## Keeping the two apps saying the same thing
-
-`lib/contract.ts` and `lib/format.ts` are copies of the web app's. Both apps
-answer to the same backend and must describe it the same way, and a copy is only
-safe if something notices when it stops being one:
+`lib/contract.ts` and `lib/format.ts` are copies of `frontend/lib/`. Only the
+header comment above the first export may differ.
 
 ```bash
-npm run check          # contract:check + typecheck
+npm run check           # contract:check (byte comparison) + typecheck (tsc --noEmit)
+npm run contract:check  # prints the first differing line and the cp command to fix it
+npm run doctor          # expo-doctor
 ```
 
-`contract:check` compares both files against `../frontend/lib` byte for byte,
-ignoring only the header comment above the first export. It fails loudly, because
-the point of begin.md's shared contract is that drift shows up here rather than
-on stage.
+## Tests
 
-## What is honest about this UI
-
-- **No number is computed here.** Balances, the runway date, the gap and every
-  forecast point come from the engine through the API. This app formats and
-  converts currency; that is all.
-- **Fixture mode says so.** The header reads as fixtures until a backend is
-  configured, and an approved action in fixture mode tells you nothing was
-  written to Nessie.
-- **Simulated fields are labelled**, because Nessie has no credit limit, APR or
-  credit score.
-- **A brought-along key is never re-used.** It is sent with the question it was
-  meant for and forgotten by the server; nothing about it is written down
-  anywhere but this phone.
-
-## Demo path (begin.md §9)
-
-Arm the demo data first, or the Safety tab is empty in live mode:
-
-```bash
-cd .. && python -m seed.reset_demo --arm
-```
-
-1. **Overview**, `$` ↔ `€` — the runway ends before the flight home.
-2. **Runway** → the options, each with a measured effect → *Can I afford it?* →
-   `47.34` → "Not yet", with the plan that turns it into a yes.
-3. **Ask** → the same question in words → the proposed action card → Approve.
-   Every other tab re-reads itself and the app walks you back to the overview:
-   the balance and the runway date actually move.
-4. **Safety** → *Send money* → the fake landlord transfer → the pause slides up
-   over the thing you were about to do.
-5. Same list, `Marta Aguirre` → goes through. That one matters: a check that
-   stops everything is not a feature, and a judge will ask.
+Jest is configured (`jest.config.js`, preset `jest-expo/ios`; `jest.setup.tsx`;
+`@testing-library/react-native`; an icon mock in `__mocks__/`). **There are no
+test files yet, and no `test` script.** Put tests under `__tests__/` or next to
+the code as `*.test.tsx`, and run `npx jest`.
 
 ## Layout
 
 ```
 app/
-  _layout.tsx        fonts, the data store, the stack the tabs live in
-  (tabs)/_layout.tsx the navy header and tab bar; six destinations
-  (tabs)/index.tsx   overview
-  (tabs)/runway.tsx  the projection, the fixes, affordability
-  (tabs)/bills.tsx   the bill decoder
-  (tabs)/credit.tsx  the credit builder
-  (tabs)/safety.tsx  alerts and the pre-transfer pause
-  (tabs)/copilot.tsx chat and the confirmation gate
-  model-key.tsx      bring your own model key, as a modal route
+  _layout.tsx           fonts (Fraunces, IBM Plex Sans/Mono), data store, root stack
+  (tabs)/_layout.tsx    header with persona switch and live/fixture status; the tab bar
+  (tabs)/index.tsx      Overview
+  (tabs)/runway.tsx     projection, fixes, affordability
+  (tabs)/bills.tsx      bill decoder
+  (tabs)/credit.tsx     credit builder
+  (tabs)/safety.tsx     alerts, Send money, pause sheet
+  (tabs)/copilot.tsx    Ask: chat, approval cards, who answered
+  model-key.tsx         the key form, as a modal
 components/
-  ui.tsx             panels, eyebrows, buttons — the stylesheet's classes, as components
-  forecast-chart.tsx the runway line, drawn from the forecast series
-  affordability.tsx  "can I afford it?", answered by the engine
-  fix-effect.tsx     what one fix buys, in the engine's own branch order
-  safety.tsx         alerts, the scenario runner, the pause sheet
-  persona-switch.tsx ana / raj / lucia, in the header
+  ui.tsx                panels, eyebrows, buttons
+  forecast-chart.tsx    runway line (react-native-svg)
+  affordability.tsx     "Can I afford it?"
+  fix-effect.tsx        what one fix buys, following the engine's branch order
+  safety.tsx            alerts, scenario runner, pause sheet
+  persona-switch.tsx    ana / raj / lucia
 lib/
-  contract.ts        every endpoint's response, as types   (copy of the web app's)
-  format.ts          money, dates, percentages             (copy of the web app's)
-  api.ts             mocks-or-backend, the one switch
-  mocks.ts           the bundled fixtures
-  secrets.ts         the model key, in the phone's keystore
-  store.tsx          one load, six tabs, the currency toggle and the model key
-  theme.ts           the design tokens, transcribed from globals.css
-scripts/
-  contract-check.mjs fails if the two contracts drift apart
+  contract.ts           response types (copy of the web app's)
+  format.ts             formatting (copy of the web app's)
+  api.ts                live/fixture switch, loopback rewrite, timeout
+  mocks.ts              bundled fixture map
+  secrets.ts            model key storage
+  store.tsx             shared data, currency toggle, key
+  theme.ts              design tokens
+scripts/contract-check.mjs
 ```
+
+App identifiers (`app.json`): name `EXTreasurer`, slug `exchangetreasurer`,
+scheme `treasurer`, bundle/package `com.exchangetreasurer.mobile`.

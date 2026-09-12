@@ -1,308 +1,346 @@
-# The API and the agent (P3) — handoff
+# API reference
 
-Written for P2, P4 and whoever is answering questions at the table. What runs,
-what it answers, and which parts are honest about being simulated.
+Base URL: `http://localhost:8000` locally, `https://exchangetreasurer.us` in
+production. JSON in and out; no authentication.
 
-## Run it
-
-```bash
-python -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/uvicorn backend.api.app:app --port 8000 --reload
-```
-
-No FastAPI? The same routes, from the standard library:
+## Running it
 
 ```bash
-python -m backend.api.serve 8000
+.venv/bin/uvicorn backend.api.app:app --port 8000 --reload   # FastAPI; docs at /docs
+.venv/bin/python -m backend.api.serve 8000                   # the same routes, standard library only
 ```
 
-Both serve identical JSON, because both are thin wrappers over
-`backend/api/handlers.py`, which imports no web framework. P1 kept the data layer
-dependency-free so a failed `pip install` could not kill the demo; this keeps that
-property for the API.
+Both are thin wrappers over `backend/api/handlers.py`, whose functions return
+`(status, dict)` and import no web framework. Both send CORS headers:
+`app.py` allows everything, and `serve.py` allows any origin plus
+`content-type` and the four `X-Model-*` headers. Browsers and phones can
+therefore call the API directly.
 
-Check what is live:
+## Conventions
 
-```bash
-curl -s localhost:8000/api/health | python -m json.tool
-curl -s 'localhost:8000/api/health?probe=1'        # also asks Nessie
-```
+- **Personas** are `ana`, `raj`, `lucia`. A customer id also resolves.
+- **Money** is in US dollars as numbers; **dates** are `YYYY-MM-DD`; timestamps
+  are `YYYY-MM-DDTHH:MM`.
+- **Metadata keys start with `_`**:
+  - `_engine`: who computed the payload, `backend.engine` or `p3-reference`.
+  - `_simulated`: fields Nessie does not have.
+  - `_note`: a human explanation.
+- **Errors** are `{"error": code, "message": text}`:
 
-`/api/health` names, per capability, whether **P2's engine** or **P3's reference
-projection** answered, and whether the agent is running on a **model**
-(and which one) or its **scripted router**. Nothing else in the app has to guess.
-
-`?probe=1` adds a live Nessie check through `NessieClient.check_access()`, which
-reports `{reachable, authorized, detail}`. It is opt-in because it makes a network
-call: reads on Nessie are ungated but writes need a valid key, so a bare
-`key_present` tells you nothing useful, and a health endpoint that can hang is
-worse than one that admits it did not check. A dead Nessie never makes the API
-report itself unhealthy.
+| Status | `error` | When |
+|---|---|---|
+| 404 | `unknown_user` | Persona does not exist |
+| 404 | `unknown_scenario` | `scenario` key on a transfer check does not exist |
+| 400 | `bad_amount` | `amount` missing or not numeric |
+| 400 | `empty_message` | Chat with no `message` |
+| 400 | `bad_model_key` | A brought-along model key is unreadable ([agent.md](agent.md#bring-your-own-key)) |
+| 400 | `bad_action` | Unsupported action type on propose |
+| 400 | `bad_json` | Body is not JSON (stdlib server only; FastAPI treats it as `{}`) |
+| 404 | `not_found` | Unknown route (stdlib server; FastAPI answers `{"detail": "Not Found"}`) |
+| 500 | `handler_failed` | Uncaught exception (stdlib server) |
 
 ## Endpoints
 
-Everything P4 calls, plus four that are useful at the table.
-
-| Method | Path | Notes |
+| Method | Path | Summary |
 |---|---|---|
-| GET | `/api/health` | Which engine, which agent mode, cache counts |
-| GET | `/api/users/{id}/summary` | Balances, runway date, target date, gap |
-| GET | `/api/users/{id}/forecast?target=` | Daily series + events. `target` optional |
-| GET | `/api/users/{id}/bills` | Bills with plain-language explanations |
-| GET | `/api/users/{id}/credit` | Balance, limit, utilization, suggested payment |
-| GET | `/api/users/{id}/alerts` | Open scam and card-anomaly alerts |
-| GET | `/api/users/{id}/activity?limit=` | Recent movements, newest first, signed amounts |
-| GET | `/api/users/{id}/profile` | Home city, arrival, flight home |
-| GET | `/api/users/{id}/fixes` | Candidate actions, each with its measured effect |
-| GET | `/api/scenarios` | The seeded scam/anomaly cases |
-| POST | `/api/users/{id}/affordability` | `{amount, when?}` → new runway date, safe maximum |
-| POST | `/api/transfers/check` | `{user, scenario}` or `{user, amount, payee_id?, description?}` |
-| POST | `/api/chat` | `{user, message, language?}` → reply + optional proposed action. Reads a brought-along model key off the headers — see [below](#using-your-own-key) |
-| POST | `/api/actions/propose` | Stage an action without going through chat |
-| POST | `/api/actions/{id}/confirm` | `{user, action}` → the only write path |
+| GET | [`/api/health`](#get-apihealth) | Who answers what; cache counts |
+| GET | [`/api/users/{user}/summary`](#get-apiusersusersummary) | Balances, runway, gap |
+| GET | [`/api/users/{user}/forecast`](#get-apiusersuserforecast) | Daily projection, events, fixes |
+| GET | [`/api/users/{user}/bills`](#get-apiusersuserbills) | Bills explained |
+| GET | [`/api/users/{user}/credit`](#get-apiusersusercredit) | Card utilization and advice |
+| GET | [`/api/users/{user}/alerts`](#get-apiusersuseralerts) | Open scam and anomaly alerts |
+| GET | [`/api/users/{user}/activity`](#get-apiusersuseractivity) | Recent movements |
+| GET | [`/api/users/{user}/profile`](#get-apiusersuserprofile) | Who the persona is |
+| GET | [`/api/users/{user}/fixes`](#get-apiusersuserfixes) | Candidate actions with measured effects |
+| GET | [`/api/scenarios`](#get-apiscenarios) | Seeded scam and anomaly cases |
+| POST | [`/api/users/{user}/affordability`](#post-apiusersuseraffordability) | Can they spend this? |
+| POST | [`/api/transfers/check`](#post-apitransferscheck) | Risk-check a transfer before it happens |
+| POST | [`/api/chat`](#post-apichat) | Ask the copilot |
+| POST | [`/api/actions/propose`](#post-apiactionspropose) | Stage an action without chat |
+| POST | [`/api/actions/{id}/confirm`](#post-apiactionsidconfirm) | Execute a staged action. The only write |
 
-Unknown persona is `404 unknown_user`. Bad input is `400`, never a `500`.
+Examples below are real responses for Ana on 2026-09-12, trimmed.
 
-## The two design rules this layer enforces
+### `GET /api/health`
 
-**The LLM never calculates.** Every tool in `backend/agent/tools.py` returns data
-from P2's engine or P1's cache. The model picks tools and writes prose; it is told
-in the system prompt that any number not in a tool result is one it may not say.
-`used_tools` comes back on every chat reply so the trace is visible on screen —
-that is the cheapest possible answer to "how do you stop it hallucinating numbers?"
+`?probe=1` also checks Nessie. It GETs `/customers`, then POSTs an empty
+customer: the key is validated before the body, so this reveals whether writes
+would work while creating nothing. The probe is opt-in because it makes network
+calls. A dead Nessie never makes health report `ok: false`.
 
-**Every write needs confirmation.** `backend/api/actions.py` is the only module
-that moves money. Chat can only *propose*; the proposal gets an id and sits in
-memory until `POST /api/actions/{id}/confirm` arrives. `test_the_agent_cannot_move_money`
-asserts that asking the agent to move $500 changes no balance.
-
-## Being honest about simulations
-
-`executed_in_nessie` is `false` whenever the write only reached the local cache —
-no API key, Nessie refused, or the action has no Nessie equivalent (spending caps,
-card freezes). P4 prints that flag. It says `false` rather than something
-flattering, deliberately.
-
-Proposed actions carry `effect.measured`. When the live engine's `forecast()`
-cannot model a hypothetical event, the effect is measured with P3's reference
-projection and labelled `measured_by: "p3-reference"` — with the *before* taken
-from the same projection, so the two dates on the approval card come from one
-engine rather than two. If it cannot be measured at all, `runway_date_after` is
-`null` and `measured_note` says why. An approval card that shows an unchanged date
-for an action that does help is a wrong number in front of a judge.
-
-## The seam with P2
-
-`backend/api/engine_port.py` resolves each capability to `backend.engine` if it
-has one and `backend/api/reference.py` otherwise, **per function, re-checked every
-call**. P2's engine takes over the moment it imports; nothing restarts.
-
-> **It imports again, from bytecode.** `backend/engine/` still has no source —
-> the `.py` files were lost and were never committed to any branch. What survived
-> was the compiled output, so the ten modules are restored as sourceless `.pyc`
-> next to where their source belongs, which Python imports directly. All twelve
-> capabilities resolve to `backend.engine` and payloads say
-> `"_engine": "backend.engine"`.
->
-> Two things follow. The bytecode is built for **one** Python version (3.13, what
-> `.venv` runs); on any other the import fails and the port falls back to the
-> reference with a warning in the log — so check `engine_module` in
-> `/api/health` before a demo rather than assuming. And nobody can edit the
-> engine until someone recommits the source from the machine that still has it.
-> `*.pyc` is in `.gitignore`, so these files need `git add -f` to be tracked at
-> all; treat the copy in git as a hedge, not a substitute for the source.
-
-The reference is not a competing engine, and it is not a forecast: it reads the
-generator's own calibrated burn rate, which by P2's standard is grading its own
-homework. That is the right trade for what it is — a stand-in whose one job is to
-reproduce P1's published numbers, asserted field by field and persona by persona
-in `TestReferenceMatchesCalibration` — so the API answered before the engine
-landed and still answers if a change breaks it mid-event — which is the situation
-it is holding up today. Every number the app shows comes from `backend.engine`
-whenever it is importable; check `/api/health` rather than assuming.
-
-What the reference costs, for when it is the one answering: it does not return
-`already_short` or `max_safe_through` on affordability, nor `days_gained` on a
-fix's effect, so the screens that want those drop to their less precise branch and
-five tests in `tests/test_integration.py` fail. Those five were one missing
-module, not five bugs — they pass with the engine loaded, and they are the check
-that says whether it really is.
-
-One hook the reference has and P2's forecast does not yet:
-
-```python
-forecast(conn, user, target=None, extra_events=[{"date": ..., "amount": ..., "label": ...}])
+```json
+{
+  "ok": true, "service": "exchangetreasurer-api", "as_of": "2026-09-12",
+  "cache": {"customers": 6, "accounts": 12, "merchants": 30, "purchases": 480, "bills": 12,
+            "deposits": 23, "withdrawals": 35, "transfers": 4, "payees": 2},
+  "personas": ["ana", "lucia", "raj"],
+  "nessie": {"base_url": "https://api.nessieisreal.com", "key_present": true, "probed": false},
+  "agent": {
+    "mode": "llm", "provider": "gemini", "model": "gemini-flash-latest",
+    "anthropic_sdk": true, "api_key_present": true,
+    "tools": ["get_summary", "get_forecast", "check_affordability", "…"],
+    "byok": {"accepted": ["gemini", "anthropic", "openai"],
+             "headers": {"provider": "x-model-provider", "key": "x-model-key",
+                         "model": "x-model-name", "base_url": "x-model-base-url"}}
+  },
+  "engine": {
+    "engine_module": "backend.engine",
+    "capabilities": {"summary": "backend.engine", "forecast": "backend.engine", "…": "…"},
+    "from_p2": ["activity", "affordability", "…"], "from_reference": []
+  }
+}
 ```
 
-Signed amounts, merged into the projection like any scheduled event. It is what
-measures an action's before/after. `engine_port.accepts("forecast", "extra_events")`
-reports whether the live engine takes it.
+With probing: `nessie` gains `probed: true`, `reachable`, `authorized`, `detail`.
 
-### A note on rounding, and a warning about diagnosing with it
+### `GET /api/users/{user}/summary`
 
-The reference rounds only on the way into `series`, and tracks `min_balance` and
-`runway_date` off the unrounded value. Rounding the *running* balance instead
-loses a fraction of a cent per step, and over a ~50-day projection that is enough
-to move the runway date by a day when the balance is calibrated to land just
-under the buffer. `test_rounding_does_not_drift` asserts the stepped balance
-equals the same balance computed in one shot.
-
-Worth recording how that theory was misapplied. P3's reference and P2's engine
-disagreed by one day on Ana, and this was diagnosed — by me — as that rounding
-bug in the engine. It was not. Holding the projection fixed and varying only the
-burn rate reproduced each side's numbers exactly: the engine measures the rate
-from the transactions, while P1's generator projected from the knob it had solved
-for, and the two differed in the fourth decimal place. Same arithmetic, different
-input. P1 has since retuned so the measured rate and the solved knob agree.
-
-The lesson for anyone chasing the next one-day disagreement: vary one input at a
-time against a fixed projection before blaming the projection. `_project()` takes
-the burn rate through `daily_burn()`, so this is a two-line experiment.
-
-## The agent
-
-Two modes, chosen by whether there is a model key.
-
-- **llm** — a model with eleven tools, up to six tool-calling turns. If the API
-  errors or is throttled mid-demo it falls back to the scripted router and says so
-  in `_fell_back`.
-- **scripted** — no key, no network. Routes the question to the same tools by
-  keyword and formats the answer from the same numbers.
-
-Three providers answer to the **llm** contract, and `/api/health` names the live
-one in `agent.provider`:
-
-| Provider | Key | Model setting |
-| --- | --- | --- |
-| `gemini` | `GEMINI_API_KEY` | `TREASURER_GEMINI_MODEL` (default `gemini-flash-latest`) |
-| `anthropic` | `ANTHROPIC_API_KEY` | `TREASURER_MODEL` (default `claude-sonnet-5`) |
-| `openai` | `OPENAI_API_KEY` | `TREASURER_OPENAI_MODEL` (default `gpt-4o-mini`), `OPENAI_BASE_URL` |
-
-`TREASURER_PROVIDER` pins one; unset, whichever key is present answers, Gemini
-first. Each speaks a different wire shape, so each has its own turn loop in
-`loop.py` and its own transport: Gemini's tool calls arrive as `functionCall`
-parts and results go back as `functionResponse` parts in a *user* turn; OpenAI's
-arrive as `tool_calls` on the assistant message and each result goes back as its
-own `role: "tool"` message. All three loops call the same `tools.run`, so a tool
-never learns which model asked. Both transports are urllib, not a new dependency:
-`requirements.txt` installs nothing that the fallback needs.
-
-`openai` is the chat-completions *shape*, not only OpenAI. With `OPENAI_BASE_URL`
-(or the per-request header below) it is also OpenRouter, Groq, Together, vLLM or a
-model running on the same laptop — one transport, several favourite models.
-
-Gemini's free tier is 20 requests a day per model, and one chat turn spends one
-per tool round. Expect `_fell_back` with an HTTP 429 once that runs out — the
-answer is still correct, it is just the router's phrasing. A paid key, or a
-lighter model in `TREASURER_GEMINI_MODEL`, buys more room.
-
-All three answer in the language the question was asked in (`detect_language`),
-not merely the persona's own, and all return `used_tools` and any
-`proposed_action`.
-
-## Using your own key
-
-Everything above configures *this* server's key. A judge, a teammate on a train
-or a phone on someone else's wifi has their own key and no way to put it in our
-`.env` — so `POST /api/chat` accepts one per request:
-
-| Header | |
-| --- | --- |
-| `X-Model-Provider` | `gemini`, `anthropic` or `openai`. Optional: inferred from `sk-ant-`, `AIza`, `sk-` |
-| `X-Model-Key` | the key |
-| `X-Model-Name` | optional model, e.g. `gemini-3-flash`, `llama3.1:8b` |
-| `X-Model-Base-URL` | `openai` only: an OpenAI-compatible endpoint. https, or http to localhost |
-
-```bash
-curl -s localhost:8000/api/chat \
-  -H 'content-type: application/json' \
-  -H "X-Model-Key: $GEMINI_API_KEY" \
-  -d '{"user":"ana","message":"What should I do?"}' | python -m json.tool
+```json
+{
+  "user": "ana", "name": "Ana Etxeberria", "as_of": "2026-09-12",
+  "accounts": [
+    {"id": "…", "type": "Checking", "nickname": "Ana Checking", "balance": 1552.93},
+    {"id": "…", "type": "Credit Card", "nickname": "Ana Student Card", "balance": 312.4,
+     "limit": 500.0, "utilization": 0.6248},
+    {"id": "…", "type": "Savings", "nickname": "Ana Savings", "balance": 2600.0}
+  ],
+  "runway_date": "2026-10-10", "target_date": "2026-10-31", "gap": 425.9,
+  "safety_buffer": 100.0, "daily_burn": 10.65, "days_of_runway": 28,
+  "currency": "USD", "home_currency": "EUR", "fx_rate": 0.92, "language": "es",
+  "open_alerts": 0,
+  "_simulated": ["limit", "utilization", "fx_rate"], "_engine": "backend.engine"
+}
 ```
 
-A key sent this way beats `TREASURER_PROVIDER` and the server's own keys: the
-person asking pasted it in to be used, and quietly billing somebody else instead
-would be the wrong answer given silently.
+`runway_date: null` means the money lasts past the target date.
 
-**Nothing keeps it.** `backend/agent/keys.py` parses the headers into a
-`Credential`, the turn spends it, and it is gone — no disk, no sqlite, no log
-line, and a redacted `__repr__` so it cannot reach a traceback either. The device
-that sent it is the only thing that remembers: `localStorage` in the browser
-(`frontend/lib/model-key.ts`), the phone's keystore on a device
-(`mobile/lib/secrets.ts`). Headers rather than the body because a body is the
-thing most likely to be echoed into a debug print, and neither transport puts a
-key in a URL — Gemini takes `X-goog-api-key`, OpenAI takes `Authorization`.
+### `GET /api/users/{user}/forecast`
 
-Every reply says who answered it, so the copilot can stop claiming a model wrote
-something the router did:
+Query: `target=YYYY-MM-DD` (default: flight home).
 
-| Field | |
-| --- | --- |
-| `_provider` | `gemini`, `anthropic`, `openai`, or `scripted` |
-| `_key_source` | `user`, `server`, or `null` when no model answered |
-| `_fell_back` | why the model path was abandoned, when it was |
-| `_key_rejected` | true when the *brought-along* key is the reason — the user's to fix |
-
-Two failure modes, deliberately different. A key this backend cannot read at all
-is `400 bad_model_key` with a message saying which way it is unreadable ("A key
-has no spaces or line breaks in it"). A key that reads fine but does not work — a
-typo, an empty quota, a model name that does not exist, a provider this backend
-has no SDK for — answers `200` from the scripted router with `_key_rejected: true`,
-because a wrong answer is worse than a plain one and no answer is worse than both.
-
-`/api/health` carries `agent.byok.accepted` (the providers this build can speak;
-`anthropic` drops out where its SDK is missing) and `agent.byok.headers`, so a
-settings screen can be built from the answer rather than from a guess.
-
-Where the engine writes its own explanation — `affordability().reason` does, and
-it is written from the numbers it just computed — the scripted router quotes it
-rather than re-templating. That text is English-only today, so Spanish still goes
-through the router's own phrasing. If the engine gains translated reasons, drop
-the language check in `_scripted`.
-The scripted router answers every §9 demo question with real numbers. That is
-deliberate: an LLM API is one more thing that can be down at 9 a.m. on stage.
-
-## Tests
-
-```bash
-python -m unittest discover tests      # P1, P2 and P3
-python -m unittest tests.test_api      # this layer
+```json
+{
+  "user": "ana", "target": "2026-10-31",
+  "runway_date": "2026-10-10", "gap": 425.9,
+  "min_balance": -325.9, "min_balance_date": "2026-10-31",
+  "daily_burn": 10.65, "safety_buffer": 100.0, "starting_balance": 1552.93,
+  "series": [{"date": "2026-09-12", "balance": 1552.93, "events": []},
+             {"date": "2026-09-13", "balance": 1542.28, "events": []}],
+  "events": [{"date": "2026-09-15", "amount": -30.0, "label": "Gym", "kind": "bill"},
+             {"date": "2026-09-20", "amount": -15.99, "label": "Streaming", "kind": "bill"}],
+  "burn_profile": {"daily_burn": 10.65, "mean": 12.34, "weekday_median": 8.77,
+                   "weekend_median": 12.39, "days_observed": 30,
+                   "per_day_by_category": {"groceries": 5.94, "dining": 2.79},
+                   "method": "median of the last 30 days, zero-filled"},
+  "fixes": ["… same shape as /fixes …"],
+  "applied": [], "also_detected": [], "_engine": "backend.engine"
+}
 ```
 
-### The chat fixture
+### `GET /api/users/{user}/bills`
 
-`mocks/api_chat_response.json` is what P4 renders when the backend is down, which
-is also the backup-video path. P1's exporter seeds it only if missing and never
-overwrites it, so keeping it truthful is P3's job:
-
-```bash
-python -m seed.export_chat_fixture
+```json
+{
+  "user": "ana",
+  "bills": [
+    {"id": "…", "nickname": "Gym", "payee": "Planet Fitness", "amount": 30.0,
+     "next_date": "2026-09-15", "days_away": 3, "recurring_day": 15, "cadence": "monthly",
+     "category": "fitness", "covered": true, "usual_amount": 30.0, "times_paid": 3,
+     "payments_left": 2,
+     "explanation": "Gym membership. US gyms usually need written cancellation notice, so cancel before you fly home or it keeps charging."},
+    {"nickname": "Streaming", "payee": "Spotify", "amount": 15.99, "next_date": "2026-09-20",
+     "heads_up": "Free trial ends 2026-09-21, then 15.99/month", "…": "…"}
+  ]
+}
 ```
 
-Run it whenever the reply changes — a retuned dataset, a new engine `reason`, a
-change to the router. `TestChatFixture` fails if the committed fixture and the
-live agent disagree about the language or about whether an action is proposed. It
-previously answered "Sí, puedes ir" where the live agent answers "Ahora mismo no",
-which would have put two different answers on stage depending on the laptop's mode.
+### `GET /api/users/{user}/credit`
 
-`TestHttpRoutes.test_the_full_demo_path` walks §9 in order over real HTTP:
-dashboard → Spanish chat → approve the fix → runway moves out → the fake landlord
-pauses → the real roommate does not.
-
-## Layout
-
+```json
+{
+  "user": "ana", "account_id": "…", "balance": 312.4, "limit": 500.0, "utilization": 0.6248,
+  "apr": 24.99, "statement_day": 22, "suggested_payment": 162.4, "available": 187.6,
+  "interest_if_carried": 6.51,
+  "tip": "You are using 62% of your limit. Paying it down below 30% (about $162.40) is what US credit scoring rewards.",
+  "explanations": [{"title": "Current balance is not what you owe this month", "body": "…"}]
+}
 ```
-backend/api/
-  handlers.py     routes as plain functions; no web framework
-  app.py          FastAPI wrapper
-  serve.py        the same routes on http.server
-  engine_port.py  the seam with P2; per-capability resolution
-  reference.py    P3's stand-in engine, matching P1's calibration
-  actions.py      the confirmation gate — the only write path
-backend/agent/
-  prompts.py      system prompt and persona context
-  tools.py        eleven tools, all data, none of them execute
-  loop.py         provider choice, the two tool loops, the scripted router
-  gemini.py       Gemini transport: schema translation and one POST
-tests/test_api.py
+
+Limit, APR and utilization are simulated.
+
+### `GET /api/users/{user}/alerts`
+
+`{"user": "ana", "alerts": [ … ]}`. The list is empty until scenarios are fired
+(`seed.reset_demo --arm`); armed, Ana has four. Each alert has a title such as
+"Transfer paused", "Unusual card activity" or "Purchases too far apart", and
+the reasons behind it.
+
+### `GET /api/users/{user}/activity`
+
+Query: `limit` (default 8).
+
+```json
+{"user": "ana", "items": [
+  {"id": "…", "label": "Trader Joe's", "category": "groceries",
+   "occurred_at": "2026-09-12T21:09", "amount": -29.73, "kind": "purchase"}
+]}
 ```
+
+`kind` is `purchase`, `deposit`, `withdrawal` or `transfer`. Money out is negative.
+
+### `GET /api/users/{user}/profile`
+
+```json
+{"name": "Ana Etxeberria", "home_city": "Bilbao, Spain", "city": "Omaha", "state": "NE",
+ "language": "es", "arrival_date": "2026-06-12", "flight_home_date": "2026-10-31",
+ "home_currency": "EUR", "fx_rate": 0.92}
+```
+
+### `GET /api/users/{user}/fixes`
+
+```json
+{"user": "ana", "fixes": [
+  {"id": "cap_dining", "type": "category_cap", "label": "Cap dining at $12 a week",
+   "amount": 54.69,
+   "detail": "You spend about $2.79 a day on dining. Cutting that by 40% saves $1.12 a day until you fly home.",
+   "effect": {"runway_date_before": "2026-10-10", "runway_date_after": "2026-10-10",
+              "lasts_past_target": false, "days_gained": 0,
+              "gap_before": 425.9, "gap_after": 371.21, "min_balance_after": -271.21,
+              "clears_the_gap": false},
+   "in_plan": true,
+   "effect_with_plan": {"runway_date_after": null, "lasts_past_target": true, "days_gained": 21,
+                        "gap_after": 0.0, "min_balance_after": 128.79, "clears_the_gap": true}},
+  {"id": "cancel_…", "type": "cancel_subscription", "label": "Cancel Streaming before the trial ends", "…": "…"}
+]}
+```
+
+`label_parts` carries the label's structured pieces, for translation.
+
+### `GET /api/scenarios`
+
+`{"scenarios": [{"key": "fake_landlord", "persona": "ana", "kind": "transfer",
+"title": "Fake landlord deposit", "expect": "pause", "amount": 800.0,
+"description": "URGENT apartment deposit - pay today or you lose the place", …}, …]}`
+
+### `POST /api/users/{user}/affordability`
+
+Body: `{"amount": 47.34, "when": "2026-09-13"}`. `when` is optional (alias
+`date`); other fields are ignored.
+
+```json
+{
+  "amount": 47.34, "when": "2026-09-13", "affordable": false,
+  "runway_date_before": "2026-10-10", "runway_date_after": "2026-10-10", "days_lost": 0,
+  "min_balance_after": -373.24, "min_balance_date_after": "2026-10-31", "gap_after": 473.24,
+  "max_safe_amount": 0.0, "max_safe_through": "2026-10-31", "max_without_moving_runway": 49.38,
+  "already_short": true,
+  "if_you_fix_first": {"plan": ["Cap dining at $12 a week", "Move $400 from savings"],
+                       "max_safe_amount": 28.78, "max_safe_through": "2026-10-31",
+                       "runway_date_after": null, "closes_the_gap": true},
+  "reason": "Not yet. Your money already runs out on 2026-10-10, before your flight, so nothing is genuinely spare. …"
+}
+```
+
+### `POST /api/transfers/check`
+
+Either a seeded scenario:
+
+```json
+{"scenario": "fake_landlord"}
+```
+
+or a transfer described directly (`user` defaults to `ana`):
+
+```json
+{"user": "ana", "amount": 800, "payee_id": "…", "payee_name": "Michael Reyes", "description": "URGENT deposit"}
+```
+
+Response:
+
+```json
+{
+  "amount": 800.0, "payee": "Michael Reyes", "risk_score": 84, "pause": true, "verdict": "pause",
+  "reasons": ["You have never sent money to this payee", "This is 52% of your checking balance", "…"],
+  "questions": ["Did someone contact you and pressure you to pay right now?", "…"],
+  "signals": [{"code": "new_payee", "points": 30, "reason": "…", "detail": "first payment to this account"}],
+  "known_payee": false, "runway_date_after": "2026-10-01", "scenario": "fake_landlord"
+}
+```
+
+Nothing is sent; this only scores.
+
+### `POST /api/chat`
+
+Body: `{"user": "ana", "message": "¿Puedo permitirme ir a Chicago este finde? Unos 250$", "language": "es"}`.
+`language` is optional; by default the reply matches the language of the
+message. Optional headers carry the user's own model key; see
+[agent.md](agent.md#bring-your-own-key).
+
+```json
+{
+  "reply": "Ahora mismo no …",
+  "language": "es",
+  "used_tools": ["get_summary", "check_affordability", "suggest_fixes", "propose_transfer"],
+  "proposed_action": {
+    "id": "act_3f9c2a71b0", "type": "transfer", "from": "savings", "to": "checking",
+    "amount": 400.0, "label": "Move $400 from savings",
+    "effect": {"runway_date_before": "2026-10-10", "gap_before": 425.9,
+               "runway_date_after": "…", "gap_after": "…", "measured": true,
+               "measured_by": "backend.engine"}
+  },
+  "_mode": "llm", "_provider": "gemini", "_key_source": "server"
+}
+```
+
+| Field | Meaning |
+|---|---|
+| `used_tools` | Every tool called this turn, in order. The audit trail for "where did that number come from" |
+| `proposed_action` | A staged action to show as an approval card, or `null` |
+| `_mode` | `llm` or `scripted`: who actually answered |
+| `_provider` | `gemini`, `anthropic`, `openai` or `scripted` |
+| `_key_source` | `user`, `server`, or `null` if no model answered |
+| `_fell_back` | Present when the model path failed: a one-line reason |
+| `_key_rejected` | `true` when the user's own key is the reason |
+
+### `POST /api/actions/propose`
+
+Stages an action exactly as the agent would. Body is either
+`{"user": "ana", "action": {…}}` or the action itself with `user` alongside.
+
+| `type` | Fields | On confirm |
+|---|---|---|
+| `transfer` | `amount`, `from` (`savings`), `to` (`checking`), `label` | Moves money between the user's accounts in the cache; best-effort write to Nessie |
+| `spending_cap` | `category`, `weekly_cap`, `amount` (estimated savings), `label` | Saved in `meta.spending_caps`. Ours; Nessie has no equivalent |
+| `bill_payment` | `amount` | Debits checking in the cache |
+| `freeze_card` | `reason` | Sets `is_frozen` on the credit card. Simulated |
+
+It returns the stored record with `id` (`act_…`), `status: "proposed"` and a
+measured `effect`: `runway_date_before`, `gap_before`, `runway_date_after`,
+`gap_after`, `min_balance_after`, `measured`, `measured_by`, `measured_note`.
+An effect that cannot be measured has `runway_date_after: null` and a note. It
+never echoes an unchanged date.
+
+### `POST /api/actions/{id}/confirm`
+
+Body: `{"user": "ana", "action": { …the proposed_action… }}`. The action is
+optional, but send it. Proposed actions live **in memory**; if the API
+restarted between propose and confirm, the gate rebuilds the action from what
+you post.
+
+```json
+{
+  "id": "act_3f9c2a71b0", "status": "executed",
+  "message": "Moved $400.00 from savings to checking. No NESSIE_API_KEY set, so the transfer stayed in the local cache.",
+  "runway_date_after": null, "executed_in_nessie": false,
+  "action": { "…the record, now status executed…": "" }
+}
+```
+
+- `status` is `executed` or `failed` (unknown and expired id, insufficient
+  balance, missing account).
+- Confirming twice returns `duplicate: true` and moves nothing.
+- `executed_in_nessie` is `true` only if Nessie accepted the write. Caps,
+  freezes and bill payments are always local.
+
+**This is the only code path that changes a balance.** Approving really moves
+money in the cache; reset between rehearsals.

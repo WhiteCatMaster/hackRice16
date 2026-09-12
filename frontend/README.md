@@ -1,152 +1,141 @@
-# EXTreasurer — frontend (P4)
+# EXTreasurer web app
 
-The web app from [begin.md §7](../begin.md): dashboard with the runway chart,
-bill decoder, credit builder, safety centre with the pre-transfer pause, and the
-copilot with an approval gate in front of every write. The copilot will answer
-with your own model key if you give it one — see [Your own model](#your-own-model).
+Next.js 16 (App Router), React 19, Tailwind 4. The screens:
 
-## Run it
+- **Overview**: balances in dollars or the home currency, the runway, upcoming
+  bills, alerts.
+- **Runway**: the projection chart, the engine's fixes, "Can I afford it?".
+- **Bills**: every bill explained, trial warnings.
+- **Credit**: utilization and how US credit scoring works.
+- **Safety**: alerts, a *Send money* scenario runner, the pre-transfer pause.
+- **Copilot**: chat with approval cards, and *Use your own key*.
 
-Node 20+ and pnpm (`npm i -g pnpm`).
+## Run
+
+Node 20+ and pnpm.
 
 ```bash
 pnpm install
-pnpm dev        # http://localhost:3000
+pnpm dev            # http://localhost:3000
+pnpm dev:https      # https://localhost:3000; run `pnpm cert` once first
+pnpm build && pnpm start
 ```
 
-Over HTTPS instead:
+Personas: `/?user=ana` (default), `/?user=raj`, `/?user=lucia`.
+
+## Two modes, one variable
 
 ```bash
-pnpm dev:https  # https://localhost:3000
+# frontend/.env.local
+TREASURER_API_BASE=http://127.0.0.1:8000
 ```
 
-The certificate in `certificates/` is self-signed and only covers `localhost`,
-`*.localhost`, `127.0.0.1` and `::1`, so the browser warns once and you accept
-it. It is not committed — `pnpm cert` makes a fresh one (valid a year) if it is
-missing or expired. Nothing outside your machine should ever trust it.
-
-No API key, no backend, no network needed. With `TREASURER_API_BASE` unset the app
-reads P1's fixtures from `../mocks`. If that folder is missing, generate it:
-
-```bash
-cd .. && python -m seed.reset_demo
-```
-
-Personas: `/?user=ana` (the demo), `/?user=raj`, `/?user=lucia`.
-
-## Switching to the real backend
-
-```bash
-cp .env.example .env
-# TREASURER_API_BASE=http://localhost:8000
-```
-
-That is the only change. The top bar says which mode you are in, so nobody
-demos fixtures thinking they are live.
-
-## How the data gets in
-
-```
-components/*  ──►  app/api/**/route.ts  ──►  lib/api.ts  ──┬─► P3's FastAPI   (TREASURER_API_BASE set)
-(client)           (the contract, mirrored)                └─► ../mocks/*.json (otherwise)
-
-app/page.tsx ─────────────────────────────────────────────► lib/api.ts (server, no HTTP hop)
-```
-
-`lib/contract.ts` types every endpoint in the §7 table. The routes under
-`app/api` mirror those paths exactly, so a client component calls
-`/api/transfers/check` whether or not P3 is up.
-
-Three shapes the screens need that §7 does not define:
-
-| Needs | Mock mode | Live mode |
+| `TREASURER_API_BASE` | Data comes from | Top bar |
 |---|---|---|
-| Recent activity | derived from `<persona>_snapshot.json` | `GET /api/users/{id}/activity`, empty if absent |
-| Home city, arrival date | `<persona>_snapshot.json` → `customer` | `GET /api/users/{id}/profile`, header degrades if absent |
-| "Can I afford $X?" | *nothing* — the card says so | `POST /api/users/{id}/affordability` |
+| unset | `../mocks/*.json`, read at request time | **RUNNING ON FIXTURES** · mocks/ · as of … |
+| set | The API ([docs/api.md](../docs/api.md)) | Live |
 
-The first two degrade instead of breaking. Affordability cannot: the answer
-depends on the amount typed, so there is no fixture to pre-export and the card
-asks for the backend rather than inventing a number.
+Restart the dev server after changing it. Also available: `TREASURER_MOCKS_DIR`
+(default `../mocks`) and `TREASURER_USER` (default `ana`).
+[docs/configuration.md](../docs/configuration.md#frontendenvlocal)
 
-## Your own model
+What fixture mode cannot do:
 
-The copilot's prose comes from whatever model the backend has a key for: one
-key, in one `.env`, on one laptop. Anyone else opening this app has their own —
-so **Copilot → Use your own key** takes it.
+- **Affordability** has no fixture, because the answer depends on the typed
+  amount. The card asks for a backend instead of inventing a number.
+- **Chat** returns the one pre-generated reply (`mocks/api_chat_response.json`).
+- **Approving** returns "Running on fixtures, so nothing was written to Nessie."
 
-Three providers, because the backend speaks three (`GET /api/health` →
-`agent.byok.accepted` is the live list): Google Gemini (`AIza…`), Claude
-(`sk-ant-…`), and anything speaking OpenAI's chat-completions shape (`sk-…`) —
-OpenAI itself, OpenRouter, Groq, or a model running on the machine with the
-backend, via the optional endpoint field.
+Activity and profile are derived from `mocks/<persona>_snapshot.json`.
 
-Where it goes: `lib/model-key.ts` keeps it in this browser's `localStorage`.
-`app/api/chat/route.ts` copies it from the request to the backend as the
-`X-Model-*` headers and forgets it — it is never read, logged or stored in that
-hop — and the backend spends it on that one turn and keeps nothing
-(`backend/agent/keys.py`). The phone does the same thing against its keystore.
+## How data flows
 
-Two things worth knowing before demoing it:
+```
+app/page.tsx (server component) ──► lib/api.ts ──┬─► TREASURER_API_BASE   (live)
+                                                  └─► ../mocks/*.json      (fixtures)
 
-- **A key needs the backend.** The tools that produce every number live there, so
-  in fixture mode a stored key has nothing to spend it — the panel says so.
-- **A key that does not work is reported, not swallowed.** A typo, an empty
-  quota, a model name that does not exist: the answer still arrives, composed by
-  the backend's scripted router from the same tools, and the copilot says the key
-  did not write it and why.
-
-## What is honest about this UI
-
-- **No number is computed here.** Balances, the runway date, the gap, the burn
-  rate and every forecast point come from the engine through the API. The
-  frontend formats and converts currency; that is all.
-- **Fixture mode says so.** The status line in the top bar reads `RUNNING ON
-  FIXTURES` until a backend is configured, and an approved action in fixture
-  mode tells you nothing was written to Nessie.
-- **Simulated fields are labelled.** The credit view prints whatever the
-  backend puts in `_simulated`, because Nessie has no credit limit, APR or
-  credit score.
-- **The answer says who wrote it.** A reply composed with your own key says so
-  under the bubble; one that fell back to the scripted router does not claim
-  otherwise.
-
-## Demo path (begin.md §9)
-
-Arm the demo data first, or the Safety centre is empty in live mode:
-
-```bash
-cd .. && python -m seed.reset_demo --arm
+components/* (browser) ──► /api/... (app/api/**/route.ts) ──► lib/api.ts ──► same switch
 ```
 
-1. Dashboard, `$` ↔ `€` toggle — the runway ends before the flight home.
-2. **Runway** → *Your options* (what the engine would do about it, each with a
-   measured effect) → *Can I afford it?* → type `47.34` → "Not yet", with the
-   plan that turns it into a yes.
-3. **Copilot** → the same question in words → the proposed action card →
-   Approve. The dashboard behind it re-reads itself: the balance and the runway
-   date actually move.
-4. **Safety center** → *Send money* → the fake landlord transfer → the pause.
-5. Same list, `Marta Aguirre` → goes through. That one matters: a check that
-   stops everything is not a feature, and a judge will ask.
+The page loads summary, forecast, bills, credit, alerts, activity and profile on
+the server in one pass. Client components call the Next routes under `app/api/`,
+which mirror the backend's paths exactly:
+
+| Next route | Backend |
+|---|---|
+| `GET /api/users/[id]/{summary,forecast,bills,credit,alerts,activity,profile}` | same path |
+| `POST /api/users/[id]/affordability` | same path |
+| `POST /api/transfers/check` | same path |
+| `POST /api/chat` | same path; copies only the `X-Model-*` headers across |
+| `POST /api/actions/[id]/confirm` | same path |
+
+After an approval the copilot calls `router.refresh()`, and the server component
+re-reads everything, so the balance and runway visibly move.
+
+In production, nginx sends `/api/` straight to FastAPI, so these routes are
+bypassed there ([docs/deployment.md](../docs/deployment.md#what-production-actually-serves)).
+
+## Your own model key
+
+**Copilot → Use your own key.**
+- Providers: Gemini (`AIza…`), Claude (`sk-ant-…`), or any OpenAI-compatible
+  endpoint (`sk-…`, plus an optional base URL and model).
+- Storage: `lib/model-key.ts` keeps the key in this browser's `localStorage`
+  (`extreasurer.model-key`). Every access is guarded, because private windows
+  throw.
+- Transport: `app/api/chat/route.ts` forwards it as headers without reading or
+  logging it. The backend spends it on one turn and keeps nothing.
+
+The copilot shows who answered each reply. If the key does not work, it says
+why, and the answer still arrives from the scripted router.
+[docs/agent.md](../docs/agent.md#bring-your-own-key)
+
+A key needs a live backend: in fixture mode there is nothing to spend it on, and
+the panel says so.
+
+## Rules this UI keeps
+
+- **No number is computed here.** It formats money, dates and percentages, and
+  converts currency with the API's `fx_rate`. Nothing else.
+- Fixture mode is announced, simulated fields (`_simulated`) are labelled, and
+  `executed_in_nessie: false` is shown as such.
 
 ## Layout
 
 ```
 app/
-  page.tsx          server component; loads everything, renders the dashboard
-  api/              the §7 contract, proxying to P3 or serving mocks/
-  globals.css       the design system (warm paper, editorial type)
+  page.tsx              server component: loads everything, renders the dashboard
+  layout.tsx            fonts, metadata
+  globals.css           design system
+  api/**/route.ts       proxies mirroring the backend contract
 components/
-  dashboard.tsx     the shell and the five views
-  affordability.tsx "can I afford it?", answered by the engine
-  forecast-chart.tsx  the runway line, drawn from the forecast series
-  copilot.tsx       chat, proposed actions, the confirmation gate
-  model-key.tsx     bring your own model key
-  safety.tsx        alerts, the scenario runner, the pause modal
+  dashboard.tsx         shell, navigation, Overview/Runway/Bills/Credit/Safety views
+  forecast-chart.tsx    the runway line
+  affordability.tsx     "Can I afford it?"
+  copilot.tsx           chat, approval cards, who-answered labels
+  model-key.tsx         the key form
+  safety.tsx            alerts, scenario runner, pause modal
+  ui/button.tsx         shadcn button
 lib/
-  contract.ts       every endpoint's response, as types
-  api.ts            mocks-or-backend, the one switch
-  format.ts         money, dates, percentages
-  model-key.ts      the user's own model key, in this browser only
+  contract.ts           TypeScript types for every response (copied verbatim to mobile/lib)
+  api.ts                the live/fixture switch
+  format.ts             money, dates, percentages (copied verbatim to mobile/lib)
+  model-key.ts          localStorage key store
+  utils.ts              cn()
+certificates/openssl.cnf  config for the local self-signed cert
 ```
+
+## Checks
+
+```bash
+npx tsc --noEmit    # needed: next.config.mjs sets ignoreBuildErrors, so build will not catch type errors
+```
+
+`contract.ts` is also validated from Python: `tests/test_integration.py` parses
+its required fields and asserts the API and `mocks/` provide them. If you change
+it, copy it to `mobile/lib/contract.ts`; `cd ../mobile && npm run check` enforces
+that the two stay identical.
+
+`AGENTS.md` and `CLAUDE.md` here are written by `next dev` for coding agents.
+Next 16 differs from older versions, so read `node_modules/next/dist/docs/`
+before changing framework code.

@@ -1,180 +1,176 @@
-# The data layer (P1) — handoff
+# Data layer
 
-Written for P2, P3 and P4. What exists, what to call, and what the numbers mean.
+`backend/nessie/` and `seed/`. Standard library only: `urllib`, `sqlite3`,
+`json`. Nothing here can be broken by a failed `pip install`.
 
-## Run it
-
-No dependencies. Python 3.11+, standard library only.
-
-```bash
-python -m seed.reset_demo        # generate + validate + load the cache + refresh mocks (~0.2s)
-python -m backend.nessie.repo    # what is in the cache right now
-python -m unittest discover tests
+```
+seed/personas.json ─┐
+seed/merchants.json ┴─► seed/generator.py build(as_of) ─► seed/validate.py
+                                   │
+                  ┌────────────────┼────────────────────────┐
+                  ▼                ▼                        ▼
+      sync.load_local()     seed.seed --push          export_mocks.py
+      (default, offline)    → Nessie → sync           → mocks/*.json
+                  │                │
+                  └──────► data/treasurer.db ◄── repo.py ◄── engine, API, agent
 ```
 
-With a Nessie key in `.env`:
+**Every read in the app goes through the cache.** Nessie is a place we write
+to, not a place we read from at request time.
 
-```bash
-python -m seed.seed --push              # push everything to Nessie, then cache it
-python -m backend.nessie.sync --source nessie --watch 30   # poll for new transactions
-python -m seed.reset_demo --push        # wipe Nessie and start over
-```
+## Personas
 
-**Every read in the app goes through the cache, never straight to Nessie.** That is
-what makes the demo survive a slow or dead API.
+| Key | Who | Language | Home currency | Flies home | Purpose |
+|---|---|---|---|---|---|
+| `ana` | Ana Etxeberria, exchange student from Bilbao in Omaha | es | EUR (0.92) | end of next month | **The demo.** Runs out of money before the flight |
+| `raj` | Raj Krishnan, from Chennai | en | INR | end of the month after next | Regular stipend income; no shortfall |
+| `lucia` | Lucia Moreno, from Monterrey | es | MXN | end of the month after next | Careful spender; the healthy contrast |
 
-## What P2 calls
+Each persona has a checking account, a savings account and a student credit
+card. Ana's history covers 92 days: an arrival lump sum from home, monthly rent,
+phone, insurance and gym. There is a streaming free trial about to convert, card
+purchases around Omaha at real coordinates, and a roommate she has paid three
+times. Supporting customers (a landlord, a roommate, scam payees) come from
+`counterparties` in `personas.json`.
+
+## Calibration: why Ana's numbers are what they are
+
+Ana's data is not random. `generator.calibrate()` solves two knobs by bisection,
+her starting checking balance and her daily discretionary spend. It solves until
+the forecast tells the demo story: money runs out three weeks before the flight,
+and the gap is about $410.
+
+At `DEMO_AS_OF=2026-09-12`:
+
+| | |
+|---|---|
+| Checking | $1,552.93 (solved) |
+| Savings | $2,600.00 |
+| Credit card | $312.40 of a $500 limit, 62.5% utilization, enough to trigger the credit tip |
+| Daily discretionary spend | $10.65 (median of the last 30 days, measured from transactions) |
+| Safety buffer | $100 |
+| Runway date | **2026-10-10** |
+| Flight home | **2026-10-31** |
+| Gap | **$409.91** |
+
+Things worth knowing:
+
+- **Dates move with the calendar.** Everything is relative to `DEMO_AS_OF`
+  (default today). The solver holds the runway-to-flight distance and the gap
+  fixed, and moves the starting balance to get there. So the checking figure
+  changes slightly day to day. Check `as_of` in the payload before suspecting a
+  bug. `test_works_on_any_anchor_date` covers four anchors.
+- **The published burn rate is measured, not solved.** Purchase amounts are
+  rounded, so the median actually achievable differs from the solved knob by a
+  fraction of a cent. The calibration publishes the measured figure, because
+  that is all an engine reading transactions can see.
+- **The balance lands mid-day, not on the edge.** It crosses the buffer in the
+  middle of the runway day. Aiming one cent under made the date flip by a day on
+  estimator noise.
+- **One transfer is deliberately not enough.** The story needs a savings
+  transfer *and* a spending cap. The engine's live plan is "Cap dining at $12 a
+  week" plus "Move $400 from savings".
+- The engine currently computes a gap of $425.90, not $409.91; see
+  [engine.md](engine.md#known-discrepancy-with-the-calibration).
+
+Raj and Lucia are pinned rather than solved; neither has a shortfall.
+
+## Scenarios
+
+Scam and anomaly cases are **not** in the seeded history. "You have never paid
+this payee" is only true because of that. They are injected on demand.
+
+| Key | Kind | Expected | What it is |
+|---|---|---|---|
+| `fake_landlord` | transfer | **pause** | $800 to a brand-new payee, "URGENT apartment deposit - pay today or you lose the place" |
+| `immigration_fine` | transfer | **pause** | $1,200 round amount, agency impersonation, threat wording |
+| `legit_roommate` | transfer | **allow** | A known payee, the usual amount. The false-positive control: it must not pause |
+| `card_testing` | purchases | **alert** | Five sub-$3 charges at never-used merchants within 24 minutes, then $899 at Best Buy (above the card limit) |
+| `impossible_travel` | purchases | **alert** | Omaha, then Miami 95 minutes later, about 2,250 km apart |
+
+Transfer scenarios are staged as `pending`, never executed. Injected rows carry
+`scenario` and `label` columns, which is how `--clear` finds them.
+
+## Commands
+
+All run from the repository root with the venv's Python.
+
+| Command | Does |
+|---|---|
+| `python -m seed.reset_demo` | Generate, validate, wipe and reload the cache, refresh `mocks/`. About a second. Does not touch Nessie |
+| `python -m seed.reset_demo --arm` | The same, then fire every scenario. **The state to demo and test from** |
+| `python -m seed.reset_demo --scenario KEY` | Reset, then fire one scenario (repeatable) |
+| `python -m seed.reset_demo --push` | Also delete previously seeded accounts from Nessie, push a fresh copy, pull it back. Add `--keep-nessie` to skip the delete |
+| `python -m seed.reset_demo --as-of 2026-09-11 --no-mocks` | Override the anchor; skip rewriting fixtures |
+| `python -m seed.scenarios --list` | List scenarios and expected outcomes |
+| `python -m seed.scenarios KEY` / `all` | Inject into the cache; add `--push` to also write to Nessie |
+| `python -m seed.scenarios --clear` | Remove every injected scenario row |
+| `python -m seed.seed` | Generate, validate, load the cache (no network) |
+| `python -m seed.seed --push [--resume] [--limit-purchases N]` | Push to Nessie in chronological order, then reconcile balances. `--resume` skips ids already in `id_map` |
+| `python -m seed.export_mocks` | Rewrite the data fixtures in `mocks/` |
+| `python -m seed.export_chat_fixture` | Rewrite `mocks/api_chat_response.json` from the live agent |
+| `python -m seed.probe_nessie` | Test assumptions about the Nessie API with throwaway objects; writes `docs/probe-results.json` |
+| `python -m backend.nessie.repo` | Print what is in the cache |
+| `python -m backend.nessie.sync [--source nessie] [--watch SECONDS]` | Fill the cache locally (default) or by polling Nessie. **Do not use `--source nessie` before a demo** ([why](nessie-api-notes.md#balances-are-not-ours)) |
+
+`validate.py` runs a set of consistency checks, for example that every stated
+balance is reproducible from its transactions. Both `seed` and `reset_demo`
+refuse to continue if any check fails.
+
+## The cache
+
+`data/treasurer.db`, created by `db.init()`. It is gitignored.
+
+| Table | Holds |
+|---|---|
+| `customers` | Personas and counterparties, plus our fields: `persona_key`, `language`, `home_city`, `home_currency`, `fx_rate`, arrival and flight dates |
+| `accounts` | Balances, plus `credit_limit`, `apr`, `statement_day`, `is_frozen`, `frozen_reason` |
+| `merchants` | Name, category, geocode, `risk_tag` |
+| `purchases`, `deposits`, `withdrawals`, `transfers`, `bills` | Nessie's objects, plus `occurred_at` timestamps, `label`, `scenario`, and `payee_id` on transfers |
+| `payees` | Known-payee history, rebuilt from transfers by `db.rebuild_payees()` |
+| `id_map` | Local id → Nessie id for everything pushed. **Survives `db.wipe()`**: it is the only record of what exists upstream |
+| `sync_runs` | Log of loads and syncs |
+| `meta` | Key/value: `calibration`, `scenarios`, `spending_caps`, `scenario_*_fired_at`, `last_nessie_sync` |
+
+## Reading it from Python
 
 ```python
 from backend.nessie import db, repo
 
 conn = db.connect()
-snap = repo.snapshot(conn, "ana")     # everything about one persona in one call
+snap = repo.snapshot(conn, "ana")
 ```
 
-`snapshot()` gives you `accounts`, `bills`, `deposits`, `withdrawals`, `transfers`,
-`purchases` (joined to merchant name, category, lat/lng), `daily_spend_30d`,
-`category_spend_30d` and `credit`. Also useful:
+`snapshot()` returns the customer, accounts, `as_of`, flight date, currency,
+and the checking account's bills, deposits, withdrawals, transfers and purchases
+(joined to merchant name, category and coordinates). It also has
+`daily_spend_30d`, `category_spend_30d`, and a `credit` block with the simulated
+fields listed.
 
-| Call | For |
+| Function | Returns |
 |---|---|
-| `repo.daily_spend(conn, account_id, days=30)` | burn rate, zero-filled so the median is honest |
-| `repo.known_payee(conn, account_id, payee_account_id)` | "has she ever paid this payee?" |
-| `repo.known_merchant(conn, account_id, merchant_id)` | "has she ever used this merchant?" |
-| `repo.expected_forecast(conn, "ana")` | the numbers your forecast should reproduce |
-| `repo.scenarios(conn, "ana")` | the scam/anomaly cases and what each should do |
+| `repo.resolve_customer(conn, "ana")` | The customer row, by persona key or id |
+| `repo.account_of_type(conn, customer_id, "Savings")` | One account |
+| `repo.daily_spend(conn, account_id, days=30)` | Spend per day, zero-filled so a median is honest |
+| `repo.category_spend(conn, account_id, days=30)` | Spend per category |
+| `repo.known_payee(conn, account_id, payee_account_id)` | Prior payments to that payee, or `None` |
+| `repo.known_merchant(conn, account_id, merchant_id)` | Prior purchases there, or `None` |
+| `repo.expected_forecast(conn, "ana")` | The calibration numbers an engine should reproduce |
+| `repo.scenarios(conn, persona_key=None)` | Scenario definitions |
+| `repo.as_of(conn)` | The demo's "today" |
 
-### Test your engine against `expected_forecast`
+## Fixtures in `mocks/`
 
-The dataset is calibrated by running the forecast spec from `begin.md` §6 backwards.
-So your forecast should land on the same numbers:
+Both apps render these when no backend is configured. They are shaped exactly
+like the API responses.
 
-```python
-expected = repo.expected_forecast(conn, "ana")
-# runway_date 2026-10-10, gap 409.91, daily_discretionary 10.65, safety_buffer 100
-```
-
-If your engine disagrees with these, one of us has a bug — and finding that at hour
-6 rather than hour 20 is the entire point of publishing them. `mocks/calibration.json`
-has the same thing, plus `future_events`: every scheduled bill and expected deposit
-between now and the flight home.
-
-## What P3 and P4 call
-
-`mocks/api_*.json` are shaped exactly like the endpoint contract in `begin.md` §7,
-one file per endpoint per persona. Drop them in as fixtures.
-
-Files whose top-level key says `"_owner": "P2 ..."` or `"_owner": "P3 ..."` fix the
-*shape* only; the scores and replies in them are illustrative. Anything marked
-`"_simulated"` is a field Nessie does not have — say so in the pitch.
-
-## The demo numbers, and why they are what they are
-
-Ana's data is not random. Two knobs (starting balance, daily discretionary spend)
-are solved numerically until the forecast lands on the story:
-
-| | |
+| File | Written by |
 |---|---|
-| Checking | solved for the anchor — $1,552.93 at `DEMO_AS_OF=2026-09-12` |
-| Savings | $2,600.00 |
-| Card | $312.40 of a $500 limit → **62.5% utilization**, high enough to trigger the credit tip |
-| Runs out | **2026-10-10** |
-| Flies home | **2026-10-31** |
-| Gap | **$409.91** |
+| `dataset.json`, `<persona>_snapshot.json`, `calibration.json`, `scenarios.json`, `index.json` | `seed.export_mocks` (also run by `reset_demo`) |
+| `api_users_<persona>_{summary,forecast,bills,credit}.json` | `seed.export_mocks`, from the calibration's reference projection |
+| `api_users_<persona>_alerts.json`, `api_transfers_check_{fake_landlord,immigration_fine,legit_roommate}.json` | `python -m backend.engine.export`, with every scenario fired |
+| `engine_check.json` | `python -m backend.engine.export`: the engine compared with the calibration |
+| `api_chat_response.json` | `seed.export_chat_fixture`: the agent's real answer to the §9 question |
 
-That gap is deliberate: **a single $300 transfer does not close it.** The demo needs
-both fixes — move $300 from savings *and* cap dining — which is why the action card
-in the demo script has two lines. `tests/test_data_layer.py` asserts both halves.
-
-Everything is relative to `DEMO_AS_OF` (default: today), so these dates move with the
-calendar and the story stays true. `test_works_on_any_anchor_date` checks four
-anchors.
-
-Which is why only one row above is a constant you can quote back. The gap, the
-runway date and the days between them are what the solver *holds fixed*; the
-starting balance is what it *moves* to get there, so it lands somewhere slightly
-new each day the anchor advances. If the checking figure on your screen does not
-match this table, check the `as_of` in the payload before you go looking for a
-bug.
-
-### Why the runway date is stable
-
-`daily_discretionary` is the median daily spend **measured from the transactions**,
-not the knob the solver found. Those differ by a few cents, because purchase amounts
-are rounded and the achievable median is quantized — and a bank can only ever see the
-transactions. Publishing the measured figure is what makes P2's engine and this
-reference projection agree by construction; `mocks/engine_check.json` shows the two
-at zero delta on every field.
-
-The balance is also calibrated to land in the **middle** of the day it crosses the
-safety buffer, not on its edge. The first version aimed a single cent under, which
-was knife-edge: the engine's measured rate differed from the solved knob by seven
-cents over fifty days and the date moved a day, so the dashboard and the fixtures
-disagreed. How much estimator error the date tolerates is `margin / days_to_target`,
-and the margin cannot exceed that day's own drop without pushing the crossing
-earlier — so it is not a flat percentage, and the test asserts the invariant
-(lands well inside the crossing day) rather than a number the arithmetic cannot
-promise at every anchor.
-
-Raj and Lucía are pinned rather than solved: Raj's stipend covers his outflow so
-there is no shortfall to solve for, and Lucía is the healthy contrast. Both are there
-to show the forecast is not hard-coded to one shape.
-
-## Scenarios
-
-Scam and anomaly cases are **not** in the seeded history, on purpose. "You have never
-paid this payee" and "you have never used this merchant" are only true because of
-that. Fire them when the demo needs them:
-
-```bash
-python -m seed.scenarios --list
-python -m seed.scenarios fake_landlord          # into the cache
-python -m seed.scenarios card_testing --push    # and into Nessie
-python -m seed.scenarios --clear                # undo
-```
-
-| Key | Should |
-|---|---|
-| `fake_landlord` | PAUSE — $800 to a brand-new payee, urgent wording |
-| `immigration_fine` | PAUSE — $1,200 round, agency impersonation |
-| `legit_roommate` | **ALLOW** — a payee she has paid 3 times. The false-positive check |
-| `card_testing` | ALERT — five sub-$3 charges at new merchants in 24 minutes, then $899 |
-| `impossible_travel` | ALERT — Omaha then Miami, 2,253 km in 95 minutes |
-
-`legit_roommate` matters as much as the other four: a risk engine that pauses
-everything is not a feature, and a judge will ask.
-
-A transfer scenario is staged as **pending**, never executed — the demo is about
-stopping it before the money leaves.
-
-## Before going on stage
-
-```bash
-python -m seed.reset_demo && python -m seed.scenarios --clear
-```
-
-Run it before every rehearsal too, so the runway chart looks identical every time.
-
-## Layout
-
-```
-seed/
-  personas.json       who the personas are and what the demo needs to be true
-  merchants.json      Omaha-area places with real coordinates
-  generator.py        builds the dataset; calibrate() solves the demo numbers
-  validate.py         20 consistency checks; seed and reset refuse to run if any fail
-  seed.py             push to Nessie, chronological, resumable
-  scenarios.py        fire/clear scam and anomaly cases
-  export_mocks.py     write mocks/
-  reset_demo.py       one command back to the starting state
-backend/nessie/
-  config.py           .env, paths, DEMO_AS_OF
-  client.py           REST client: retries, real error bodies
-  db.py               SQLite schema, Nessie mirror + our own fields
-  sync.py             load_local() and sync_from_nessie()
-  repo.py             the read API P2 and P3 call
-  timestamps.py       the day-precision workaround
-tests/
-  fake_nessie.py      in-memory API double
-  test_data_layer.py  18 tests, including a full push/sync round trip
-```
+Keys starting with `_` (`_source`, `_owner`, `_note`, `_simulated`) are
+metadata, not data.
