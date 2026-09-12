@@ -282,10 +282,11 @@ class TestConfirmationGate(EngineBase):
             self.assertFalse(actions.confirm(self.conn, proposal["id"])["executed_in_nessie"])
 
     def test_overdrawing_savings_is_refused(self):
+        before = self._balances()
         proposal = actions.propose(self.conn, "ana", {"type": "transfer", "amount": 99999})
         result = actions.confirm(self.conn, proposal["id"])
         self.assertEqual(result["status"], "failed")
-        self.assertEqual(self._balances()["Savings"], 2600.0)
+        self.assertEqual(self._balances(), before, "a refused transfer must move nothing")
 
     def test_unknown_action_id_fails_politely(self):
         result = actions.confirm(self.conn, "act_nope")
@@ -439,6 +440,21 @@ class TestHandlers(unittest.TestCase):
         self.assertIn(body["agent"]["mode"], ("llm", "scripted"))
         self.assertIn("ana", body["personas"])
 
+    def test_health_does_not_touch_the_network_unless_asked(self):
+        """A health endpoint that can hang is worse than one that admits it did not check."""
+        _, body = handlers.health()
+        self.assertFalse(body["nessie"]["probed"])
+        self.assertIn("key_present", body["nessie"])
+        self.assertIn("base_url", body["nessie"])
+
+    def test_health_probe_reports_reachability_without_raising(self):
+        with mock.patch("backend.nessie.client.NessieClient.check_access",
+                        side_effect=OSError("no network")):
+            _, body = handlers.health(probe=True)
+        self.assertTrue(body["nessie"]["probed"])
+        self.assertFalse(body["nessie"]["reachable"])
+        self.assertTrue(body["ok"], "a dead Nessie must not make the API look unhealthy")
+
     def test_bad_input_is_400_not_500(self):
         self.assertEqual(handlers.affordability("ana", {"amount": "lots"})[0], 400)
         self.assertEqual(handlers.affordability("ana", {})[0], 400)
@@ -464,6 +480,37 @@ class TestHandlers(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertIn("affordable", body)
         self.assertIn("runway_date_after", body)
+
+
+class TestChatFixture(EngineBase):
+    """mocks/api_chat_response.json is P4's fallback when the backend is down.
+
+    P1's exporter never overwrites it, so keeping it truthful is P3's job. A
+    fixture that answers "yes you can go" while the live agent answers "not yet"
+    would put two different answers on stage depending on the laptop's mode.
+    """
+
+    def test_the_fixture_generator_produces_a_real_reply(self):
+        from seed import export_chat_fixture
+
+        built = export_chat_fixture.build(self.conn)
+
+        self.assertTrue(built["reply"])
+        self.assertEqual(built["language"], "es")
+        self.assertTrue(built["used_tools"])
+        self.assertEqual(built["proposed_action"]["id"], "act_demo_transfer")
+
+    def test_the_committed_fixture_agrees_with_the_live_agent(self):
+        import json as _json
+
+        path = config.MOCKS_DIR / "api_chat_response.json"
+        if not path.exists():
+            self.skipTest("no fixture committed")
+        fixture = _json.loads(path.read_text(encoding="utf-8"))
+        live = loop.answer(self.conn, "ana", fixture.get("_question", ""))
+        self.assertEqual(fixture["language"], live["language"])
+        self.assertEqual(bool(fixture.get("proposed_action")), bool(live["proposed_action"]),
+                         "regenerate with `python -m seed.export_chat_fixture`")
 
 
 class TestHttpRoutes(unittest.TestCase):

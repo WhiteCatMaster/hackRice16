@@ -48,8 +48,8 @@ async def _body(request: Request) -> dict:
 
 
 @app.get("/api/health")
-def health():
-    return _send(handlers.health())
+def health(probe: bool = False):
+    return _send(handlers.health(probe=probe))
 
 
 @app.get("/api/users/{user}/summary")

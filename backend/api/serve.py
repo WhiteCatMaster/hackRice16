@@ -20,7 +20,9 @@ log = logging.getLogger("landed.api")
 
 #: (method, compiled path) -> handler taking (**path groups, query, body)
 ROUTES = [
-    ("GET", r"^/api/health$", lambda **kw: handlers.health()),
+    ("GET", r"^/api/health$",
+     lambda query, **kw: handlers.health(
+         probe=(query.get("probe") or ["0"])[0] not in ("0", "false", ""))),
     ("GET", r"^/api/users/(?P<user>[^/]+)/summary$", lambda user, **kw: handlers.summary(user)),
     ("GET", r"^/api/users/(?P<user>[^/]+)/forecast$",
      lambda user, query, **kw: handlers.forecast(user, (query.get("target") or [None])[0])),

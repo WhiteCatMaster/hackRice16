@@ -25,11 +25,19 @@ Check what is live:
 
 ```bash
 curl -s localhost:8000/api/health | python -m json.tool
+curl -s 'localhost:8000/api/health?probe=1'        # also asks Nessie
 ```
 
 `/api/health` names, per capability, whether **P2's engine** or **P3's reference
 projection** answered, and whether the agent is running on **Claude** or its
 **scripted router**. Nothing else in the app has to guess.
+
+`?probe=1` adds a live Nessie check through `NessieClient.check_access()`, which
+reports `{reachable, authorized, detail}`. It is opt-in because it makes a network
+call: reads on Nessie are ungated but writes need a valid key, so a bare
+`key_present` tells you nothing useful, and a health endpoint that can hang is
+worse than one that admits it did not check. A dead Nessie never makes the API
+report itself unhealthy.
 
 ## Endpoints
 
@@ -156,6 +164,22 @@ deliberate: an LLM API is one more thing that can be down at 9 a.m. on stage.
 python -m unittest discover tests      # P1, P2 and P3
 python -m unittest tests.test_api      # this layer
 ```
+
+### The chat fixture
+
+`mocks/api_chat_response.json` is what P4 renders when the backend is down, which
+is also the backup-video path. P1's exporter seeds it only if missing and never
+overwrites it, so keeping it truthful is P3's job:
+
+```bash
+python -m seed.export_chat_fixture
+```
+
+Run it whenever the reply changes — a retuned dataset, a new engine `reason`, a
+change to the router. `TestChatFixture` fails if the committed fixture and the
+live agent disagree about the language or about whether an action is proposed. It
+previously answered "Sí, puedes ir" where the live agent answers "Ahora mismo no",
+which would have put two different answers on stage depending on the laptop's mode.
 
 `TestHttpRoutes.test_the_full_demo_path` walks §9 in order over real HTTP:
 dashboard → Spanish chat → approve the fix → runway moves out → the fake landlord

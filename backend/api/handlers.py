@@ -35,20 +35,47 @@ def _missing(user: str):
 # --------------------------------------------------------------------------
 
 
-def health(_conn_=None):
+def health(_conn_=None, probe: bool = False):
+    """Who is answering what. `probe=1` also asks Nessie whether it will accept a write.
+
+    The probe is opt-in because it makes a network call, and a health endpoint that
+    can hang is worse than one that admits it did not check.
+    """
     conn = _conn_ or _conn()
-    engine = engine_port.status()
-    return 200, {
+    body = {
         "ok": True,
         "service": "landed-api",
         "owner": "P3",
         "as_of": repo.as_of(conn).isoformat(),
         "cache": db.counts(conn),
         "personas": [p["persona_key"] for p in repo.personas(conn)],
-        "nessie_key_present": config.has_api_key(),
+        "nessie": _nessie_status(probe),
         "agent": _agent_status(),
-        "engine": engine,
+        "engine": engine_port.status(),
     }
+    return 200, body
+
+
+def _nessie_status(probe: bool) -> dict:
+    """Reads are ungated on Nessie; writes need a valid key. Only a probe knows."""
+    out = {
+        "base_url": config.NESSIE_BASE_URL,
+        "key_present": config.has_api_key(),
+        "probed": False,
+        "note": "Writes need a valid key. Pass ?probe=1 to actually check.",
+    }
+    if not probe:
+        return out
+
+    from backend.nessie.client import NessieClient
+    try:
+        access = NessieClient().check_access()
+    except Exception as exc:
+        return {**out, "probed": True, "reachable": False, "authorized": False,
+                "detail": str(exc)}
+    return {**out, "probed": True, **access,
+            "note": "check_access() POSTs an empty customer: the key is checked before "
+                    "the body, so nothing is created either way."}
 
 
 def _agent_status() -> dict:
