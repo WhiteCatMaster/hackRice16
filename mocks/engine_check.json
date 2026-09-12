@@ -93,15 +93,15 @@
           "ok": true
         },
         "min_balance": {
-          "p1": 276.5,
+          "p1": 276.41,
           "engine": 276.41,
-          "delta": -0.09,
+          "delta": 0.0,
           "ok": true
         },
         "daily_burn": {
-          "p1": 31.5,
+          "p1": 31.51,
           "engine": 31.51,
-          "delta": 0.01,
+          "delta": 0.0,
           "ok": true
         },
         "future_events": {

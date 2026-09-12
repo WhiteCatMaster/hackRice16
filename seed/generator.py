@@ -662,6 +662,41 @@ def _build_persona(ds, persona, merchant_by_id, by_category, as_of,
     ds.calibration[key] = solved
 
 
+def _break_median_tie(rows: list[dict], as_of: date, days: int = 30) -> bool:
+    """Nudge one purchase by a cent so the measured median is not a half-cent tie.
+
+    With an even window the median is the mean of the two middle days, so if their
+    cent totals sum to an odd number the median lands on a half cent -- and then
+    whether it reads as 31.50 or 31.51 comes down to each side's rounding
+    convention. P2's engine and this generator disagreed by a cent on Raj for
+    exactly that reason. Removing the tie makes every convention agree.
+    """
+    window_start = as_of - timedelta(days=days - 1)
+    totals: dict[str, float] = {}
+    for row in rows:
+        if date.fromisoformat(row["purchase_date"]) >= window_start:
+            totals[row["purchase_date"]] = totals.get(row["purchase_date"], 0.0) + row["amount"]
+
+    by_day = {(window_start + timedelta(days=i)).isoformat(): 0.0 for i in range(days)}
+    by_day.update({d: round(v, 2) for d, v in totals.items()})
+    ordered = sorted(by_day.items(), key=lambda kv: kv[1])
+    lower, upper = ordered[days // 2 - 1], ordered[days // 2]
+
+    if (round(lower[1] * 100) + round(upper[1] * 100)) % 2 == 0:
+        return False   # already exact to the cent
+
+    # Move a cent on the upper middle day. Pick its largest purchase so a cent is
+    # never a meaningful share of the amount.
+    candidates = [r for r in rows if r["purchase_date"] == upper[0]]
+    if not candidates:
+        candidates = [r for r in rows if r["purchase_date"] == lower[0]]
+    if not candidates:
+        return False
+    target = max(candidates, key=lambda r: r["amount"])
+    target["amount"] = money(target["amount"] + 0.01)
+    return True
+
+
 def _generate_purchases(ds, persona, account_id, by_category, start, as_of,
                         target_burn, rng, medium="balance") -> list[dict]:
     """Daily spending shaped so the *median* of the last 30 daily totals equals
@@ -714,6 +749,8 @@ def _generate_purchases(ds, persona, account_id, by_category, start, as_of,
     factor = (target_burn / median) if median > 0 else 1.0
     for row in rows:
         row["amount"] = money(max(0.75, row["amount"] * factor))
+
+    _break_median_tie(rows, as_of)
 
     ds.purchases.extend(rows)
     return rows

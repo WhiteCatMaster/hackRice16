@@ -59,11 +59,11 @@
   },
   "raj": {
     "checking_balance": 620.0,
-    "daily_discretionary": 31.5,
+    "daily_discretionary": 31.51,
     "runway_target": "2026-11-09",
     "runway_date": null,
     "gap": 0.0,
-    "min_balance": 276.5,
+    "min_balance": 276.41,
     "min_balance_date": "2026-09-20",
     "daily_discretionary_solved": 31.5,
     "persona": "raj",
@@ -75,7 +75,7 @@
     "credit_balance": 128.55,
     "credit_limit": 1000.0,
     "credit_utilization": 0.1285,
-    "arrival_lump": -1038.52,
+    "arrival_lump": -1038.51,
     "future_events": [
       {
         "date": "2026-09-18",
