@@ -75,14 +75,26 @@ class TestReferenceMatchesCalibration(EngineBase):
             self.assertEqual(got, want, user)
 
     def test_rounding_does_not_drift(self):
-        """The bug that moves Ana's runway by a day: rounding the running balance.
+        """Rounding the *running* balance loses a fraction of a cent per day.
 
-        Each daily step loses a fraction of a cent; over 51 days that is enough to
-        keep her above the buffer on 2026-10-10 and report the 11th instead.
+        Ana's burn rate has four decimal places and the projection is ~50 steps,
+        so rounding each step costs about $0.07 — which was enough to move her
+        runway date by a day, because her balance is calibrated to land just under
+        the buffer. Asserted as a property rather than against literals: the
+        calibration is P1's to retune, and this test is about the accumulator.
         """
         got = reference.forecast(self.conn, "ana")
-        self.assertEqual(got["runway_date"], "2026-10-10")
-        self.assertEqual(got["min_balance"], -309.99)
+        series, burn = got["series"], got["daily_burn"]
+
+        # The same balance computed in one shot, with no intermediate rounding.
+        events = sum(e["amount"] for e in got["events"])
+        expected = series[0]["balance"] - burn * (len(series) - 1) + events
+        self.assertAlmostEqual(series[-1]["balance"], expected, places=2)
+
+        # And it still agrees with whatever P1 currently publishes.
+        want = repo.expected_forecast(self.conn, "ana")
+        self.assertEqual(got["runway_date"], want["runway_date"])
+        self.assertEqual(got["min_balance"], want["min_balance"])
 
 
 class TestDemoInvariants(EngineBase):
@@ -478,6 +490,12 @@ class TestHttpRoutes(unittest.TestCase):
         cls.server.server_close()
         cls.patch.stop()
         cls.tmp.cleanup()
+
+    def setUp(self):
+        # Two tests in this class approve a transfer, which moves money in the
+        # cache the server reads. Rebuild it per test so the demo path starts
+        # from the seeded state rather than from a previous test's fix.
+        fresh_db(self.tmp.name).close()
 
     def get(self, path):
         with urllib.request.urlopen(self.base + path) as response:
