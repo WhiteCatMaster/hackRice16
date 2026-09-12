@@ -9,7 +9,7 @@ from pathlib import Path
 from backend.nessie import db, repo
 from backend.nessie.sync import load_local, sync_from_nessie
 from backend.nessie.timestamps import decode, encode
-from seed.generator import build, haversine_km, project
+from seed.generator import build, haversine_km, measured_burn, project
 from seed.scenarios import clear, inject
 from seed.seed import push_dataset, reconcile_balances
 from seed.validate import validate
@@ -125,7 +125,9 @@ class TestCache(unittest.TestCase):
     def test_expected_forecast_is_published_for_the_engine(self):
         expected = repo.expected_forecast(self.conn, "ana")
         self.assertEqual(expected["runway_date"], "2026-10-10")
-        self.assertAlmostEqual(expected["gap"], 410.01, places=1)
+        self.assertEqual(expected["runway_date"], expected["runway_target"])
+        self.assertGreater(expected["gap"], 300.0)
+        self.assertLess(expected["gap"], 700.0)
 
 
 class TestNessieRoundTrip(unittest.TestCase):
@@ -211,3 +213,87 @@ class TestAccessChecks(unittest.TestCase):
         before = len(client.store["customers"])
         client.check_access()
         self.assertEqual(len(client.store["customers"]), before)
+
+
+class TestRunwayRobustness(unittest.TestCase):
+    """The runway date is the demo's headline number, so every reasonable estimator
+    has to agree on it.
+
+    We originally calibrated Ana's balance to land one cent under the safety buffer.
+    P2's engine measures the burn rate from the transactions rather than from the
+    knob our solver found; seven cents over fifty days moved the date by a day and
+    the dashboard disagreed with the fixtures. These tests exist so that cannot
+    come back."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.ds = build(as_of=AS_OF)
+
+    def _project(self, cal, rate):
+        events = [(date.fromisoformat(e["date"]), e["amount"]) for e in cal["future_events"]]
+        flight = date.fromisoformat(cal["flight_home"])
+        horizon = max(flight, date.fromisoformat(cal["runway_target"]))
+        return project(cal["checking_balance"], AS_OF, horizon, rate,
+                       events, cal["safety_buffer"])
+
+    def test_published_rate_is_what_the_transactions_show(self):
+        # Not the knob the solver found: a bank sees purchases, never the parameter
+        # that generated them, so the published rate has to be the measurable one.
+        for key, cal in self.ds.calibration.items():
+            with self.subTest(persona=key):
+                purchases = [p for p in self.ds.purchases
+                             if p["account_local_id"] == f"acc_{key}_chk"]
+                self.assertAlmostEqual(cal["daily_discretionary"],
+                                       measured_burn(purchases, AS_OF), places=2)
+
+    def test_runway_survives_an_estimator_being_wrong(self):
+        cal = self.ds.calibration["ana"]
+        for pct in (-12, -8, -5, -2, -1, 1, 2, 5, 8, 12):
+            with self.subTest(error=f"{pct:+d}%"):
+                moved = self._project(cal, round(cal["daily_discretionary"] * (1 + pct / 100), 4))
+                self.assertEqual(str(moved.runway_date), cal["runway_date"],
+                                 f"a {pct:+d}% error in the burn rate moved the runway date")
+
+    def test_the_crossing_day_is_not_knife_edge(self):
+        cal = self.ds.calibration["ana"]
+        series = {p["date"]: p["balance"] for p in self._project(cal, cal["daily_discretionary"]).series}
+        margin = cal["safety_buffer"] - series[cal["runway_target"]]
+        self.assertGreater(margin, cal["daily_discretionary"],
+                           "the balance lands less than a day's spend below the buffer")
+
+    def test_the_crossing_is_never_knife_edge_at_any_anchor(self):
+        """The invariant the fix actually provides.
+
+        How much estimator error the date tolerates is `margin / days_to_target`,
+        and the margin cannot exceed the crossing day's own drop without pushing the
+        crossing earlier than the target. So the achievable tolerance depends on
+        whether that day happens to carry a bill, and a flat percentage is not
+        something the arithmetic can promise at every anchor.
+
+        What it can promise is that the balance lands well inside the crossing day
+        rather than on either edge, which is what "not knife-edge" means."""
+        for offset in (0, 45, 111, 200):
+            anchor = AS_OF + timedelta(days=offset)
+            with self.subTest(anchor=anchor):
+                ds = build(as_of=anchor)
+                cal = ds.calibration["ana"]
+                self.assertEqual(cal["runway_date"], cal["runway_target"])
+
+                events = [(date.fromisoformat(e["date"]), e["amount"]) for e in cal["future_events"]]
+                flight = date.fromisoformat(cal["flight_home"])
+                horizon = max(flight, date.fromisoformat(cal["runway_target"]))
+                series = {p["date"]: p["balance"] for p in project(
+                    cal["checking_balance"], anchor, horizon,
+                    cal["daily_discretionary"], events, cal["safety_buffer"]).series}
+
+                target = date.fromisoformat(cal["runway_target"])
+                on_target = series[cal["runway_target"]]
+                day_before = series[(target - timedelta(days=1)).isoformat()]
+                drop = day_before - on_target
+                margin = cal["safety_buffer"] - on_target
+
+                self.assertGreater(margin, 0, "balance is not below the buffer on the target day")
+                self.assertGreater(margin, drop * 0.25,
+                                   "lands too close to the bottom edge of the crossing day")
+                self.assertLess(margin, drop * 0.75,
+                                "lands too close to the top edge of the crossing day")

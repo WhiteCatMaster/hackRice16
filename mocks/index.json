@@ -1,13 +1,8 @@
 {
-  "generated_at": "2026-09-11T18:07:10",
+  "generated_at": "2026-09-11T20:25:15",
   "as_of": "2026-09-11",
   "files": [
     "ana_snapshot.json",
-    "api_chat_response.json",
-    "api_transfers_check_fake_landlord.json",
-    "api_transfers_check_immigration_fine.json",
-    "api_transfers_check_legit_roommate.json",
-    "api_users_ana_alerts.json",
     "api_users_ana_bills.json",
     "api_users_ana_credit.json",
     "api_users_ana_forecast.json",

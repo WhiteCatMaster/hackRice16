@@ -51,7 +51,7 @@ So your forecast should land on the same numbers:
 
 ```python
 expected = repo.expected_forecast(conn, "ana")
-# runway_date 2026-10-10, gap 409.99, daily_discretionary 13.76, safety_buffer 100
+# runway_date 2026-10-10, gap 409.91, daily_discretionary 10.65, safety_buffer 100
 ```
 
 If your engine disagrees with these, one of us has a bug — and finding that at hour
@@ -75,12 +75,12 @@ are solved numerically until the forecast lands on the story:
 
 | | |
 |---|---|
-| Checking | $1,735.06 |
+| Checking | $1,579.57 |
 | Savings | $2,600.00 |
 | Card | $312.40 of a $500 limit → **62.5% utilization**, high enough to trigger the credit tip |
 | Runs out | **2026-10-10** |
 | Flies home | **2026-10-31** |
-| Gap | **$409.99** |
+| Gap | **$409.91** |
 
 That gap is deliberate: **a single $300 transfer does not close it.** The demo needs
 both fixes — move $300 from savings *and* cap dining — which is why the action card
@@ -89,6 +89,25 @@ in the demo script has two lines. `tests/test_data_layer.py` asserts both halves
 Everything is relative to `DEMO_AS_OF` (default: today), so these dates move with the
 calendar and the story stays true. `test_works_on_any_anchor_date` checks four
 anchors.
+
+### Why the runway date is stable
+
+`daily_discretionary` is the median daily spend **measured from the transactions**,
+not the knob the solver found. Those differ by a few cents, because purchase amounts
+are rounded and the achievable median is quantized — and a bank can only ever see the
+transactions. Publishing the measured figure is what makes P2's engine and this
+reference projection agree by construction; `mocks/engine_check.json` shows the two
+at zero delta on every field.
+
+The balance is also calibrated to land in the **middle** of the day it crosses the
+safety buffer, not on its edge. The first version aimed a single cent under, which
+was knife-edge: the engine's measured rate differed from the solved knob by seven
+cents over fifty days and the date moved a day, so the dashboard and the fixtures
+disagreed. How much estimator error the date tolerates is `margin / days_to_target`,
+and the margin cannot exceed that day's own drop without pushing the crossing
+earlier — so it is not a flat percentage, and the test asserts the invariant
+(lands well inside the crossing day) rather than a number the arithmetic cannot
+promise at every anchor.
 
 Raj and Lucía are pinned rather than solved: Raj's stipend covers his outflow so
 there is no shortfall to solve for, and Lucía is the healthy contrast. Both are there

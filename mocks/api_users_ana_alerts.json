@@ -1,5 +1,6 @@
 {
-  "_owner": "P2 computes this at runtime; shape only",
+  "_source": "P2 engine, computed from the cache",
+  "_generated": "2026-09-11",
   "user": "ana",
   "alerts": [
     {
@@ -8,19 +9,83 @@
       "severity": "high",
       "title": "Transfer paused",
       "amount": 800.0,
-      "reason": "New payee, 46% of your balance, urgent wording",
-      "created_at": "2026-09-11T14:05",
-      "status": "open"
+      "reason": "You have never sent money to this payee, This is 51% of your checking balance, $800 is a large single payment",
+      "created_at": "2026-09-11T15:52",
+      "status": "open",
+      "risk_score": 76,
+      "signals": [
+        "You have never sent money to this payee",
+        "This is 51% of your checking balance",
+        "$800 is a large single payment",
+        "Round amount",
+        "The message uses urgent or threatening language"
+      ],
+      "purchase_ids": []
     },
     {
       "id": "alert_2",
       "type": "card_anomaly",
       "severity": "high",
+      "title": "Purchases too far apart",
+      "amount": 264.9,
+      "reason": "Hy-Vee then Brickell Duty Free 95 minutes later, 2,253 km apart",
+      "created_at": "2026-09-11T15:40",
+      "status": "open",
+      "risk_score": 88,
+      "signals": [
+        "Hy-Vee then Brickell Duty Free 95 minutes later, 2,253 km apart",
+        "implied speed 1,423 km/h, faster than a flight"
+      ],
+      "purchase_ids": [
+        "scn_impossible_travel_0",
+        "scn_impossible_travel_1"
+      ]
+    },
+    {
+      "id": "alert_3",
+      "type": "card_anomaly",
+      "severity": "high",
       "title": "Unusual card activity",
       "amount": 899.0,
-      "reason": "5 small charges at new merchants, then a purchase above your credit limit",
+      "reason": "5 charges under $5 in 24 minutes, 3 merchants you have never used, then $899.00 at Best Buy, more than your $500 limit",
       "created_at": "2026-09-11T14:46",
-      "status": "open"
+      "status": "open",
+      "risk_score": 92,
+      "signals": [
+        "5 charges under $5 in 24 minutes",
+        "3 merchants you have never used",
+        "then $899.00 at Best Buy, more than your $500 limit"
+      ],
+      "purchase_ids": [
+        "scn_card_testing_0",
+        "scn_card_testing_1",
+        "scn_card_testing_2",
+        "scn_card_testing_3",
+        "scn_card_testing_4",
+        "scn_card_testing_5"
+      ]
+    },
+    {
+      "id": "alert_4",
+      "type": "scam_transfer",
+      "severity": "high",
+      "title": "Transfer paused",
+      "amount": 1200.0,
+      "reason": "You have never sent money to this payee, This is 76% of your checking balance, $1,200 is a large single payment",
+      "created_at": "2026-09-11T14:27",
+      "status": "open",
+      "risk_score": 99,
+      "signals": [
+        "You have never sent money to this payee",
+        "This is 76% of your checking balance",
+        "$1,200 is a large single payment",
+        "Round amount",
+        "The message uses urgent or threatening language",
+        "It mentions an official body. Agencies never ask for payment this way",
+        "It brings the day your money runs out forward by 23 days"
+      ],
+      "purchase_ids": []
     }
-  ]
+  ],
+  "_note": "Every scenario fired, so this is the worst case. On a clean cache the same call returns an empty list -- run `python -m seed.scenarios --clear` and see."
 }

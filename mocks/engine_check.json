@@ -1,0 +1,117 @@
+{
+  "_what": "P2's engine vs P1's reference projection, same cache, same day.",
+  "tolerance": {
+    "gap": 1.0,
+    "min_balance": 1.0,
+    "daily_burn": 0.05,
+    "runway_days": 1
+  },
+  "personas": [
+    {
+      "user": "ana",
+      "checks": {
+        "runway_date": {
+          "p1": "2026-10-10",
+          "engine": "2026-10-10",
+          "delta_days": 0,
+          "ok": true
+        },
+        "gap": {
+          "p1": 409.91,
+          "engine": 409.91,
+          "delta": 0.0,
+          "ok": true
+        },
+        "min_balance": {
+          "p1": -309.91,
+          "engine": -309.91,
+          "delta": 0.0,
+          "ok": true
+        },
+        "daily_burn": {
+          "p1": 10.65,
+          "engine": 10.65,
+          "delta": 0.0,
+          "ok": true
+        },
+        "future_events": {
+          "p1": 9,
+          "engine": 9,
+          "ok": true
+        }
+      },
+      "ok": true
+    },
+    {
+      "user": "lucia",
+      "checks": {
+        "runway_date": {
+          "p1": null,
+          "engine": null,
+          "delta_days": null,
+          "ok": true
+        },
+        "gap": {
+          "p1": 0.0,
+          "engine": 0.0,
+          "delta": 0.0,
+          "ok": true
+        },
+        "min_balance": {
+          "p1": 1794.8,
+          "engine": 1794.8,
+          "delta": 0.0,
+          "ok": true
+        },
+        "daily_burn": {
+          "p1": 16.4,
+          "engine": 16.4,
+          "delta": 0.0,
+          "ok": true
+        },
+        "future_events": {
+          "p1": 12,
+          "engine": 12,
+          "ok": true
+        }
+      },
+      "ok": true
+    },
+    {
+      "user": "raj",
+      "checks": {
+        "runway_date": {
+          "p1": null,
+          "engine": null,
+          "delta_days": null,
+          "ok": true
+        },
+        "gap": {
+          "p1": 0.0,
+          "engine": 0.0,
+          "delta": 0.0,
+          "ok": true
+        },
+        "min_balance": {
+          "p1": 276.5,
+          "engine": 276.41,
+          "delta": -0.09,
+          "ok": true
+        },
+        "daily_burn": {
+          "p1": 31.5,
+          "engine": 31.51,
+          "delta": 0.01,
+          "ok": true
+        },
+        "future_events": {
+          "p1": 15,
+          "engine": 15,
+          "ok": true
+        }
+      },
+      "ok": true
+    }
+  ],
+  "ok": true
+}

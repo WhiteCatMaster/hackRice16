@@ -1,12 +1,34 @@
 {
-  "_owner": "P2 computes this at runtime; shape only",
-  "scenario": "legit_roommate",
+  "_source": "P2 engine, computed from the cache",
+  "_generated": "2026-09-11",
   "amount": 60.0,
-  "risk_score": 6,
+  "payee": "Marta Aguirre",
+  "risk_score": 0,
   "pause": false,
+  "verdict": "allow",
   "reasons": [
     "You have paid this payee 3 times before",
-    "Usual amount"
+    "The amount is what you usually send them"
   ],
-  "questions": []
+  "questions": [],
+  "signals": [
+    {
+      "code": "known_payee",
+      "points": 0,
+      "reason": "You have paid this payee 3 times before",
+      "detail": "last 2026-08-28, usually $60.00"
+    },
+    {
+      "code": "usual_amount",
+      "points": 0,
+      "reason": "The amount is what you usually send them",
+      "detail": "usual $60.00"
+    }
+  ],
+  "known_payee": true,
+  "runway_date_after": "2026-10-10",
+  "_note": "Rules over the user's own history. We pause it; the user decides. Nothing is blocked automatically.",
+  "user": "ana",
+  "scenario": "legit_roommate",
+  "expected": "allow"
 }

@@ -122,50 +122,15 @@ def build_api_mocks(ds: Dataset, conn) -> dict[str, dict]:
                 "_note": "Nessie has no credit limit or credit score. These are ours and the pitch says so.",
             }
 
-    # Risk responses are P2's to compute. These fix the response *shape* so P3 and
-    # P4 can build the pause modal now; the scores are illustrative.
-    for scenario in ds.scenarios:
-        if scenario["kind"] != "transfer":
-            continue
-        paused = scenario["expect"] == "pause"
-        out[f"api_transfers_check_{scenario['key']}"] = {
-            "_owner": "P2 computes this at runtime; shape only",
-            "scenario": scenario["key"],
-            "amount": scenario["amount"],
-            "risk_score": 87 if paused else 6,
-            "pause": paused,
-            "reasons": (
-                ["You have never sent money to this payee",
-                 "This is 46% of your checking balance",
-                 "Round amount",
-                 "The message uses urgent, threatening language"]
-                if paused else
-                ["You have paid this payee 3 times before", "Usual amount"]
-            ),
-            "questions": (
-                ["Did someone contact you and ask you to pay urgently?",
-                 "Have you met or verified this person or company in real life?",
-                 "Were you asked to keep this payment private?"]
-                if paused else []
-            ),
-        }
+    # The risk families -- api_transfers_check_*.json and api_users_*_alerts.json --
+    # used to be stubbed here so P3 and P4 had a shape to build against before P2
+    # existed. P2's engine now computes them for real, from this cache, and a reset
+    # was quietly overwriting live engine output (a scored 84 with real reasons) with
+    # our illustrative placeholders. They are P2's to write; we do not touch them.
+    #
+    # Refresh them with: python -m backend.engine.export
 
-    out["api_users_ana_alerts"] = {
-        "_owner": "P2 computes this at runtime; shape only",
-        "user": "ana",
-        "alerts": [
-            {"id": "alert_1", "type": "scam_transfer", "severity": "high",
-             "title": "Transfer paused", "amount": 800.0,
-             "reason": "New payee, 46% of your balance, urgent wording",
-             "created_at": f"{iso(as_of)}T14:05", "status": "open"},
-            {"id": "alert_2", "type": "card_anomaly", "severity": "high",
-             "title": "Unusual card activity", "amount": 899.0,
-             "reason": "5 small charges at new merchants, then a purchase above your credit limit",
-             "created_at": f"{iso(as_of)}T14:46", "status": "open"},
-        ],
-    }
-
-    out["api_chat_response"] = {
+    out["api_chat_response_if_missing"] = {
         "_owner": "P3 produces this at runtime; shape only",
         "reply": "Sí, puedes ir, pero solo si te gastas menos de 250 $. El alquiler "
                  "de 950 $ sale el 1 de octubre y te quedarías con 180 $ de margen.",
@@ -208,6 +173,14 @@ def main() -> int:
             written.append(str(_write(config.MOCKS_DIR / f"{persona}_snapshot.json", snap)))
 
     for name, payload in build_api_mocks(ds, conn).items():
+        # A "_if_missing" fixture belongs to another layer: seed it so nobody is ever
+        # without a fixture, but never overwrite what its real owner has produced.
+        if name.endswith("_if_missing"):
+            target = config.MOCKS_DIR / f"{name[: -len('_if_missing')]}.json"
+            if target.exists():
+                continue
+            written.append(str(_write(target, payload)))
+            continue
         written.append(str(_write(config.MOCKS_DIR / f"{name}.json", payload)))
 
     index = {

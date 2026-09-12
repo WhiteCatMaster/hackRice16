@@ -1,0 +1,7 @@
+{
+  "_source": "P2 engine, computed from the cache",
+  "_generated": "2026-09-11",
+  "user": "raj",
+  "alerts": [],
+  "_note": "Every scenario fired, so this is the worst case. On a clean cache the same call returns an empty list -- run `python -m seed.scenarios --clear` and see."
+}

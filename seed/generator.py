@@ -35,6 +35,20 @@ SEED_DIR = Path(__file__).resolve().parent
 # and "you have never paid this payee" true when the demo fires.
 RESERVED_TAGS = {"card_testing", "far_from_home", "gift_cards", "money_transfer", "high_value"}
 
+# Where inside the crossing day the balance should land, as a fraction of that
+# day's total drop. 0.5 is the midpoint.
+#
+# The runway date is only meaningful if every reasonable estimator agrees on it. We
+# originally aimed a single cent under the safety buffer, which made it knife-edge:
+# P2's engine measures the burn rate from the transactions rather than from the knob
+# our solver found, and seven cents over fifty days moved the date by a day.
+#
+# The margin has to be expressed against the crossing day's own drop, not against a
+# flat number of days' spend. A fixed margin larger than that day's drop pushes the
+# crossing *earlier* than the target date -- which is exactly what happened at the
+# anchors where the target day had no bill on it.
+MARGIN_FRACTION = 0.5
+
 
 # --------------------------------------------------------------------- dates
 
@@ -177,10 +191,23 @@ def calibrate(
         # remaining shortfall is a clean increasing function of the burn rate.
         def balance_for(d: float) -> float:
             days = (runway_target - as_of).days
-            # A cent under, not exactly on: landing the projected balance exactly
-            # on the buffer leaves "balance < buffer" false and slips the runway a
-            # day, which showed up on some anchor dates but not others.
-            return buffer - 0.01 + d * days + outflow_between(as_of, runway_target)
+            # Aim for the MIDDLE of the crossing day, not either edge.
+            #
+            # Landing exactly on the buffer leaves "balance < buffer" false and slips
+            # the runway a day. Landing a single cent under -- what we did first --
+            # is worse, because it is knife-edge: P2's engine measures the burn rate
+            # from the transactions while our generator solved for a knob, and seven
+            # cents over fifty days flipped the date.
+            #
+            # The day's whole drop is the burn plus any bill due that day, so half of
+            # that is the midpoint, and the date then survives an estimator being
+            # wrong in either direction by up to half a day's outflow.
+            # The room available inside the crossing day is that day's whole drop:
+            # the burn plus any bill due on it. Half of that is the midpoint, and it
+            # keeps the crossing on the target date at every anchor.
+            drop = d + outflow_between(runway_target - timedelta(days=1), runway_target)
+            return buffer - drop * MARGIN_FRACTION + d * days \
+                + outflow_between(as_of, runway_target)
 
         def gap_for(d: float) -> float:
             return project(balance_for(d), as_of, horizon_end, d, future_events, buffer).gap
@@ -194,10 +221,12 @@ def calibrate(
         # keep _bisect's monotonic-increasing contract.
         def deficit_for(d: float) -> float:
             proj = project(balance, as_of, horizon_end, d, future_events, buffer)
+            drop = d + outflow_between(runway_target - timedelta(days=1), runway_target)
+            target = buffer - drop * MARGIN_FRACTION
             for point in proj.series:
                 if point["date"] == iso(runway_target):
-                    return buffer - point["balance"]
-            return buffer - (proj.series[-1]["balance"] if proj.series else balance)
+                    return target - point["balance"]
+            return target - (proj.series[-1]["balance"] if proj.series else balance)
 
         burn = _bisect(deficit_for, 0.05, 400.0, 0.0)
     else:
@@ -226,6 +255,25 @@ def calibrate(
         "min_balance": result.min_balance,
         "min_balance_date": iso(result.min_balance_date) if result.min_balance_date else None,
     }
+
+
+def measured_burn(purchases: list[dict], as_of: date, days: int = 30) -> float:
+    """The median daily spend an estimator actually sees in the transactions.
+
+    Not quite the knob we solved for: purchase amounts are rounded to cents, so the
+    achievable median is quantized. A bank sees purchases, never the parameter that
+    generated them, so this is the number to publish.
+    """
+    window_start = as_of - timedelta(days=days - 1)
+    totals: dict[str, float] = {}
+    for row in purchases:
+        if date.fromisoformat(row["purchase_date"]) >= window_start:
+            totals[row["purchase_date"]] = totals.get(row["purchase_date"], 0.0) + row["amount"]
+    daily = sorted(
+        round(totals.get(iso(window_start + timedelta(days=i)), 0.0), 2) for i in range(days)
+    )
+    mid = len(daily) // 2
+    return round((daily[mid - 1] + daily[mid]) / 2 if len(daily) % 2 == 0 else daily[mid], 2)
 
 
 # ------------------------------------------------------------------- builders
@@ -579,6 +627,24 @@ def _build_persona(ds, persona, merchant_by_id, by_category, as_of,
          "credit_limit": acc["credit"]["credit_limit"], "apr": acc["credit"]["apr"],
          "statement_day": acc["credit"]["statement_day"]},
     ])
+
+    # Re-publish the forecast using the rate the transactions actually show. The
+    # knob the solver found and the median the data yields differ by a few cents
+    # (cent-rounded amounts quantize the achievable median), and P2's engine can
+    # only see the latter. Publishing the measured rate makes our reference
+    # projection and their engine agree by construction instead of by luck.
+    measured = measured_burn(purchases, as_of)
+    if measured > 0:
+        reprojected = project(checking_balance, as_of,
+                             max(flight, date.fromisoformat(solved["runway_target"])),
+                             measured, bill_events, buffer)
+        solved["daily_discretionary_solved"] = burn
+        solved["daily_discretionary"] = measured
+        solved["runway_date"] = iso(reprojected.runway_date) if reprojected.runway_date else None
+        solved["gap"] = reprojected.gap
+        solved["min_balance"] = reprojected.min_balance
+        solved["min_balance_date"] = (iso(reprojected.min_balance_date)
+                                      if reprojected.min_balance_date else None)
 
     solved.update({
         "persona": key,

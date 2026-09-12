@@ -1,18 +1,66 @@
 {
-  "_owner": "P2 computes this at runtime; shape only",
-  "scenario": "fake_landlord",
+  "_source": "P2 engine, computed from the cache",
+  "_generated": "2026-09-11",
   "amount": 800.0,
-  "risk_score": 87,
+  "payee": "Michael Reyes",
+  "risk_score": 84,
   "pause": true,
+  "verdict": "pause",
   "reasons": [
     "You have never sent money to this payee",
-    "This is 46% of your checking balance",
+    "This is 51% of your checking balance",
+    "$800 is a large single payment",
     "Round amount",
-    "The message uses urgent, threatening language"
+    "The message uses urgent or threatening language",
+    "It brings the day your money runs out forward by 9 days"
   ],
   "questions": [
-    "Did someone contact you and ask you to pay urgently?",
-    "Have you met or verified this person or company in real life?",
+    "Did someone contact you and pressure you to pay right now?",
+    "Have you met or verified this person or company yourself, using contact details you found independently?",
     "Were you asked to keep this payment private?"
-  ]
+  ],
+  "signals": [
+    {
+      "code": "new_payee",
+      "points": 30,
+      "reason": "You have never sent money to this payee",
+      "detail": "first payment to this account"
+    },
+    {
+      "code": "large_share",
+      "points": 18,
+      "reason": "This is 51% of your checking balance",
+      "detail": "$800.00 of $1579.57"
+    },
+    {
+      "code": "large_amount",
+      "points": 6,
+      "reason": "$800 is a large single payment",
+      "detail": ""
+    },
+    {
+      "code": "round_amount",
+      "points": 7,
+      "reason": "Round amount",
+      "detail": "quoted figures look like this; real bills rarely do"
+    },
+    {
+      "code": "urgency",
+      "points": 15,
+      "reason": "The message uses urgent or threatening language",
+      "detail": "matched: 'URGENT'"
+    },
+    {
+      "code": "breaks_runway",
+      "points": 8,
+      "reason": "It brings the day your money runs out forward by 9 days",
+      "detail": "2026-10-10 -> 2026-10-01"
+    }
+  ],
+  "known_payee": false,
+  "runway_date_after": "2026-10-01",
+  "_note": "Rules over the user's own history. We pause it; the user decides. Nothing is blocked automatically.",
+  "user": "ana",
+  "scenario": "fake_landlord",
+  "expected": "pause"
 }

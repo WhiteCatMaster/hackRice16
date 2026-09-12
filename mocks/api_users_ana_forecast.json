@@ -3,282 +3,282 @@
   "user": "ana",
   "target": "2026-10-31",
   "runway_date": "2026-10-10",
-  "gap": 409.99,
-  "min_balance": -309.99,
+  "gap": 409.91,
+  "min_balance": -309.91,
   "min_balance_date": "2026-10-31",
-  "daily_burn": 13.7614,
+  "daily_burn": 10.65,
   "series": [
     {
       "date": "2026-09-11",
-      "balance": 1735.06,
+      "balance": 1579.57,
       "events": []
     },
     {
       "date": "2026-09-12",
-      "balance": 1721.3,
+      "balance": 1568.92,
       "events": []
     },
     {
       "date": "2026-09-13",
-      "balance": 1707.54,
+      "balance": 1558.27,
       "events": []
     },
     {
       "date": "2026-09-14",
-      "balance": 1693.78,
+      "balance": 1547.62,
       "events": []
     },
     {
       "date": "2026-09-15",
-      "balance": 1650.01,
+      "balance": 1506.97,
       "events": [
         -30.0
       ]
     },
     {
       "date": "2026-09-16",
-      "balance": 1636.25,
+      "balance": 1496.32,
       "events": []
     },
     {
       "date": "2026-09-17",
-      "balance": 1622.49,
+      "balance": 1485.67,
       "events": []
     },
     {
       "date": "2026-09-18",
-      "balance": 1608.73,
+      "balance": 1475.02,
       "events": []
     },
     {
       "date": "2026-09-19",
-      "balance": 1594.97,
+      "balance": 1464.37,
       "events": []
     },
     {
       "date": "2026-09-20",
-      "balance": 1565.22,
+      "balance": 1437.73,
       "events": [
         -15.99
       ]
     },
     {
       "date": "2026-09-21",
-      "balance": 1551.46,
+      "balance": 1427.08,
       "events": []
     },
     {
       "date": "2026-09-22",
-      "balance": 1462.69,
+      "balance": 1341.43,
       "events": [
         -75.0
       ]
     },
     {
       "date": "2026-09-23",
-      "balance": 1448.93,
+      "balance": 1330.78,
       "events": []
     },
     {
       "date": "2026-09-24",
-      "balance": 1435.17,
+      "balance": 1320.13,
       "events": []
     },
     {
       "date": "2026-09-25",
-      "balance": 1421.41,
+      "balance": 1309.48,
       "events": []
     },
     {
       "date": "2026-09-26",
-      "balance": 1407.65,
+      "balance": 1298.83,
       "events": []
     },
     {
       "date": "2026-09-27",
-      "balance": 1393.89,
+      "balance": 1288.18,
       "events": []
     },
     {
       "date": "2026-09-28",
-      "balance": 1380.13,
+      "balance": 1277.53,
       "events": []
     },
     {
       "date": "2026-09-29",
-      "balance": 1366.36,
+      "balance": 1266.88,
       "events": []
     },
     {
       "date": "2026-09-30",
-      "balance": 1352.6,
+      "balance": 1256.23,
       "events": []
     },
     {
       "date": "2026-10-01",
-      "balance": 388.84,
+      "balance": 295.58,
       "events": [
         -950.0
       ]
     },
     {
       "date": "2026-10-02",
-      "balance": 375.08,
+      "balance": 284.93,
       "events": []
     },
     {
       "date": "2026-10-03",
-      "balance": 361.32,
+      "balance": 274.28,
       "events": []
     },
     {
       "date": "2026-10-04",
-      "balance": 347.56,
+      "balance": 263.63,
       "events": []
     },
     {
       "date": "2026-10-05",
-      "balance": 288.8,
+      "balance": 207.98,
       "events": [
         -45.0
       ]
     },
     {
       "date": "2026-10-06",
-      "balance": 275.04,
+      "balance": 197.33,
       "events": []
     },
     {
       "date": "2026-10-07",
-      "balance": 261.27,
+      "balance": 186.68,
       "events": []
     },
     {
       "date": "2026-10-08",
-      "balance": 247.51,
+      "balance": 176.03,
       "events": []
     },
     {
       "date": "2026-10-09",
-      "balance": 233.75,
+      "balance": 165.38,
       "events": []
     },
     {
       "date": "2026-10-10",
-      "balance": 99.99,
+      "balance": 34.73,
       "events": [
         -120.0
       ]
     },
     {
       "date": "2026-10-11",
-      "balance": 86.23,
+      "balance": 24.08,
       "events": []
     },
     {
       "date": "2026-10-12",
-      "balance": 72.47,
+      "balance": 13.43,
       "events": []
     },
     {
       "date": "2026-10-13",
-      "balance": 58.71,
+      "balance": 2.78,
       "events": []
     },
     {
       "date": "2026-10-14",
-      "balance": 44.94,
+      "balance": -7.87,
       "events": []
     },
     {
       "date": "2026-10-15",
-      "balance": 1.18,
+      "balance": -48.52,
       "events": [
         -30.0
       ]
     },
     {
       "date": "2026-10-16",
-      "balance": -12.58,
+      "balance": -59.17,
       "events": []
     },
     {
       "date": "2026-10-17",
-      "balance": -26.34,
+      "balance": -69.82,
       "events": []
     },
     {
       "date": "2026-10-18",
-      "balance": -40.1,
+      "balance": -80.47,
       "events": []
     },
     {
       "date": "2026-10-19",
-      "balance": -53.86,
+      "balance": -91.12,
       "events": []
     },
     {
       "date": "2026-10-20",
-      "balance": -83.61,
+      "balance": -117.76,
       "events": [
         -15.99
       ]
     },
     {
       "date": "2026-10-21",
-      "balance": -97.38,
+      "balance": -128.41,
       "events": []
     },
     {
       "date": "2026-10-22",
-      "balance": -186.14,
+      "balance": -214.06,
       "events": [
         -75.0
       ]
     },
     {
       "date": "2026-10-23",
-      "balance": -199.9,
+      "balance": -224.71,
       "events": []
     },
     {
       "date": "2026-10-24",
-      "balance": -213.66,
+      "balance": -235.36,
       "events": []
     },
     {
       "date": "2026-10-25",
-      "balance": -227.42,
+      "balance": -246.01,
       "events": []
     },
     {
       "date": "2026-10-26",
-      "balance": -241.18,
+      "balance": -256.66,
       "events": []
     },
     {
       "date": "2026-10-27",
-      "balance": -254.94,
+      "balance": -267.31,
       "events": []
     },
     {
       "date": "2026-10-28",
-      "balance": -268.71,
+      "balance": -277.96,
       "events": []
     },
     {
       "date": "2026-10-29",
-      "balance": -282.47,
+      "balance": -288.61,
       "events": []
     },
     {
       "date": "2026-10-30",
-      "balance": -296.23,
+      "balance": -299.26,
       "events": []
     },
     {
       "date": "2026-10-31",
-      "balance": -309.99,
+      "balance": -309.91,
       "events": []
     }
   ],
