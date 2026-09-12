@@ -117,6 +117,40 @@ def answer(conn, user: str, message: str, language: str | None = None) -> dict:
 # --------------------------------------------------------------------------
 
 
+def _backstop_proposal(conn, user: str, used: list[str], proposed):
+    """Stage the plan's transfer when the model described one but never called the tool.
+
+    Two different Gemini models have now ended a turn saying "I have prepared a
+    proposal to move $450" with no propose_transfer call behind it — a sentence
+    about someone's money that is not true, and an approval card that never
+    appears. Prompting against it did not hold, so the guard is structural.
+
+    It fires only when the model called suggest_fixes, which is it asking the
+    engine how to close the gap — a turn it was already spending on the plan. The
+    card is the engine's own in-plan transfer, identical to the one the scripted
+    router stages, and staging is not moving: actions.py still requires the tap.
+    """
+    if proposed is not None or "suggest_fixes" not in used:
+        return None
+    try:
+        fixes = tools.run(conn, user, "suggest_fixes", {})["fixes"]
+    except Exception as exc:
+        log.warning("backstop could not read the fixes: %s", exc)
+        return None
+    plan = [f for f in fixes if f.get("in_plan")] or fixes
+    transfer = next((f for f in plan if f.get("type") == "transfer"), None)
+    if not transfer:
+        return None
+    used.append("propose_transfer")
+    try:
+        return tools.run(conn, user, "propose_transfer", {
+            "amount": transfer["amount"], "from": "savings", "to": "checking",
+            "label": transfer["label"]})
+    except Exception as exc:
+        log.warning("backstop could not stage the transfer: %s", exc)
+        return None
+
+
 def _llm(conn, user: str, message: str, language: str | None) -> dict:
     import anthropic
 
@@ -136,6 +170,7 @@ def _llm(conn, user: str, message: str, language: str | None) -> dict:
         calls = [b for b in response.content if b.type == "tool_use"]
         if not calls:
             text = "".join(b.text for b in response.content if b.type == "text").strip()
+            proposed = proposed or _backstop_proposal(conn, user, used, proposed)
             return _reply(conn, user, text, used, proposed, language)
 
         results = []
@@ -179,6 +214,7 @@ def _gemini(conn, user: str, message: str, language: str | None) -> dict:
         calls = [p["functionCall"] for p in parts if p.get("functionCall")]
         if not calls:
             text = "".join(p.get("text") or "" for p in parts).strip()
+            proposed = proposed or _backstop_proposal(conn, user, used, proposed)
             return _reply(conn, user, text, used, proposed, language)
 
         results = []
