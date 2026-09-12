@@ -133,6 +133,31 @@ class TestContractIsSatisfied(IntegrationBase):
             self.assertFalse(missing(fix, CONTRACT["Fix"]), fix)
             self.assertIn("effect", fix, f"{fix['id']} has no measured effect")
 
+    def test_fix_effects_state_their_outcome_rather_than_implying_it(self):
+        """The two things the fixes panel would otherwise have to guess.
+
+        `days_gained: 0` is a real answer, not a missing one: a fix can shrink
+        the gap without moving the crossing day, because that day is a big bill
+        day. And `lasts_past_target` says what a null `runway_date_after` means,
+        so nobody "corrects" the null into a date and silently turns the best
+        outcome into a blank.
+        """
+        _, body = handlers.forecast("ana")
+        for fix in body.get("fixes") or []:
+            effect = fix["effect"]
+            for field in ("days_gained", "lasts_past_target", "gap_before", "gap_after"):
+                self.assertIn(field, effect, f"{fix['id']} is missing {field}")
+            self.assertEqual(effect["lasts_past_target"], effect["runway_date_after"] is None,
+                             f"{fix['id']}: lasts_past_target disagrees with runway_date_after")
+            self.assertGreaterEqual(effect["days_gained"], 0, fix["id"])
+            if effect["days_gained"] == 0 and not effect["lasts_past_target"]:
+                # No days gained and still short: the crossing day must be
+                # exactly where it was. (Gaining 0 days *and* lasting past the
+                # flight is legitimate — it happens when the runway already
+                # ended on the flight date.)
+                self.assertEqual(effect["runway_date_before"], effect["runway_date_after"],
+                                 f"{fix['id']}: no days gained, but the date moved")
+
     def test_bills(self):
         for user in PERSONAS:
             status, body = handlers.bills(user)
@@ -190,7 +215,16 @@ class TestContractIsSatisfied(IntegrationBase):
         self.assertIsNotNone(plan, "a flat 'no' is the wrong answer here")
         self.assertTrue(plan["plan"], "the plan must say what to actually do")
 
-    def test_chat_and_the_confirmation_gate(self):
+
+class TestConfirmationGate(IntegrationBase):
+    """Approving an action really moves money, so this gets its own cache.
+
+    Sharing one with the read-only tests let the $400 transfer leak into every
+    test that sorts after it alphabetically, which is how a fix's effect
+    quietly changed shape underneath an assertion.
+    """
+
+    def test_chat_proposes_and_confirming_executes(self):
         status, reply = handlers.chat({"user": "ana", "message": "can I afford a $47 concert ticket?"})
         self.assertEqual(status, 200)
         self.assertFalse(missing(reply, CONTRACT["ChatReply"]))
@@ -198,12 +232,19 @@ class TestContractIsSatisfied(IntegrationBase):
         self.assertIsNotNone(action, "the §9 beat proposes a fix")
         self.assertFalse(missing(action, CONTRACT["ProposedAction"]), action)
 
+        before = handlers.summary("ana")[1]["accounts"][0]["balance"]
+
         # Nothing may move until it is confirmed, and the result says whether
         # it reached Nessie. Without a key it must not claim that it did.
         status, result = handlers.confirm(action["id"], {"user": "ana", "action": action})
         self.assertEqual(status, 200)
         self.assertFalse(missing(result, CONTRACT["ActionResult"]))
         self.assertFalse(result["executed_in_nessie"])
+
+        # And the money is actually somewhere else now — this is what the
+        # dashboard has to re-read after an approval.
+        after = handlers.summary("ana")[1]["accounts"][0]["balance"]
+        self.assertAlmostEqual(after, before + action["amount"], places=2)
 
 
 class TestMocksMatchLive(IntegrationBase):

@@ -62,6 +62,13 @@ export interface Fix {
   effect?: {
     runway_date_before?: string | null
     runway_date_after?: string | null
+    /** True when the money now lasts past the flight. Says outright what a
+     *  null `runway_date_after` means, so nobody has to infer it. */
+    lasts_past_target?: boolean
+    /** Days the crossing day moves. Legitimately 0 for a fix that shrinks the
+     *  gap without moving the date — the crossing day is a big bill day. */
+    days_gained?: number
+    gap_before?: number
     gap_after?: number
     min_balance_after?: number
     clears_the_gap?: boolean

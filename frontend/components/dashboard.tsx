@@ -763,11 +763,11 @@ export default function Dashboard({
 /**
  * What one fix actually buys you.
  *
- * Two traps here, both of which read as bugs on screen. A fix that shrinks the
- * gap without moving the day she runs out would render as "Oct 10 → Oct 10", so
- * those show the gap closing instead. And `runway_date_after: null` is not a
- * missing value — it is the best outcome there is: the money now lasts past the
- * flight. Falling back to the amount there hid the headline.
+ * Two things here read as bugs on screen unless the engine is explicit, and it
+ * is: `days_gained: 0` means a fix shrinks the gap without moving the day she
+ * runs out (the crossing day is a big bill day), so those show the gap closing
+ * rather than "Oct 10 → Oct 10"; and `lasts_past_target` states the best
+ * outcome there is, instead of leaving it to be inferred from a null date.
  */
 function FixEffect({
   fix,
@@ -785,18 +785,23 @@ function FixEffect({
 
   const before = effect.runway_date_before ?? null
   const after = effect.runway_date_after ?? null
-  const moved = before !== after
+  const lastsPast = effect.lasts_past_target ?? after === null
+  const gained = effect.days_gained ?? (before === after ? 0 : null)
 
-  if (!moved) {
-    // Same runway date. Say what did change, which is how short she still is.
-    const gapAfter = effect.gap_after
+  // Gaining no days but still lasting past the flight is a real outcome, not a
+  // contradiction: it happens when the runway already ended on the flight date.
+  // That is the best answer there is, so it wins over the "still short" branch.
+  if (gained === 0 && !lastsPast) {
+    // The date does not move. Say what does change: how short she still is.
+    const from = effect.gap_before ?? gapBefore
+    const to = effect.gap_after
     return (
       <>
         <span>Still short</span>
         <strong>
-          {typeof gapAfter === 'number' ? (
+          {typeof to === 'number' ? (
             <>
-              <s>{fmt(gapBefore)}</s> {fmt(gapAfter)}
+              <s>{fmt(from)}</s> {fmt(to)}
             </>
           ) : (
             fmt(fix.amount)
@@ -811,8 +816,13 @@ function FixEffect({
       <span>Runway</span>
       <strong>
         {before && <s>{dayMonth(before)}</s>}{' '}
-        {after ? dayMonth(after) : 'past the flight'}
+        {lastsPast ? 'past the flight' : dayMonth(after!)}
       </strong>
+      {typeof gained === 'number' && gained > 0 && (
+        <span className="fix-gained">
+          +{gained} day{gained === 1 ? '' : 's'}
+        </span>
+      )}
     </>
   )
 }
