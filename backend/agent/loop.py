@@ -289,22 +289,42 @@ def _scripted(conn, user: str, message: str, language: str | None) -> dict:
             if es else
             f"You are {_money(summary['gap'])} short of reaching {summary['target_date']}."
         ]
+
+        # Propose first, and quote the *proposal's* measured effect rather than the
+        # one advertised on the fix. They are not always the same number, and the
+        # proposal's is what the approval card shows — so saying anything else puts
+        # the chat and the card in contradiction on the one beat that matters.
         if transfer:
-            lasts = _lasts_phrase(transfer["effect"].get("runway_date_after"), es)
-            lines.append(
-                f"{transfer['label']}: tu dinero duraría {lasts}."
-                if es else
-                f"{transfer['label']}: that alone stretches you {lasts}.")
+            proposed = tool("propose_transfer", {
+                "amount": transfer["amount"], "from": "savings",
+                "to": "checking", "label": transfer["label"]})
+            effect = proposed.get("effect") or {}
+            after = effect.get("runway_date_after")
+            still_short = float(effect.get("gap_after") or 0)
+
+            if effect.get("measured") is False:
+                lines.append(
+                    f"{transfer['label']}: no he podido medir el efecto."
+                    if es else
+                    f"{transfer['label']}: I could not measure the effect of that.")
+            else:
+                lasts = _lasts_phrase(after, es)
+                lines.append(
+                    f"{transfer['label']}: tu dinero duraría {lasts}."
+                    if es else
+                    f"{transfer['label']}: that alone stretches you {lasts}.")
+                if still_short > 0:
+                    lines.append(
+                        f"Aun así te faltarían {_money(still_short)}."
+                        if es else
+                        f"That still leaves you {_money(still_short)} short.")
+
         if cap:
             lines.append(
                 f"Y {cap['label'].lower()} cubre el resto."
                 if es else f"And {cap['label'].lower()} covers the rest.")
         lines.append("Nada se mueve hasta que lo apruebes." if es
                      else "Nothing moves until you approve it.")
-        if transfer:
-            proposed = tool("propose_transfer", {
-                "amount": transfer["amount"], "from": "savings",
-                "to": "checking", "label": transfer["label"]})
         return _reply(conn, user, " ".join(lines), used, proposed, lang)
 
     if _hit(text, "alerts"):

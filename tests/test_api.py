@@ -378,10 +378,45 @@ class TestAgent(EngineBase):
                     self.assertNotIn(junk, reply, f"{junk!r} leaked into: {reply}")
                 self.assertTrue(reply.strip())
 
-    def test_a_fix_that_removes_the_runway_entirely_reads_as_good_news(self):
-        # runway_date_after is None when the fix means she never runs short.
-        reply = self._ask("What should I do?")["reply"]
-        self.assertIn("past your flight home", reply)
+    def test_the_reply_and_the_approval_card_quote_the_same_date(self):
+        """The chat and the card must not contradict each other on stage.
+
+        They can: `suggest_fixes` advertises an effect per fix, and the proposal
+        measures its own. Those were different numbers for the same $400 — the
+        fix claimed the gap was cleared while the card correctly showed $9.91
+        still short. The reply is now built from the proposal's measurement, so
+        the two agree by construction rather than by luck.
+        """
+        for question in ("What should I do?", "¿Qué hago para llegar a fin de mes?"):
+            with self.subTest(question=question):
+                got = self._ask(question)
+                action = got["proposed_action"]
+                self.assertIsNotNone(action)
+                effect = action["effect"]
+                after = effect.get("runway_date_after")
+                if after:
+                    self.assertIn(after, got["reply"],
+                                  "the reply must quote the date the card shows")
+                else:
+                    self.assertTrue(
+                        "past your flight home" in got["reply"]
+                        or "más allá de tu vuelo" in got["reply"])
+
+    def test_a_transfer_that_leaves_her_short_says_so(self):
+        """P1 calibrated the gap so one transfer is not enough.
+
+        If the reply implies it is, the spending cap in the demo script looks
+        like padding — and the card, which measures properly, contradicts it.
+        """
+        got = self._ask("What should I do?")
+        short = float(got["proposed_action"]["effect"].get("gap_after") or 0)
+        if short > 0:
+            self.assertIn("short", got["reply"])
+
+    def test_a_null_runway_reads_as_good_news_not_a_blank(self):
+        self.assertEqual(loop._lasts_phrase(None, es=False), "past your flight home")
+        self.assertEqual(loop._lasts_phrase(None, es=True), "más allá de tu vuelo de vuelta")
+        self.assertEqual(loop._lasts_phrase("2026-10-27", es=False), "to 2026-10-27")
 
     def test_system_prompt_carries_the_persona_and_the_rule(self):
         system = prompts.system(self.conn, "ana")
