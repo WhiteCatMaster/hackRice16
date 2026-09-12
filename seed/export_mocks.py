@@ -130,21 +130,17 @@ def build_api_mocks(ds: Dataset, conn) -> dict[str, dict]:
     #
     # Refresh them with: python -m backend.engine.export
 
-    out["api_chat_response_if_missing"] = {
-        "_owner": "P3 produces this at runtime; shape only",
-        "reply": "Sí, puedes ir, pero solo si te gastas menos de 250 $. El alquiler "
-                 "de 950 $ sale el 1 de octubre y te quedarías con 180 $ de margen.",
-        "language": "es",
-        "used_tools": ["get_summary", "check_affordability"],
-        "proposed_action": {
-            "id": "act_123",
-            "type": "transfer",
-            "from": "savings",
-            "to": "checking",
-            "amount": 300,
-            "effect": {"runway_date_before": "2026-10-10", "runway_date_after": "2026-10-27"},
-        },
-    }
+    # No chat fixture is written here any more, not even as a fallback.
+    #
+    # Ours said "Sí, puedes ir" while the live agent says "Ahora mismo no" -- Ana is
+    # short, so the honest answer is the opposite of the one we had hand-written. P4
+    # renders this file whenever the backend is down, which is also the backup-video
+    # path, so the demo could have given two contradictory answers depending on which
+    # mode the laptop was in.
+    #
+    # A fabricated answer is invisible when it is wrong. A missing file is not. So if
+    # it is absent we say so and name the command that generates a real one:
+    #     python -m seed.export_chat_fixture
     return out
 
 
@@ -182,6 +178,12 @@ def main() -> int:
             written.append(str(_write(target, payload)))
             continue
         written.append(str(_write(config.MOCKS_DIR / f"{name}.json", payload)))
+
+    chat_fixture = config.MOCKS_DIR / "api_chat_response.json"
+    if not chat_fixture.exists():
+        print("\n  WARNING: mocks/api_chat_response.json is missing.")
+        print("  P4 renders it whenever the backend is down, including for the backup")
+        print("  video. Generate a real one: python -m seed.export_chat_fixture\n")
 
     index = {
         "generated_at": ds.to_json()["generated_at"],
