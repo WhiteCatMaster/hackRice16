@@ -1,0 +1,155 @@
+[
+  {
+    "key": "fake_landlord",
+    "persona": "ana",
+    "kind": "transfer",
+    "title": "Fake landlord deposit",
+    "expect": "pause",
+    "why": "Brand-new payee, 43% of checking, round amount, urgency wording.",
+    "payer_local_id": "acc_ana_chk",
+    "payee_local_id": "acc_cp_landlord",
+    "amount": 800.0,
+    "description": "URGENT apartment deposit - pay today or you lose the place",
+    "transaction_date": "2026-09-11",
+    "occurred_at": "2026-09-11T15:52",
+    "label": "scam"
+  },
+  {
+    "key": "immigration_fine",
+    "persona": "ana",
+    "kind": "transfer",
+    "title": "Immigration impersonation fine",
+    "expect": "pause",
+    "why": "New payee, round amount, agency impersonation, threat wording.",
+    "payer_local_id": "acc_ana_chk",
+    "payee_local_id": "acc_cp_uscis",
+    "amount": 1200.0,
+    "description": "USCIS processing fine - immediate payment required to avoid deportation",
+    "transaction_date": "2026-09-11",
+    "occurred_at": "2026-09-11T14:27",
+    "label": "scam"
+  },
+  {
+    "key": "legit_roommate",
+    "persona": "ana",
+    "kind": "transfer",
+    "title": "Paying her roommate (control case)",
+    "expect": "allow",
+    "why": "Known payee, usual amount. Must NOT trigger a pause - this is the false-positive check.",
+    "payer_local_id": "acc_ana_chk",
+    "payee_local_id": "acc_p_marta",
+    "amount": 60.0,
+    "description": "internet share",
+    "transaction_date": "2026-09-11",
+    "occurred_at": "2026-09-11T18:27",
+    "label": "normal"
+  },
+  {
+    "key": "card_testing",
+    "persona": "ana",
+    "kind": "purchases",
+    "title": "Card-testing burst then a big hit",
+    "expect": "alert",
+    "why": "Five sub-3-dollar charges at merchants she has never used, then a purchase larger than her whole credit limit.",
+    "purchases": [
+      {
+        "account_local_id": "acc_ana_cc",
+        "merchant_local_id": "m_test1",
+        "amount": 1.14,
+        "purchase_date": "2026-09-11",
+        "occurred_at": "2026-09-11T14:05",
+        "status": "completed",
+        "medium": "credit",
+        "label": "fraud",
+        "scenario": "card_testing"
+      },
+      {
+        "account_local_id": "acc_ana_cc",
+        "merchant_local_id": "m_test2",
+        "amount": 2.87,
+        "purchase_date": "2026-09-11",
+        "occurred_at": "2026-09-11T14:11",
+        "status": "completed",
+        "medium": "credit",
+        "label": "fraud",
+        "scenario": "card_testing"
+      },
+      {
+        "account_local_id": "acc_ana_cc",
+        "merchant_local_id": "m_test1",
+        "amount": 1.09,
+        "purchase_date": "2026-09-11",
+        "occurred_at": "2026-09-11T14:16",
+        "status": "completed",
+        "medium": "credit",
+        "label": "fraud",
+        "scenario": "card_testing"
+      },
+      {
+        "account_local_id": "acc_ana_cc",
+        "merchant_local_id": "m_test3",
+        "amount": 2.15,
+        "purchase_date": "2026-09-11",
+        "occurred_at": "2026-09-11T14:24",
+        "status": "completed",
+        "medium": "credit",
+        "label": "fraud",
+        "scenario": "card_testing"
+      },
+      {
+        "account_local_id": "acc_ana_cc",
+        "merchant_local_id": "m_test2",
+        "amount": 1.76,
+        "purchase_date": "2026-09-11",
+        "occurred_at": "2026-09-11T14:29",
+        "status": "completed",
+        "medium": "credit",
+        "label": "fraud",
+        "scenario": "card_testing"
+      },
+      {
+        "account_local_id": "acc_ana_cc",
+        "merchant_local_id": "m_bestbuy",
+        "amount": 899.0,
+        "purchase_date": "2026-09-11",
+        "occurred_at": "2026-09-11T14:46",
+        "status": "completed",
+        "medium": "credit",
+        "label": "fraud",
+        "scenario": "card_testing"
+      }
+    ]
+  },
+  {
+    "key": "impossible_travel",
+    "persona": "ana",
+    "kind": "purchases",
+    "title": "Impossible travel",
+    "expect": "alert",
+    "why": "Omaha then Miami 95 minutes later: 2,200 km apart. Needs our own timestamps, since Nessie dates are day-level.",
+    "purchases": [
+      {
+        "account_local_id": "acc_ana_chk",
+        "merchant_local_id": "m_hyvee",
+        "amount": 41.28,
+        "purchase_date": "2026-09-11",
+        "occurred_at": "2026-09-11T14:05",
+        "status": "completed",
+        "medium": "balance",
+        "label": "fraud",
+        "scenario": "impossible_travel"
+      },
+      {
+        "account_local_id": "acc_ana_chk",
+        "merchant_local_id": "m_miami",
+        "amount": 264.9,
+        "purchase_date": "2026-09-11",
+        "occurred_at": "2026-09-11T15:40",
+        "status": "completed",
+        "medium": "balance",
+        "label": "fraud",
+        "scenario": "impossible_travel"
+      }
+    ]
+  }
+]

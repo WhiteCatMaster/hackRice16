@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-09-11T17:43:33",
+  "as_of": "2026-09-11",
+  "files": [
+    "ana_snapshot.json",
+    "api_chat_response.json",
+    "api_transfers_check_fake_landlord.json",
+    "api_transfers_check_immigration_fine.json",
+    "api_transfers_check_legit_roommate.json",
+    "api_users_ana_alerts.json",
+    "api_users_ana_bills.json",
+    "api_users_ana_credit.json",
+    "api_users_ana_forecast.json",
+    "api_users_ana_summary.json",
+    "api_users_lucia_bills.json",
+    "api_users_lucia_credit.json",
+    "api_users_lucia_forecast.json",
+    "api_users_lucia_summary.json",
+    "api_users_raj_bills.json",
+    "api_users_raj_credit.json",
+    "api_users_raj_forecast.json",
+    "api_users_raj_summary.json",
+    "calibration.json",
+    "dataset.json",
+    "lucia_snapshot.json",
+    "raj_snapshot.json",
+    "scenarios.json"
+  ],
+  "how_to_use": {
+    "P2": "dataset.json and <persona>_snapshot.json are real data. calibration.json holds the forecast numbers your engine should reproduce.",
+    "P3": "api_*.json fix the response shapes for every endpoint in the contract.",
+    "P4": "api_*.json are drop-in fixtures for every screen."
+  }
+}

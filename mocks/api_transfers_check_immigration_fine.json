@@ -1,0 +1,18 @@
+{
+  "_owner": "P2 computes this at runtime; shape only",
+  "scenario": "immigration_fine",
+  "amount": 1200.0,
+  "risk_score": 87,
+  "pause": true,
+  "reasons": [
+    "You have never sent money to this payee",
+    "This is 46% of your checking balance",
+    "Round amount",
+    "The message uses urgent, threatening language"
+  ],
+  "questions": [
+    "Did someone contact you and ask you to pay urgently?",
+    "Have you met or verified this person or company in real life?",
+    "Were you asked to keep this payment private?"
+  ]
+}

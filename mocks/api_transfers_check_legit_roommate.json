@@ -1,0 +1,12 @@
+{
+  "_owner": "P2 computes this at runtime; shape only",
+  "scenario": "legit_roommate",
+  "amount": 60.0,
+  "risk_score": 6,
+  "pause": false,
+  "reasons": [
+    "You have paid this payee 3 times before",
+    "Usual amount"
+  ],
+  "questions": []
+}

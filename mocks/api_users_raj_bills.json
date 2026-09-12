@@ -1,0 +1,35 @@
+{
+  "user": "raj",
+  "bills": [
+    {
+      "id": "b_raj_card",
+      "nickname": "Credit card payment",
+      "payee": "Landed Bank Student Card",
+      "amount": 60.0,
+      "next_date": "2026-09-18",
+      "recurring_day": 18,
+      "category": "credit_card",
+      "explanation": "Card payment on the 18th."
+    },
+    {
+      "id": "b_raj_rent",
+      "nickname": "Rent",
+      "payee": "Dundee Apartments",
+      "amount": 720.0,
+      "next_date": "2026-10-01",
+      "recurring_day": 1,
+      "category": "housing",
+      "explanation": "Shared apartment rent, due on the 1st."
+    },
+    {
+      "id": "b_raj_phone",
+      "nickname": "Phone",
+      "payee": "T-Mobile",
+      "amount": 55.0,
+      "next_date": "2026-10-08",
+      "recurring_day": 8,
+      "category": "phone",
+      "explanation": "Phone plan, charged on the 8th."
+    }
+  ]
+}

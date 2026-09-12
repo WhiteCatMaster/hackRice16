@@ -1,0 +1,20 @@
+{
+  "_owner": "P3 produces this at runtime; shape only",
+  "reply": "Sí, puedes ir, pero solo si te gastas menos de 250 $. El alquiler de 950 $ sale el 1 de octubre y te quedarías con 180 $ de margen.",
+  "language": "es",
+  "used_tools": [
+    "get_summary",
+    "check_affordability"
+  ],
+  "proposed_action": {
+    "id": "act_123",
+    "type": "transfer",
+    "from": "savings",
+    "to": "checking",
+    "amount": 300,
+    "effect": {
+      "runway_date_before": "2026-10-10",
+      "runway_date_after": "2026-10-27"
+    }
+  }
+}

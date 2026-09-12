@@ -1,0 +1,41 @@
+{
+  "_source": "P1 reference projection",
+  "user": "raj",
+  "name": "Raj Krishnan",
+  "accounts": [
+    {
+      "id": "acc_raj_chk",
+      "type": "Checking",
+      "nickname": "Raj Checking",
+      "balance": 620.0
+    },
+    {
+      "id": "acc_raj_cc",
+      "type": "Credit Card",
+      "nickname": "Raj Student Card",
+      "balance": 128.55,
+      "limit": 1000.0,
+      "utilization": 0.1285
+    },
+    {
+      "id": "acc_raj_sav",
+      "type": "Savings",
+      "nickname": "Raj Savings",
+      "balance": 1450.0
+    }
+  ],
+  "as_of": "2026-09-11",
+  "runway_date": null,
+  "target_date": "2026-11-30",
+  "gap": 0.0,
+  "safety_buffer": 100.0,
+  "daily_burn": 31.5,
+  "currency": "USD",
+  "home_currency": "INR",
+  "fx_rate": 83.2,
+  "_simulated": [
+    "limit",
+    "utilization",
+    "fx_rate"
+  ]
+}

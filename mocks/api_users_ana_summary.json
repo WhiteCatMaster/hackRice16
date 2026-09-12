@@ -1,0 +1,41 @@
+{
+  "_source": "P1 reference projection",
+  "user": "ana",
+  "name": "Ana Etxeberria",
+  "accounts": [
+    {
+      "id": "acc_ana_chk",
+      "type": "Checking",
+      "nickname": "Ana Checking",
+      "balance": 1735.06
+    },
+    {
+      "id": "acc_ana_cc",
+      "type": "Credit Card",
+      "nickname": "Ana Student Card",
+      "balance": 312.4,
+      "limit": 500.0,
+      "utilization": 0.6248
+    },
+    {
+      "id": "acc_ana_sav",
+      "type": "Savings",
+      "nickname": "Ana Savings",
+      "balance": 2600.0
+    }
+  ],
+  "as_of": "2026-09-11",
+  "runway_date": "2026-10-10",
+  "target_date": "2026-10-31",
+  "gap": 409.99,
+  "safety_buffer": 100.0,
+  "daily_burn": 13.7614,
+  "currency": "USD",
+  "home_currency": "EUR",
+  "fx_rate": 0.92,
+  "_simulated": [
+    "limit",
+    "utilization",
+    "fx_rate"
+  ]
+}

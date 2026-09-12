@@ -1,0 +1,18 @@
+{
+  "user": "lucia",
+  "balance": 64.2,
+  "limit": 800.0,
+  "utilization": 0.0803,
+  "apr": 21.99,
+  "statement_day": 12,
+  "suggested_payment": 0.0,
+  "tip": "Your utilization is already in the range US credit scoring rewards.",
+  "_simulated": [
+    "limit",
+    "apr",
+    "utilization",
+    "suggested_payment",
+    "tip"
+  ],
+  "_note": "Nessie has no credit limit or credit score. These are ours and the pitch says so."
+}

@@ -1,0 +1,26 @@
+{
+  "_owner": "P2 computes this at runtime; shape only",
+  "user": "ana",
+  "alerts": [
+    {
+      "id": "alert_1",
+      "type": "scam_transfer",
+      "severity": "high",
+      "title": "Transfer paused",
+      "amount": 800.0,
+      "reason": "New payee, 46% of your balance, urgent wording",
+      "created_at": "2026-09-11T14:05",
+      "status": "open"
+    },
+    {
+      "id": "alert_2",
+      "type": "card_anomaly",
+      "severity": "high",
+      "title": "Unusual card activity",
+      "amount": 899.0,
+      "reason": "5 small charges at new merchants, then a purchase above your credit limit",
+      "created_at": "2026-09-11T14:46",
+      "status": "open"
+    }
+  ]
+}

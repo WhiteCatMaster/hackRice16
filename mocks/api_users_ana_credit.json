@@ -1,0 +1,18 @@
+{
+  "user": "ana",
+  "balance": 312.4,
+  "limit": 500.0,
+  "utilization": 0.6248,
+  "apr": 24.99,
+  "statement_day": 22,
+  "suggested_payment": 162.4,
+  "tip": "You are using 62% of your limit. Paying it down below 30% (about 150.00) is what US credit scoring rewards.",
+  "_simulated": [
+    "limit",
+    "apr",
+    "utilization",
+    "suggested_payment",
+    "tip"
+  ],
+  "_note": "Nessie has no credit limit or credit score. These are ours and the pitch says so."
+}

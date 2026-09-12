@@ -1,0 +1,332 @@
+{
+  "_source": "P1 reference projection",
+  "user": "ana",
+  "target": "2026-10-31",
+  "runway_date": "2026-10-10",
+  "gap": 409.99,
+  "min_balance": -309.99,
+  "min_balance_date": "2026-10-31",
+  "daily_burn": 13.7614,
+  "series": [
+    {
+      "date": "2026-09-11",
+      "balance": 1735.06,
+      "events": []
+    },
+    {
+      "date": "2026-09-12",
+      "balance": 1721.3,
+      "events": []
+    },
+    {
+      "date": "2026-09-13",
+      "balance": 1707.54,
+      "events": []
+    },
+    {
+      "date": "2026-09-14",
+      "balance": 1693.78,
+      "events": []
+    },
+    {
+      "date": "2026-09-15",
+      "balance": 1650.01,
+      "events": [
+        -30.0
+      ]
+    },
+    {
+      "date": "2026-09-16",
+      "balance": 1636.25,
+      "events": []
+    },
+    {
+      "date": "2026-09-17",
+      "balance": 1622.49,
+      "events": []
+    },
+    {
+      "date": "2026-09-18",
+      "balance": 1608.73,
+      "events": []
+    },
+    {
+      "date": "2026-09-19",
+      "balance": 1594.97,
+      "events": []
+    },
+    {
+      "date": "2026-09-20",
+      "balance": 1565.22,
+      "events": [
+        -15.99
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "balance": 1551.46,
+      "events": []
+    },
+    {
+      "date": "2026-09-22",
+      "balance": 1462.69,
+      "events": [
+        -75.0
+      ]
+    },
+    {
+      "date": "2026-09-23",
+      "balance": 1448.93,
+      "events": []
+    },
+    {
+      "date": "2026-09-24",
+      "balance": 1435.17,
+      "events": []
+    },
+    {
+      "date": "2026-09-25",
+      "balance": 1421.41,
+      "events": []
+    },
+    {
+      "date": "2026-09-26",
+      "balance": 1407.65,
+      "events": []
+    },
+    {
+      "date": "2026-09-27",
+      "balance": 1393.89,
+      "events": []
+    },
+    {
+      "date": "2026-09-28",
+      "balance": 1380.13,
+      "events": []
+    },
+    {
+      "date": "2026-09-29",
+      "balance": 1366.36,
+      "events": []
+    },
+    {
+      "date": "2026-09-30",
+      "balance": 1352.6,
+      "events": []
+    },
+    {
+      "date": "2026-10-01",
+      "balance": 388.84,
+      "events": [
+        -950.0
+      ]
+    },
+    {
+      "date": "2026-10-02",
+      "balance": 375.08,
+      "events": []
+    },
+    {
+      "date": "2026-10-03",
+      "balance": 361.32,
+      "events": []
+    },
+    {
+      "date": "2026-10-04",
+      "balance": 347.56,
+      "events": []
+    },
+    {
+      "date": "2026-10-05",
+      "balance": 288.8,
+      "events": [
+        -45.0
+      ]
+    },
+    {
+      "date": "2026-10-06",
+      "balance": 275.04,
+      "events": []
+    },
+    {
+      "date": "2026-10-07",
+      "balance": 261.27,
+      "events": []
+    },
+    {
+      "date": "2026-10-08",
+      "balance": 247.51,
+      "events": []
+    },
+    {
+      "date": "2026-10-09",
+      "balance": 233.75,
+      "events": []
+    },
+    {
+      "date": "2026-10-10",
+      "balance": 99.99,
+      "events": [
+        -120.0
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "balance": 86.23,
+      "events": []
+    },
+    {
+      "date": "2026-10-12",
+      "balance": 72.47,
+      "events": []
+    },
+    {
+      "date": "2026-10-13",
+      "balance": 58.71,
+      "events": []
+    },
+    {
+      "date": "2026-10-14",
+      "balance": 44.94,
+      "events": []
+    },
+    {
+      "date": "2026-10-15",
+      "balance": 1.18,
+      "events": [
+        -30.0
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "balance": -12.58,
+      "events": []
+    },
+    {
+      "date": "2026-10-17",
+      "balance": -26.34,
+      "events": []
+    },
+    {
+      "date": "2026-10-18",
+      "balance": -40.1,
+      "events": []
+    },
+    {
+      "date": "2026-10-19",
+      "balance": -53.86,
+      "events": []
+    },
+    {
+      "date": "2026-10-20",
+      "balance": -83.61,
+      "events": [
+        -15.99
+      ]
+    },
+    {
+      "date": "2026-10-21",
+      "balance": -97.38,
+      "events": []
+    },
+    {
+      "date": "2026-10-22",
+      "balance": -186.14,
+      "events": [
+        -75.0
+      ]
+    },
+    {
+      "date": "2026-10-23",
+      "balance": -199.9,
+      "events": []
+    },
+    {
+      "date": "2026-10-24",
+      "balance": -213.66,
+      "events": []
+    },
+    {
+      "date": "2026-10-25",
+      "balance": -227.42,
+      "events": []
+    },
+    {
+      "date": "2026-10-26",
+      "balance": -241.18,
+      "events": []
+    },
+    {
+      "date": "2026-10-27",
+      "balance": -254.94,
+      "events": []
+    },
+    {
+      "date": "2026-10-28",
+      "balance": -268.71,
+      "events": []
+    },
+    {
+      "date": "2026-10-29",
+      "balance": -282.47,
+      "events": []
+    },
+    {
+      "date": "2026-10-30",
+      "balance": -296.23,
+      "events": []
+    },
+    {
+      "date": "2026-10-31",
+      "balance": -309.99,
+      "events": []
+    }
+  ],
+  "events": [
+    {
+      "date": "2026-09-15",
+      "amount": -30.0,
+      "label": "Gym"
+    },
+    {
+      "date": "2026-09-20",
+      "amount": -15.99,
+      "label": "Streaming"
+    },
+    {
+      "date": "2026-09-22",
+      "amount": -75.0,
+      "label": "Credit card payment"
+    },
+    {
+      "date": "2026-10-01",
+      "amount": -950.0,
+      "label": "Rent"
+    },
+    {
+      "date": "2026-10-05",
+      "amount": -45.0,
+      "label": "Phone"
+    },
+    {
+      "date": "2026-10-10",
+      "amount": -120.0,
+      "label": "Health insurance"
+    },
+    {
+      "date": "2026-10-15",
+      "amount": -30.0,
+      "label": "Gym"
+    },
+    {
+      "date": "2026-10-20",
+      "amount": -15.99,
+      "label": "Streaming"
+    },
+    {
+      "date": "2026-10-22",
+      "amount": -75.0,
+      "label": "Credit card payment"
+    }
+  ]
+}
